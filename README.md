@@ -22,7 +22,7 @@ Check out our [Contributing Guide](./.github/CONTRIBUTING.md)
 
 ## Questions?
 
-For Shopifolk, you can reach out to us in Slack in `#blockchain-apps` channel. For external inquiries, we welcome bug reports, enhancements, and feature requests via GitHub [issues](/issues).
+For Shopifolk, you can reach out to us in Slack in `#blockchain-apps` channel. For external inquiries, we welcome bug reports, enhancements, and feature requests via GitHub [issues](https://github.com/Shopify/wallet-connection/issues).
 
 ## License
 
