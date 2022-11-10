@@ -24,7 +24,55 @@
   "workspaces": [
     "packages/*"
   ],
+  "eslintConfig": {
+    "extends": [
+      "plugin:@shopify/typescript",
+      "plugin:@shopify/react",
+      "plugin:@shopify/prettier",
+      "plugin:@shopify/jest",
+      "plugin:@shopify/polaris"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ],
+    "rules": {
+      "@typescript-eslint/consistent-indexed-object-style": "off",
+      "@shopify/jsx-no-complex-expressions": "off",
+      "no-catch-shadow": "off",
+      "no-console": [
+        "error",
+        {
+          "allow": [
+            "warn",
+            "error"
+          ]
+        }
+      ],
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-ignore": "allow-with-description"
+        }
+      ]
+    }
+  },
+  "prettier": "@shopify/prettier-config",
+  "stylelint": {
+    "extends": [
+      "@shopify/stylelint-plugin",
+      "@shopify/stylelint-plugin/prettier"
+    ]
+  },
   "devDependencies": {
+    "@shopify/prettier-config": "^1.1.2",
+    "@shopify/typescript-configs": "^5.1.0",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-interactions": "^6.5.13",
@@ -41,23 +89,13 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "eslint": "^8.27.0",
+    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
-  "dependencies": {},
-  "eslintConfig": {
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
-  }
+  "dependencies": {}
 }
