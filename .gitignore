@@ -8,8 +8,13 @@ node_modules
 # testing
 coverage
 
-# production
+# build / output
 build
+lib
+dist
+
+# turbo
+.turbo
 
 # misc
 .DS_Store

@@ -3,9 +3,10 @@ import {configureChains, createClient, defaultChains, WagmiConfig} from 'wagmi';
 import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {infuraProvider} from 'wagmi/providers/infura';
 import {publicProvider} from 'wagmi/providers/public';
-import {defaultConnectors} from 'constants/defaults';
-import {WarningMessage} from 'constants/warnings';
-import {ProviderProps} from 'types/provider';
+
+import {defaultConnectors} from '../constants/defaults';
+import {WarningMessage} from '../constants/warnings';
+import {ProviderProps} from '../types/provider';
 
 export const WalletConnectionProvider = ({
   alchemyApiKey,

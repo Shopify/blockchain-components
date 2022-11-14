@@ -1,6 +1,6 @@
 import {Chain} from 'wagmi';
-import {MetaMaskConnector} from 'wagmi/dist/connectors/metaMask';
-import {WalletConnectConnector} from 'wagmi/dist/connectors/walletConnect';
+import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
+import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 
 export const defaultConnectors = ({chains}: {chains: Chain[]}) => {
   return [
