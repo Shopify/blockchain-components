@@ -1,0 +1,14 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "noImplicitReturns": true
+  },
+  "exclude": ["node_modules"]
+}
