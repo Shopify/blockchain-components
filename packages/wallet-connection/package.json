@@ -14,7 +14,9 @@
   },
   "homepage": "https://github.com/Shopify/wallet-connection/blob/main/packages/wallet-connection/README.md",
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "exports": {
@@ -27,7 +29,9 @@
     "build": "vite build && tsc --emitDeclarationOnly"
   },
   "dependencies": {
+    "@types/styled-components": "^5.1.26",
     "ethers": "^5.7.2",
+    "styled-components": "^5.3.6",
     "wagmi": "^0.8.1"
   },
   "devDependencies": {
