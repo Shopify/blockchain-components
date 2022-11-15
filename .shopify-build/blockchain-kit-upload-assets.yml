@@ -1,11 +1,17 @@
 containers:
-  default:
+  publish-container:
+    environment: production
     build:
       from: ubuntu-latest
-      type: ci
+      run:
+        - yarn build --filter=tokengating-card
+        - mkdir -p /assets/tokengating-card && cp -R packages/tokengating-card/dist/index.js /assets/tokengating-card/index.js
+      publish:
+        cdn:
+          artifacts:
+            - path: 'assets'
+              patterns: ['*.html', '**/*.js']
 
 steps:
-  - label: Tests
-    timeout: 5m
-    run:
-    - echo "Hello World"
+  - label: Upload compiled assets to CDN bucket.
+    build: publish-container
