@@ -5,7 +5,7 @@ containers:
       from: ubuntu-latest
       run:
         - yarn build --filter=tokengating-card
-        - mkdir -p /assets/tokengating-card && cp -R packages/tokengating-card/dist/index.js /assets/tokengating-card/index.js
+        - mkdir -p assets/tokengating-card && cp -R packages/tokengating-card/dist/index.js assets/tokengating-card/index.js
       publish:
         cdn:
           artifacts:
