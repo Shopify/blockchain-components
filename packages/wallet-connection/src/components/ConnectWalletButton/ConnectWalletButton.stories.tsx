@@ -1,8 +1,10 @@
+import { useContext } from 'react';
+
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 import {WalletConnectionProvider} from '../../providers/WalletConnectionProvider';
 
 import ConnectWalletButton from './ConnectWalletButton';
-import { useModal } from '../../hooks';
+import { ModalContext } from '../../providers/ModalProvider';
 
 const ConnectWalletButtonStory: ComponentMeta<typeof ConnectWalletButton> = {
   title: 'Wallet Connection/ConnectWalletButton',
@@ -19,7 +21,7 @@ const ConnectWalletButtonStory: ComponentMeta<typeof ConnectWalletButton> = {
 export default ConnectWalletButtonStory;
 
 const Template: ComponentStory<typeof ConnectWalletButton> = () => {
-    const [isModalOpen, toggleModal] = useModal();
+    const {toggleModal} = useContext(ModalContext);
 
   return (
         <ConnectWalletButton

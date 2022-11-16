@@ -6,6 +6,7 @@ import {infuraProvider} from 'wagmi/providers/infura';
 import {publicProvider} from 'wagmi/providers/public';
 
 import {defaultConnectors} from '../constants/defaults';
+import { ModalProvider } from './ModalProvider';
 import {WarningMessage} from '../constants/warnings';
 import {Polaris} from '../themes/polaris';
 import {ProviderProps} from '../types/provider';
@@ -57,7 +58,11 @@ export const WalletConnectionProvider = ({
 
   return (
     <ThemeProvider theme={Polaris}>
-      <WagmiConfig client={client}>{children}</WagmiConfig>
+      <WagmiConfig client={client}>
+        <ModalProvider>
+          {children}
+        </ModalProvider>
+      </WagmiConfig>
     </ThemeProvider>
   );
 };

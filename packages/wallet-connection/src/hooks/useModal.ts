@@ -1,7 +1,10 @@
 import React from "react";
 
-export const useModal = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
+interface useModalProps {
+    isModalOpen: boolean;
+}
+export const useModal = ({isModalOpen}: useModalProps) => {
+  const [isOpen, setIsOpen] = React.useState(isModalOpen);
   const toggle = () => setIsOpen(!isOpen);
 
   return [isOpen, toggle] as const;
