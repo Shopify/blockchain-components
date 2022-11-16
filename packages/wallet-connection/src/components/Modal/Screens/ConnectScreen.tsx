@@ -1,6 +1,7 @@
 import {useConnect} from 'wagmi';
 
 import {SheetContent} from '../style';
+import {ConnectorButton} from '../../ConnectorButton';
 
 const ConnectScreen = () => {
   const {connect, connectors} = useConnect();
@@ -8,9 +9,11 @@ const ConnectScreen = () => {
   return (
     <SheetContent>
       {connectors.map((connector) => (
-        <button key={connector.id} onClick={() => connect({connector})}>
-          {connector.name}
-        </button>
+        <ConnectorButton
+          key={connector.id}
+          onClick={() => connect({connector})}
+          name={connector.name}
+        />
       ))}
     </SheetContent>
   );

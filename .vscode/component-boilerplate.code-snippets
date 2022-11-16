@@ -1,0 +1,21 @@
+{
+  "Component boilerplate": {
+    "prefix": ["newcomponent", "boiler"],
+    "scope": "typescriptreact, typescript",
+    "body": [
+      "interface ${1:${TM_FILENAME_BASE}}Props {",
+      "    // your props here",
+      "}",
+      "",
+      "export const ${1:${TM_FILENAME_BASE}} = ({}: ${1:${TM_FILENAME_BASE}}Props) => {",
+      "",
+      "    return (",
+      "    );",
+      "",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}};"
+    ],
+    "description": "Boilerplate for a new component. Auto-creates and selects name from the current file path."
+  }
+}
