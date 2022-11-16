@@ -13,5 +13,4 @@ containers:
               patterns: ['*.html', '**/*.js']
 
 steps:
-  - label: Upload compiled assets to CDN bucket.
-    build: publish-container
+  - build: publish-container
