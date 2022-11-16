@@ -28,4 +28,6 @@ const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
 export const ConnectModal = Template.bind({});
 ConnectModal.args = {
   screen: 'Connect',
+  open: true,
+  onClose: () => {}
 };
