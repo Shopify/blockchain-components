@@ -21,8 +21,8 @@ export const Polaris: Theme = {
     },
 
     background: {
-      backdrop: '#FFFFFF',
-      default: 'rgba(0, 0, 0, 0.5)',
+      backdrop: 'rgba(0, 0, 0, 0.5)',
+      default: '#FFFFFF',
     },
 
     icons: {

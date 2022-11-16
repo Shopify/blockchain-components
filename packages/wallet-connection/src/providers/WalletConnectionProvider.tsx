@@ -1,4 +1,5 @@
 import {PropsWithChildren, useMemo} from 'react';
+import {ThemeProvider} from 'styled-components';
 import {configureChains, createClient, defaultChains, WagmiConfig} from 'wagmi';
 import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {infuraProvider} from 'wagmi/providers/infura';
@@ -6,6 +7,7 @@ import {publicProvider} from 'wagmi/providers/public';
 
 import {defaultConnectors} from '../constants/defaults';
 import {WarningMessage} from '../constants/warnings';
+import {Polaris} from '../themes/polaris';
 import {ProviderProps} from '../types/provider';
 
 export const WalletConnectionProvider = ({
@@ -53,5 +55,9 @@ export const WalletConnectionProvider = ({
     });
   }, [chains, connectors, provider, webSocketProvider]);
 
-  return <WagmiConfig client={client}>{children}</WagmiConfig>;
+  return (
+    <ThemeProvider theme={Polaris}>
+      <WagmiConfig client={client}>{children}</WagmiConfig>
+    </ThemeProvider>
+  );
 };
