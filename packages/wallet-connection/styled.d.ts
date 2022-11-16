@@ -16,7 +16,7 @@ declare module 'styled-components' {
     disabled: string;
   }
 
-  export interface Theme {
+  export interface DefaultTheme {
     colors: {
       action: {
         primary: ActionKey;

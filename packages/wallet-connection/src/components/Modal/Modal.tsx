@@ -1,52 +1,69 @@
-import {Background, Sheet, Header, Title} from './style';
-import {ConnectScreen} from './Screens';
+import {useMemo} from 'react';
+
+import {Background, Sheet, Header} from './style';
+import {ConnectScreen, ConnectingScreen} from './Screens';
+import {Screen} from './Screens/types';
 
 import {IconButton} from '../IconButton';
 import {ArrowLeft, Cancel} from '../../assets/icons';
+import {ModalRoute, useModal} from '../../providers/ModalProvider';
+import {useWalletConnection} from '../../providers/WalletConnectionProvider';
 
-export interface ModalProps {
-  screen: 'Connect' | 'WhatAreWallets' | 'Connecting' | 'Scan';
-  open: Boolean;
-  onClose: () => void;
-}
-
-const ModalScreenData = {
+const ModalScreens: {[key in keyof typeof ModalRoute]: Screen} = {
   Connect: {
     title: 'Connect wallet',
-    component: <ConnectScreen />,
+    screen: <ConnectScreen />,
   },
   WhatAreWallets: {
     title: 'What is a wallet?',
-    component: null,
+    screen: null,
   },
   Connecting: {
-    title: 'Connect with {provider}',
-    component: null,
+    title: 'Connect with',
+    screen: <ConnectingScreen />,
   },
   Scan: {
-    title: 'Scan with {provider}',
-    component: null,
+    title: 'Scan with',
+    screen: null,
   },
 };
 
-const Modal = ({screen, open, onClose: handleClose}: ModalProps) => {
-  const showBackButton = screen !== 'Connect';
-  const screenData = ModalScreenData[screen];
+const Modal = () => {
+  const {active, closeModal, navigation} = useModal();
+  const {pendingConnector} = useWalletConnection();
+  const screenData = ModalScreens[navigation.route];
 
-  return open ? (
-    <Background _visible={true}>
+  const headerTitle = useMemo(() => {
+    const {route} = navigation;
+
+    if (route === ModalRoute.Connecting || route === ModalRoute.Scan) {
+      return `${screenData.title} ${pendingConnector?.name}`;
+    }
+
+    return screenData.title;
+  }, [pendingConnector, screen, screenData]);
+
+  return (
+    <Background $visible={active}>
       <Sheet>
         <Header>
-          {showBackButton ? (
-            <IconButton aria-label="Back" icon={ArrowLeft} />
+          {navigation.goBack ? (
+            <IconButton
+              aria-label="Back"
+              icon={ArrowLeft}
+              onClick={navigation.goBack}
+            />
           ) : null}
-          <Title>{screenData.title}</Title>
-          <IconButton aria-label="Close" icon={Cancel} onClick={handleClose}/>
+
+          <h2>{headerTitle}</h2>
+
+          <IconButton aria-label="Close" icon={Cancel} onClick={closeModal} />
         </Header>
-        {screenData.component}
+
+        {screenData.screen}
       </Sheet>
     </Background>
-  ): null;
+  );
 };
 
 export default Modal;

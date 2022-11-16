@@ -13,21 +13,14 @@ const ModalStory: ComponentMeta<typeof Modal> = {
       </WalletConnectionProvider>
     ),
   ],
-  argTypes: {
-    screen: {
-      control: 'select',
-      options: ['Connect', 'WhatAreWallets', 'Connecting', 'Scan'],
-    },
-  },
 };
 
 export default ModalStory;
 
-const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
+/**
+ * I believe we are able to mock context in Storybook to show the modal by default.
+ * Need to look into that some more.
+ */
+const Template: ComponentStory<typeof Modal> = () => <Modal />;
 
 export const ConnectModal = Template.bind({});
-ConnectModal.args = {
-  screen: 'Connect',
-  open: true,
-  onClose: () => {}
-};
