@@ -8,13 +8,5 @@ export default defineConfig({
       name: '@shopify/tokengating-card',
       fileName: 'index',
     },
-    rollupOptions: {
-      external: ['react'],
-      output: {
-        globals: {
-          react: 'react',
-        },
-      },
-    },
   },
 });
