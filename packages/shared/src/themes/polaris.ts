@@ -1,6 +1,6 @@
-import {Theme} from 'styled-components';
+import {DefaultTheme} from 'styled-components';
 
-export const Polaris: Theme = {
+export const Polaris: DefaultTheme = {
   colors: {
     action: {
       primary: {

@@ -1,13 +1,13 @@
 import './App.css';
 import {Card} from './components/Card/Card';
-import {PolarisThemeProvider} from '../../shared/components/ThemeProvider/ThemeProvider';
+import {ThemeProvider} from 'shared';
 
 interface AppProps {
   state?: string | null;
 }
 function App({state}: AppProps) {
   return (
-    <PolarisThemeProvider>
+    <ThemeProvider>
       <div className="App">
         {state === 'locked' ? (
           <Card>
@@ -35,7 +35,7 @@ function App({state}: AppProps) {
           </Card>
         )}
       </div>
-    </PolarisThemeProvider>
+    </ThemeProvider>
   );
 }
 
