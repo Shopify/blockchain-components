@@ -1,0 +1,37 @@
+{
+  "name": "@shopify/theme-app-extension",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Tokengating card library for Shopify storefronts",
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/blockchain-kit.git",
+    "directory": "packages/theme-app-extension"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/blockchain-kit/issues"
+  },
+  "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/theme-app-extension/README.md",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tsconfig": "*"
+  }
+}
