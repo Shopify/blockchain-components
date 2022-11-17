@@ -40,12 +40,9 @@ const Modal = ({screen, open, onClose: handleClose}: ModalProps) => {
           {showBackButton ? (
             <IconButton aria-label="Back" icon={ArrowLeft} />
           ) : null}
-
           <Title>{screenData.title}</Title>
-
           <IconButton aria-label="Close" icon={Cancel} onClick={handleClose}/>
         </Header>
-
         {screenData.component}
       </Sheet>
     </Background>

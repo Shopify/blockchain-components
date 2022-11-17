@@ -4,7 +4,7 @@ import {WalletConnectionProvider} from '../../providers/WalletConnectionProvider
 import ConnectWalletButton from './ConnectWalletButton';
 
 const ConnectWalletButtonStory: ComponentMeta<typeof ConnectWalletButton> = {
-  title: 'Wallet Connection/ConnectWalletButton',
+  title: 'Wallet Connection/Connect Wallet Button',
   component: ConnectWalletButton,
   decorators: [
     (Story) => (
