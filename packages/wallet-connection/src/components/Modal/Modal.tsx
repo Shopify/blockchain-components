@@ -6,6 +6,8 @@ import {ArrowLeft, Cancel} from '../../assets/icons';
 
 export interface ModalProps {
   screen: 'Connect' | 'WhatAreWallets' | 'Connecting' | 'Scan';
+  open: Boolean;
+  onClose: () => void;
 }
 
 const ModalScreenData = {
@@ -27,27 +29,24 @@ const ModalScreenData = {
   },
 };
 
-const Modal = ({screen}: ModalProps) => {
+const Modal = ({screen, open, onClose: handleClose}: ModalProps) => {
   const showBackButton = screen !== 'Connect';
   const screenData = ModalScreenData[screen];
 
-  return (
+  return open ? (
     <Background _visible={true}>
       <Sheet>
         <Header>
           {showBackButton ? (
             <IconButton aria-label="Back" icon={ArrowLeft} />
           ) : null}
-
           <Title>{screenData.title}</Title>
-
-          <IconButton aria-label="Close" icon={Cancel} />
+          <IconButton aria-label="Close" icon={Cancel} onClick={handleClose}/>
         </Header>
-
         {screenData.component}
       </Sheet>
     </Background>
-  );
+  ): null;
 };
 
 export default Modal;
