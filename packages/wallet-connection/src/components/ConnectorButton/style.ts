@@ -12,14 +12,15 @@ export const Button = styled.button`
   border-radius: 4px;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
+  cursor: pointer;
 `;
 
-export const IconContainer = styled.div`
+export const ConnectorIcon = styled.div`
   width: 20px;
   height: 20px;
 `;
 
-export const Label = styled.label`
+export const ConnectorName = styled.label`
   font-family: 'SF Pro Text', sans-serif;
   font-style: normal;
   font-weight: 500;

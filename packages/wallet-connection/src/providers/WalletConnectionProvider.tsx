@@ -1,22 +1,56 @@
-import {PropsWithChildren, useMemo} from 'react';
+import {
+  createContext,
+  Dispatch,
+  FC,
+  PropsWithChildren,
+  SetStateAction,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 import {ThemeProvider} from 'styled-components';
-import {configureChains, createClient, defaultChains, WagmiConfig} from 'wagmi';
+import {
+  configureChains,
+  createClient,
+  defaultChains,
+  Connector,
+  WagmiConfig,
+} from 'wagmi';
 import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {infuraProvider} from 'wagmi/providers/infura';
 import {publicProvider} from 'wagmi/providers/public';
 
+import {ModalProvider} from './ModalProvider';
+
 import {defaultConnectors} from '../constants/defaults';
-import { ModalProvider } from './ModalProvider';
 import {WarningMessage} from '../constants/warnings';
+import {GlobalStyle} from '../style/global';
 import {Polaris} from '../themes/polaris';
 import {ProviderProps} from '../types/provider';
 
-export const WalletConnectionProvider = ({
+export interface WalletConnectionProviderValue {
+  pendingConnector?: Connector;
+  setPendingConnector: Dispatch<SetStateAction<Connector | undefined>>;
+}
+
+const defaultContextValue: WalletConnectionProviderValue = {
+  pendingConnector: undefined,
+  setPendingConnector: () => {},
+};
+
+export const WalletConnectionContext =
+  createContext<WalletConnectionProviderValue>(defaultContextValue);
+
+export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
   alchemyApiKey,
   connectors,
   children,
   infuraApiKey,
 }: PropsWithChildren<ProviderProps>) => {
+  const [pendingConnector, setPendingConnector] = useState<
+    Connector | undefined
+  >();
+
   const chainProviders = useMemo(() => {
     let chains = [];
 
@@ -57,12 +91,21 @@ export const WalletConnectionProvider = ({
   }, [chains, connectors, provider, webSocketProvider]);
 
   return (
-    <ThemeProvider theme={Polaris}>
-      <WagmiConfig client={client}>
-        <ModalProvider>
-          {children}
-        </ModalProvider>
-      </WagmiConfig>
-    </ThemeProvider>
+    <WagmiConfig client={client}>
+      <WalletConnectionContext.Provider
+        value={{pendingConnector, setPendingConnector}}
+      >
+        <ThemeProvider theme={Polaris}>
+          <GlobalStyle />
+          <ModalProvider>{children}</ModalProvider>
+        </ThemeProvider>
+      </WalletConnectionContext.Provider>
+    </WagmiConfig>
   );
+};
+
+export const useWalletConnection = () => {
+  const context = useContext(WalletConnectionContext);
+  if (!context) throw Error('WalletConnection context not present.');
+  return context;
 };

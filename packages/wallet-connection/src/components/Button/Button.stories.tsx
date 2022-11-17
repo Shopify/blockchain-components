@@ -1,6 +1,6 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {useConnect} from 'wagmi';
 import {WalletConnectionProvider} from '../../providers/WalletConnectionProvider';
+import {useModal} from '../../providers/ModalProvider';
 
 import {Button} from './Button';
 
@@ -25,20 +25,9 @@ export default ButtonStory;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Button> = (args) => {
   // Show buttons for all available connectors from useConnect.
-  const {connect, connectors, isLoading} = useConnect();
+  const {showModal} = useModal();
 
-  return (
-    <>
-      {connectors.map((connector) => (
-        <Button
-          {...args}
-          key={connector.id}
-          onClick={() => connect({connector})}
-          label={isLoading ? 'Loading...' : connector.name}
-        />
-      ))}
-    </>
-  );
+  return <Button {...args} onClick={showModal} label={'Show modal'} />;
 };
 
 export const Primary = Template.bind({});

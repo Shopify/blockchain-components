@@ -1,13 +1,13 @@
 export const MetaMask = (
   <svg
-    width="20"
-    height="20"
+    width="100%"
+    height="100%"
     viewBox="0 0 20 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
   >
-    <g clip-path="url(#clip0_206_14130)">
+    <g clipPath="url(#clip0_206_14130)">
       <rect width="20" height="20" fill="url(#pattern0)" />
     </g>
     <defs>
