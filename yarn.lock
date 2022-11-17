@@ -1166,9 +1166,9 @@
     minimist "^1.2.0"
 
 "@coinbase/wallet-sdk@^3.5.3":
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.5.4.tgz#957aa74521a4afa61ae99e1e2b948a6e017fcc87"
-  integrity sha512-+5s05dmB6YUPUnV5vThP96GVG1O4GgS3qYvjYJhe56ds8YFz+keU3/docFBLf8FQOCIO5j7IZtZmVGvz7G+kRw==
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.6.0.tgz#52cc01d6721b171b69f8c4a83ef5029e52d997d4"
+  integrity sha512-p7RHnbhWiwVr9viX9Z5KLxKgzGoJRKcAN/BYRTsodnesgA7y+omangXncsxY+5eyQSflEL7Dqs0dv/yeDsomow==
   dependencies:
     "@metamask/safe-event-emitter" "2.0.0"
     "@solana/web3.js" "1.52.0"
@@ -12086,9 +12086,9 @@ vm-browserify@^1.0.1:
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
 wagmi@^0.8.1:
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.8.4.tgz#6f9f2ba1cb8fc21f6a10c0a4237173fe1000bfc7"
-  integrity sha512-FfObjjUb3SvEb2HsNItenGphZZoESuPntkqtEg2JQo4hCjlvLTVdW90VYv4M2UVTWtx0V0ab79j73BXe5Jny9A==
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.8.5.tgz#f15de70b8b7bca11bf9faccae2dd3eea980ce1df"
+  integrity sha512-LKxolobNPwTPsidtbgoA4x5zWUFeRAzaGqNE7AiSsM8wHRuClO6Mrp3XtGzVy/UfaMFE/yR1xWIJbiHXzeeEmA==
   dependencies:
     "@coinbase/wallet-sdk" "^3.5.3"
     "@tanstack/query-sync-storage-persister" "^4.14.5"
