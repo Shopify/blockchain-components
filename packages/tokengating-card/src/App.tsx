@@ -1,13 +1,13 @@
-import "./App.css";
-import { Card } from "./components/Card/Card";
+import './App.css';
+import {Card} from './components/Card/Card';
 
 interface AppProps {
   state?: string | null;
 }
-function App({ state }: AppProps) {
+function App({state}: AppProps) {
   return (
     <div className="App">
-      {state === "locked" ? (
+      {state === 'locked' ? (
         <Card>
           <h2>Holder exclusive</h2>
           <p>To unlock this product, you need:</p>
@@ -26,7 +26,7 @@ function App({ state }: AppProps) {
           <button
             id="connectWallet"
             type="button"
-            className="button button--full-width button--secondary"
+            className="button button--full-width"
           >
             snowdevil.eth
           </button>

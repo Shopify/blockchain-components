@@ -14,7 +14,9 @@
   },
   "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/tokengating-card/README.md",
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "exports": {
@@ -24,7 +26,9 @@
     }
   },
   "scripts": {
-    "build": "vite build && tsc --emitDeclarationOnly"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {},
   "devDependencies": {
