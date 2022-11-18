@@ -27,11 +27,12 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build && tsc --emitDeclarationOnly",
     "preview": "vite preview"
   },
   "dependencies": {},
   "devDependencies": {
+    "shared": "*",
     "tsconfig": "*"
   }
 }
