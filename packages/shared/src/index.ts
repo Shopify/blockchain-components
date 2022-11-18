@@ -10,4 +10,4 @@ export {ThemeProvider} from './providers/ThemeProvider';
 /**
  * Themes
  */
-export {Polaris} from './themes';
+export {Dawn, Polaris} from './themes';
