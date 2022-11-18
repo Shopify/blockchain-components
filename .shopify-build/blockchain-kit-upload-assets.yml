@@ -5,8 +5,8 @@ containers:
       from: ubuntu-latest
       run:
         - yarn install
-        - yarn build
-        - mkdir -p assets/tokengating-card && cp -R packages/tokengating-card/dist/index.js assets/tokengating-card/index.js
+        - yarn build --filter=theme-app-extension
+        - mkdir -p assets/theme-app-extension && cp -R packages/theme-app-extension/dist/index.js assets/theme-app-extension/index.js
       publish:
         cdn:
           artifacts:
