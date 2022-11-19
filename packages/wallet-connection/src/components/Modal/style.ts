@@ -6,7 +6,7 @@ export const Background = styled.div<{$visible: boolean}>`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: ${({theme}) => theme.colors.background.backdrop};
+  background-color: ${({theme}) => theme.modal.overlayBackground};
   opacity: ${({$visible}) => ($visible ? 1 : 0)};
   display: flex;
   align-items: center;
@@ -71,7 +71,7 @@ export const ListItemContent = styled.div`
 `;
 
 export const Sheet = styled.div`
-  background-color: ${({theme}) => theme.colors.background.default};
+  background-color: ${({theme}) => theme.modal.background};
   max-width: 380px;
   width: 100%;
   padding: 20px;
