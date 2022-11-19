@@ -17,22 +17,17 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/index.umd.cjs",
-  "module": "./dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
-    }
-  },
+  "main": "src/components/index.tsx",
+  "types": "src/components/index.tsx",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc --emitDeclarationOnly",
+    "build": "vite build && tsc",
     "preview": "vite preview"
   },
-  "dependencies": {},
+  "dependencies": {
+    "shared": "*"
+  },
   "devDependencies": {
-    "shared": "*",
     "tsconfig": "*"
   }
 }
