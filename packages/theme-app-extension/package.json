@@ -30,7 +30,11 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
-  "dependencies": {},
+  "dependencies": {
+    "shared": "*",
+    "@shopify/tokengating-card": "*",
+    "@shopify/wallet-connection": "*"
+  },
   "devDependencies": {
     "tsconfig": "*"
   }
