@@ -17,11 +17,11 @@
   "files": [
     "dist"
   ],
-  "main": "src/components/index.ts",
-  "types": "src/components/index.ts",
+  "main": "src/components/index.tsx",
+  "types": "src/components/index.tsx",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc --emitDeclarationOnly",
+    "build": "vite build && tsc",
     "preview": "vite preview"
   },
   "dependencies": {

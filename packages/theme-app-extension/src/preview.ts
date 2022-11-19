@@ -15,4 +15,4 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
     },
   },
 });
-await ThemeAppExtension.mount();
+ThemeAppExtension.mount();
