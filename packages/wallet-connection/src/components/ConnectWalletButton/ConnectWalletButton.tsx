@@ -1,3 +1,6 @@
+import {useCallback} from 'react';
+
+import {useModal} from '../../providers/ModalProvider';
 
 export interface ConnectWalletButtonProps {
   /**
@@ -5,7 +8,9 @@ export interface ConnectWalletButtonProps {
    */
   label: string;
   /**
-   * Optional click handler
+   * The button opens the connection modal by default, however, you're able to provide
+   * additional functionality in the onClick function if you need to add any form of
+   * reporting or metrics.
    */
   onClick?: () => void;
 }
@@ -13,18 +18,20 @@ export interface ConnectWalletButtonProps {
 /**
  * Primary UI component for user interaction
  */
-const ConnectWalletButton = ({
+export const ConnectWalletButton = ({
   label,
-  ...props
+  onClick,
 }: ConnectWalletButtonProps) => {
+  const {showModal} = useModal();
+
+  const handleClick = useCallback(() => {
+    showModal();
+    onClick?.();
+  }, [onClick]);
+
   return (
-    <button
-      type="button"
-      {...props}
-    >
+    <button type="button" onClick={handleClick}>
       {label}
     </button>
   );
 };
-
-export default ConnectWalletButton
