@@ -1,1 +1,1 @@
-export {useModal} from "./useModal";
+export {useConnect} from './useConnect';

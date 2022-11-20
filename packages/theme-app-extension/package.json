@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "shared": "*",
-    "@shopify/tokengating-card": "*",
     "@shopify/wallet-connection": "*"
   },
   "devDependencies": {

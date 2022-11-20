@@ -12,9 +12,10 @@ export default defineConfig({
       fileName: 'index',
     },
     rollupOptions: {
-      external: ['wagmi'],
+      external: ['react', 'wagmi'],
       output: {
         globals: {
+          react: 'react',
           wagmi: 'wagmi',
         },
       },
