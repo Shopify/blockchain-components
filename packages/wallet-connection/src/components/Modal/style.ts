@@ -48,6 +48,28 @@ export const Header = styled.div`
   }
 `;
 
+export const Icon = styled.div`
+  height: 24px;
+  width: 20px;
+
+  svg {
+    /**
+     * Not sure of the best way to handle this at the moment, but per design
+     * the icon is centered with the header, so we'll use static values for
+     * the time being.
+     */
+    margin-top: 2px;
+  }
+`;
+
+export const ListItemContent = styled.div`
+  margin-bottom: 24px;
+
+  h3 {
+    margin-bottom: 4px;
+  }
+`;
+
 export const Sheet = styled.div`
   background-color: ${({theme}) => theme.colors.background.default};
   max-width: 380px;
@@ -65,5 +87,27 @@ export const SheetContent = styled.div`
   h1,
   p {
     text-align: center;
+  }
+`;
+
+export const StyledLink = styled.span`
+  display: block;
+  cursor: pointer;
+`;
+
+export const WalletListItem = styled.div`
+  display: flex;
+  column-gap: 16px;
+  align-items: flex-start;
+
+  p {
+    margin: unset;
+    text-align: left;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  p + p {
+    margin: default;
   }
 `;
