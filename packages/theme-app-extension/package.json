@@ -31,8 +31,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "shared": "*",
-    "@shopify/wallet-connection": "*"
+    "@shopify/tokengating-card": "*",
+    "@shopify/wallet-connection": "*",
+    "shared": "*"
   },
   "devDependencies": {
     "tsconfig": "*"

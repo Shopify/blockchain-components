@@ -1,8 +1,6 @@
 name: blockchain-kit
 
 up:
-  - ruby: 3.1.0
-  - bundler
   - node:
       version: v16.15.1
       yarn: 1.22.17
