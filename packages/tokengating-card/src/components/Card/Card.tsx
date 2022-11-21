@@ -1,3 +1,9 @@
+import styled from 'styled-components';
+
+const CardWrapper = styled.div`
+  background-color: red;
+`;
+
 interface CardProps {
   title: string;
   subtitle: string;
@@ -6,12 +12,12 @@ interface CardProps {
 }
 
 const Card = ({title, subtitle, button, children}: CardProps) => (
-  <div>
+  <CardWrapper>
     <h2>{title}</h2>
     <p>{subtitle}</p>
     {children}
     {button}
-  </div>
+  </CardWrapper>
 );
 
 export {Card};
