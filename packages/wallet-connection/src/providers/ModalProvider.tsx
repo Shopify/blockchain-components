@@ -11,9 +11,10 @@ import {Modal} from '../components/Modal';
 
 export enum ModalRoute {
   Connect = 'Connect',
-  WhatAreWallets = 'WhatAreWallets',
   Connecting = 'Connecting',
+  GetAWallet = 'GetAWallet',
   Scan = 'Scan',
+  WhatAreWallets = 'WhatAreWallets',
 }
 
 export interface ModalProviderValue {

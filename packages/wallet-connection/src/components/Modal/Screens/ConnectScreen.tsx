@@ -2,7 +2,7 @@ import {useCallback} from 'react';
 import {Connector} from 'wagmi';
 import {ConnectArgs} from '@wagmi/core';
 
-import {SheetContent} from '../style';
+import {SheetContent, StyledLink} from '../style';
 import {ConnectorButton} from '../../ConnectorButton';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
@@ -25,6 +25,10 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
     [navigation],
   );
 
+  const handleWhatAreWallets = useCallback(() => {
+    navigation.navigate(ModalRoute.WhatAreWallets);
+  }, []);
+
   return (
     <SheetContent>
       {connectors.map((connector) => {
@@ -40,6 +44,14 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
           />
         );
       })}
+
+      <StyledLink
+        aria-label="What is a wallet?"
+        role="link"
+        onClick={handleWhatAreWallets}
+      >
+        What is a wallet?
+      </StyledLink>
     </SheetContent>
   );
 };

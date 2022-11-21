@@ -2,7 +2,7 @@ import {useMemo, useState} from 'react';
 import {useConnect} from 'wagmi';
 
 import {Background, Sheet, Header} from './style';
-import {ConnectScreen, ConnectingScreen} from './Screens';
+import {ConnectScreen, ConnectingScreen, WhatAreWallets} from './Screens';
 import {Screen} from './Screens/types';
 
 import {IconButton} from '../IconButton';
@@ -15,14 +15,17 @@ const ModalScreens: {[key in keyof typeof ModalRoute]: Screen} = {
   Connect: {
     title: 'Connect wallet',
   },
-  WhatAreWallets: {
-    title: 'What is a wallet?',
-  },
   Connecting: {
     title: 'Connect with',
   },
+  GetAWallet: {
+    title: 'Get a wallet',
+  },
   Scan: {
     title: 'Scan with',
+  },
+  WhatAreWallets: {
+    title: 'What is a wallet?',
   },
 };
 
@@ -80,15 +83,19 @@ const Modal = () => {
   }, [pendingConnector, screen, screenData]);
 
   const screenComponent = useMemo(() => {
-    if (navigation.route === ModalRoute.Connect) {
-      return <ConnectScreen connect={connect} connectors={connectors} />;
-    }
+    switch (navigation.route) {
+      case ModalRoute.Connect:
+        return <ConnectScreen connect={connect} connectors={connectors} />;
 
-    if (navigation.route === ModalRoute.Connecting) {
-      return <ConnectingScreen connect={connect} state={status} />;
-    }
+      case ModalRoute.Connecting:
+        return <ConnectingScreen connect={connect} state={status} />;
 
-    return null;
+      case ModalRoute.WhatAreWallets:
+        return <WhatAreWallets />;
+
+      default:
+        return null;
+    }
   }, [connect, connectors, navigation.route, status]);
 
   return (
