@@ -1,7 +1,7 @@
 import {useCallback} from 'react';
 
 import {Icon, ListItemContent, SheetContent, WalletListItem} from '../style';
-import {Button} from '../../Button/Button';
+import {Button} from 'shared'
 import {GetAWalletInformation} from '../../../constants/get-a-wallet';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 

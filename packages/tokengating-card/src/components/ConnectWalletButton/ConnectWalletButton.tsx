@@ -1,15 +1,14 @@
+import {Button} from 'shared'
+
 interface ConnectWalletButtonProps {
   onConnectWallet: () => void;
 }
 
 const ConnectWalletButton = ({onConnectWallet}: ConnectWalletButtonProps) => (
-  <button
+  <Button
     id="connectWallet"
-    type="button"
-    className="button button--full-width"
+    label='Connect wallet'
     onClick={onConnectWallet}
-  >
-    Connect wallet
-  </button>
+  />
 );
 export {ConnectWalletButton};

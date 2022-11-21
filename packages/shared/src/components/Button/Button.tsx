@@ -1,7 +1,10 @@
-import './button.css';
 import {ButtonStyle, ButtonText} from './style';
 
 export interface ButtonProps {
+  /**
+   * What is the Id of the button?
+   */
+  id?: string;
   /**
    * Is this the principal call to action on the page?
    */
@@ -24,20 +27,17 @@ export interface ButtonProps {
  * Primary UI component for user interaction
  */
 export const Button = ({
+  id,
   primary = false,
   size = 'medium',
   label,
   ...props
 }: ButtonProps) => {
-  const mode = primary
-    ? 'storybook-button--primary'
-    : 'storybook-button--secondary';
   return (
     <ButtonStyle
+      id={id}
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(
-        ' ',
-      )}
+      className="button button--full-width"
       {...props}
     >
       <ButtonText>

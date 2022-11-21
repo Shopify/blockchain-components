@@ -1,8 +1,7 @@
 import {ConnectArgs} from '@wagmi/core';
 
 import {ModalContent} from './state-content';
-
-import {Button} from '../../Button/Button';
+import {Button} from 'shared'
 import {BodyText, ConnectorIcon, SheetContent} from '../style';
 import {Spinner} from '../../Spinner';
 import {getConnectorData} from '../../../constants/connectors';

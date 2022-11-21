@@ -7,7 +7,7 @@ import {ThemeProps} from '../types/theme';
 export const ThemeProvider: FC<ThemeProps> = ({
   children,
   customTheme,
-  theme = 'Polaris',
+  theme = 'Dawn',
 }) => {
   const providedTheme = AvailableThemes[theme];
 
