@@ -1,5 +1,5 @@
 import {Button, ConnectorIcon, ConnectorName} from './style';
-import {Connectors} from '../../constants/connectors';
+import {getConnectorData} from '../../constants/connectors';
 
 interface ConnectorButtonProps {
   name: string;
@@ -7,7 +7,7 @@ interface ConnectorButtonProps {
 }
 
 export const ConnectorButton = ({name, onClick}: ConnectorButtonProps) => {
-  const {icon} = Connectors[name];
+  const {icon} = getConnectorData(name);
 
   return (
     <Button aria-label={`Connect with ${name}`} onClick={onClick}>

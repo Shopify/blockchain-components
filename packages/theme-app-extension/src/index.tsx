@@ -29,7 +29,7 @@ window.gmShop = {
         autoConnect: true,
         connectors: [
           new MetaMaskConnector({chains}),
-          new WalletConnectConnector({chains, options: {qrcode: true}}),
+          new WalletConnectConnector({chains, options: {qrcode: false}}),
         ],
         provider,
         webSocketProvider,

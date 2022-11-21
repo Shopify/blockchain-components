@@ -2,7 +2,7 @@ import {useMemo, useState} from 'react';
 import {useConnect} from 'wagmi';
 
 import {Background, Sheet, Header} from './style';
-import {ConnectScreen, ConnectingScreen, WhatAreWallets} from './Screens';
+import {ConnectScreen, ConnectingScreen, Scan, WhatAreWallets} from './Screens';
 import {Screen} from './Screens/types';
 
 import {IconButton} from '../IconButton';
@@ -37,7 +37,7 @@ const Modal = () => {
     ConnectionState.Connecting,
   );
 
-  const {connect, connectors} = useConnect({
+  const {connect, connectAsync, connectors} = useConnect({
     onError: (error) => {
       setStatus(ConnectionState.Failed);
       console.error(
@@ -89,6 +89,9 @@ const Modal = () => {
 
       case ModalRoute.Connecting:
         return <ConnectingScreen connect={connect} state={status} />;
+
+      case ModalRoute.Scan:
+        return <Scan connectAsync={connectAsync} state={status} />;
 
       case ModalRoute.WhatAreWallets:
         return <WhatAreWallets />;

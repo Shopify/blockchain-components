@@ -27,8 +27,25 @@ export const Connectors: Record<string, ConnectorData> = {
     icon: WalletConnect,
     qrCodeSupported: true,
   },
-  Default: {
-    icon: null,
-    qrCodeSupported: false,
-  },
+};
+
+const SUPPORTED_CONNECTORS = Object.keys(Connectors);
+const DEFAULT_CONNECTOR: ConnectorData = {
+  icon: null,
+  qrCodeSupported: false,
+};
+
+export const getConnectorData = (connectorName?: string): ConnectorData => {
+  if (!connectorName) {
+    return DEFAULT_CONNECTOR;
+  }
+
+  // Make sure that the name provided matches a valid key in our supported connectors list.
+  const supported = SUPPORTED_CONNECTORS.includes(connectorName);
+
+  if (!supported) {
+    return DEFAULT_CONNECTOR;
+  }
+
+  return Connectors[connectorName];
 };
