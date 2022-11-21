@@ -1,72 +1,89 @@
 import {DefaultTheme} from 'styled-components';
 
 export const Polaris: DefaultTheme = {
-  colors: {
-    action: {
-      primary: {
-        default: '#008060',
-        hovered: '#006E52',
-        pressed: '#005E46',
-        depressed: '#003D2C',
-        disabled: '#F1F1F1',
+    typography: {
+      colorPrimary: '#202223',
+      colorSecondary: '#6D7175',
+      colorInteractive: '',
+      colorCritical: '#D82C0D',
+
+      heading: {
+        fontFamily: 'SF Pro Display',
+        fontWeight: '400',
+
+        h1: {
+          fontSize: '24px',
+          lineHeight: '28px',
+        },
+        h2: {
+          fontSize: '20px',
+          lineHeight: '24px',
+        },
+        h3: {
+          fontSize: '16px',
+          lineHeight: '24px',
+        },
       },
 
-      secondary: {
-        default: '#FFFFFF',
-        hovered: '#F6F6F7',
-        pressed: '#F1F2F3',
-        depressed: '#6D7175',
-        disabled: '#FFFFFF',
-      },
+      body: {
+        fontFamily: 'SF Pro Text',
+        fontSize: '14px',
+        fontWeight: '400',
+        lineHeight: '20px',
+      }
     },
 
-    background: {
-      backdrop: 'rgba(0, 0, 0, 0.5)',
-      default: '#FFFFFF',
+    connectButton: {
+      background: '#008060',
+      backgroundHover: '#006E52',
+      border: 'none',
+      borderRadius: '4px',
+      textColor: '#FFFFFF',
+      padding: '8px 16px',
+      boxShadow:'0px 1px 0px rgba(0, 0, 0, 0.08), inset 0px -1px 0px rgba(0, 0, 0, 0.2)'
     },
 
-    icons: {
-      default: '#5C5F62',
-      subdued: '#8C9196',
-      hovered: '#1A1C1D',
-      pressed: '#44474A',
-      disabled: '#BABEC3',
-      critical: '#D72C0D',
-      success: '#007F5F',
-
-      on: {
-        critical: '#FFFFFF',
-        primary: '#FFFFFF',
-      },
+    walletConnectorButton: {
+      background: '#FFFFFF',
+      backgroundHover: '#F6F6F7',
+      border: '1px solid #BABFC3',
+      borderRadius: '4px',
+      textColor: '#202223',
+      padding: '12px 24px',
+      boxShadow:'0px 1px 0px rgba(0, 0, 0, 0.05)',
+      horizontalAlignment: 'flex-start',
     },
 
-    interactive: {
-      primary: {
-        default: '#2C6ECB',
-        hovered: '#1F5199',
-        depressed: '#103262',
-        disabled: '#BDC1CC',
-      },
-
-      critical: {
-        default: '#D82C0D',
-        hovered: '#CD290C',
-        depressed: '#FD938D',
-        disabled: '#670F03',
-      },
+    secondaryButton: {
+      background: '#FFFFFF',
+      backgroundHover: '#F6F6F7',
+      border: '1px solid #BABFC3',
+      borderRadius: '4px',
+      textColor: '#202223',
+      padding: '12px 24px',
+      boxShadow:'0px 1px 0px rgba(0, 0, 0, 0.05)',
     },
 
-    text: {
-      default: '#202223',
-      subdued: '#6D7175',
-      disabled: '#8C9196',
-      critical: '#D72C0D',
-      success: '#008060',
-
-      on: {
-        critical: '#FFFFFF',
-        primary: '#FFFFFF',
-      },
+    modal: {
+      background: '#FFFFFF',
+      overlayBackground: 'rgba(0, 0, 0, 0.5)',
+      border: '',
+      borderRadius: '5px',
+      boxShadow: '0px 0px 1px rgba(0, 0, 0, 0.2), 0px 26px 80px rgba(0, 0, 0, 0.2)',
+      headingFontSize: '20px',
+      headFontWeight: '600',
+      padding: '20px',
     },
-  },
-};
+
+    popovers: {
+      background: '#FFFFFF',
+      border: 'none',
+      borderRadius: '5px',
+      boxShadow: '0px 3px 6px -3px rgba(23, 24, 24, 0.08), 0px 8px 20px -4px rgba(23, 24, 24, 0.12)',
+    },
+
+    other: {
+      iconColor: '#5C5F62',
+      dividerColour: '#E1E3E5',
+    }
+}
