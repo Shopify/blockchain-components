@@ -1,5 +1,5 @@
 <!--
-  ☝️How to write a good PR title:
+  ☝️ How to write a good PR title:
   - Prefix it with the type of PR, e.g. [feature|bugfix|chore]
   - Start with a verb, for example: Add, Delete, Improve, Fix
   - Prefix it with [WIP] while it’s a work in progress
@@ -8,29 +8,22 @@
 
 ## What is the context for these changes?
 <!-- Share what you're adding, and if necessary, the path you chose and why. -->
+
 ...
 
 ## Demonstration
 
 <!--
-    Showcase what you've created!
+  Showcase what you've created!
 
-    - Before / after screenshots are appreciated for UI changes.
-    - Videos may help better explain the changes being made in larger codebase changes.
-    - If you include an animated gif showing your change, wrapping it in a details tag is recommended. Gifs usually autoplay, which can cause accessibility issues for people reviewing your PR:
+  - Before / after screenshots are appreciated for UI changes.
+  - Videos may help better explain the changes being made in larger codebase changes.
+  - If you include an animated gif showing your change, wrapping it in a details tag is recommended. Gifs usually autoplay, which can cause accessibility issues for people reviewing your PR:
 
-        <details>
-            <summary>Summary of your gif(s)</summary>
-            <img src="..." alt="Description of what the gif shows">
-        </details>
--->
-
-<!--
-    Summary of the changes committed.
-
-  Before / after screenshots are appreciated for UI changes. Make sure to include alt text that describes the screenshot.
-
-
+    <details>
+      <summary>Summary of your gif(s)</summary>
+      <img src="..." alt="Description of what the gif shows">
+    </details>
 -->
 
 ...
