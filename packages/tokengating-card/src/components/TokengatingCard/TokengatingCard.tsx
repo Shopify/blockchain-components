@@ -1,37 +1,56 @@
 import {Card} from '../Card/Card';
+import {ConnectedWalletButton} from '../ConnectedWalletButton/ConnectedWalletButton';
+import {ConnectWalletButton} from '../ConnectWalletButton/ConnectWalletButton';
 import {ThemeProvider} from 'shared';
 
 interface AppProps {
-  state?: string | null;
+  isLocked: boolean;
+  lockedTitle?: string;
+  lockedSubtitle?: string;
+  unlockedTitle?: string;
+  unlockedSubtitle?: string;
+  onConnectWallet: () => void;
+  onConnectedWalletActions: () => void;
+  address: string;
+  ensName?: string;
+  icon?: React.ReactNode;
 }
-const TokengatingCard = ({state}: AppProps) => {
+const TokengatingCard = ({
+  isLocked,
+  lockedTitle,
+  lockedSubtitle,
+  unlockedTitle,
+  unlockedSubtitle,
+  onConnectWallet,
+  onConnectedWalletActions,
+  address,
+  ensName,
+  icon,
+}: AppProps) => {
   return (
     <ThemeProvider>
       <div className="App">
-        {state === 'locked' ? (
-          <Card>
-            <h2>Holder exclusive</h2>
-            <p>To unlock this product, you need:</p>
-            <button
-              id="connectWallet"
-              type="button"
-              className="button button--full-width"
-            >
-              Connect wallet
-            </button>
-          </Card>
+        {isLocked ? (
+          <Card
+            title={lockedTitle || 'Holder exclusive'}
+            subtitle={lockedSubtitle || 'To unlock this product, you need:'}
+            button={<ConnectWalletButton onConnectWallet={onConnectWallet} />}
+          ></Card>
         ) : (
-          <Card>
-            <h2>Exclusive unlocked</h2>
-            <p>Your token got you access to this product!</p>
-            <button
-              id="connectWallet"
-              type="button"
-              className="button button--full-width"
-            >
-              snowdevil.eth
-            </button>
-          </Card>
+          <Card
+            title={unlockedTitle || 'Exclusive unlocked'}
+            subtitle={
+              unlockedSubtitle || 'Your token got you access to this product!'
+            }
+            button={
+              <ConnectedWalletButton
+                onConnectedWalletActions={onConnectedWalletActions}
+                icon={icon}
+                ensName={ensName}
+                address={address}
+              />
+            }
+          ></Card>
         )}
       </div>
     </ThemeProvider>

@@ -1,7 +1,17 @@
 interface CardProps {
-  children: React.ReactNode;
+  title: string;
+  subtitle: string;
+  button: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const Card = ({ children }: CardProps) => <div>{children}</div>;
+const Card = ({title, subtitle, button, children}: CardProps) => (
+  <div>
+    <h2>{title}</h2>
+    <p>{subtitle}</p>
+    {children}
+    {button}
+  </div>
+);
 
-export { Card };
+export {Card};
