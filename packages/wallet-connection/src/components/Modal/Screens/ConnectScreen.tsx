@@ -19,6 +19,11 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
   const handleConnect = useCallback(
     (connector: Connector<any, any, any>) => {
       setPendingConnector(connector);
+      if (connector.id === 'walletConnect') {
+        navigation.navigate(ModalRoute.Scan);
+        return;
+      }
+
       connect({connector});
       navigation.navigate(ModalRoute.Connecting);
     },

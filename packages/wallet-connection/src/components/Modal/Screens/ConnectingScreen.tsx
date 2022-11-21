@@ -1,9 +1,11 @@
 import {ConnectArgs} from '@wagmi/core';
 
+import {ModalContent} from './state-content';
+
 import {Button} from '../../Button/Button';
 import {BodyText, ConnectorIcon, SheetContent} from '../style';
 import {Spinner} from '../../Spinner';
-import {Connectors} from '../../../constants/connectors';
+import {getConnectorData} from '../../../constants/connectors';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
 import {ConnectionState} from '../../../types/connectionState';
 
@@ -12,42 +14,12 @@ interface ConnectingScreenProps {
   state: ConnectionState;
 }
 
-const ModalContent: {
-  [key in keyof typeof ConnectionState]: {body: string; title: string};
-} = {
-  AlreadyConnected: {
-    body: 'This connector is already connected',
-    title: 'Error',
-  },
-  Connected: {
-    body: 'Connected successfully',
-    title: 'Success!',
-  },
-  Connecting: {
-    body: 'Confirm in browser extension.',
-    title: 'Requesting connection',
-  },
-  Failed: {
-    body: 'Failed to connect.',
-    title: 'Error',
-  },
-  Rejected: {
-    body: 'User rejected the request.',
-    title: 'Rejected',
-  },
-  Unavailable: {
-    body: 'Unable to access connector.',
-    title: 'Unavailable',
-  },
-};
-
 const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   const {pendingConnector} = useWalletConnection();
+  const {icon, qrCodeSupported} = getConnectorData(pendingConnector?.name);
 
   const canTryAgain =
     state === ConnectionState.Failed || state === ConnectionState.Rejected;
-  const connectorData = Connectors[pendingConnector?.name || 'Default'];
-  const {icon, qrCodeSupported} = connectorData;
 
   const {body, title} = ModalContent[state];
 
