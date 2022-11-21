@@ -5,7 +5,7 @@ containers:
       from: ubuntu-latest
       run:
         - yarn install
-        - yarn build --filter=theme-app-extension
+        - yarn build
         - mkdir -p assets/theme-app-extension && cp -R packages/theme-app-extension/dist/index.js assets/theme-app-extension/index.js
       publish:
         cdn:
