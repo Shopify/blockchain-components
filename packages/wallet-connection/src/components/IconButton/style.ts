@@ -11,14 +11,14 @@ export const StyledButton = styled.button`
   border: unset;
   outline: unset;
   background: unset;
-  color: ${({theme}) => theme.colors.icons.default};
+  color: ${({theme}) => theme.other.iconColor};
   cursor: pointer;
 
   &:hover {
-    color: ${({theme}) => theme.colors.icons.hovered};
+    color: ${({theme}) => theme.other.iconColor};
   }
 
   &:focus {
-    color: ${({theme}) => theme.colors.icons.pressed};
+    color: ${({theme}) => theme.other.iconColor};
   }
 `;

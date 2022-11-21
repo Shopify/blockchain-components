@@ -1,65 +1,61 @@
 import 'styled-components';
 
 declare module 'styled-components' {
-  export interface ActionKey {
-    default: string;
-    hovered: string;
-    pressed: string;
-    depressed: string;
-    disabled: string;
+  export type Padding = string | {
+    top: string;
+    left: string;
+    right: string;
+    bottom: string;
   }
 
-  export interface InteractiveKey {
-    default: string;
-    hovered: string;
-    depressed: string;
-    disabled: string;
+  export interface ButtonStyle {
+    background: string;
+    backgroundHover: string;
+    border: string;
+    borderRadius: string;
+    textColor: string;
+    boxShadow: string;
+    padding: Padding;
   }
 
   export interface DefaultTheme {
-    colors: {
-      action: {
-        primary: ActionKey;
-        secondary: ActionKey;
-      };
+    typography: {
+      fontFamily: string;
+      colorPrimary: string;
+      colorSecondary: string;
+      colorInteractive: string;
+      colorCritical: string;
+    }
 
-      background: {
-        backdrop: string;
-        default: string;
-      };
+    connectButton: ButtonStyle;
 
-      icons: {
-        default: string;
-        subdued: string;
-        hovered: string;
-        pressed: string;
-        disabled: string;
-        critical: string;
-        success: string;
+    walletConnectorButton: ButtonStyle & {
+      horizontalAlignment: string;
+    }
 
-        on: {
-          critical: string;
-          primary: string;
-        };
-      };
+    secondaryButton: ButtonStyle;
 
-      interactive: {
-        primary: InteractiveKey;
-        critical: InteractiveKey;
-      };
+    modal: {
+      background: string;
+      overlayBackground: string;
+      border: string;
+      borderRadius: string;
+      boxShadow: string;
+      headingFontSize: string;
+      headFontWeight: string;
+      padding: Padding;
+    }
 
-      text: {
-        default: string;
-        subdued: string;
-        disabled: string;
-        critical: string;
-        success: string;
+    popovers: {
+      background: string;
+      border: string;
+      borderRadius: string;
+      boxShadown: string;
+    }
 
-        on: {
-          critical: string;
-          primary: string;
-        };
-      };
-    };
+    other: {
+      iconColor: string;
+      dividerColour: string;
+    }
   }
 }

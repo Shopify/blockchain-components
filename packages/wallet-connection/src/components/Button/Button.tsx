@@ -1,14 +1,11 @@
 import './button.css';
+import {ButtonStyle, ButtonText} from './style';
 
 export interface ButtonProps {
   /**
    * Is this the principal call to action on the page?
    */
   primary?: boolean;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
   /**
    * How large should the button be?
    */
@@ -29,7 +26,6 @@ export interface ButtonProps {
 export const Button = ({
   primary = false,
   size = 'medium',
-  backgroundColor,
   label,
   ...props
 }: ButtonProps) => {
@@ -37,15 +33,16 @@ export const Button = ({
     ? 'storybook-button--primary'
     : 'storybook-button--secondary';
   return (
-    <button
+    <ButtonStyle
       type="button"
       className={['storybook-button', `storybook-button--${size}`, mode].join(
         ' ',
       )}
-      style={{backgroundColor}}
       {...props}
     >
-      {label}
-    </button>
+      <ButtonText>
+        {label}
+      </ButtonText>
+    </ButtonStyle>
   );
 };

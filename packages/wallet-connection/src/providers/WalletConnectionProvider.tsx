@@ -13,7 +13,7 @@ import {Connector} from 'wagmi';
 import {ModalProvider} from './ModalProvider';
 
 import {GlobalStyle} from '../style/global';
-import {Polaris} from '../themes/polaris';
+import {Dawn} from '../themes/dawn';
 import {ProviderProps} from '../types/provider';
 
 export interface WalletConnectionProviderValue {
@@ -40,7 +40,7 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
     <WalletConnectionContext.Provider
       value={{pendingConnector, setPendingConnector}}
     >
-      <ThemeProvider theme={Polaris}>
+      <ThemeProvider theme={Dawn}>
         <GlobalStyle />
         <ModalProvider>{children}</ModalProvider>
       </ThemeProvider>

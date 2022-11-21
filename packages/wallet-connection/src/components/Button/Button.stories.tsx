@@ -15,9 +15,6 @@ const ButtonStory: ComponentMeta<typeof Button> = {
       </WalletConnectionProvider>
     ),
   ],
-  argTypes: {
-    backgroundColor: {control: 'color'},
-  },
 };
 
 export default ButtonStory;
@@ -27,7 +24,7 @@ const Template: ComponentStory<typeof Button> = (args) => {
   // Show buttons for all available connectors from useConnect.
   const {showModal} = useModal();
 
-  return <Button {...args} onClick={showModal} label={'Show modal'} />;
+  return <Button {...args} onClick={showModal} label={'Connect Wallet'} />;
 };
 
 export const Primary = Template.bind({});
@@ -39,17 +36,5 @@ Primary.args = {
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  label: 'Button',
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Button',
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
   label: 'Button',
 };

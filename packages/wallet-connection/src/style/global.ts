@@ -2,11 +2,11 @@ import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     h1, h2, h3 {
-        font-family: 'SF Pro Display', sans-serif;
+        font-family: 'Assistant', sans-serif;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 400;
         margin: unset;
-        color: ${({theme}) => theme.colors.text.default};
+        color: ${({theme}) => theme.typography.colorPrimary};
     }
 
     h1 {
