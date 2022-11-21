@@ -14,7 +14,7 @@ const ConnectedWalletButton = ({
   <button
     id="connectWallet"
     type="button"
-    className="button button--full-width"
+    className="button button--full-width button--secondary"
     onClick={onConnectedWalletActions}
   >
     {icon}
