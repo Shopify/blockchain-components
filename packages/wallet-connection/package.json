@@ -28,7 +28,7 @@
   },
   "scripts": {
     "build": "vite build && tsc --emitDeclarationOnly",
-    "dev": "vite"
+    "dev": "vite build --watch"
   },
   "dependencies": {
     "@types/styled-components": "^5.1.26",

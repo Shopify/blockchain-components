@@ -27,11 +27,35 @@ namespace DawnColors {
 
 export const Dawn: DefaultTheme = {
     typography: {
-      fontFamily: 'Assistant',
       colorPrimary: DawnColors.Grayscale['5'],
       colorSecondary: DawnColors.Grayscale['6'],
       colorInteractive: '',
       colorCritical: DawnColors.Reds['0'],
+
+      heading: {
+        fontFamily: 'Assistant',
+        fontWeight: '400',
+
+        h1: {
+          fontSize: '28px',
+          lineHeight: '32px',
+        },
+        h2: {
+          fontSize: '24px',
+          lineHeight: '28px',
+        },
+        h3: {
+          fontSize: '16px',
+          lineHeight: '21px',
+        },
+      },
+
+      body: {
+        fontFamily: 'Assistant',
+        fontSize: '14px',
+        fontWeight: '400',
+        lineHeight: '18px',
+      }
     },
 
     connectButton: {
@@ -80,7 +104,7 @@ export const Dawn: DefaultTheme = {
       background: '',
       border: '',
       borderRadius: '',
-      boxShadown: '',
+      boxShadow: '',
     },
 
     other: {

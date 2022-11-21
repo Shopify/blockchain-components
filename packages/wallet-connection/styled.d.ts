@@ -18,13 +18,40 @@ declare module 'styled-components' {
     padding: Padding;
   }
 
+  export interface FontStyle {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: string;
+    lineHeight: string;
+  }
+
   export interface DefaultTheme {
     typography: {
-      fontFamily: string;
       colorPrimary: string;
       colorSecondary: string;
       colorInteractive: string;
       colorCritical: string;
+
+      heading: {
+        fontFamily: string;
+        fontWeight: string;
+
+        h1: {
+          fontSize: string;
+          lineHeight: string;
+        };
+        h2: {
+          fontSize: string;
+          lineHeight: string;
+        };
+
+        h3: {
+          fontSize: string;
+          lineHeight: string;
+        };
+      };
+
+      body: FontStyle;
     }
 
     connectButton: ButtonStyle;
@@ -50,7 +77,7 @@ declare module 'styled-components' {
       background: string;
       border: string;
       borderRadius: string;
-      boxShadown: string;
+      boxShadow: string;
     }
 
     other: {
