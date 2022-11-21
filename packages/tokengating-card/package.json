@@ -10,22 +10,29 @@
     "directory": "packages/tokengating-card"
   },
   "bugs": {
-    "url": "https://github.com/Shopify/blockchain-kit/issues"
+    "url": "https://github.com/Shopify/tokengating-card/issues"
   },
   "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/tokengating-card/README.md",
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "src/components/index.tsx",
-  "types": "src/components/index.tsx",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && tsc",
-    "preview": "vite preview"
+    "build": "vite build && tsc --emitDeclarationOnly",
+    "dev": "vite"
   },
   "dependencies": {
-    "shared": "*"
+    "@types/styled-components": "^5.1.26",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "tsconfig": "*"
