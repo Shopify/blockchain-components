@@ -28,8 +28,8 @@ function App({serverArguments}: AppProps) {
         }}
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
         address="0x00"
-        ensName="ensName"
-        icon={<div>icon</div>}
+        ensName="snowdevil.eth"
+        icon={<div></div>}
       />
     </>
   );

@@ -40,9 +40,7 @@ export const Button = ({
       className="button button--full-width"
       {...props}
     >
-      <ButtonText>
-        {label}
-      </ButtonText>
+      <ButtonText>{label}</ButtonText>
     </ButtonStyle>
   );
 };

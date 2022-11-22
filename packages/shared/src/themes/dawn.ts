@@ -73,7 +73,7 @@ export const Dawn: DefaultTheme = {
         backgroundHover: '',
         border: 'none',
         borderRadius: '0',
-        textColor: DawnColors.Grayscale['0'],
+        textColor: DawnColors.Grayscale['5'],
         padding: '',
         boxShadow:'',
         horizontalAlignment: '',

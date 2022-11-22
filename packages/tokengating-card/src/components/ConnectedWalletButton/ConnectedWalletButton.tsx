@@ -1,3 +1,9 @@
+import {
+  ConnectedWalletButtonStyle,
+  ConnectedWalletIcon,
+  ConnectedWalletButtonText,
+} from './style';
+
 interface ConnectedWalletButtonProps {
   onConnectedWalletActions: () => void;
   address: string;
@@ -11,14 +17,12 @@ const ConnectedWalletButton = ({
   ensName,
   address,
 }: ConnectedWalletButtonProps) => (
-  <button
+  <ConnectedWalletButtonStyle
     id="connectWallet"
-    type="button"
-    className="button button--full-width button--secondary"
     onClick={onConnectedWalletActions}
   >
-    {icon}
-    {ensName || address}
-  </button>
+    <ConnectedWalletIcon>{icon}</ConnectedWalletIcon>
+    <ConnectedWalletButtonText>{ensName || address}</ConnectedWalletButtonText>
+  </ConnectedWalletButtonStyle>
 );
 export {ConnectedWalletButton};
