@@ -28,7 +28,7 @@
   },
   "scripts": {
     "build": "vite build && tsc --emitDeclarationOnly",
-    "dev": "vite build --watch",
+    "dev": "vite build --mode=development --watch",
     "typecheck": "tsc"
   },
   "dependencies": {
