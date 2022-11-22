@@ -71,8 +71,6 @@ declare module 'styled-components' {
       border: string;
       borderRadius: string;
       boxShadow: string;
-      headingFontSize: string;
-      headFontWeight: string;
       padding: Padding;
     };
 
