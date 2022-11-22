@@ -1,12 +1,14 @@
-import 'styled-components';
+import styled from 'styled-components';
 
 declare module 'styled-components' {
-  export type Padding = string | {
-    top: string;
-    left: string;
-    right: string;
-    bottom: string;
-  }
+  export type Padding =
+    | string
+    | {
+        top: string;
+        left: string;
+        right: string;
+        bottom: string;
+      };
 
   export interface ButtonStyle {
     background: string;
@@ -40,6 +42,7 @@ declare module 'styled-components' {
           fontSize: string;
           lineHeight: string;
         };
+
         h2: {
           fontSize: string;
           lineHeight: string;
@@ -52,13 +55,13 @@ declare module 'styled-components' {
       };
 
       body: FontStyle;
-    }
+    };
 
     connectButton: ButtonStyle;
 
     walletConnectorButton: ButtonStyle & {
       horizontalAlignment: string;
-    }
+    };
 
     secondaryButton: ButtonStyle;
 
@@ -71,18 +74,18 @@ declare module 'styled-components' {
       headingFontSize: string;
       headFontWeight: string;
       padding: Padding;
-    }
+    };
 
     popovers: {
       background: string;
       border: string;
       borderRadius: string;
       boxShadow: string;
-    }
+    };
 
     other: {
       iconColor: string;
       dividerColour: string;
-    }
+    };
   }
 }

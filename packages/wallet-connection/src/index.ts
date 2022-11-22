@@ -11,6 +11,11 @@ export {ConnectWalletButton} from './components/ConnectWalletButton/ConnectWalle
 // export {defaultConnectors} from './constants/defaults';
 
 /**
+ * Hooks
+ */
+export {useConnectionModal} from './hooks/useConnectionModal';
+
+/**
  * Providers
  */
 export {WalletConnectionProvider} from './providers/WalletConnectionProvider';
