@@ -37,7 +37,6 @@ export const Button = ({
     <ButtonStyle
       id={id}
       type="button"
-      className="button button--full-width"
       {...props}
     >
       <ButtonText>
