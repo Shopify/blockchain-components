@@ -1,10 +1,24 @@
 import {PropsWithChildren} from 'react';
 import {DefaultTheme} from 'styled-components';
 
-import {AvailableTheme} from '../themes';
+import {AvailableThemes} from '../themes';
 
-export type CustomTheme = {
-  theme?: never;
+/**
+ * A type that represents the keys of themes defined in AvailableThemes.
+ *
+ * @example
+ * `Polaris`
+ */
+export type AvailableTheme = keyof typeof AvailableThemes;
+
+export type ThemeProps = PropsWithChildren & {
+  /**
+   * @defaultValue
+   * The default value is `Polaris` unless a `customTheme` value
+   * has been provided, as custom theming will always override any
+   * pre-defined themes.
+   */
+  theme?: AvailableTheme;
   /**
    * If provided, a custom theme will be displayed. Custom themes
    * must match the `DefaultTheme` type.
@@ -31,18 +45,5 @@ export type CustomTheme = {
    *    }
    * }}
    */
-  customTheme: DefaultTheme;
+  customTheme?: DefaultTheme;
 };
-
-export type ProvidedTheme = {
-  /**
-   * @defaultValue
-   * The default value is `Polaris` unless a `customTheme` value
-   * has been provided, as custom theming will always override any
-   * pre-defined themes.
-   */
-  theme?: AvailableTheme;
-  customTheme?: never;
-};
-
-export type ThemeProps = PropsWithChildren<CustomTheme | ProvidedTheme>;

@@ -22,10 +22,10 @@ export const ConnectWalletButton = ({
   label,
   onClick,
 }: ConnectWalletButtonProps) => {
-  const {showModal} = useModal();
+  const {openModal} = useModal();
 
   const handleClick = useCallback(() => {
-    showModal();
+    openModal();
     onClick?.();
   }, [onClick]);
 

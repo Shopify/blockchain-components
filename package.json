@@ -8,6 +8,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "typecheck": "turbo run typecheck",
     "storybook": "start-storybook -p 6006"
   },
   "repository": {
@@ -93,6 +94,7 @@
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup-plugin-polyfill-node": "^0.11.0",
     "turbo": "latest",
     "typescript": "^4.4.2",
     "vite": "^3.2.3"

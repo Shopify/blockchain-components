@@ -8,7 +8,7 @@ interface AppProps {
 }
 function App({serverArguments}: AppProps) {
   // Mock wallet connection for now
-  const {openConnectionModal} = useConnectionModal();
+  const {openModal} = useConnectionModal();
   const [isLocked, setIsLocked] = useState(true);
   return (
     <>
@@ -19,7 +19,7 @@ function App({serverArguments}: AppProps) {
         unlockedTitle=""
         unlockedSubtitle=""
         onConnectWallet={() => {
-          openConnectionModal();
+          openModal();
           /**
            * Will come back to this to add connected + verified states.
            */

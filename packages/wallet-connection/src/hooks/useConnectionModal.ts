@@ -1,10 +1,10 @@
 import {useModal} from '../providers/ModalProvider';
 
 export function useConnectionModal() {
-  const {closeModal, showModal} = useModal();
+  const {closeModal, openModal} = useModal();
 
   return {
-    closeConnectionModal: closeModal,
-    openConnectionModal: showModal,
+    closeModal,
+    openModal,
   };
 }

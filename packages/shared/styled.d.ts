@@ -1,65 +1,91 @@
-import 'styled-components';
+import styled from 'styled-components';
 
 declare module 'styled-components' {
-  export interface ActionKey {
-    default: string;
-    hovered: string;
-    pressed: string;
-    depressed: string;
-    disabled: string;
+  export type Padding =
+    | string
+    | {
+        top: string;
+        left: string;
+        right: string;
+        bottom: string;
+      };
+
+  export interface ButtonStyle {
+    background: string;
+    backgroundHover: string;
+    border: string;
+    borderRadius: string;
+    textColor: string;
+    boxShadow: string;
+    padding: Padding;
   }
 
-  export interface InteractiveKey {
-    default: string;
-    hovered: string;
-    depressed: string;
-    disabled: string;
+  export interface FontStyle {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: string;
+    lineHeight: string;
   }
 
   export interface DefaultTheme {
-    colors: {
-      action: {
-        primary: ActionKey;
-        secondary: ActionKey;
-      };
+    typography: {
+      colorPrimary: string;
+      colorSecondary: string;
+      colorInteractive: string;
+      colorCritical: string;
 
-      background: {
-        backdrop: string;
-        default: string;
-      };
+      heading: {
+        fontFamily: string;
+        fontWeight: string;
 
-      icons: {
-        default: string;
-        subdued: string;
-        hovered: string;
-        pressed: string;
-        disabled: string;
-        critical: string;
-        success: string;
+        h1: {
+          fontSize: string;
+          lineHeight: string;
+        };
 
-        on: {
-          critical: string;
-          primary: string;
+        h2: {
+          fontSize: string;
+          lineHeight: string;
+        };
+
+        h3: {
+          fontSize: string;
+          lineHeight: string;
         };
       };
 
-      interactive: {
-        primary: InteractiveKey;
-        critical: InteractiveKey;
-      };
+      body: FontStyle;
+    };
 
-      text: {
-        default: string;
-        subdued: string;
-        disabled: string;
-        critical: string;
-        success: string;
+    connectButton: ButtonStyle;
 
-        on: {
-          critical: string;
-          primary: string;
-        };
-      };
+    walletConnectorButton: ButtonStyle & {
+      horizontalAlignment: string;
+    };
+
+    secondaryButton: ButtonStyle;
+
+    modal: {
+      background: string;
+      overlayBackground: string;
+      border: string;
+      borderRadius: string;
+      boxShadow: string;
+      headingFontSize: string;
+      headFontWeight: string;
+      padding: Padding;
+    };
+
+    popovers: {
+      background: string;
+      border: string;
+      borderRadius: string;
+      boxShadow: string;
+    };
+
+    other: {
+      iconColor: string;
+      dividerColour: string;
     };
   }
 }

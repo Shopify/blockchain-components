@@ -25,7 +25,7 @@ export interface ModalProviderValue {
     navigate: (route: ModalRoute) => void;
     route: ModalRoute;
   };
-  showModal: () => void;
+  openModal: () => void;
 }
 
 const defaultState: ModalProviderValue = {
@@ -35,7 +35,7 @@ const defaultState: ModalProviderValue = {
     navigate: () => {},
     route: ModalRoute.Connect,
   },
-  showModal: () => {},
+  openModal: () => {},
 };
 
 export const ModalContext = createContext<ModalProviderValue>(defaultState);
@@ -97,7 +97,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
           navigate: handleNavigate,
           route,
         },
-        showModal: () => setActive(true),
+        openModal: () => setActive(true),
       }}
     >
       {children}
