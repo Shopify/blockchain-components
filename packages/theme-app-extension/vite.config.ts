@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [nodePolyfills(), react()],
   build: {
     rollupOptions: {
+      input: './src/index.tsx',
       output: {entryFileNames: '[name].js'},
     },
   },
