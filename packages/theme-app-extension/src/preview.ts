@@ -4,7 +4,9 @@ const gmShopContainerId = 'preview-div-id';
 
 const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
   containerId: gmShopContainerId,
-  initialState: {},
+  initialState: {
+    isLocked: true,
+  },
   callbacks: {
     onStateChange: (state: any) => {
       // call from context hooks

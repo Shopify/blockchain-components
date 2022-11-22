@@ -4,12 +4,22 @@ import {useConnectionModal} from '@shopify/wallet-connection';
 import './DawnVariables.css';
 
 interface AppProps {
-  serverArguments?: any;
+  serverArguments?: {
+    initialState: {
+      locked: boolean;
+      wallet?: {
+        walletAddress: string;
+      };
+    };
+  };
 }
 function App({serverArguments}: AppProps) {
   // Mock wallet connection for now
   const {openModal} = useConnectionModal();
-  const [isLocked, setIsLocked] = useState(true);
+  const [isLocked, setIsLocked] = useState(
+    serverArguments?.initialState?.locked ?? true,
+  );
+  const [wallet] = useState(serverArguments?.initialState?.wallet);
 
   return (
     <>
@@ -27,7 +37,7 @@ function App({serverArguments}: AppProps) {
           setIsLocked(false);
         }}
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
-        address="0x00"
+        address={wallet?.walletAddress}
         ensName="snowdevil.eth"
         icon={<div></div>}
       />
