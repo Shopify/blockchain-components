@@ -56,7 +56,7 @@ export const Dawn: DefaultTheme = {
       lineHeight: '18px',
     }
   },
-
+  
   connectButton: {
     background: DawnColors.Grayscale['2'],
     backgroundHover: DawnColors.Grayscale['2'],
