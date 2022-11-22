@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const ConnectedWalletButtonStyle = styled(ButtonWrapper)`
   background-color: ${({theme}) => theme.walletConnectorButton.background};
-  border: 1px solid black;
+  border: ${({theme}) => theme.walletConnectorButton.border};
 `;
 
 export const ConnectedWalletIcon = styled.div`
@@ -11,6 +11,10 @@ export const ConnectedWalletIcon = styled.div`
   width: 20px;
   background-color: blue;
   margin-right: 5px;
+`;
+
+export const ConnectedWalletDropdown = styled.div`
+
 `;
 
 export const ConnectedWalletButtonText = styled(ButtonText)`

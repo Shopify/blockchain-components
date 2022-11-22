@@ -5,9 +5,12 @@ import {ConnectedWalletButton} from '../ConnectedWalletButton/ConnectedWalletBut
 import {ConnectWalletButton} from '../ConnectWalletButton/ConnectWalletButton';
 import {TokengateCardSection, useTokengateCardState} from './utils';
 import {TokengatingCardProps} from './types';
+import {AvailableSoonButton} from '../AvailableSoonButton/AvailableSoonButton';
+import {SoldOutButton} from '../SoldOutButton/SoldOutButton';
 
 const TokengatingCard = ({
   isLocked,
+  isSoldOut,
   lockedTitle,
   lockedSubtitle,
   unlockedTitle,
@@ -17,14 +20,17 @@ const TokengatingCard = ({
   address,
   ensName,
   icon,
+  availableDate,
 }: TokengatingCardProps) => {
   const {title, subtitle, sections} = useTokengateCardState({
     isLocked,
+    isSoldOut,
     address,
     lockedTitle,
     lockedSubtitle,
     unlockedTitle,
     unlockedSubtitle,
+    availableDate,
   });
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
@@ -47,6 +53,10 @@ const TokengatingCard = ({
       [TokengateCardSection.UnavailableTokengate]: (
         <div>UnavailableTokengate</div>
       ),
+      [TokengateCardSection.AvailableSoon]: (
+        <AvailableSoonButton availableDate={availableDate} />
+      ),
+      [TokengateCardSection.SoldOut]: <SoldOutButton />,
     }),
     [],
   );

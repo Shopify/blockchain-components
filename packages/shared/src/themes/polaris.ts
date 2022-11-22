@@ -80,6 +80,17 @@ export const Polaris: DefaultTheme = {
     horizontalAlignment: 'flex-start',
   },
 
+  availableSoonButton: {
+    background: PolarisColors.Grayscale['1'],
+    border: 'none'
+  },
+
+  soldOutButton: {
+    background: PolarisColors.Grayscale['1'],
+    border: 'none',
+    textColor: PolarisColors.Grayscale['1']
+  },
+
   secondaryButton: {
     background: PolarisColors.Grayscale['0'],
     backgroundHover: PolarisColors.Grayscale['1'],
