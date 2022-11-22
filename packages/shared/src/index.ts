@@ -2,6 +2,7 @@
  * Components
  */
 export {Button} from './components/Button/Button';
+export {IconButton} from './components/IconButton';
 
 /**
  * Providers
