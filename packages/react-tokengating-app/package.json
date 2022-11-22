@@ -1,5 +1,5 @@
 {
-  "name": "@shopify/theme-app-extension",
+  "name": "@shopify/react-tokengating-app",
   "version": "0.0.0",
   "license": "MIT",
   "description": "Tokengating card library for Shopify storefronts",
@@ -7,12 +7,12 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shopify/blockchain-kit.git",
-    "directory": "packages/theme-app-extension"
+    "directory": "packages/react-tokengating-app"
   },
   "bugs": {
     "url": "https://github.com/Shopify/blockchain-kit/issues"
   },
-  "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/theme-app-extension/README.md",
+  "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/react-tokengating-app/README.md",
   "type": "module",
   "files": [
     "dist"

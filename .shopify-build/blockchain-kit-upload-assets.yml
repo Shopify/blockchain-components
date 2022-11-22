@@ -5,8 +5,8 @@ containers:
       from: ubuntu-latest
       run:
         - yarn install
-        - yarn turbo run build --filter="theme-app-extension"
-        - mkdir -p assets/theme-app-extension && cp -R packages/theme-app-extension/dist/index.js assets/theme-app-extension/index.js
+        - yarn turbo run build --filter="react-tokengating-app"
+        - mkdir -p assets/react-tokengating-app && cp -R packages/react-tokengating-app/dist/index.js assets/react-tokengating-app/index.js
       publish:
         cdn:
           artifacts:
