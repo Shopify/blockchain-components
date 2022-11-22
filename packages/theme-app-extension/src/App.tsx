@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {TokengatingCard} from '@shopify/tokengating-card';
 import {useConnectionModal} from '@shopify/wallet-connection';
-import './App.css';
+import './DawnVariables.css';
 
 interface AppProps {
   serverArguments?: any;
