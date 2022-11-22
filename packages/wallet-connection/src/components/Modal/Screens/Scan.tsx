@@ -5,7 +5,7 @@ import {useConnect} from 'wagmi';
 import {ModalContent} from './state-content';
 
 import {BodyText, SheetContent} from '../style';
-import {Button} from '../../Button/Button';
+import {Button} from 'shared';
 import {QRCode} from '../../QRCode';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
 import {ConnectionState} from '../../../types/connectionState';

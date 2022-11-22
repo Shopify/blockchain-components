@@ -10,6 +10,7 @@ function App({serverArguments}: AppProps) {
   // Mock wallet connection for now
   const {openModal} = useConnectionModal();
   const [isLocked, setIsLocked] = useState(true);
+
   return (
     <>
       <TokengatingCard

@@ -1,8 +1,8 @@
 /**
  * Components
  */
-export {Button} from './components/Button/Button';
 export {ConnectWalletButton} from './components/ConnectWalletButton/ConnectWalletButton';
+export {useModal} from './providers/ModalProvider';
 
 /**
  * Constants
