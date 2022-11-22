@@ -9,7 +9,7 @@ export const Polaris: DefaultTheme = {
 
       heading: {
         fontFamily: 'SF Pro Display',
-        fontWeight: '400',
+        fontWeight: '600',
 
         h1: {
           fontSize: '24px',
@@ -70,8 +70,6 @@ export const Polaris: DefaultTheme = {
       border: '',
       borderRadius: '5px',
       boxShadow: '0px 0px 1px rgba(0, 0, 0, 0.2), 0px 26px 80px rgba(0, 0, 0, 0.2)',
-      headingFontSize: '20px',
-      headFontWeight: '600',
       padding: '20px',
     },
 
