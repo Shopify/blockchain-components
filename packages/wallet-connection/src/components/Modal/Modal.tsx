@@ -1,13 +1,12 @@
 import {useMemo, useState} from 'react';
 import {useConnect} from 'wagmi';
-import {ArrowLeft} from 'shared/assets/icons';
+import {IconButton} from 'shared';
+import {ArrowLeft, Cancel} from 'shared/assets/icons';
 
 import {Background, Sheet, Header} from './style';
 import {ConnectScreen, ConnectingScreen, Scan, WhatAreWallets} from './Screens';
 import {Screen} from './Screens/types';
 
-import {IconButton} from '../IconButton';
-import {Cancel} from '../../assets/icons';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
 import {useWalletConnection} from '../../providers/WalletConnectionProvider';
 import {ConnectionState} from '../../types/connectionState';

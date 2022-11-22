@@ -1,4 +1,4 @@
-import {Apps, Gift, Key} from '../assets/icons';
+import {Apps, Gift, Key} from 'shared/assets/icons';
 
 interface InformationRow {
   content: string;

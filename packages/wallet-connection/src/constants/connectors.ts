@@ -1,4 +1,4 @@
-import {MetaMask, WalletConnect} from '../assets/connectors';
+import {MetaMask, WalletConnect} from 'shared/assets/connectors';
 
 export interface ConnectorData {
   /**
