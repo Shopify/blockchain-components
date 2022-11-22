@@ -22,9 +22,9 @@ export default ButtonStory;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Button> = (args) => {
   // Show buttons for all available connectors from useConnect.
-  const {showModal} = useModal();
+  const {openModal} = useModal();
 
-  return <Button {...args} onClick={showModal} label={'Connect Wallet'} />;
+  return <Button {...args} onClick={openModal} label={'Connect Wallet'} />;
 };
 
 export const Primary = Template.bind({});

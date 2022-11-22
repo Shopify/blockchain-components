@@ -7,13 +7,12 @@ import {
   useContext,
   useState,
 } from 'react';
-import {ThemeProvider} from 'styled-components';
+import {ThemeProvider} from 'shared';
 import {Connector} from 'wagmi';
 
 import {ModalProvider} from './ModalProvider';
 
 import {GlobalStyle} from '../style/global';
-import {Dawn} from '../themes/dawn';
 import {ProviderProps} from '../types/provider';
 
 export interface WalletConnectionProviderValue {
@@ -31,6 +30,8 @@ export const WalletConnectionContext =
 
 export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
   children,
+  customTheme,
+  theme,
 }: PropsWithChildren<ProviderProps>) => {
   const [pendingConnector, setPendingConnector] = useState<
     Connector | undefined
@@ -40,7 +41,7 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
     <WalletConnectionContext.Provider
       value={{pendingConnector, setPendingConnector}}
     >
-      <ThemeProvider theme={Dawn}>
+      <ThemeProvider theme={theme} customTheme={customTheme}>
         <GlobalStyle />
         <ModalProvider>{children}</ModalProvider>
       </ThemeProvider>

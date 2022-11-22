@@ -5,6 +5,16 @@ containers:
       type: ci
 
 steps:
+  - label: Typecheck
+    timeout: 5m
+    run:
+      - yarn install
+      - yarn typecheck
+  - label: Build
+    timeout: 5m
+    run:
+      - yarn install
+      - yarn build
   - label: Tests
     timeout: 5m
     run:

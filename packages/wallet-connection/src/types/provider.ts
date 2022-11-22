@@ -1,4 +1,5 @@
-import {Connector} from 'wagmi';
+import {ThemeProps} from 'shared';
+
 import type {AtLeastOne} from './generics';
 
 interface Providers {
@@ -23,6 +24,4 @@ type WithoutENSResolution = Providers & {
  */
 type MutuallyExclusiveENSResolution = WithENSResolution | WithoutENSResolution;
 
-export type ProviderProps = MutuallyExclusiveENSResolution & {
-  connectors?: Connector[];
-};
+export type ProviderProps = ThemeProps & MutuallyExclusiveENSResolution;

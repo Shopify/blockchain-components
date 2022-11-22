@@ -15,7 +15,6 @@ import {ProviderProps} from '../types/provider';
 
 export const WagmiProvider: FC<PropsWithChildren<ProviderProps>> = ({
   alchemyApiKey,
-  connectors,
   children,
   infuraApiKey,
 }: PropsWithChildren<ProviderProps>) => {
@@ -52,7 +51,7 @@ export const WagmiProvider: FC<PropsWithChildren<ProviderProps>> = ({
 
   const client = createClient({
     autoConnect: true,
-    connectors: connectors || defaultConnectors({chains}),
+    connectors: defaultConnectors({chains}),
     provider,
     webSocketProvider,
   });

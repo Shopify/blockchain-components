@@ -1,72 +1,114 @@
 import {DefaultTheme} from 'styled-components';
 
+namespace DawnColors {
+    export const Grayscale = {
+        0: '#FFFFFF',
+        1: '#F0F0F0',
+        2: '#D0D0D0',
+        3: '#DFDFDF',
+        4: '#7D7D7D',
+        5: '#121212',
+        6: '#000000',
+        7: 'rgba(0, 0, 0, 0.5)',
+    }
+
+    export const Reds = {
+        0: '#DE3618',
+    }
+
+    export const Greens = {
+        0: '#108043',
+    }
+
+    export const Blues = {
+        0: '#3752B2',
+    }
+}
+
 export const Dawn: DefaultTheme = {
-  colors: {
-    action: {
-      primary: {
-        default: '#008060',
-        hovered: '#006E52',
-        pressed: '#005E46',
-        depressed: '#003D2C',
-        disabled: '#F1F1F1',
+    typography: {
+      colorPrimary: DawnColors.Grayscale['5'],
+      colorSecondary: DawnColors.Grayscale['6'],
+      colorInteractive: '',
+      colorCritical: DawnColors.Reds['0'],
+
+      heading: {
+        fontFamily: 'Assistant',
+        fontWeight: '400',
+
+        h1: {
+          fontSize: '28px',
+          lineHeight: '32px',
+        },
+        h2: {
+          fontSize: '24px',
+          lineHeight: '28px',
+        },
+        h3: {
+          fontSize: '16px',
+          lineHeight: '21px',
+        },
       },
 
-      secondary: {
-        default: '#FFFFFF',
-        hovered: '#F6F6F7',
-        pressed: '#F1F2F3',
-        depressed: '#6D7175',
-        disabled: '#FFFFFF',
-      },
+      body: {
+        fontFamily: 'Assistant',
+        fontSize: '14px',
+        fontWeight: '400',
+        lineHeight: '18px',
+      }
     },
 
-    background: {
-      backdrop: 'rgba(0, 0, 0, 0.5)',
-      default: '#FFFFFF',
+    connectButton: {
+        background: DawnColors.Grayscale['5'],
+        backgroundHover: '',
+        border: 'none',
+        borderRadius: '0',
+        textColor: DawnColors.Grayscale['0'],
+        padding: '',
+        boxShadow:''
     },
 
-    icons: {
-      default: '#5C5F62',
-      subdued: '#8C9196',
-      hovered: '#1A1C1D',
-      pressed: '#44474A',
-      disabled: '#BABEC3',
-      critical: '#D72C0D',
-      success: '#007F5F',
-
-      on: {
-        critical: '#FFFFFF',
-        primary: '#FFFFFF',
-      },
+    walletConnectorButton: {
+        background: DawnColors.Grayscale['0'],
+        backgroundHover: '',
+        border: 'none',
+        borderRadius: '0',
+        textColor: DawnColors.Grayscale['0'],
+        padding: '',
+        boxShadow:'',
+        horizontalAlignment: '',
     },
 
-    interactive: {
-      primary: {
-        default: '#2C6ECB',
-        hovered: '#1F5199',
-        depressed: '#103262',
-        disabled: '#BDC1CC',
-      },
-
-      critical: {
-        default: '#D82C0D',
-        hovered: '#CD290C',
-        depressed: '#FD938D',
-        disabled: '#670F03',
-      },
+    secondaryButton: {
+        background: DawnColors.Grayscale['5'],
+        backgroundHover: '',
+        border: 'none',
+        borderRadius: '0',
+        textColor: DawnColors.Grayscale['0'],
+        padding: '',
+        boxShadow:''
     },
 
-    text: {
-      default: '#202223',
-      subdued: '#6D7175',
-      disabled: '#8C9196',
-      critical: '#D72C0D',
-      success: '#008060',
-
-      on: {
-        critical: '#FFFFFF',
-        primary: '#FFFFFF',
-      },
+    modal: {
+      background: DawnColors.Grayscale['0'],
+      overlayBackground: DawnColors.Grayscale['7'],
+      border: '',
+      borderRadius: '0',
+      boxShadow: '',
+      headingFontSize: '',
+      headFontWeight: '',
+      padding: '',
     },
-  },
-};
+
+    popovers: {
+      background: '',
+      border: '',
+      borderRadius: '',
+      boxShadow: '',
+    },
+
+    other: {
+      iconColor: DawnColors.Grayscale['6'],
+      dividerColour: DawnColors.Grayscale['3'],
+    }
+}
