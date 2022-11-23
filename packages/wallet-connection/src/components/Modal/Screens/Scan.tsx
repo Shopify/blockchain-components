@@ -1,14 +1,17 @@
 import {ConnectArgs, ConnectResult, Provider} from '@wagmi/core';
 import {useEffect, useMemo, useState} from 'react';
+import {Button} from 'shared';
 import {useConnect} from 'wagmi';
 
 import {ModalContent} from './state-content';
 
-import {BodyText, SheetContent} from '../style';
-import {Button} from 'shared';
+import {BodyText, ButtonContainer, SheetContent} from '../style';
 import {QRCode} from '../../QRCode';
+import {getConnectorData} from '../../../constants/connectors';
+import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
 import {ConnectionState} from '../../../types/connectionState';
+import {getBrowserInfo} from '../../../utils/getBrowser';
 
 interface ScanScreenProps {
   connectAsync: (
@@ -20,12 +23,17 @@ interface ScanScreenProps {
 const ScanScreen = ({connectAsync, state}: ScanScreenProps) => {
   const {connectors} = useConnect();
   const {pendingConnector} = useWalletConnection();
+  const downloadButtons = useConnectorDownloadLinks(pendingConnector?.name);
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
+
+  const {qrCodeSupported} = getConnectorData(pendingConnector?.name);
+  const {mobilePlatform} = getBrowserInfo();
 
   const {body} = ModalContent[state];
 
   const bodyContent = useMemo(() => {
     const isRelevantState = [
+      ConnectionState.AlreadyConnected,
       ConnectionState.Connected,
       ConnectionState.Failed,
       ConnectionState.Rejected,
@@ -39,8 +47,27 @@ const ScanScreen = ({connectAsync, state}: ScanScreenProps) => {
     return null;
   }, [state]);
 
+  const buttons = useMemo(() => {
+    const isWalletConnect = pendingConnector?.id === 'walletConnect';
+
+    const walletConnectModalButton =
+      isWalletConnect && !mobilePlatform ? (
+        <Button
+          onClick={() => handleUseDefaultWalletConnect()}
+          label="Use WalletConnect modal"
+        />
+      ) : null;
+
+    return (
+      <ButtonContainer>
+        {downloadButtons}
+        {walletConnectModalButton}
+      </ButtonContainer>
+    );
+  }, []);
+
   const scanToConnect = async () => {
-    if (!pendingConnector || qrCodeURI) {
+    if (!pendingConnector || qrCodeURI || !qrCodeSupported) {
       return;
     }
 
@@ -97,10 +124,7 @@ const ScanScreen = ({connectAsync, state}: ScanScreenProps) => {
 
       {bodyContent}
 
-      <Button
-        onClick={() => handleUseDefaultWalletConnect()}
-        label="Use WalletConnect modal"
-      />
+      {buttons}
     </SheetContent>
   );
 };
