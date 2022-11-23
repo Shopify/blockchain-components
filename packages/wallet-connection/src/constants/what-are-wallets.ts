@@ -6,7 +6,10 @@ interface InformationRow {
   title: string;
 }
 
-export const GetAWalletInformation: InformationRow[] = [
+/**
+ * We should consider replacing this content with i18n?
+ */
+export const WhatAreWalletsInformation: InformationRow[] = [
   {
     content:
       'A wallet lets you send, receive, and manage your cryptocurrencies and NFTs.',

@@ -34,6 +34,7 @@ export function useConnectorDownloadLinks(connectorName?: string) {
       <Button
         label={browserExtensionLabel}
         onClick={() => handleButtonClick(browserExtensionLink)}
+        // TO DO: link={{href: browserExtensionLink, target: '_blank'}}
       />
     ) : null;
 

@@ -118,3 +118,10 @@ export const WalletListItem = styled.div`
     margin: default;
   }
 `;
+
+export const GetAWalletContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;

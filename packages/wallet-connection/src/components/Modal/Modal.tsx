@@ -4,7 +4,13 @@ import {IconButton} from 'shared';
 import {ArrowLeft, Cancel} from 'shared/assets/icons';
 
 import {Background, Sheet, Header} from './style';
-import {ConnectScreen, ConnectingScreen, Scan, WhatAreWallets} from './Screens';
+import {
+  ConnectScreen,
+  ConnectingScreen,
+  GetAWalletScreen,
+  ScanScreen,
+  WhatAreWalletsScreen,
+} from './Screens';
 import {Screen} from './Screens/types';
 
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
@@ -90,11 +96,14 @@ const Modal = () => {
       case ModalRoute.Connecting:
         return <ConnectingScreen connect={connect} state={status} />;
 
+      case ModalRoute.GetAWallet:
+        return <GetAWalletScreen />;
+
       case ModalRoute.Scan:
-        return <Scan connectAsync={connectAsync} state={status} />;
+        return <ScanScreen connectAsync={connectAsync} state={status} />;
 
       case ModalRoute.WhatAreWallets:
-        return <WhatAreWallets />;
+        return <WhatAreWalletsScreen />;
 
       default:
         return null;
