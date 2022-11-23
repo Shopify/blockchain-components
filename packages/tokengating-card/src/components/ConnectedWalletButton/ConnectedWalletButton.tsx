@@ -6,7 +6,7 @@ import {
 
 interface ConnectedWalletButtonProps {
   onConnectedWalletActions: () => void;
-  address: string;
+  address?: string;
   ensName?: string;
   icon?: React.ReactNode;
 }

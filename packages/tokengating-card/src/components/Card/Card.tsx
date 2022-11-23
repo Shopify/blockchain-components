@@ -20,7 +20,7 @@ const Subtitle = styled.p`
 interface CardProps {
   title: string;
   subtitle: string;
-  button: React.ReactNode;
+  button?: React.ReactNode;
   children?: React.ReactNode;
 }
 

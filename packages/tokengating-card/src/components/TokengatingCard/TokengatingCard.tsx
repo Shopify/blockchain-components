@@ -1,20 +1,15 @@
+import {useMemo} from 'react';
 import {Card} from '../Card/Card';
 import {ConnectedWalletButton} from '../ConnectedWalletButton/ConnectedWalletButton';
 import {ConnectWalletButton} from '../ConnectWalletButton/ConnectWalletButton';
+import {
+  TokengatingCardProps,
+  TokengateCardSection,
+  useTokengateCardState,
+} from './utils';
 import {ThemeProvider} from 'shared';
+import React from 'react';
 
-interface AppProps {
-  isLocked: boolean;
-  lockedTitle?: string;
-  lockedSubtitle?: string;
-  unlockedTitle?: string;
-  unlockedSubtitle?: string;
-  onConnectWallet: () => void;
-  onConnectedWalletActions: () => void;
-  address?: string | undefined;
-  ensName?: string;
-  icon?: React.ReactNode;
-}
 const TokengatingCard = ({
   isLocked,
   lockedTitle,
@@ -26,33 +21,48 @@ const TokengatingCard = ({
   address,
   ensName,
   icon,
-}: AppProps) => {
+}: TokengatingCardProps) => {
+  const {title, subtitle, sections} = useTokengateCardState({
+    isLocked,
+    address,
+    lockedTitle,
+    lockedSubtitle,
+    unlockedTitle,
+    unlockedSubtitle,
+  });
+
+  const sectionMapping: {[key in TokengateCardSection]: React.ReactNode} =
+    useMemo(
+      () => ({
+        [TokengateCardSection.ConnectWallet]: (
+          <ConnectWalletButton onConnectWallet={onConnectWallet} />
+        ),
+        [TokengateCardSection.ConnectedWallet]: (
+          <ConnectedWalletButton
+            onConnectedWalletActions={onConnectedWalletActions}
+            icon={icon}
+            ensName={ensName}
+            address={address}
+          />
+        ),
+        [TokengateCardSection.TokenList]: <div>TokenList</div>,
+        [TokengateCardSection.TokengateRequirements]: (
+          <div>TokengateRequirements</div>
+        ),
+        [TokengateCardSection.UnavailableTokengate]: (
+          <div>UnavailableTokengate</div>
+        ),
+      }),
+      [],
+    );
+
   return (
     <ThemeProvider>
-      <div className="App">
-        {isLocked || !address ? (
-          <Card
-            title={lockedTitle || 'Holder exclusive'}
-            subtitle={lockedSubtitle || 'To unlock this product, you need:'}
-            button={<ConnectWalletButton onConnectWallet={onConnectWallet} />}
-          ></Card>
-        ) : (
-          <Card
-            title={unlockedTitle || 'Exclusive unlocked'}
-            subtitle={
-              unlockedSubtitle || 'Your token got you access to this product!'
-            }
-            button={
-              <ConnectedWalletButton
-                onConnectedWalletActions={onConnectedWalletActions}
-                icon={icon}
-                ensName={ensName}
-                address={address}
-              />
-            }
-          ></Card>
+      <Card title={title} subtitle={subtitle}>
+        {sections.map(
+          (section: TokengateCardSection) => sectionMapping[section],
         )}
-      </div>
+      </Card>
     </ThemeProvider>
   );
 };
