@@ -11,7 +11,7 @@ interface AppProps {
   unlockedSubtitle?: string;
   onConnectWallet: () => void;
   onConnectedWalletActions: () => void;
-  address: string;
+  address?: string | undefined;
   ensName?: string;
   icon?: React.ReactNode;
 }
@@ -30,7 +30,7 @@ const TokengatingCard = ({
   return (
     <ThemeProvider>
       <div className="App">
-        {isLocked ? (
+        {isLocked || !address ? (
           <Card
             title={lockedTitle || 'Holder exclusive'}
             subtitle={lockedSubtitle || 'To unlock this product, you need:'}
