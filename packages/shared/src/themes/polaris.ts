@@ -24,7 +24,7 @@ namespace PolarisColors {
     0: '#008060',
     1: '#006E52',
   };
-};
+}
 
 export const Polaris: DefaultTheme = {
   typography: {
@@ -32,6 +32,7 @@ export const Polaris: DefaultTheme = {
     colorSecondary: PolarisColors.Grayscale['4'],
     colorInteractive: '',
     colorCritical: '#D82C0D',
+    letterSpacing: '0px',
 
     heading: {
       fontFamily: 'SF Pro Display',
@@ -56,7 +57,7 @@ export const Polaris: DefaultTheme = {
       fontSize: '14px',
       fontWeight: '400',
       lineHeight: '20px',
-    }
+    },
   },
 
   connectButton: {
@@ -66,7 +67,7 @@ export const Polaris: DefaultTheme = {
     borderRadius: '4px',
     textColor: PolarisColors.Grayscale['0'],
     padding: '8px 16px',
-    boxShadow: `0px 1px 0px ${PolarisColors.Grayscale['8']}, inset 0px -1px 0px ${PolarisColors.Grayscale['9']}`
+    boxShadow: `0px 1px 0px ${PolarisColors.Grayscale['8']}, inset 0px -1px 0px ${PolarisColors.Grayscale['9']}`,
   },
 
   walletConnectorButton: {

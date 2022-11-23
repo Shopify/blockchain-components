@@ -21,12 +21,10 @@ export const ConnectorIcon = styled.div`
 `;
 
 export const BodyText = styled.p`
-  font-family: 'SF Pro Text', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: #6d7175;
+  font-weight: ${({theme}) => theme.typography.body.fontWeight};
+  font-size: ${({theme}) => theme.typography.body.fontSize};
+  line-height: ${({theme}) => theme.typography.body.lineHeight};
+  color: ${({theme}) => theme.typography.colorPrimary};
   margin-bottom: 24px;
 `;
 
@@ -87,12 +85,13 @@ export const ListItemContent = styled.div`
 `;
 
 export const Sheet = styled.div`
-  background-color: ${({theme}) => theme.modal.background};
   max-width: 380px;
   width: 100%;
-  padding: 20px;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2), 0px 26px 80px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  background-color: ${({theme}) => theme.modal.background};
+  border: ${({theme}) => theme.modal.border};
+  border-radius: ${({theme}) => theme.modal.borderRadius};
+  box-shadow: ${({theme}) => theme.modal.boxShadow};
+  padding: ${({theme}) => theme.modal.padding};
 `;
 
 export const SheetContent = styled.div`
@@ -106,9 +105,18 @@ export const SheetContent = styled.div`
   }
 `;
 
+export const Subtext = styled.span`
+  color: rgba(18, 18, 18, 0.75);
+  font-weight: ${({theme}) => theme.typography.body.fontWeight};
+  font-size: ${({theme}) => theme.typography.body.fontSize};
+  line-height: ${({theme}) => theme.typography.body.lineHeight};
+`;
+
 export const StyledLink = styled.span`
+  color: ${({theme}) => theme.typography.colorPrimary};
   display: block;
   cursor: pointer;
+  text-decoration: underline;
 `;
 
 export const WalletListItem = styled.div`

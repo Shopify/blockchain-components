@@ -1,4 +1,4 @@
-import {ButtonText, LinkButton, ButtonWrapper} from './style';
+import {LinkButton, ButtonWrapper} from './style';
 
 export type ButtonBaseProps = {
   id?: string;
@@ -44,15 +44,15 @@ export const Button = ({
         aria-label={label}
       >
         <ButtonWrapper id={id} type="button" {...props}>
-          <ButtonText>{label}</ButtonText>
+          {label}
         </ButtonWrapper>
       </LinkButton>
     );
   }
 
   return (
-    <ButtonWrapper id={id} type="button" {...props}>
-      <ButtonText>{label}</ButtonText>
+    <ButtonWrapper id={id} type="button" primary={primary} {...props}>
+      {label}
     </ButtonWrapper>
   );
 };

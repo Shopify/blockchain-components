@@ -7,7 +7,7 @@ const ConnectWalletButton = ({onConnectWallet}: ConnectWalletButtonProps) => (
   // The commented version uses styled components.
   // I'll keep it here so that we can easily move back to it
   // <ConnectWalletButtonStyle id="connectWallet" onClick={onConnectWallet}>
-  //   <ConnectWalletButtonText>Connect wallet</ConnectWalletButtonText>
+  //   Connect wallet
   // </ConnectWalletButtonStyle>
   <button
     id="connectWallet"

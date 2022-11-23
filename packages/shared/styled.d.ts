@@ -33,6 +33,7 @@ declare module 'styled-components' {
       colorSecondary: string;
       colorInteractive: string;
       colorCritical: string;
+      letterSpacing: string;
 
       heading: {
         fontFamily: string;
