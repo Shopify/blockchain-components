@@ -41,7 +41,9 @@
     "wagmi": "^0.8.1"
   },
   "devDependencies": {
+    "@types/ua-parser-js": "^0.7.36",
     "tsconfig": "*",
+    "ua-parser-js": "^1.0.32",
     "vite-plugin-node-stdlib-browser": "^0.1.1"
   }
 }

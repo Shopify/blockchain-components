@@ -30,6 +30,13 @@ export const BodyText = styled.p`
   margin-bottom: 24px;
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  margin-top: 12px;
+`;
+
 export const Header = styled.div`
   display: flex;
   flex-direction: row;
