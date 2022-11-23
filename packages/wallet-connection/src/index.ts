@@ -13,6 +13,7 @@ export {useModal} from './providers/ModalProvider';
 /**
  * Hooks
  */
+export {useAccount} from './hooks/useAccount';
 export {useConnectionModal} from './hooks/useConnectionModal';
 
 /**

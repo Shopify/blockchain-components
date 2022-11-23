@@ -1,10 +1,10 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   TokengatingCard,
   GateRequirement,
   UnlockingToken,
 } from '@shopify/tokengating-card';
-import {useConnectionModal} from '@shopify/wallet-connection';
+import {useAccount, useConnectionModal} from '@shopify/wallet-connection';
 import './DawnVariables.css';
 
 import './App.css';
@@ -47,6 +47,31 @@ function App({serverArguments}: AppProps) {
     requestWalletVerificationStatus,
   });
 
+  const {
+    account,
+    /**
+     * Commenting out verify because you probably don't want to
+     * be bothered with numerous verification messages during dev.
+     */
+    // verify
+  } = useAccount();
+
+  useEffect(() => {
+    const verifyAddress = async () => {
+      if (!account) {
+        return;
+      }
+
+      // const data = await verify({address: account.address, message: 'Testing'});
+    };
+
+    /**
+     * This is not code for future use, this is just rough dev code for testing the signature process.
+     */
+    setIsLocked(false);
+    verifyAddress();
+  }, [account]);
+
   return (
     <>
       <TokengatingCard
@@ -65,7 +90,7 @@ function App({serverArguments}: AppProps) {
           requestWalletVerification({address: '0x0'});
         }}
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
-        address={wallet?.walletAddress}
+        address={account?.address}
         ensName="snowdevil.eth"
         icon={<div></div>}
         gateRequirement={serverArguments?.initialState?.gateRequirement}

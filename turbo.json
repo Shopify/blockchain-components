@@ -12,8 +12,8 @@
       "outputs": []
     },
     "dev": {
-      "dependsOn": ["^build"],
-      "cache": false
+      "cache": false,
+      "dependsOn": ["^build"]
     }
   }
 }
