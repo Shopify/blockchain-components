@@ -7,6 +7,7 @@ import {createClient, configureChains, defaultChains, WagmiConfig} from 'wagmi';
 import {publicProvider} from 'wagmi/providers/public';
 import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
 import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
+import {eventBus} from './utils/eventBus/eventBus';
 
 window.gmShop = {
   ThemeAppExtension: class ThemeAppExtension {
@@ -45,6 +46,10 @@ window.gmShop = {
           </WagmiConfig>
         </React.StrictMode>,
       );
+
+      // Setup event gm-shop-merchant-app event bus
+      console.log('Event bus initialized');
+      this.arguments?.setupEventBus?.(eventBus);
     }
   },
 };

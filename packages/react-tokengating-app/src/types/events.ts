@@ -1,18 +1,29 @@
-export enum EventBusEvent {
+export enum EventName {
   RequestWalletVerificationMessage = 'RequestWalletVerificationMessage',
   WalletVerificationMessageGenerated = 'WalletVerificationMessageGenerated',
 }
+export interface EventBusEvent {
+  event: EventName;
+  variables: any;
+  response: any;
+}
 
-export type Payload = {
-  /**
-   * Verification message response.
-   */
-  verification?: {
-    message: string;
-    // iso date?
-    generatedAt: string;
+export type EventNameWithSuffix =
+  | WithSuffix<EventName, '-reactToTheme'>
+  | WithSuffix<EventName, '-themeToReact'>;
+
+export interface RequestWalletVerification extends EventBusEvent {
+  event: EventName.RequestWalletVerificationMessage;
+  payload: {
+    address: string;
   };
-};
+  response: {
+    verification?: {
+      message: string;
+      generatedAt: string;
+    };
+  };
+}
 
 export type PayloadErrors = {
   /**
@@ -24,6 +35,7 @@ export type PayloadErrors = {
   }[];
 };
 
-export type VerificationMessageInput = {
-  address: string;
-};
+type WithSuffix<
+  Type extends EventName,
+  Suffix extends string,
+> = `${Type}${Suffix}`;
