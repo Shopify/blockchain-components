@@ -13,9 +13,15 @@ export {useModal} from './providers/ModalProvider';
 /**
  * Hooks
  */
+export {useWallet} from './hooks/useWallet';
 export {useConnectionModal} from './hooks/useConnectionModal';
 
 /**
  * Providers
  */
 export {WalletConnectionProvider} from './providers/WalletConnectionProvider';
+
+/**
+ * Types
+ */
+export type {ConnectedWallet} from './hooks/useWallet';

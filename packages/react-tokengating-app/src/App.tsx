@@ -1,10 +1,15 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   TokengatingCard,
   GateRequirement,
   UnlockingToken,
 } from '@shopify/tokengating-card';
-import {useConnectionModal} from '@shopify/wallet-connection';
+import {
+  ConnectedWallet,
+  useConnectionModal,
+  useWallet,
+} from '@shopify/wallet-connection';
+
 import './DawnVariables.css';
 
 import './App.css';
@@ -15,11 +20,9 @@ interface AppProps {
   serverArguments?: {
     initialState: {
       locked: boolean;
-      wallet?: {
-        walletAddress: string;
-      };
       gateRequirement?: GateRequirement;
       unlockingTokens?: UnlockingToken[];
+      wallet?: ConnectedWallet;
     };
     setupEventBus: (eventBus: any) => void;
   };
@@ -47,6 +50,29 @@ function App({serverArguments}: AppProps) {
     requestWalletVerificationStatus,
   });
 
+  const {
+    wallet: walletResponse,
+    // verify
+    /**
+     * I think adding an onConnect or onSignature callback to this is probably ideal?
+     * Maybe we can consider showing a modal to present the user with the signature
+     * request instead of automatically opening the signature request as well.
+     */
+  } = useWallet();
+
+  useEffect(() => {
+    const verifyAddress = async () => {
+      // Ideally this would happen in onSignature or a similarly named callback.
+      setWallet(walletResponse);
+    };
+
+    /**
+     * This is not code for future use, this is just rough dev code for testing the signature process.
+     */
+    setIsLocked(false);
+    verifyAddress();
+  }, [walletResponse]);
+
   return (
     <>
       <TokengatingCard
@@ -61,11 +87,11 @@ function App({serverArguments}: AppProps) {
            * Will come back to this to add connected + verified states.
            */
           setIsLocked(false);
-          setWallet({walletAddress: '0x0'});
+          setWallet({address: '0x0'});
           requestWalletVerification({address: '0x0'});
         }}
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
-        address={wallet?.walletAddress}
+        address={wallet?.address}
         ensName="snowdevil.eth"
         icon={<div></div>}
         gateRequirement={serverArguments?.initialState?.gateRequirement}
