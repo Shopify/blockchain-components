@@ -1,7 +1,7 @@
 import {useCallback, useMemo} from 'react';
 import {useAccount as useWagmiAccount, useSignMessage} from 'wagmi';
 
-interface ConnectedAccount {
+export interface ConnectedAccount {
   /**
    * The public address of the connected wallet.
    */

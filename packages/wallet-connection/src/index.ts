@@ -20,3 +20,8 @@ export {useConnectionModal} from './hooks/useConnectionModal';
  * Providers
  */
 export {WalletConnectionProvider} from './providers/WalletConnectionProvider';
+
+/**
+ * Types
+ */
+export type {ConnectedAccount} from './hooks/useAccount';
