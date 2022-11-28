@@ -1,14 +1,10 @@
-import {useMemo} from 'react';
+import {ReactNode, useMemo} from 'react';
+import {ThemeProvider} from 'shared';
 import {Card} from '../Card/Card';
 import {ConnectedWalletButton} from '../ConnectedWalletButton/ConnectedWalletButton';
 import {ConnectWalletButton} from '../ConnectWalletButton/ConnectWalletButton';
-import {
-  TokengatingCardProps,
-  TokengateCardSection,
-  useTokengateCardState,
-} from './utils';
-import {ThemeProvider} from 'shared';
-import React from 'react';
+import {TokengateCardSection, useTokengateCardState} from './utils';
+import {TokengatingCardProps} from './types';
 
 const TokengatingCard = ({
   isLocked,
@@ -31,30 +27,29 @@ const TokengatingCard = ({
     unlockedSubtitle,
   });
 
-  const sectionMapping: {[key in TokengateCardSection]: React.ReactNode} =
-    useMemo(
-      () => ({
-        [TokengateCardSection.ConnectWallet]: (
-          <ConnectWalletButton onConnectWallet={onConnectWallet} />
-        ),
-        [TokengateCardSection.ConnectedWallet]: (
-          <ConnectedWalletButton
-            onConnectedWalletActions={onConnectedWalletActions}
-            icon={icon}
-            ensName={ensName}
-            address={address}
-          />
-        ),
-        [TokengateCardSection.TokenList]: <div>TokenList</div>,
-        [TokengateCardSection.TokengateRequirements]: (
-          <div>TokengateRequirements</div>
-        ),
-        [TokengateCardSection.UnavailableTokengate]: (
-          <div>UnavailableTokengate</div>
-        ),
-      }),
-      [],
-    );
+  const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
+    () => ({
+      [TokengateCardSection.ConnectWallet]: (
+        <ConnectWalletButton onConnectWallet={onConnectWallet} />
+      ),
+      [TokengateCardSection.ConnectedWallet]: (
+        <ConnectedWalletButton
+          onConnectedWalletActions={onConnectedWalletActions}
+          icon={icon}
+          ensName={ensName}
+          address={address}
+        />
+      ),
+      [TokengateCardSection.TokenList]: <div>TokenList</div>,
+      [TokengateCardSection.TokengateRequirements]: (
+        <div>TokengateRequirements</div>
+      ),
+      [TokengateCardSection.UnavailableTokengate]: (
+        <div>UnavailableTokengate</div>
+      ),
+    }),
+    [],
+  );
 
   return (
     <ThemeProvider>
