@@ -9,6 +9,17 @@ export interface TokengatingCardProps {
   address?: string | undefined;
   ensName?: string;
   icon?: React.ReactNode;
+  gateRequirement?: {
+    id: string;
+    tokenSeries: {
+      contractAddress: string;
+      conditionsDescription: string;
+      name: string;
+      imageUrl: string;
+      isUnlocked: boolean;
+    }[];
+    operator: 'OR' | 'AND';
+  };
 }
 
 export enum TokengateCardSection {
