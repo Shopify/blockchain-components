@@ -1,6 +1,6 @@
 export enum EventName {
   RequestWalletVerificationMessage = 'RequestWalletVerificationMessage',
-  WalletVerificationMessageGenerated = 'WalletVerificationMessageGenerated',
+  CheckIfWalletMeetsRequirements = 'CheckIfWalletMeetsRequirements',
 }
 export interface EventBusEvent {
   event: EventName;
@@ -12,7 +12,7 @@ export type EventNameWithSuffix =
   | WithSuffix<EventName, '-reactToTheme'>
   | WithSuffix<EventName, '-themeToReact'>;
 
-export interface RequestWalletVerification extends EventBusEvent {
+export interface RequestWalletVerificationMessageEvent extends EventBusEvent {
   event: EventName.RequestWalletVerificationMessage;
   payload: {
     address: string;
@@ -22,6 +22,19 @@ export interface RequestWalletVerification extends EventBusEvent {
       message: string;
       generatedAt: string;
     };
+  };
+}
+
+export interface CheckIfWalletMeetsRequirementsEvent extends EventBusEvent {
+  event: EventName.CheckIfWalletMeetsRequirements;
+  payload: {
+    address: string;
+    message: string;
+    signature: string;
+  };
+  response: {
+    isUnlocked: boolean;
+    unlockingTokens: [];
   };
 }
 
