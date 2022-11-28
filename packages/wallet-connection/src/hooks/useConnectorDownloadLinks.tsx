@@ -1,4 +1,3 @@
-import {useCallback} from 'react';
 import {Button} from 'shared';
 
 import {getConnectorData} from '../constants/connectors';
@@ -17,15 +16,6 @@ export function useConnectorDownloadLinks(connectorName?: string) {
     return null;
   }
 
-  const handleButtonClick = useCallback((link: string) => {
-    // Wrapping in a try/catch in the event that window is undefined.
-    try {
-      window.open(link, '_blank')?.focus();
-    } catch (exception) {
-      console.error('Failed to open link in new window');
-    }
-  }, []);
-
   const browserExtensionLink = browserExtensions?.[browser];
   const browserExtensionLabel = `Get the ${name} extension`;
 
@@ -33,8 +23,7 @@ export function useConnectorDownloadLinks(connectorName?: string) {
     browserExtensionLink && !extensionInstalled ? (
       <Button
         label={browserExtensionLabel}
-        onClick={() => handleButtonClick(browserExtensionLink)}
-        // TO DO: link={{href: browserExtensionLink, target: '_blank'}}
+        link={{href: browserExtensionLink, target: '_blank'}}
       />
     ) : null;
 
@@ -50,7 +39,7 @@ export function useConnectorDownloadLinks(connectorName?: string) {
           ? mobileAppDownloadLabel
           : `Get the ${name} app for Android`
       }
-      onClick={() => handleButtonClick(androidDownloadLink)}
+      link={{href: androidDownloadLink, target: '_blank'}}
     />
   ) : null;
 
@@ -59,7 +48,7 @@ export function useConnectorDownloadLinks(connectorName?: string) {
       label={
         mobilePlatform ? mobileAppDownloadLabel : `Get the ${name} app for iOS`
       }
-      onClick={() => handleButtonClick(iOSDownloadLink)}
+      link={{href: iOSDownloadLink, target: '_blank'}}
     />
   ) : null;
 

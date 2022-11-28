@@ -8,9 +8,10 @@ const DefaultButtonStyle = css`
   width: auto;
   height: 45px;
   padding: 8px 30px;
+  cursor: pointer;
 `;
 
-export const ButtonStyle = styled.button`
+export const ButtonWrapper = styled.button`
   ${DefaultButtonStyle};
 `;
 
@@ -24,5 +25,10 @@ export const ButtonText = styled.p`
 `;
 
 export const LinkButton = styled.a`
-  ${DefaultButtonStyle};
+  padding: 0px;
+  text-decoration: none;
+
+  button {
+    width: 100%;
+  }
 `;

@@ -1,4 +1,4 @@
-import {ButtonStyle, ButtonText, LinkButton} from './style';
+import {ButtonText, LinkButton, ButtonWrapper} from './style';
 
 export type ButtonBaseProps = {
   id?: string;
@@ -31,6 +31,10 @@ export const Button = ({
 }: ButtonProps) => {
   if (link) {
     return (
+      /**
+       * Should indicate that it's an external link somehow, maybe with an icon
+       * Will add once the design for this page is confirmed
+       */
       <LinkButton
         id={id}
         aria-role="link"
@@ -39,14 +43,16 @@ export const Button = ({
         title={label}
         aria-label={label}
       >
-        <ButtonText>{label}</ButtonText>
+        <ButtonWrapper id={id} type="button" {...props}>
+          <ButtonText>{label}</ButtonText>
+        </ButtonWrapper>
       </LinkButton>
     );
   }
 
   return (
-    <ButtonStyle id={id} type="button" {...props}>
+    <ButtonWrapper id={id} type="button" {...props}>
       <ButtonText>{label}</ButtonText>
-    </ButtonStyle>
+    </ButtonWrapper>
   );
 };

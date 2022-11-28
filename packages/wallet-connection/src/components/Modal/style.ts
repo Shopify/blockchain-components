@@ -37,6 +37,15 @@ export const ButtonContainer = styled.div`
   margin-top: 12px;
 `;
 
+export const GetAWalletContent = styled.div`
+  align-self: center;
+
+  h3,
+  p {
+    text-align: center;
+  }
+`;
+
 export const Header = styled.div`
   display: flex;
   flex-direction: row;
@@ -117,11 +126,4 @@ export const WalletListItem = styled.div`
   p + p {
     margin: default;
   }
-`;
-
-export const GetAWalletContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;

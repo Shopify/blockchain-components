@@ -3,16 +3,18 @@ import {FillerIllustration} from 'shared/assets/icons';
 
 import {BodyText, GetAWalletContent, SheetContent} from '../style';
 
-// Copy and illustration are TBD, this is temporary
+/**
+ * Copy and illustration are not finalized.
+ * This is temporary until they are.
+ */
 const GetAWalletScreen = () => {
   return (
     <SheetContent>
       <GetAWalletContent>
-        <div>{FillerIllustration}</div>
+        {FillerIllustration}
         <h3>Start exploring web3</h3>
         <BodyText>Your wallet is the gateway to all things web3.</BodyText>
       </GetAWalletContent>
-
       <Button
         label="Find your first wallet"
         link={{

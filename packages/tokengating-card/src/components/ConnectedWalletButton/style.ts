@@ -1,7 +1,7 @@
-import { ButtonStyle, ButtonText } from 'shared/src/components/Button/style';
+import {ButtonWrapper, ButtonText} from 'shared/src/components/Button/style';
 import styled from 'styled-components';
 
-export const ConnectedWalletButtonStyle = styled(ButtonStyle)`
+export const ConnectedWalletButtonStyle = styled(ButtonWrapper)`
   background-color: ${({theme}) => theme.walletConnectorButton.background};
   border: 1px solid black;
 `;
