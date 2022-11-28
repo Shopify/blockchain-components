@@ -101,7 +101,7 @@ export const Dawn: DefaultTheme = {
   },
 
   tokenBase: {
-    background: DawnColors.Grayscale['0'],
+    background: DawnColors.Grayscale['2'],
   },
 
   modal: {
