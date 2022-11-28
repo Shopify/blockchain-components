@@ -1,11 +1,11 @@
 import {useCallback} from 'react';
+import {Button} from 'shared';
 
 import {Icon, ListItemContent, SheetContent, WalletListItem} from '../style';
-import {Button} from 'shared'
-import {GetAWalletInformation} from '../../../constants/get-a-wallet';
+import {WhatAreWalletsInformation} from '../../../constants/what-are-wallets';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 
-const ConnectingScreen = () => {
+const WhatAreWalletsScreen = () => {
   const {navigation} = useModal();
 
   const handleGetAWallet = useCallback(() => {
@@ -14,7 +14,7 @@ const ConnectingScreen = () => {
 
   return (
     <SheetContent>
-      {GetAWalletInformation.map(({content, icon, title}) => {
+      {WhatAreWalletsInformation.map(({content, icon, title}) => {
         return (
           <WalletListItem>
             <Icon>{icon}</Icon>
@@ -33,4 +33,4 @@ const ConnectingScreen = () => {
   );
 };
 
-export default ConnectingScreen;
+export default WhatAreWalletsScreen;

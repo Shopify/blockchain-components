@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
-export const ButtonStyle = styled.button`
+const DefaultButtonStyle = css`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -8,6 +8,11 @@ export const ButtonStyle = styled.button`
   width: auto;
   height: 45px;
   padding: 8px 30px;
+  cursor: pointer;
+`;
+
+export const ButtonWrapper = styled.button`
+  ${DefaultButtonStyle};
 `;
 
 export const ButtonText = styled.p`
@@ -17,4 +22,13 @@ export const ButtonText = styled.p`
   font-size: 14px;
   line-height: 18px;
   letter-spacing: 0.5px;
+`;
+
+export const LinkButton = styled.a`
+  padding: 0px;
+  text-decoration: none;
+
+  button {
+    width: 100%;
+  }
 `;

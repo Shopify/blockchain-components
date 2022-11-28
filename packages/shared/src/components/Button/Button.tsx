@@ -1,17 +1,58 @@
-import {ButtonStyle, ButtonText} from './style';
+import {ButtonText, LinkButton, ButtonWrapper} from './style';
 
-export interface ButtonProps {
+export type ButtonBaseProps = {
   id?: string;
   className?: HTMLDivElement['className'];
   label: string;
-  onClick?: () => void;
   primary?: boolean;
-}
+};
 
-export const Button = ({id, label, primary = false, ...props}: ButtonProps) => {
+export type LinkButtonProps = ButtonBaseProps & {
+  link: {
+    href: HTMLAnchorElement['href'];
+    target?: HTMLAnchorElement['target'];
+  };
+  onClick?: never;
+};
+
+export type DefaultButtonProps = ButtonBaseProps & {
+  link?: never;
+  onClick?: () => void;
+};
+
+export type ButtonProps = DefaultButtonProps | LinkButtonProps;
+
+export const Button = ({
+  id,
+  label,
+  link,
+  primary = false,
+  ...props
+}: ButtonProps) => {
+  if (link) {
+    return (
+      /**
+       * Should indicate that it's an external link somehow, maybe with an icon
+       * Will add once the design for this page is confirmed
+       */
+      <LinkButton
+        id={id}
+        aria-role="link"
+        href={link.href}
+        target={link.target}
+        title={label}
+        aria-label={label}
+      >
+        <ButtonWrapper id={id} type="button" {...props}>
+          <ButtonText>{label}</ButtonText>
+        </ButtonWrapper>
+      </LinkButton>
+    );
+  }
+
   return (
-    <ButtonStyle id={id} type="button" {...props}>
+    <ButtonWrapper id={id} type="button" {...props}>
       <ButtonText>{label}</ButtonText>
-    </ButtonStyle>
+    </ButtonWrapper>
   );
 };
