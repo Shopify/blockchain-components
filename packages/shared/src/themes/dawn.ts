@@ -100,6 +100,10 @@ export const Dawn: DefaultTheme = {
     boxShadow: 'none',
   },
 
+  tokenBase: {
+    background: DawnColors.Grayscale['0'],
+  },
+
   modal: {
     background: DawnColors.Grayscale['0'],
     overlayBackground: DawnColors.Grayscale['6'],
