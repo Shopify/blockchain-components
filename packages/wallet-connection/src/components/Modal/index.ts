@@ -1,1 +1,2 @@
-export {default as Modal} from './Modal';
+export {Modal} from './Modal';
+export {SignatureModal} from './SignatureModal';

@@ -35,7 +35,7 @@ const ModalScreens: {[key in keyof typeof ModalRoute]: Screen} = {
   },
 };
 
-const Modal = () => {
+export const Modal = () => {
   const {active, closeModal, navigation} = useModal();
   const {pendingConnector} = useWalletConnection();
   const screenData = ModalScreens[navigation.route];
@@ -74,6 +74,11 @@ const Modal = () => {
 
       if (data) {
         setStatus(ConnectionState.Connected);
+
+        // Close the modal if the connection is successful
+        setTimeout(() => {
+          closeModal();
+        }, 500);
       }
     },
   });
@@ -132,5 +137,3 @@ const Modal = () => {
     </Background>
   );
 };
-
-export default Modal;

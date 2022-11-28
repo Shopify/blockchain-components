@@ -40,7 +40,9 @@ window.gmShop = {
       root.render(
         <React.StrictMode>
           <WagmiConfig client={client}>
-            <WalletConnectionProvider>
+            <WalletConnectionProvider
+              wallet={this.arguments?.initialState?.wallet || undefined}
+            >
               <App serverArguments={this.arguments} />
             </WalletConnectionProvider>
           </WagmiConfig>
