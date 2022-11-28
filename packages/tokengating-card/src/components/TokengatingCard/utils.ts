@@ -1,26 +1,4 @@
-export interface TokengatingCardProps {
-  isLocked: boolean;
-  lockedTitle?: string;
-  lockedSubtitle?: string;
-  unlockedTitle?: string;
-  unlockedSubtitle?: string;
-  onConnectWallet: () => void;
-  onConnectedWalletActions: () => void;
-  address?: string | undefined;
-  ensName?: string;
-  icon?: React.ReactNode;
-  gateRequirement?: {
-    id: string;
-    tokenSeries: {
-      contractAddress: string;
-      conditionsDescription: string;
-      name: string;
-      imageUrl: string;
-      isUnlocked: boolean;
-    }[];
-    operator: 'OR' | 'AND';
-  };
-}
+import {TokengatingCardProps} from './types';
 
 export enum TokengateCardSection {
   TokengateRequirements = 'TokengateRequirements',

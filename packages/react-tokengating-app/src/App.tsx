@@ -1,5 +1,9 @@
 import {useState} from 'react';
-import {TokengatingCard} from '@shopify/tokengating-card';
+import {
+  TokengatingCard,
+  GateRequirement,
+  UnlockingToken,
+} from '@shopify/tokengating-card';
 import {useConnectionModal} from '@shopify/wallet-connection';
 import './DawnVariables.css';
 
@@ -14,17 +18,8 @@ interface AppProps {
       wallet?: {
         walletAddress: string;
       };
-      gateRequirement: {
-        id: string;
-        tokenSeries: {
-          contractAddress: string;
-          conditionsDescription: string;
-          name: string;
-          imageUrl: string;
-          isUnlocked: boolean;
-        }[];
-        operator: 'OR' | 'AND';
-      };
+      gateRequirement?: GateRequirement;
+      unlockingTokens?: UnlockingToken[];
     };
     setupEventBus: (eventBus: any) => void;
   };
@@ -74,6 +69,7 @@ function App({serverArguments}: AppProps) {
         ensName="snowdevil.eth"
         icon={<div></div>}
         gateRequirement={serverArguments?.initialState?.gateRequirement}
+        unlockingTokens={serverArguments?.initialState?.unlockingTokens}
       />
     </>
   );
