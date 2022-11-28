@@ -14,6 +14,17 @@ interface AppProps {
       wallet?: {
         walletAddress: string;
       };
+      gateRequirement: {
+        id: string;
+        tokenSeries: {
+          contractAddress: string;
+          conditionsDescription: string;
+          name: string;
+          imageUrl: string;
+          isUnlocked: boolean;
+        }[];
+        operator: 'OR' | 'AND';
+      };
     };
     setupEventBus: (eventBus: any) => void;
   };
@@ -62,6 +73,7 @@ function App({serverArguments}: AppProps) {
         address={wallet?.walletAddress}
         ensName="snowdevil.eth"
         icon={<div></div>}
+        gateRequirement={serverArguments?.initialState?.gateRequirement}
       />
     </>
   );
