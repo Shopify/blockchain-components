@@ -3,6 +3,10 @@ import {TokengatingCard} from '@shopify/tokengating-card';
 import {useConnectionModal} from '@shopify/wallet-connection';
 import './DawnVariables.css';
 
+import './App.css';
+import {EventName, RequestWalletVerification} from './types/events';
+import {eventBus, useLazyEventBus} from './utils';
+
 interface AppProps {
   serverArguments?: {
     initialState: {
@@ -11,15 +15,31 @@ interface AppProps {
         walletAddress: string;
       };
     };
+    setupEventBus: (eventBus: any) => void;
   };
 }
+
 function App({serverArguments}: AppProps) {
   // Mock wallet connection for now
   const {openModal} = useConnectionModal();
   const [isLocked, setIsLocked] = useState(
     serverArguments?.initialState?.locked ?? true,
   );
-  const [wallet] = useState(serverArguments?.initialState?.wallet);
+  const [wallet, setWallet] = useState(serverArguments?.initialState?.wallet);
+
+  const [
+    requestWalletVerification,
+    {
+      data: requestWalletVerificationResponse,
+      status: requestWalletVerificationStatus,
+    },
+  ] = useLazyEventBus<RequestWalletVerification>(
+    EventName.RequestWalletVerificationMessage,
+  );
+  console.log({
+    verification: requestWalletVerificationResponse?.verification,
+    requestWalletVerificationStatus,
+  });
 
   return (
     <>
@@ -35,6 +55,8 @@ function App({serverArguments}: AppProps) {
            * Will come back to this to add connected + verified states.
            */
           setIsLocked(false);
+          setWallet({walletAddress: '0x0'});
+          requestWalletVerification({address: '0x0'});
         }}
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
         address={wallet?.walletAddress}
