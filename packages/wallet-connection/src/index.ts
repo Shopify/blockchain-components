@@ -13,7 +13,7 @@ export {useModal} from './providers/ModalProvider';
 /**
  * Hooks
  */
-export {useAccount} from './hooks/useAccount';
+export {useWallet} from './hooks/useWallet';
 export {useConnectionModal} from './hooks/useConnectionModal';
 
 /**
@@ -24,4 +24,4 @@ export {WalletConnectionProvider} from './providers/WalletConnectionProvider';
 /**
  * Types
  */
-export type {ConnectedAccount} from './hooks/useAccount';
+export type {ConnectedWallet} from './hooks/useWallet';

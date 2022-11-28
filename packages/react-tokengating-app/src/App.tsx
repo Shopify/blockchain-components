@@ -5,9 +5,9 @@ import {
   UnlockingToken,
 } from '@shopify/tokengating-card';
 import {
-  ConnectedAccount,
-  useAccount,
+  ConnectedWallet,
   useConnectionModal,
+  useWallet,
 } from '@shopify/wallet-connection';
 
 import './DawnVariables.css';
@@ -22,7 +22,7 @@ interface AppProps {
       locked: boolean;
       gateRequirement?: GateRequirement;
       unlockingTokens?: UnlockingToken[];
-      wallet?: ConnectedAccount;
+      wallet?: ConnectedWallet;
     };
     setupEventBus: (eventBus: any) => void;
   };
@@ -51,19 +51,19 @@ function App({serverArguments}: AppProps) {
   });
 
   const {
-    account,
+    wallet: walletResponse,
     // verify
     /**
      * I think adding an onConnect or onSignature callback to this is probably ideal?
      * Maybe we can consider showing a modal to present the user with the signature
      * request instead of automatically opening the signature request as well.
      */
-  } = useAccount();
+  } = useWallet();
 
   useEffect(() => {
     const verifyAddress = async () => {
       // Ideally this would happen in onSignature or a similarly named callback.
-      setWallet(account);
+      setWallet(walletResponse);
     };
 
     /**
@@ -71,7 +71,7 @@ function App({serverArguments}: AppProps) {
      */
     setIsLocked(false);
     verifyAddress();
-  }, [account]);
+  }, [walletResponse]);
 
   return (
     <>

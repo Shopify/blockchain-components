@@ -1,7 +1,7 @@
 import {useCallback, useMemo} from 'react';
-import {useAccount as useWagmiAccount, useSignMessage} from 'wagmi';
+import {useAccount, useSignMessage} from 'wagmi';
 
-export interface ConnectedAccount {
+export interface ConnectedWallet {
   /**
    * The public address of the connected wallet.
    */
@@ -30,23 +30,23 @@ interface VerificationResponse {
   signature?: string;
 }
 
-interface UseAccountResponse {
-  account: ConnectedAccount | undefined;
+interface UseWalletResponse {
   connecting: boolean;
   verify: (args: VerifyProps) => Promise<VerificationResponse | undefined>;
   verifying?: boolean;
+  wallet: ConnectedWallet | undefined;
 }
 
-export function useAccount(): UseAccountResponse {
-  const {address, connector, isConnecting} = useWagmiAccount();
+export function useWallet(): UseWalletResponse {
+  const {address, connector, isConnecting} = useAccount();
 
   /**
-   * We could consider adding these accounts to context with a persisted state
-   * in the future, allowing for accounts to be injected into the provider
+   * We could consider adding these wallets to context with a persisted state
+   * in the future, allowing for wallets to be injected into the provider
    * (e.g. loaded from a server / api), and for mantaining a list of
    * wallets have already been verified.
    */
-  const account = useMemo(() => {
+  const wallet = useMemo(() => {
     if (address) {
       return {
         address,
@@ -81,9 +81,9 @@ export function useAccount(): UseAccountResponse {
   );
 
   return {
-    account,
     connecting: isConnecting,
     verify,
     verifying: isLoading,
+    wallet,
   };
 }
