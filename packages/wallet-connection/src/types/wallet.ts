@@ -25,7 +25,7 @@ export type SignatureResponse =
   | {
       address?: string;
       message?: string;
-      signedMessage?: string;
+      signature?: string;
     }
   | undefined;
 

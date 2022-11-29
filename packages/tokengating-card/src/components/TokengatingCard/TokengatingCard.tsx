@@ -1,4 +1,4 @@
-import {ReactNode, useMemo} from 'react';
+import {ReactNode, Fragment, useMemo} from 'react';
 import {ThemeProvider} from 'shared';
 import {Card} from '../Card/Card';
 import {ConnectedWalletButton} from '../ConnectedWalletButton/ConnectedWalletButton';
@@ -68,9 +68,9 @@ const TokengatingCard = ({
   return (
     <ThemeProvider>
       <Card title={title} subtitle={subtitle}>
-        {sections.map(
-          (section: TokengateCardSection) => sectionMapping[section],
-        )}
+        {sections.map((section: TokengateCardSection) => (
+          <Fragment key={section}>{sectionMapping[section]}</Fragment>
+        ))}
       </Card>
     </ThemeProvider>
   );

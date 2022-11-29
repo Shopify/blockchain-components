@@ -100,7 +100,7 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
           message: messageToSign,
         });
 
-        if (verificationResponse?.signedMessage) {
+        if (verificationResponse?.signature) {
           setWallet({
             ...wallet,
             signed: true,

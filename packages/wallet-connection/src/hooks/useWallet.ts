@@ -36,12 +36,12 @@ export function useWallet({
   const signMessage = useCallback(
     async ({address, message}: SignMessageProps) => {
       try {
-        const signedMessage = await signMessageAsync({message});
+        const signature = await signMessageAsync({message});
 
         const response: SignatureResponse = {
           address,
           message,
-          signedMessage,
+          signature,
         };
 
         onMessageSigned?.(response);
