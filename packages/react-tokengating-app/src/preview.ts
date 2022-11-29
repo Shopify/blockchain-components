@@ -24,6 +24,20 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
         setTimeout(() => dispatch(responseData), 500);
       },
     );
+
+    listenToEvent(
+      'CheckIfWalletMeetsRequirements',
+      (variables: any, dispatch: any) => {
+        const {address, message, signature} = variables;
+        // eslint-disable-next-line no-console
+        console.log({address, message, signature});
+        const responseData = {
+          isUnlocked: true,
+          unlockingTokens: ['token1', 'token2'],
+        };
+        setTimeout(() => dispatch(responseData), 500);
+      },
+    );
   },
 });
 ThemeAppExtension.mount();

@@ -13,7 +13,7 @@ import {
 import './DawnVariables.css';
 
 import './App.css';
-import {EventName, RequestWalletVerification} from './types/events';
+import {EventName, RequestWalletVerificationMessageEvent} from './types/events';
 import {eventBus, useLazyEventBus} from './utils';
 
 interface AppProps {
@@ -42,7 +42,7 @@ function App({serverArguments}: AppProps) {
       data: requestWalletVerificationResponse,
       status: requestWalletVerificationStatus,
     },
-  ] = useLazyEventBus<RequestWalletVerification>(
+  ] = useLazyEventBus<RequestWalletVerificationMessageEvent>(
     EventName.RequestWalletVerificationMessage,
   );
   console.log({
