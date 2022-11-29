@@ -1,18 +1,22 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  outline: unset;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   column-gap: 8px;
-  padding: 12px 20px;
-  background-color: white;
-  border: solid 1px #babfc3;
-  border-radius: 4px;
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
   cursor: pointer;
+  padding: ${({theme}) => theme.walletConnectorButton.padding};
+  background: ${({theme}) => theme.walletConnectorButton.background};
+  border: ${({theme}) => theme.walletConnectorButton.border};
+  border-radius: ${({theme}) => theme.walletConnectorButton.borderRadius};
+  box-shadow: ${({theme}) => theme.walletConnectorButton.boxShadow};
+  justify-content: ${({theme}) =>
+    theme.walletConnectorButton.horizontalAlignment};
+
+  &:hover {
+    background: ${({theme}) => theme.walletConnectorButton.backgroundHover};
+  }
 `;
 
 export const ConnectorIcon = styled.div`
@@ -21,10 +25,8 @@ export const ConnectorIcon = styled.div`
 `;
 
 export const ConnectorName = styled.label`
-  font-family: 'SF Pro Text', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  color: #202223;
+  font-weight: ${({theme}) => theme.typography.heading.fontWeight};
+  font-size: ${({theme}) => theme.typography.heading.h3.fontSize};
+  line-height: ${({theme}) => theme.typography.heading.h3.lineHeight};
+  color: ${({theme}) => theme.typography.colorPrimary};
 `;

@@ -1,9 +1,10 @@
-import {ButtonWrapper, ButtonText} from 'shared/src/components/Button/style';
+import {ButtonWrapper} from 'shared/src/components/Button/style';
 import styled from 'styled-components';
 
 export const ConnectedWalletButtonStyle = styled(ButtonWrapper)`
   background-color: ${({theme}) => theme.walletConnectorButton.background};
   border: ${({theme}) => theme.walletConnectorButton.border};
+  color: ${({theme}) => theme.walletConnectorButton.textColor};
 `;
 
 export const ConnectedWalletIcon = styled.div`
@@ -13,10 +14,4 @@ export const ConnectedWalletIcon = styled.div`
   margin-right: 5px;
 `;
 
-export const ConnectedWalletDropdown = styled.div`
-
-`;
-
-export const ConnectedWalletButtonText = styled(ButtonText)`
-  color: ${({theme}) => theme.walletConnectorButton.textColor};
-`;
+export const ConnectedWalletDropdown = styled.div``;

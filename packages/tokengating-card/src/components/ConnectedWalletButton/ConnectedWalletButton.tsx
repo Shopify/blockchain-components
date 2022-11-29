@@ -1,7 +1,6 @@
 import {
   ConnectedWalletButtonStyle,
   ConnectedWalletIcon,
-  ConnectedWalletButtonText,
   ConnectedWalletDropdown,
 } from './style';
 import {IconButton} from 'shared/src/components/IconButton';
@@ -25,7 +24,7 @@ const ConnectedWalletButton = ({
     onClick={onConnectedWalletActions}
   >
     <ConnectedWalletIcon>{icon}</ConnectedWalletIcon>
-    <ConnectedWalletButtonText>{ensName || address}</ConnectedWalletButtonText>
+    {ensName || address}
     <ConnectedWalletDropdown>
       <IconButton icon={ChevronDown} />
     </ConnectedWalletDropdown>

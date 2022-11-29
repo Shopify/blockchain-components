@@ -1,27 +1,43 @@
 import styled, {css} from 'styled-components';
 
-const DefaultButtonStyle = css`
+export const PrimaryButtonWrapper = css`
+  background: ${({theme}) => theme.connectButton.background};
+  border: ${({theme}) => theme.connectButton.border};
+  border-radius: ${({theme}) => theme.connectButton.borderRadius};
+  color: ${({theme}) => theme.connectButton.textColor};
+  padding: ${({theme}) => theme.connectButton.padding};
+  box-shadow: ${({theme}) => theme.connectButton.boxShadow};
+
+  &:hover {
+    background: ${({theme}) => theme.connectButton.backgroundHover};
+  }
+`;
+
+export const SecondaryButtonWrapper = css`
+  background: ${({theme}) => theme.secondaryButton.background};
+  border: ${({theme}) => theme.secondaryButton.border};
+  border-radius: ${({theme}) => theme.secondaryButton.borderRadius};
+  color: ${({theme}) => theme.secondaryButton.textColor};
+  padding: ${({theme}) => theme.secondaryButton.padding};
+  box-shadow: ${({theme}) => theme.secondaryButton.boxShadow};
+
+  &:hover {
+    background: ${({theme}) => theme.secondaryButton.backgroundHover};
+  }
+`;
+
+export const ButtonWrapper = styled.button<{primary?: Boolean}>`
+  ${({primary}) => (primary ? PrimaryButtonWrapper : SecondaryButtonWrapper)}
+  font-weight: ${({theme}) => theme.typography.heading.fontWeight};
+  font-size: ${({theme}) => theme.typography.heading.h3.fontSize};
+  line-height: ${({theme}) => theme.typography.heading.h3.lineHeight};
+  letter-spacing: ${({theme}) => theme.typography.letterSpacing};
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: auto;
-  height: 45px;
-  padding: 8px 30px;
   cursor: pointer;
-`;
-
-export const ButtonWrapper = styled.button`
-  ${DefaultButtonStyle};
-`;
-
-export const ButtonText = styled.p`
-  font-family: 'Assistant', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
-  letter-spacing: 0.5px;
+  margin: 0;
 `;
 
 export const LinkButton = styled.a`

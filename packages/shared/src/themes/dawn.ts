@@ -22,7 +22,7 @@ namespace DawnColors {
   export const Blues = {
     0: '#0F1721',
   };
-};
+}
 
 export const Dawn: DefaultTheme = {
   typography: {
@@ -30,9 +30,10 @@ export const Dawn: DefaultTheme = {
     colorSecondary: DawnColors.Grayscale['3'],
     colorInteractive: '',
     colorCritical: DawnColors.Reds['0'],
+    letterSpacing: '0.5px',
 
     heading: {
-      fontFamily: 'Assistant',
+      fontFamily: 'Assistant, sans-serif',
       fontWeight: '400',
 
       h1: {
@@ -50,11 +51,11 @@ export const Dawn: DefaultTheme = {
     },
 
     body: {
-      fontFamily: 'Assistant',
+      fontFamily: 'Assistant, sans-serif',
       fontSize: '14px',
       fontWeight: '400',
       lineHeight: '18px',
-    }
+    },
   },
 
   connectButton: {
@@ -64,13 +65,13 @@ export const Dawn: DefaultTheme = {
     borderRadius: '0',
     textColor: DawnColors.Grayscale['0'],
     padding: '12px 30px',
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
 
   walletConnectorButton: {
     background: DawnColors.Grayscale['0'],
     backgroundHover: DawnColors.Grayscale['0'],
-    border: `1px solid ${DawnColors.Grayscale['2']}`,
+    border: `1px solid ${DawnColors.Grayscale['5']}`,
     borderRadius: '0',
     textColor: DawnColors.Blues['0'],
     padding: '12.5px 16px',
