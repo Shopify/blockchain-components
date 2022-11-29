@@ -24,7 +24,7 @@ const ConnectedWalletButton = ({
     onClick={onConnectedWalletActions}
   >
     <ConnectedWalletIcon>{icon}</ConnectedWalletIcon>
-    {/* {ensName || address} */}
+    {ensName || address}
     <ConnectedWalletDropdown>
       <IconButton icon={ChevronDown} />
     </ConnectedWalletDropdown>

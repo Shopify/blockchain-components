@@ -1,14 +1,8 @@
-import {
-  SoldOutButtonStyle,
-  SoldOutButtonTextStyle,
-  SoldOutButtonDescriptionStyle,
-} from './style';
+import {SoldOutButtonStyle, SoldOutButtonDescriptionStyle} from './style';
 
 const SoldOutButton = () => (
   <>
-    <SoldOutButtonStyle>
-      <SoldOutButtonTextStyle>Sold out</SoldOutButtonTextStyle>
-    </SoldOutButtonStyle>
+    <SoldOutButtonStyle>Sold out</SoldOutButtonStyle>
     <SoldOutButtonDescriptionStyle>
       Check back later for stock updates
     </SoldOutButtonDescriptionStyle>

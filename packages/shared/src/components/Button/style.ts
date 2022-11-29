@@ -32,6 +32,10 @@ export const ButtonWrapper = styled.button<{primary?: Boolean}>`
   font-size: ${({theme}) => theme.typography.heading.h3.fontSize};
   line-height: ${({theme}) => theme.typography.heading.h3.lineHeight};
   letter-spacing: ${({theme}) => theme.typography.letterSpacing};
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   margin: 0;
 `;

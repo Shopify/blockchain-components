@@ -1,4 +1,4 @@
-import {AvailableSoonButtonStyle, AvailableSoonButtonText} from './style';
+import {AvailableSoonButtonStyle} from './style';
 
 interface AvailableSoonButtonProps {
   availableDate?: string;
@@ -25,9 +25,7 @@ function convert(availableDate: AvailableSoonButtonProps['availableDate']) {
 
 const AvailableSoonButton = ({availableDate}: AvailableSoonButtonProps) => (
   <AvailableSoonButtonStyle>
-    <AvailableSoonButtonText>
-      Available {convert(availableDate)}
-    </AvailableSoonButtonText>
+    Available {convert(availableDate)}
   </AvailableSoonButtonStyle>
 );
 export {AvailableSoonButton};

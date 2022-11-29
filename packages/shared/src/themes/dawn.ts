@@ -71,7 +71,7 @@ export const Dawn: DefaultTheme = {
   walletConnectorButton: {
     background: DawnColors.Grayscale['0'],
     backgroundHover: DawnColors.Grayscale['0'],
-    border: `1px solid ${DawnColors.Grayscale['2']}`,
+    border: `1px solid ${DawnColors.Grayscale['5']}`,
     borderRadius: '0',
     textColor: DawnColors.Blues['0'],
     padding: '12.5px 16px',
