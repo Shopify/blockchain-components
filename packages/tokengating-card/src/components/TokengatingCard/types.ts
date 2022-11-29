@@ -11,10 +11,11 @@ export interface GateRequirement {
 }
 
 export interface UnlockingToken {
-  title: string;
-  mediaUrl: string;
-  tokenId: string;
-  contractName: string;
+  token: {
+    title: string;
+    mediaUrl: string;
+    contractName: string;
+  };
 }
 
 export interface TokengatingCardProps {

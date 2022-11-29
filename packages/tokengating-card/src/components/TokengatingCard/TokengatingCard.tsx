@@ -22,6 +22,7 @@ const TokengatingCard = ({
   icon,
   availableDate,
   gateRequirement,
+  unlockingTokens,
 }: TokengatingCardProps) => {
   const {title, subtitle, sections} = useTokengateCardState({
     isLocked,
@@ -47,11 +48,16 @@ const TokengatingCard = ({
           address={address}
         />
       ),
-      [TokengateCardSection.TokenList]: <div>TokenList</div>,
+      [TokengateCardSection.TokenList]: (
+        <div>
+          <h2>TokenList</h2>
+          <code>JSON: {JSON.stringify(unlockingTokens)}</code>
+        </div>
+      ),
       [TokengateCardSection.TokengateRequirements]: (
         <div>
           <h2>TokengateRequirements</h2>
-          <code>JSON: { JSON.stringify(gateRequirement) }</code>
+          <code>JSON: {JSON.stringify(gateRequirement)}</code>
         </div>
       ),
       [TokengateCardSection.UnavailableTokengate]: (
@@ -62,7 +68,16 @@ const TokengatingCard = ({
       ),
       [TokengateCardSection.SoldOut]: <SoldOutButton />,
     }),
-    [],
+    [
+      onConnectWallet,
+      onConnectedWalletActions,
+      icon,
+      ensName,
+      address,
+      unlockingTokens,
+      gateRequirement,
+      availableDate,
+    ],
   );
 
   return (

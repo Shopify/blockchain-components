@@ -1,3 +1,5 @@
+import {UnlockingToken} from '@shopify/tokengating-card';
+
 export enum EventName {
   RequestWalletVerificationMessage = 'RequestWalletVerificationMessage',
   CheckIfWalletMeetsRequirements = 'CheckIfWalletMeetsRequirements',
@@ -34,7 +36,7 @@ export interface CheckIfWalletMeetsRequirementsEvent extends EventBusEvent {
   };
   response: {
     isUnlocked: boolean;
-    unlockingTokens: [];
+    unlockingTokens: UnlockingToken[];
   };
 }
 
