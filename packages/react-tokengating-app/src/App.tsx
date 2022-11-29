@@ -104,7 +104,10 @@ function App({serverArguments}: AppProps) {
         availableDate="08 September 2022 09:00 UTC"
         icon={<div></div>}
         gateRequirement={serverArguments?.initialState?.gateRequirement}
-        unlockingTokens={serverArguments?.initialState?.unlockingTokens}
+        unlockingTokens={
+          checkIfWalletMeetsRequirementsResponse?.unlockingTokens ||
+          serverArguments?.initialState?.unlockingTokens
+        }
       />
     </>
   );
