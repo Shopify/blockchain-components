@@ -19,7 +19,7 @@ export const ButtonText = styled.p`
   font-family: 'Assistant', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
   letter-spacing: 0.5px;
 `;

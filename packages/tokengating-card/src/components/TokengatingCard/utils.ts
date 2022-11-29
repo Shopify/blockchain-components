@@ -6,11 +6,15 @@ export enum TokengateCardSection {
   ConnectWallet = 'ConnectWallet',
   ConnectedWallet = 'ConnectedWallet',
   UnavailableTokengate = 'UnavailableTokengate',
+  AvailableSoon = 'AvailableSoon',
+  SoldOut = 'SoldOut',
 }
 
 export const useTokengateCardState = ({
   address,
+  availableDate,
   isLocked,
+  isSoldOut,
   lockedTitle,
   lockedSubtitle,
   unlockedTitle,
@@ -19,10 +23,12 @@ export const useTokengateCardState = ({
   TokengatingCardProps,
   | 'address'
   | 'isLocked'
+  | 'isSoldOut'
   | 'lockedTitle'
   | 'lockedSubtitle'
   | 'unlockedTitle'
   | 'unlockedSubtitle'
+  | 'availableDate'
 >) => {
   if (address && !isLocked) {
     return {
@@ -32,6 +38,28 @@ export const useTokengateCardState = ({
       sections: [
         TokengateCardSection.TokenList,
         TokengateCardSection.ConnectedWallet,
+      ],
+    };
+  }
+
+  if (isSoldOut) {
+    return {
+      title: lockedTitle || 'Holder exclusive',
+      subtitle: lockedSubtitle || 'To unlock this product, you need:',
+      sections: [TokengateCardSection.TokenList, TokengateCardSection.SoldOut],
+    };
+  }
+
+  const now = new Date();
+  const dateObject = availableDate ? new Date(availableDate) : null;
+
+  if (dateObject && dateObject > now) {
+    return {
+      title: lockedTitle || 'Holder exclusive',
+      subtitle: lockedSubtitle || 'To unlock this product, you need:',
+      sections: [
+        TokengateCardSection.TokengateRequirements,
+        TokengateCardSection.AvailableSoon,
       ],
     };
   }

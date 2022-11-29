@@ -77,6 +77,7 @@ function App({serverArguments}: AppProps) {
     <>
       <TokengatingCard
         isLocked={isLocked}
+        isSoldOut={false}
         lockedTitle=""
         lockedSubtitle=""
         unlockedTitle=""
@@ -93,6 +94,7 @@ function App({serverArguments}: AppProps) {
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
         address={wallet?.address}
         ensName="snowdevil.eth"
+        availableDate="08 September 2022 09:00 UTC"
         icon={<div></div>}
         gateRequirement={serverArguments?.initialState?.gateRequirement}
         unlockingTokens={serverArguments?.initialState?.unlockingTokens}

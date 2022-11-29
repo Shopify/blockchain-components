@@ -19,6 +19,7 @@ export interface UnlockingToken {
 
 export interface TokengatingCardProps {
   isLocked: boolean;
+  isSoldOut?: boolean;
   lockedTitle?: string;
   lockedSubtitle?: string;
   unlockedTitle?: string;
@@ -30,4 +31,5 @@ export interface TokengatingCardProps {
   icon?: React.ReactNode;
   gateRequirement?: GateRequirement;
   unlockingTokens?: UnlockingToken[];
+  availableDate: string;
 }

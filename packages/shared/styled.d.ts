@@ -65,6 +65,17 @@ declare module 'styled-components' {
 
     secondaryButton: ButtonStyle;
 
+    availableSoonButton: {
+      background: string;
+      border: string;
+    };
+
+    soldOutButton: {
+      background: string;
+      border: string;
+      textColor: string;
+    };
+
     modal: {
       background: string;
       overlayBackground: string;
