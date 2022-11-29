@@ -67,6 +67,16 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
     disconnect();
   }, [disconnect]);
 
+  /**
+   * ## requestSignature
+   *
+   * This function is different from `signMessage` in that it takes an optional message
+   * parameter. The reason for this is that the message is set in state, so if a message
+   * param is not passed, we use the message from state for the signature request.
+   *
+   * The idea behind this is that the signature request modal can have a `Try again` button
+   * in the future.
+   */
   const requestSignature = useCallback(
     async (props?: {message?: string}) => {
       if (!wallet) {
@@ -146,7 +156,10 @@ export const useWalletConnection = () => {
 };
 
 /**
- * Used for all external requests.
+ * This is separate from useWalletConnection because we do not want to expose
+ * clearWalletConnection or setPendingConnector. As our context value grows,
+ * the list of values we don't want to expose might grow with it, which is why
+ * this separate hook was created.
  */
 export const useExternalWalletConnection = ({
   onConnect: onConnectCallback,
@@ -154,13 +167,10 @@ export const useExternalWalletConnection = ({
 }: UseWalletProps) => {
   const context = useContext(WalletConnectionContext);
   if (!context) throw Error('WalletConnection context not present.');
-  const {signing, signMessage, wallet} = context;
+  const {pendingConnector, signing, signMessage, wallet} = context;
 
-  const {connecting} = useWallet({
+  const {connecting, disconnect} = useWallet({
     onConnect: (response) => onConnectCallback?.(response),
-    // onMessageSigned: (response) => {
-    //   onMessageSignedCallback?.(response);
-    // },
   });
 
   const signMessageCallback = useCallback(
@@ -174,6 +184,8 @@ export const useExternalWalletConnection = ({
 
   return {
     connecting,
+    disconnect,
+    pendingConnector,
     signing,
     signMessage: signMessageCallback,
     wallet,
