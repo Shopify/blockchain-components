@@ -27,9 +27,11 @@ export interface TokengatingCardProps {
   unlockedSubtitle?: string;
   onConnectWallet: () => void;
   onConnectedWalletActions: () => void;
-  address?: string | undefined;
-  ensName?: string;
-  icon?: React.ReactNode;
+  wallet?: {
+    address?: string;
+    ensName?: string;
+    icon?: React.ReactNode;
+  };
   gateRequirement?: GateRequirement;
   unlockingTokens?: UnlockingToken[];
   availableDate: string;

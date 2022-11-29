@@ -11,7 +11,7 @@ export enum TokengateCardSection {
 }
 
 export const useTokengateCardState = ({
-  address,
+  wallet,
   availableDate,
   isLocked,
   isSoldOut,
@@ -21,7 +21,7 @@ export const useTokengateCardState = ({
   unlockedSubtitle,
 }: Pick<
   TokengatingCardProps,
-  | 'address'
+  | 'wallet'
   | 'isLocked'
   | 'isSoldOut'
   | 'lockedTitle'
@@ -30,7 +30,7 @@ export const useTokengateCardState = ({
   | 'unlockedSubtitle'
   | 'availableDate'
 >) => {
-  if (address && !isLocked) {
+  if (wallet?.address && !isLocked) {
     return {
       title: unlockedTitle || 'Exclusive unlocked',
       subtitle:

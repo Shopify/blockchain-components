@@ -17,9 +17,7 @@ const TokengatingCard = ({
   unlockedSubtitle,
   onConnectWallet,
   onConnectedWalletActions,
-  address,
-  ensName,
-  icon,
+  wallet,
   availableDate,
   gateRequirement,
   unlockingTokens,
@@ -27,7 +25,7 @@ const TokengatingCard = ({
   const {title, subtitle, sections} = useTokengateCardState({
     isLocked,
     isSoldOut,
-    address,
+    wallet,
     lockedTitle,
     lockedSubtitle,
     unlockedTitle,
@@ -43,9 +41,9 @@ const TokengatingCard = ({
       [TokengateCardSection.ConnectedWallet]: (
         <ConnectedWalletButton
           onConnectedWalletActions={onConnectedWalletActions}
-          icon={icon}
-          ensName={ensName}
-          address={address}
+          icon={wallet?.icon}
+          ensName={wallet?.ensName}
+          address={wallet?.address}
         />
       ),
       [TokengateCardSection.TokenList]: (
@@ -71,9 +69,9 @@ const TokengatingCard = ({
     [
       onConnectWallet,
       onConnectedWalletActions,
-      icon,
-      ensName,
-      address,
+      wallet?.icon,
+      wallet?.ensName,
+      wallet?.address,
       unlockingTokens,
       gateRequirement,
       availableDate,
