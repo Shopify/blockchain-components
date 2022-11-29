@@ -32,11 +32,20 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
       'CheckIfWalletMeetsRequirements',
       (variables: any, dispatch: any) => {
         const {address, message, signature} = variables;
-        // eslint-disable-next-line no-console
-        console.log({address, message, signature});
         const responseData = {
           isUnlocked: true,
-          unlockingTokens: ['token1', 'token2'],
+          unlockingTokens: [
+            {
+              token: {
+                contractAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
+                contractName: 'CommerceTown',
+                mediaUrl:
+                  'https://i.seadn.io/gae/5GWHLyazRjjgN4hReAbM8kNEccOSJ0TTlKjIgfu1PAEzNnarcBvfPEaNQKnhom5PYhHVHqBjow3GhsDB7SVaBEGxqiJv_qyDqfRORQ?w=500&auto=format',
+                title: 'Townfolk #103',
+                tokenId: '103',
+              },
+            },
+          ],
         };
         setTimeout(() => dispatch(responseData), 500);
       },

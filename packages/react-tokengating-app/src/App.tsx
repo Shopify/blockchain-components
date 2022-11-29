@@ -13,7 +13,11 @@ import {
 import './DawnVariables.css';
 
 import './App.css';
-import {EventName, RequestWalletVerificationMessageEvent} from './types/events';
+import {
+  EventName,
+  RequestWalletVerificationMessageEvent,
+  CheckIfWalletMeetsRequirementsEvent,
+} from './types/events';
 import {eventBus, useLazyEventBus} from './utils';
 
 interface AppProps {
@@ -39,16 +43,21 @@ function App({serverArguments}: AppProps) {
     requestWalletVerification,
     {
       data: requestWalletVerificationResponse,
-      status: requestWalletVerificationStatus,
+      // status: requestWalletVerificationStatus,
     },
   ] = useLazyEventBus<RequestWalletVerificationMessageEvent>(
     EventName.RequestWalletVerificationMessage,
   );
 
-  console.log({
-    verification: requestWalletVerificationResponse?.verification,
-    requestWalletVerificationStatus,
-  });
+  const [
+    checkIfWalletMeetsRequirements,
+    {
+      data: checkIfWalletMeetsRequirementsResponse,
+      // status: checkIfWalletMeetsRequirementsStatus,
+    },
+  ] = useLazyEventBus<CheckIfWalletMeetsRequirementsEvent>(
+    EventName.CheckIfWalletMeetsRequirements,
+  );
 
   const {signMessage, wallet} = useWalletConnection({
     onConnect: (response) => {
@@ -57,7 +66,14 @@ function App({serverArguments}: AppProps) {
       }
     },
     onMessageSigned: (response) => {
-      console.log('signed response', response);
+      if (!response) return;
+
+      const {address, message, signature} = response;
+      checkIfWalletMeetsRequirements({
+        address,
+        message,
+        signature,
+      });
     },
   });
 
@@ -69,6 +85,10 @@ function App({serverArguments}: AppProps) {
     }
   }, [requestWalletVerificationResponse?.verification?.message]);
 
+  useEffect(() => {
+    setIsLocked(!checkIfWalletMeetsRequirementsResponse?.isUnlocked);
+  }, [checkIfWalletMeetsRequirementsResponse?.isUnlocked]);
+
   return (
     <>
       <TokengatingCard
@@ -78,16 +98,9 @@ function App({serverArguments}: AppProps) {
         lockedSubtitle=""
         unlockedTitle=""
         unlockedSubtitle=""
-        onConnectWallet={() => {
-          openModal();
-          /**
-           * Will come back to this to add connected + verified states.
-           */
-          setIsLocked(false);
-        }}
+        onConnectWallet={openModal}
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
         address={wallet?.address}
-        ensName="snowdevil.eth"
         availableDate="08 September 2022 09:00 UTC"
         icon={<div></div>}
         gateRequirement={serverArguments?.initialState?.gateRequirement}
