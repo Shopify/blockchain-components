@@ -3,6 +3,11 @@ import {Browser} from '../types/browser';
 
 export interface ConnectorData {
   /**
+   * Wagmi id of the connector
+   * (ex: https://github.com/wagmi-dev/wagmi/blob/main/packages/core/src/connectors/metaMask.ts#L26)
+   */
+  wagmiId?: string;
+  /**
    * A list of browser extension URLs for supported browsers.
    *
    * Particularly helpful for when users do not have a wallet app extension,
@@ -29,6 +34,7 @@ export interface ConnectorData {
 
 export const Connectors: Record<string, ConnectorData> = {
   MetaMask: {
+    wagmiId: 'metaMask',
     browserExtensions: {
       Brave:
         'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
@@ -47,6 +53,7 @@ export const Connectors: Record<string, ConnectorData> = {
     qrCodeSupported: false,
   },
   WalletConnect: {
+    wagmiId: 'walletConnect',
     icon: WalletConnect,
     name: 'WalletConnect',
     qrCodeSupported: true,
@@ -73,4 +80,27 @@ export const getConnectorData = (connectorName?: string): ConnectorData => {
   }
 
   return Connectors[connectorName];
+};
+
+export const findConnector = ({
+  connectorName,
+  wagmiId,
+}: {
+  connectorName?: string;
+  wagmiId?: string;
+}): ConnectorData => {
+  if (!connectorName && !wagmiId) {
+    return DEFAULT_CONNECTOR;
+  }
+
+  const supported = Object.values(Connectors).find(
+    (connector) =>
+      connector.wagmiId === wagmiId || connector.name === connectorName,
+  );
+
+  if (!supported) {
+    return DEFAULT_CONNECTOR;
+  }
+
+  return supported;
 };

@@ -21,7 +21,8 @@ export function useWallet({
     if (address) {
       const value = {
         address,
-        connector: connector?.id,
+        connectorId: connector?.id,
+        connectorName: connector?.name,
         connectedAt: new Date().toISOString(),
       };
 

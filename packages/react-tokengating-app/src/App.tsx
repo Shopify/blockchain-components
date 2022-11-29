@@ -8,6 +8,7 @@ import {
   Wallet,
   useConnectionModal,
   useWalletConnection,
+  ConnectorIcon,
 } from '@shopify/wallet-connection';
 
 import './DawnVariables.css';
@@ -102,7 +103,7 @@ function App({serverArguments}: AppProps) {
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
         address={wallet?.address}
         availableDate="08 September 2022 09:00 UTC"
-        icon={<div></div>}
+        icon={<ConnectorIcon wagmiId={wallet?.connectorId} />}
         gateRequirement={serverArguments?.initialState?.gateRequirement}
         unlockingTokens={
           checkIfWalletMeetsRequirementsResponse?.unlockingTokens ||

@@ -8,12 +8,16 @@ export interface ConnectedWallet {
    */
   connectedAt?: string;
   /**
-   * The connector associated with how this address was connected.
+   * The connector id associated with how this address was connected.
    * This is particularly helpful for when a user wants to disconnect
    * their wallet and informing the user of how it was connected so
    * they can disconnect externally.
    */
-  connector?: string;
+  connectorId?: string;
+  /**
+   * The connector name associated with how this address was connected.
+   */
+  connectorName?: string;
 }
 
 export interface SignMessageProps {
