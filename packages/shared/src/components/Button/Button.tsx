@@ -37,7 +37,7 @@ export const Button = ({
        */
       <LinkButton
         id={id}
-        aria-role="link"
+        role="link"
         href={link.href}
         target={link.target}
         title={label}
