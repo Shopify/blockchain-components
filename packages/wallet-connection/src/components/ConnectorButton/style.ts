@@ -19,11 +19,6 @@ export const Button = styled.button`
   }
 `;
 
-export const ConnectorIcon = styled.div`
-  width: 20px;
-  height: 20px;
-`;
-
 export const ConnectorName = styled.label`
   font-weight: ${({theme}) => theme.typography.heading.fontWeight};
   font-size: ${({theme}) => theme.typography.heading.h3.fontSize};

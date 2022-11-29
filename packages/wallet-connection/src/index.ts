@@ -2,6 +2,7 @@
  * Components
  */
 export {ConnectWalletButton} from './components/ConnectWalletButton/ConnectWalletButton';
+export {ConnectorIcon} from './components/ConnectorIcon/ConnectorIcon';
 
 /**
  * Constants
