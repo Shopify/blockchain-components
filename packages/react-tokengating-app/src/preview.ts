@@ -7,6 +7,7 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
   containerId: gmShopContainerId,
   initialState: {
     isLocked: true,
+    gateRequirement: {abc: 123},
   },
   setupEventBus: (eventBusFromReactApp: any) => {
     console.log('Theme: event bus listening');

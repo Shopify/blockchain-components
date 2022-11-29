@@ -21,6 +21,7 @@ const TokengatingCard = ({
   ensName,
   icon,
   availableDate,
+  gateRequirement,
 }: TokengatingCardProps) => {
   const {title, subtitle, sections} = useTokengateCardState({
     isLocked,
@@ -48,7 +49,10 @@ const TokengatingCard = ({
       ),
       [TokengateCardSection.TokenList]: <div>TokenList</div>,
       [TokengateCardSection.TokengateRequirements]: (
-        <div>TokengateRequirements</div>
+        <div>
+          <h2>TokengateRequirements</h2>
+          <code>JSON: { JSON.stringify(gateRequirement) }</code>
+        </div>
       ),
       [TokengateCardSection.UnavailableTokengate]: (
         <div>UnavailableTokengate</div>
