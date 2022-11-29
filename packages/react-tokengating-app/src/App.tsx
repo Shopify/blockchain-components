@@ -5,9 +5,9 @@ import {
   UnlockingToken,
 } from '@shopify/tokengating-card';
 import {
-  ConnectedWallet,
+  Wallet,
   useConnectionModal,
-  useWallet,
+  useWalletConnection,
 } from '@shopify/wallet-connection';
 
 import './DawnVariables.css';
@@ -22,7 +22,7 @@ interface AppProps {
       locked: boolean;
       gateRequirement?: GateRequirement;
       unlockingTokens?: UnlockingToken[];
-      wallet?: ConnectedWallet;
+      wallet?: Wallet;
     };
     setupEventBus: (eventBus: any) => void;
   };
@@ -34,7 +34,6 @@ function App({serverArguments}: AppProps) {
   const [isLocked, setIsLocked] = useState(
     serverArguments?.initialState?.locked ?? true,
   );
-  const [wallet, setWallet] = useState(serverArguments?.initialState?.wallet);
 
   const [
     requestWalletVerification,
@@ -45,33 +44,30 @@ function App({serverArguments}: AppProps) {
   ] = useLazyEventBus<RequestWalletVerificationMessageEvent>(
     EventName.RequestWalletVerificationMessage,
   );
+
   console.log({
     verification: requestWalletVerificationResponse?.verification,
     requestWalletVerificationStatus,
   });
 
-  const {
-    wallet: walletResponse,
-    // verify
-    /**
-     * I think adding an onConnect or onSignature callback to this is probably ideal?
-     * Maybe we can consider showing a modal to present the user with the signature
-     * request instead of automatically opening the signature request as well.
-     */
-  } = useWallet();
+  const {signMessage, wallet} = useWalletConnection({
+    onConnect: (response) => {
+      if (response?.address) {
+        requestWalletVerification({address: response.address});
+      }
+    },
+    onMessageSigned: (response) => {
+      console.log('signed response', response);
+    },
+  });
 
   useEffect(() => {
-    const verifyAddress = async () => {
-      // Ideally this would happen in onSignature or a similarly named callback.
-      setWallet(walletResponse);
-    };
-
-    /**
-     * This is not code for future use, this is just rough dev code for testing the signature process.
-     */
-    setIsLocked(false);
-    verifyAddress();
-  }, [walletResponse]);
+    if (requestWalletVerificationResponse?.verification?.message) {
+      signMessage({
+        message: requestWalletVerificationResponse.verification.message,
+      });
+    }
+  }, [requestWalletVerificationResponse?.verification?.message]);
 
   return (
     <>
@@ -88,8 +84,6 @@ function App({serverArguments}: AppProps) {
            * Will come back to this to add connected + verified states.
            */
           setIsLocked(false);
-          setWallet({address: '0x0'});
-          requestWalletVerification({address: '0x0'});
         }}
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
         address={wallet?.address}

@@ -2,7 +2,6 @@
  * Components
  */
 export {ConnectWalletButton} from './components/ConnectWalletButton/ConnectWalletButton';
-export {useModal} from './providers/ModalProvider';
 
 /**
  * Constants
@@ -15,6 +14,8 @@ export {useModal} from './providers/ModalProvider';
  */
 export {useWallet} from './hooks/useWallet';
 export {useConnectionModal} from './hooks/useConnectionModal';
+export {useModal} from './providers/ModalProvider';
+export {useExternalWalletConnection as useWalletConnection} from './providers/WalletConnectionProvider';
 
 /**
  * Providers
@@ -24,4 +25,4 @@ export {WalletConnectionProvider} from './providers/WalletConnectionProvider';
 /**
  * Types
  */
-export type {ConnectedWallet} from './hooks/useWallet';
+export type {Wallet} from './types/wallet';

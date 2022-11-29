@@ -1,89 +1,65 @@
 import {useCallback, useMemo} from 'react';
-import {useAccount, useSignMessage} from 'wagmi';
+import {useAccount, useDisconnect, useSignMessage} from 'wagmi';
 
-export interface ConnectedWallet {
-  /**
-   * The public address of the connected wallet.
-   */
-  address: string;
-  /**
-   * ISO datetime string in which this address was connected.
-   */
-  connectedAt?: string;
-  /**
-   * The connector associated with how this address was connected.
-   * This is particularly helpful for when a user wants to disconnect
-   * their wallet and informing the user of how it was connected so
-   * they can disconnect externally.
-   */
-  connector?: string;
-}
+import {
+  SignMessageProps,
+  SignatureResponse,
+  UseWalletProps,
+  UseWalletResponse,
+} from '../types/wallet';
 
-interface VerifyProps {
-  address: string;
-  message: string;
-}
-
-interface VerificationResponse {
-  address?: string;
-  message?: string;
-  signature?: string;
-}
-
-interface UseWalletResponse {
-  connecting: boolean;
-  verify: (args: VerifyProps) => Promise<VerificationResponse | undefined>;
-  verifying?: boolean;
-  wallet: ConnectedWallet | undefined;
-}
-
-export function useWallet(): UseWalletResponse {
+export function useWallet({
+  onConnect,
+  onMessageSigned,
+}: UseWalletProps): UseWalletResponse {
   const {address, connector, isConnecting} = useAccount();
+  const {disconnect} = useDisconnect();
 
-  /**
-   * We could consider adding these wallets to context with a persisted state
-   * in the future, allowing for wallets to be injected into the provider
-   * (e.g. loaded from a server / api), and for mantaining a list of
-   * wallets have already been verified.
-   */
-  const wallet = useMemo(() => {
+  const {error, isLoading, signMessageAsync} = useSignMessage();
+
+  useMemo(() => {
     if (address) {
-      return {
+      const value = {
         address,
         connector: connector?.id,
         connectedAt: new Date().toISOString(),
       };
+
+      onConnect?.(value);
+
+      return value;
     }
+
+    onConnect?.();
   }, [address, connector]);
 
-  const {error, isLoading, signMessageAsync} = useSignMessage();
-
-  const verify = useCallback(
-    async ({
-      address,
-      message,
-    }: VerifyProps): Promise<VerificationResponse | undefined> => {
+  const signMessage = useCallback(
+    async ({address, message}: SignMessageProps) => {
       try {
-        const signature = await signMessageAsync({message});
+        const signedMessage = await signMessageAsync({message});
 
-        return {
+        const response: SignatureResponse = {
           address,
           message,
-          signature,
+          signedMessage,
         };
+
+        onMessageSigned?.(response);
+
+        return response;
       } catch {
         // If the error was returned by the use sign message hook then return that.
         // We should probably add some more verbose error handling in here as well.
-        return error || new Error('Verification process failed.');
+        throw error || new Error('Verification process failed.');
       }
     },
-    [signMessageAsync],
+    [onMessageSigned, signMessageAsync],
   );
 
   return {
     connecting: isConnecting,
-    verify,
-    verifying: isLoading,
-    wallet,
+    disconnect,
+    signing: isLoading,
+    signMessage,
   };
 }

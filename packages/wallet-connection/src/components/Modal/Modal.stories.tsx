@@ -1,7 +1,7 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 import {WalletConnectionProvider} from '../../providers/WalletConnectionProvider';
 
-import Modal from './Modal';
+import {Modal} from './Modal';
 
 const ModalStory: ComponentMeta<typeof Modal> = {
   title: 'Wallet Connection/Modal',

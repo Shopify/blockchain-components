@@ -18,7 +18,9 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
       (variables: any, dispatch: any) => {
         const responseData = {
           verification: {
-            message: `verification message for ${variables.address}`,
+            message: `verification message for ${
+              variables.address
+            } - ${new Date().toISOString()}`,
             generatedAt: new Date().toISOString(),
           },
         };
