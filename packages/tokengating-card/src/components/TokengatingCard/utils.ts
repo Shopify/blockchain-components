@@ -5,7 +5,6 @@ export enum TokengateCardSection {
   TokenList = 'TokenList',
   ConnectWallet = 'ConnectWallet',
   ConnectedWallet = 'ConnectedWallet',
-  UnavailableTokengate = 'UnavailableTokengate',
   AvailableSoon = 'AvailableSoon',
   SoldOut = 'SoldOut',
 }

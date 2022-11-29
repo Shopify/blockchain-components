@@ -12,12 +12,12 @@ interface TokenBaseProps {
   icon: React.ReactNode;
 }
 
-const TokenBase = ({icon}: TokenBaseProps) => (
+const TokenBase = ({title, subtitle, icon}: TokenBaseProps) => (
   <TokenBaseStyle>
     <TokenBaseIcon>{icon}</TokenBaseIcon>
     <TokenBaseText>
-      <TokenBaseTitle>CommerceTown</TokenBaseTitle>
-      <TokenBaseSubtitle>Any token</TokenBaseSubtitle>
+      <TokenBaseTitle>{title}</TokenBaseTitle>
+      <TokenBaseSubtitle>{subtitle}</TokenBaseSubtitle>
     </TokenBaseText>
   </TokenBaseStyle>
 );
