@@ -2,13 +2,11 @@ import {ReactNode, Fragment, useMemo} from 'react';
 import {Card} from '../Card/Card';
 import {ConnectedWalletButton} from '../ConnectedWalletButton/ConnectedWalletButton';
 import {ConnectWalletButton} from '../ConnectWalletButton/ConnectWalletButton';
-import {
-  TokengatingCardProps,
-  TokengateCardSection,
-  useTokengateCardState,
-} from './utils';
+import {TokengateCardSection, useTokengateCardState} from './utils';
+import {TokengatingCardProps} from './types';
 import {ThemeProvider} from 'shared';
-import React from 'react';
+import {AvailableSoonButton} from '../AvailableSoonButton/AvailableSoonButton';
+import {SoldOutButton} from '../SoldOutButton/SoldOutButton';
 
 const TokengatingCard = ({
   isLocked,

@@ -102,6 +102,10 @@ export const Polaris: DefaultTheme = {
     boxShadow: `0px 1px 0px ${PolarisColors.Grayscale['7']}`,
   },
 
+  tokenBase: {
+    background: PolarisColors.Grayscale['0'],
+  },
+
   modal: {
     background: PolarisColors.Grayscale['0'],
     overlayBackground: 'rgba(0, 0, 0, 0.5)',
