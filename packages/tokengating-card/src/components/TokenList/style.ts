@@ -8,4 +8,5 @@ export const TokenListImageStyle = styled.img`
 
 export const TokenListWrapper = styled.div`
   padding: 4px 0;
+  box-sizing: unset;
 `;
