@@ -1,7 +1,7 @@
 import {TokengatingCardProps} from './types';
 
 export enum TokengateCardSection {
-  TokengateRequirements = 'TokengateRequirements',
+  TokengateRequirement = 'TokengateRequirement',
   TokenList = 'TokenList',
   ConnectWallet = 'ConnectWallet',
   ConnectedWallet = 'ConnectedWallet',
@@ -45,7 +45,10 @@ export const useTokengateCardState = ({
     return {
       title: lockedTitle || 'Holder exclusive',
       subtitle: lockedSubtitle || 'To unlock this product, you need:',
-      sections: [TokengateCardSection.TokenList, TokengateCardSection.SoldOut],
+      sections: [
+        TokengateCardSection.TokengateRequirement,
+        TokengateCardSection.SoldOut,
+      ],
     };
   }
 
@@ -57,7 +60,7 @@ export const useTokengateCardState = ({
       title: lockedTitle || 'Holder exclusive',
       subtitle: lockedSubtitle || 'To unlock this product, you need:',
       sections: [
-        TokengateCardSection.TokengateRequirements,
+        TokengateCardSection.TokengateRequirement,
         TokengateCardSection.AvailableSoon,
       ],
     };
@@ -67,7 +70,7 @@ export const useTokengateCardState = ({
     title: lockedTitle || 'Holder exclusive',
     subtitle: lockedSubtitle || 'To unlock this product, you need:',
     sections: [
-      TokengateCardSection.TokengateRequirements,
+      TokengateCardSection.TokengateRequirement,
       TokengateCardSection.ConnectWallet,
     ],
   };

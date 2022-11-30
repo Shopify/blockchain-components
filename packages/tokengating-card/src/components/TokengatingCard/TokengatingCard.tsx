@@ -8,6 +8,7 @@ import {ThemeProvider} from 'shared';
 import {AvailableSoonButton} from '../AvailableSoonButton/AvailableSoonButton';
 import {SoldOutButton} from '../SoldOutButton/SoldOutButton';
 import {TokenList} from '../TokenList/TokenList';
+import {TokengateRequirement} from '../TokengateRequirement/TokengateRequirement';
 
 const TokengatingCard = ({
   isLocked,
@@ -48,8 +49,8 @@ const TokengatingCard = ({
         />
       ),
       [TokengateCardSection.TokenList]: <TokenList tokens={unlockingTokens} />,
-      [TokengateCardSection.TokengateRequirements]: (
-        <TokenList tokens={gateRequirement?.tokenSeries} />
+      [TokengateCardSection.TokengateRequirement]: (
+        <TokengateRequirement gateRequirement={gateRequirement} />
       ),
       [TokengateCardSection.AvailableSoon]: (
         <AvailableSoonButton availableDate={availableDate} />
