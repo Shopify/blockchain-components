@@ -1,10 +1,10 @@
 import {ReactNode, Fragment, useMemo} from 'react';
-import {ThemeProvider} from 'shared';
 import {Card} from '../Card/Card';
 import {ConnectedWalletButton} from '../ConnectedWalletButton/ConnectedWalletButton';
 import {ConnectWalletButton} from '../ConnectWalletButton/ConnectWalletButton';
 import {TokengateCardSection, useTokengateCardState} from './utils';
 import {TokengatingCardProps} from './types';
+import {ThemeProvider} from 'shared';
 import {AvailableSoonButton} from '../AvailableSoonButton/AvailableSoonButton';
 import {SoldOutButton} from '../SoldOutButton/SoldOutButton';
 

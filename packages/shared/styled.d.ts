@@ -77,6 +77,10 @@ declare module 'styled-components' {
       textColor: string;
     };
 
+    tokenBase: {
+      background: string;
+    };
+
     modal: {
       background: string;
       overlayBackground: string;
