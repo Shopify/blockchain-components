@@ -12,6 +12,7 @@ export const Background = styled.div<{$visible: boolean}>`
   align-items: center;
   justify-content: center;
   pointer-events: ${({$visible}) => ($visible ? 'all' : 'none')};
+  z-index: 1;
 `;
 
 export const ConnectorIcon = styled.div`
