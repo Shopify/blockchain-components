@@ -2,7 +2,7 @@ import {useCallback} from 'react';
 import {Connector} from 'wagmi';
 import {ConnectArgs} from '@wagmi/core';
 
-import {SheetContent, StyledLink, Subtext} from '../style';
+import {SheetContent, StyledLink} from '../style';
 import {ConnectorButton} from '../../ConnectorButton';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
@@ -49,16 +49,13 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
           />
         );
       })}
-      <Subtext>
-        Don't have a wallet? Select a provider and create one now
-        <StyledLink
-          aria-label="Learn more about wallets"
-          role="link"
-          onClick={handleWhatAreWallets}
-        >
-          Learn more
-        </StyledLink>
-      </Subtext>
+      <StyledLink
+        aria-label="What is a wallet?"
+        role="link"
+        onClick={handleWhatAreWallets}
+      >
+        What is a wallet?
+      </StyledLink>
     </SheetContent>
   );
 };

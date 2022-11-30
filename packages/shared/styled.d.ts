@@ -25,6 +25,10 @@ declare module 'styled-components' {
     fontSize: string;
     fontWeight: string;
     lineHeight: string;
+
+    bold: {
+      fontWeight: string;
+    };
   }
 
   export interface DefaultTheme {
@@ -58,18 +62,35 @@ declare module 'styled-components' {
       body: FontStyle;
     };
 
-    connectButton: ButtonStyle;
-
-    walletConnectorButton: ButtonStyle & {
-      horizontalAlignment: string;
-    };
-
-    secondaryButton: ButtonStyle;
-
     availableSoonButton: {
       background: string;
       border: string;
     };
+
+    connectButton: ButtonStyle;
+
+    modal: {
+      background: string;
+      overlayBackground: string;
+      border: string;
+      borderRadius: string;
+      boxShadow: string;
+      padding: Padding;
+    };
+
+    other: {
+      iconColor: string;
+      dividerColour: string;
+    };
+
+    popovers: {
+      background: string;
+      border: string;
+      borderRadius: string;
+      boxShadow: string;
+    };
+
+    secondaryButton: ButtonStyle;
 
     soldOutButton: {
       background: string;
@@ -81,25 +102,8 @@ declare module 'styled-components' {
       background: string;
     };
 
-    modal: {
-      background: string;
-      overlayBackground: string;
-      border: string;
-      borderRadius: string;
-      boxShadow: string;
-      padding: Padding;
-    };
-
-    popovers: {
-      background: string;
-      border: string;
-      borderRadius: string;
-      boxShadow: string;
-    };
-
-    other: {
-      iconColor: string;
-      dividerColour: string;
+    walletConnectorButton: ButtonStyle & {
+      horizontalAlignment: string;
     };
   }
 }

@@ -113,10 +113,13 @@ export const Subtext = styled.span`
 `;
 
 export const StyledLink = styled.span`
+  font-weight: ${({theme}) => theme.typography.body.bold.fontWeight};
+  font-size: ${({theme}) => theme.typography.body.fontSize};
+  line-height: ${({theme}) => theme.typography.body.lineHeight};
   color: ${({theme}) => theme.typography.colorPrimary};
+  text-decoration: underline;
   display: block;
   cursor: pointer;
-  text-decoration: underline;
 `;
 
 export const WalletListItem = styled.div`
