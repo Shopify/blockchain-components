@@ -1,4 +1,4 @@
-interface TokenSeries {
+export interface TokenSeries {
   name: string;
   conditionsDescription: string;
   imageUrl: string;
@@ -36,3 +36,13 @@ export interface TokengatingCardProps {
   unlockingTokens?: UnlockingToken[];
   availableDate: string;
 }
+
+export const instanceOfUnlockingToken = (
+  object: any,
+): object is UnlockingToken => {
+  return 'token' in object;
+};
+
+export const instanceOfTokenSeries = (object: any): object is TokenSeries => {
+  return 'conditionsDescription' in object;
+};

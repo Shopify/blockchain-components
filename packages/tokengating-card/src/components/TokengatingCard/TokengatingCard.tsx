@@ -7,6 +7,7 @@ import {TokengatingCardProps} from './types';
 import {ThemeProvider} from 'shared';
 import {AvailableSoonButton} from '../AvailableSoonButton/AvailableSoonButton';
 import {SoldOutButton} from '../SoldOutButton/SoldOutButton';
+import {TokenList} from '../TokenList/TokenList';
 
 const TokengatingCard = ({
   isLocked,
@@ -46,20 +47,9 @@ const TokengatingCard = ({
           address={wallet?.address}
         />
       ),
-      [TokengateCardSection.TokenList]: (
-        <div>
-          <h2>TokenList</h2>
-          <code>JSON: {JSON.stringify(unlockingTokens)}</code>
-        </div>
-      ),
+      [TokengateCardSection.TokenList]: <TokenList tokens={unlockingTokens} />,
       [TokengateCardSection.TokengateRequirements]: (
-        <div>
-          <h2>TokengateRequirements</h2>
-          <code>JSON: {JSON.stringify(gateRequirement)}</code>
-        </div>
-      ),
-      [TokengateCardSection.UnavailableTokengate]: (
-        <div>UnavailableTokengate</div>
+        <TokenList tokens={gateRequirement?.tokenSeries} />
       ),
       [TokengateCardSection.AvailableSoon]: (
         <AvailableSoonButton availableDate={availableDate} />
