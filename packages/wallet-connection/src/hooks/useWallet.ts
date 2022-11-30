@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react';
+import {useCallback, useEffect} from 'react';
 import {useAccount, useDisconnect, useSignMessage} from 'wagmi';
 
 import {
@@ -17,8 +17,8 @@ export function useWallet({
 
   const {error, isLoading, signMessageAsync} = useSignMessage();
 
-  useMemo(() => {
-    if (address) {
+  useEffect(() => {
+    if (address && connector?.id && connector?.name) {
       const value = {
         address,
         connectorId: connector?.id,
@@ -27,12 +27,8 @@ export function useWallet({
       };
 
       onConnect?.(value);
-
-      return value;
     }
-
-    onConnect?.();
-  }, [address, connector]);
+  }, [address, connector?.id, connector?.name]);
 
   const signMessage = useCallback(
     async ({address, message}: SignMessageProps) => {
