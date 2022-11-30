@@ -5,13 +5,22 @@ export const ConnectedWalletButtonStyle = styled(ButtonWrapper)`
   background-color: ${({theme}) => theme.walletConnectorButton.background};
   border: ${({theme}) => theme.walletConnectorButton.border};
   color: ${({theme}) => theme.walletConnectorButton.textColor};
+  width: 100%;
 `;
 
 export const ConnectedWalletIcon = styled.div`
   height: 20px;
   width: 20px;
-  background-color: blue;
   margin-right: 5px;
+  border-radius: 4px;
 `;
 
-export const ConnectedWalletDropdown = styled.div``;
+export const ConnectedWalletDropdown = styled.div`
+  margin-left: 5px;
+  display: flex;
+`;
+
+export const ConnectedWalletAddress = styled.span`
+  max-width: calc(100% - 50px);
+  overflow: hidden;
+`;

@@ -101,9 +101,12 @@ function App({serverArguments}: AppProps) {
         unlockedSubtitle=""
         onConnectWallet={openModal}
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
-        address={wallet?.address}
+        wallet={{
+          address: wallet?.address,
+          ensName: undefined,
+          icon: <ConnectorIcon wagmiId={wallet?.connectorId} />,
+        }}
         availableDate="08 September 2022 09:00 UTC"
-        icon={<ConnectorIcon wagmiId={wallet?.connectorId} />}
         gateRequirement={serverArguments?.initialState?.gateRequirement}
         unlockingTokens={
           checkIfWalletMeetsRequirementsResponse?.unlockingTokens ||
