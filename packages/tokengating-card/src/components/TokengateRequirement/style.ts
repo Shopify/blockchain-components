@@ -15,3 +15,8 @@ export const TokengateRequirementSeparatorStyle = styled.div`
     background-color: #e1e3e5;
   }
 `;
+
+export const TokengateRequirementBadgeWrapper = styled.div`
+  color: white;
+  line-height: 0;
+`;

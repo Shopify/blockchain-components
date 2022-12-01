@@ -1,32 +1,28 @@
-import {ConnectArgs, ConnectResult, Provider} from '@wagmi/core';
-import {useEffect, useMemo, useState} from 'react';
+import {ConnectArgs} from '@wagmi/core';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button} from 'shared';
 import {useConnect} from 'wagmi';
 
 import {ModalContent} from './state-content';
 
-import {BodyText, ButtonContainer, SheetContent} from '../style';
-import {QRCode} from '../../QRCode';
-import {getConnectorData} from '../../../constants/connectors';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
+import {QRCode} from '../../QRCode';
+import {BodyText, ButtonContainer, SheetContent} from '../style';
 import {ConnectionState} from '../../../types/connectionState';
 import {getBrowserInfo} from '../../../utils/getBrowser';
 
 interface ScanScreenProps {
-  connectAsync: (
-    args?: Partial<ConnectArgs> | undefined,
-  ) => Promise<ConnectResult<Provider>>;
+  connect: (args?: Partial<ConnectArgs> | undefined) => void;
   state: ConnectionState;
 }
 
-const ScanScreen = ({connectAsync, state}: ScanScreenProps) => {
+const ScanScreen = ({connect, state}: ScanScreenProps) => {
   const {connectors} = useConnect();
   const {pendingConnector} = useWalletConnection();
-  const downloadButtons = useConnectorDownloadLinks(pendingConnector?.name);
+  const downloadButtons = useConnectorDownloadLinks();
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
 
-  const {qrCodeSupported} = getConnectorData(pendingConnector?.name);
   const {mobilePlatform} = getBrowserInfo();
 
   const {body} = ModalContent[state];
@@ -47,13 +43,27 @@ const ScanScreen = ({connectAsync, state}: ScanScreenProps) => {
     return null;
   }, [state]);
 
+  const handleUseDefaultWalletConnect = () => {
+    // Make sure the WalletConnect connector is available in our current client instance.
+    // At the moment this only refreshes the connector's uri.
+    const connector = connectors.find(({id}) => id === 'walletConnect');
+
+    if (!connector) {
+      return;
+    }
+
+    connect({connector});
+  };
+
   const buttons = useMemo(() => {
+    // We only want to show the wallet connect modal button if
+    // the connector (not the wagmi connector) is wallet connect.
     const isWalletConnect = pendingConnector?.id === 'walletConnect';
 
     const walletConnectModalButton =
       isWalletConnect && !mobilePlatform ? (
         <Button
-          onClick={() => handleUseDefaultWalletConnect()}
+          onClick={handleUseDefaultWalletConnect}
           label="Use WalletConnect modal"
         />
       ) : null;
@@ -64,23 +74,25 @@ const ScanScreen = ({connectAsync, state}: ScanScreenProps) => {
         {walletConnectModalButton}
       </ButtonContainer>
     );
-  }, []);
+  }, [handleUseDefaultWalletConnect, mobilePlatform, pendingConnector]);
 
-  const scanToConnect = async () => {
-    if (!pendingConnector || qrCodeURI || !qrCodeSupported) {
+  const scanToConnect = useCallback(async () => {
+    if (!pendingConnector || qrCodeURI || !pendingConnector?.qrCodeSupported) {
       return;
     }
 
-    if (pendingConnector.id === 'walletConnect') {
-      pendingConnector.on('message', async () => {
+    const {connector} = pendingConnector;
+
+    if (connector.id === 'walletConnect') {
+      connector.on('message', async () => {
         try {
-          const provider = await pendingConnector.getProvider();
+          const provider = await connector.getProvider();
 
           setQRCodeURI(provider.connector.uri);
 
           // User rejected the request, regenerate the URI.
           provider.connector.on('disconnect', () => {
-            connectAsync({connector: pendingConnector});
+            connect({connector: connector});
           });
         } catch (error) {
           console.error(
@@ -91,31 +103,18 @@ const ScanScreen = ({connectAsync, state}: ScanScreenProps) => {
       });
 
       try {
-        await connectAsync({connector: pendingConnector});
+        connect({connector});
       } catch (exception) {
-        console.log('WalletConnect cannot connect');
-        console.log(exception);
+        console.error(exception);
       }
     }
-  };
-
-  const handleUseDefaultWalletConnect = async () => {
-    // Make sure the WalletConnect connector is available in our current client instance.
-    // At the moment this only refreshes the connector's uri.
-    const connector = connectors.find(({id}) => id === 'walletConnect');
-
-    if (!connector) {
-      return;
-    }
-
-    await connectAsync({connector: connector});
-  };
+  }, [connect, pendingConnector, qrCodeURI]);
 
   useEffect(() => {
     if (!qrCodeURI) {
       scanToConnect();
     }
-    // Exclude deps to prevent from regenerating URI numerous times on mount
+    // Run once on mount -- no deps
   }, []);
 
   return (

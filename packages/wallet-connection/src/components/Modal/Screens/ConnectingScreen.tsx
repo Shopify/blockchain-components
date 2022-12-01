@@ -1,11 +1,11 @@
 import {ConnectArgs} from '@wagmi/core';
 import {useCallback, useMemo} from 'react';
+import {Button} from 'shared';
 
 import {ModalContent} from './state-content';
-import {Button} from 'shared';
+
 import {BodyText, ButtonContainer, ConnectorIcon, SheetContent} from '../style';
 import {Spinner} from '../../Spinner';
-import {getConnectorData} from '../../../constants/connectors';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
@@ -19,8 +19,7 @@ interface ConnectingScreenProps {
 const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   const {navigation} = useModal();
   const {pendingConnector} = useWalletConnection();
-  const downloadButtons = useConnectorDownloadLinks(pendingConnector?.name);
-  const {icon, qrCodeSupported} = getConnectorData(pendingConnector?.name);
+  const downloadButtons = useConnectorDownloadLinks();
 
   const canTryAgain =
     state === ConnectionState.Failed || state === ConnectionState.Rejected;
@@ -30,6 +29,12 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   }, [navigation]);
 
   const buttons = useMemo(() => {
+    if (!pendingConnector) {
+      return null;
+    }
+
+    const {connector, qrCodeSupported} = pendingConnector;
+
     if (!canTryAgain && !qrCodeSupported && !downloadButtons) {
       return null;
     }
@@ -37,10 +42,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
     return (
       <ButtonContainer>
         {canTryAgain && pendingConnector ? (
-          <Button
-            onClick={() => connect({connector: pendingConnector})}
-            label="Try again"
-          />
+          <Button onClick={() => connect({connector})} label="Try again" />
         ) : null}
 
         {qrCodeSupported ? (
@@ -50,19 +52,13 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
         {downloadButtons}
       </ButtonContainer>
     );
-  }, [
-    canTryAgain,
-    connect,
-    handleUseQRCode,
-    pendingConnector,
-    qrCodeSupported,
-  ]);
+  }, [canTryAgain, connect, handleUseQRCode, pendingConnector]);
 
   const {body, title} = ModalContent[state];
 
   return (
     <SheetContent>
-      <ConnectorIcon>{icon}</ConnectorIcon>
+      <ConnectorIcon>{pendingConnector?.icon}</ConnectorIcon>
 
       <h1>{title}</h1>
 

@@ -1,13 +1,12 @@
+import {WalletConnectionProvider} from '@shopify/wallet-connection';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {WalletConnectionProvider} from '@shopify/wallet-connection';
-import './index.css';
+import {WagmiConfig} from 'wagmi';
+
 import App from './App';
-import {createClient, configureChains, defaultChains, WagmiConfig} from 'wagmi';
-import {publicProvider} from 'wagmi/providers/public';
-import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
-import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
+import './index.css';
 import {eventBus} from './utils/eventBus/eventBus';
+import {chains, client} from './wagmi';
 
 window.gmShop = {
   ThemeAppExtension: class ThemeAppExtension {
@@ -21,26 +20,12 @@ window.gmShop = {
       const container = document.getElementById(this.arguments.containerId);
       if (!container) return;
 
-      const {chains, provider, webSocketProvider} = configureChains(
-        defaultChains,
-        [publicProvider()],
-      );
-
-      const client = createClient({
-        autoConnect: true,
-        connectors: [
-          new MetaMaskConnector({chains}),
-          new WalletConnectConnector({chains, options: {qrcode: false}}),
-        ],
-        provider,
-        webSocketProvider,
-      });
-
       const root = ReactDOM.createRoot(container as HTMLElement);
       root.render(
         <React.StrictMode>
           <WagmiConfig client={client}>
             <WalletConnectionProvider
+              chains={chains}
               wallet={this.arguments?.initialState?.wallet || undefined}
             >
               <App serverArguments={this.arguments} />
