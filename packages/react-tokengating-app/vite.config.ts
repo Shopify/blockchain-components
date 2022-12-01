@@ -6,10 +6,12 @@ import nodePolyfills from 'vite-plugin-node-stdlib-browser';
 export default defineConfig({
   plugins: [nodePolyfills(), react()],
   build: {
+    assetsDir: '',
     rollupOptions: {
       external: ['ethers', 'react', 'wagmi'],
       input: './src/index.tsx',
       output: {
+        inlineDynamicImports: true,
         entryFileNames: '[name].js',
         globals: {
           ethers: 'ethers',
