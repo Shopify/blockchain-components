@@ -18,7 +18,7 @@ export const getTokenInfo = (token: UnlockingToken | TokenSeriesWithBadge) => {
     title: token.name,
     subtitle: token.conditionsDescription,
     imageUrl: token.imageUrl,
-    round: true
+    round: true,
     badge: token.badge,
   };
 };
