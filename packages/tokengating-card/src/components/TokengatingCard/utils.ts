@@ -9,88 +9,75 @@ export enum TokengateCardSection {
   SoldOut = 'SoldOut',
 }
 
-export const useTokengateCardState = ({
+export const useTokengateCardState = (
+  tokengatingCardProps: TokengatingCardProps,
+) => {
+  return {
+    sections: getSections(tokengatingCardProps),
+    ...getTitleAndSubtitle(tokengatingCardProps),
+  };
+};
+
+const getSections = ({
   wallet,
   availableDate,
   isLocked,
   isSoldOut,
-  lockedTitle,
-  lockedSubtitle,
-  unlockedTitle,
-  unlockedSubtitle,
   unlockingTokens,
-}: Pick<
-  TokengatingCardProps,
-  | 'wallet'
-  | 'isLocked'
-  | 'isSoldOut'
-  | 'lockedTitle'
-  | 'lockedSubtitle'
-  | 'unlockedTitle'
-  | 'unlockedSubtitle'
-  | 'availableDate'
-  | 'unlockingTokens'
->) => {
-  const lockedTitleWithDefault = lockedTitle || 'Holder exclusive';
-  const lockedSubtitleWithDefault =
-    lockedSubtitle || 'To unlock this product, you need:';
-  const unlockedTitleWithDefault = unlockedTitle || 'Exclusive unlocked';
-  const unlockedSubtitleWithDefault =
-    unlockedSubtitle || 'Your token got you access to this product!';
-
+}: TokengatingCardProps) => {
   if (wallet?.address && !isLocked) {
-    return {
-      title: unlockedTitleWithDefault,
-      subtitle: unlockedSubtitleWithDefault,
-      sections: [
-        TokengateCardSection.TokenList,
-        TokengateCardSection.ConnectedWallet,
-      ],
-    };
+    return [
+      TokengateCardSection.TokenList,
+      TokengateCardSection.ConnectedWallet,
+    ];
   }
 
   if (wallet?.address && isLocked && unlockingTokens) {
-    return {
-      title: unlockedTitleWithDefault,
-      subtitle: unlockedSubtitleWithDefault,
-      sections: [
-        TokengateCardSection.TokengateRequirement,
-        TokengateCardSection.ConnectedWallet,
-      ],
-    };
+    return [
+      TokengateCardSection.TokengateRequirement,
+      TokengateCardSection.ConnectedWallet,
+    ];
   }
 
   if (isSoldOut) {
-    return {
-      title: lockedTitleWithDefault,
-      subtitle: lockedSubtitleWithDefault,
-      sections: [
-        TokengateCardSection.TokengateRequirement,
-        TokengateCardSection.SoldOut,
-      ],
-    };
+    return [
+      TokengateCardSection.TokengateRequirement,
+      TokengateCardSection.SoldOut,
+    ];
   }
 
   const now = new Date();
   const dateObject = availableDate ? new Date(availableDate) : null;
 
   if (dateObject && dateObject > now) {
+    return [
+      TokengateCardSection.TokengateRequirement,
+      TokengateCardSection.AvailableSoon,
+    ];
+  }
+
+  return [
+    TokengateCardSection.TokengateRequirement,
+    TokengateCardSection.ConnectWallet,
+  ];
+};
+
+const getTitleAndSubtitle = ({
+  isLocked,
+  lockedTitle,
+  lockedSubtitle,
+  unlockedTitle,
+  unlockedSubtitle,
+}: TokengatingCardProps) => {
+  if (isLocked) {
     return {
-      title: lockedTitleWithDefault,
-      subtitle: lockedSubtitleWithDefault,
-      sections: [
-        TokengateCardSection.TokengateRequirement,
-        TokengateCardSection.AvailableSoon,
-      ],
+      title: lockedTitle || 'Holder exclusive',
+      subtitle: lockedSubtitle || 'To unlock this product, you need:',
     };
   }
 
   return {
-    title: lockedTitleWithDefault,
-    subtitle: lockedSubtitleWithDefault,
-    sections: [
-      TokengateCardSection.TokengateRequirement,
-      TokengateCardSection.ConnectWallet,
-    ],
+    title: unlockedTitle || 'Exclusive unlocked',
+    subtitle: unlockedSubtitle || 'Your token got you access to this product!',
   };
 };

@@ -10,31 +10,16 @@ import {SoldOutButton} from '../SoldOutButton/SoldOutButton';
 import {TokenList} from '../TokenList/TokenList';
 import {TokengateRequirement} from '../TokengateRequirement/TokengateRequirement';
 
-const TokengatingCard = ({
-  isLocked,
-  isSoldOut,
-  lockedTitle,
-  lockedSubtitle,
-  unlockedTitle,
-  unlockedSubtitle,
-  onConnectWallet,
-  onConnectedWalletActions,
-  wallet,
-  availableDate,
-  gateRequirement,
-  unlockingTokens,
-}: TokengatingCardProps) => {
-  const {title, subtitle, sections} = useTokengateCardState({
-    isLocked,
-    isSoldOut,
+const TokengatingCard = (props: TokengatingCardProps) => {
+  const {
+    onConnectWallet,
+    onConnectedWalletActions,
     wallet,
-    lockedTitle,
-    lockedSubtitle,
-    unlockedTitle,
-    unlockedSubtitle,
     availableDate,
+    gateRequirement,
     unlockingTokens,
-  });
+  } = props;
+  const {title, subtitle, sections} = useTokengateCardState(props);
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
     () => ({

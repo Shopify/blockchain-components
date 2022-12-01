@@ -95,10 +95,6 @@ function App({serverArguments}: AppProps) {
       <TokengatingCard
         isLocked={isLocked}
         isSoldOut={false}
-        lockedTitle=""
-        lockedSubtitle=""
-        unlockedTitle=""
-        unlockedSubtitle=""
         onConnectWallet={openModal}
         onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
         wallet={{
