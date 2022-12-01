@@ -6,10 +6,6 @@ export const TokenListImageStyle = styled.img`
   object-fit: cover;
 `;
 
-export const TokenListRoundedImageStyle = styled(TokenListImageStyle)`
-  border-radius: 4px;
-`
-
 export const TokenListWrapper = styled.div`
   padding: 4px 0;
   box-sizing: unset;
