@@ -1,10 +1,10 @@
 import {
   UnlockingToken,
-  TokenSeries,
   instanceOfUnlockingToken,
+  TokenSeriesWithBadge,
 } from '../TokengatingCard/types';
 
-export const getTokenInfo = (token: UnlockingToken | TokenSeries) => {
+export const getTokenInfo = (token: UnlockingToken | TokenSeriesWithBadge) => {
   if (instanceOfUnlockingToken(token)) {
     return {
       title: token.token.title,
@@ -17,5 +17,6 @@ export const getTokenInfo = (token: UnlockingToken | TokenSeries) => {
     title: token.name,
     subtitle: token.conditionsDescription,
     imageUrl: token.imageUrl,
+    badge: token.badge,
   };
 };

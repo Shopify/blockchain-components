@@ -13,6 +13,13 @@ export const TokenBaseIcon = styled.div`
   width: 48px;
   margin-right: 12px;
   border-radius: 4px;
+  position: relative;
+`;
+
+export const TokenBaseBadge = styled.div`
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
 `;
 
 export const TokenBaseText = styled.div`

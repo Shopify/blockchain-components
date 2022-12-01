@@ -4,6 +4,10 @@ export interface TokenSeries {
   imageUrl: string;
 }
 
+export interface TokenSeriesWithBadge extends TokenSeries {
+  badge: React.ReactNode;
+}
+
 export interface GateRequirement {
   id: string;
   tokenSeries: TokenSeries[];
