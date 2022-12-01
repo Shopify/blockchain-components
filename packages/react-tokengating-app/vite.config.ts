@@ -9,7 +9,10 @@ export default defineConfig({
     assetsDir: '',
     rollupOptions: {
       input: './src/index.tsx',
-      output: {entryFileNames: '[name].js'},
+      output: {
+        inlineDynamicImports: true,
+        entryFileNames: '[name].js',
+      },
     },
   },
 });
