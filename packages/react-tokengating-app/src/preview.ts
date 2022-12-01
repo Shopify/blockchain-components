@@ -56,7 +56,7 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
                 contractAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
                 contractName: 'CommerceTown',
                 mediaUrl:
-                  'https://i.seadn.io/gae/5GWHLyazRjjgN4hReAbM8kNEccOSJ0TTlKjIgfu1PAEzNnarcBvfPEaNQKnhom5PYhHVHqBjow3GhsDB7SVaBEGxqiJv_qyDqfRORQ?w=500&auto=format',
+                  'https://i.seadn.io/gae/k9HIMmZMIpgCM0PpaJJo3Lp1rzLKHgYBqehzihsFJ1EgP_xZVDCrqjVQJJyfkX0_HaFxf0IQgO8Ws-5lkqlIhCnh_cBlzOqa1xeVww?auto=format&w=1000',
                 title: 'Townfolk #103',
                 tokenId: '103',
               },
@@ -66,7 +66,7 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
                 contractAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
                 contractName: 'CommerceTown',
                 mediaUrl:
-                  'https://i.seadn.io/gae/5GWHLyazRjjgN4hReAbM8kNEccOSJ0TTlKjIgfu1PAEzNnarcBvfPEaNQKnhom5PYhHVHqBjow3GhsDB7SVaBEGxqiJv_qyDqfRORQ?w=500&auto=format',
+                  'https://i.seadn.io/gae/k9HIMmZMIpgCM0PpaJJo3Lp1rzLKHgYBqehzihsFJ1EgP_xZVDCrqjVQJJyfkX0_HaFxf0IQgO8Ws-5lkqlIhCnh_cBlzOqa1xeVww?auto=format&w=1000',
                 title: 'Townfolk #104',
                 tokenId: '104',
               },

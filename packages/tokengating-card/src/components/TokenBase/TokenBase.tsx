@@ -11,12 +11,13 @@ interface TokenBaseProps {
   title?: string;
   subtitle?: string;
   icon: React.ReactNode;
+  round: boolean;
   badge?: React.ReactNode;
 }
 
-const TokenBase = ({title, subtitle, icon, badge}: TokenBaseProps) => (
+const TokenBase = ({title, subtitle, icon, round, badge}: TokenBaseProps) => (
   <TokenBaseStyle>
-    <TokenBaseIcon>
+    <TokenBaseIcon round={round}>
       {icon}
       <TokenBaseBadge>{badge}</TokenBaseBadge>
     </TokenBaseIcon>

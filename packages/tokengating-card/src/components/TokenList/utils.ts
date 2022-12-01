@@ -10,6 +10,7 @@ export const getTokenInfo = (token: UnlockingToken | TokenSeriesWithBadge) => {
       title: token.token.title,
       subtitle: token.token.contractName,
       imageUrl: token.token.mediaUrl,
+      round: false,
     };
   }
 
@@ -17,6 +18,7 @@ export const getTokenInfo = (token: UnlockingToken | TokenSeriesWithBadge) => {
     title: token.name,
     subtitle: token.conditionsDescription,
     imageUrl: token.imageUrl,
+    round: true,
     badge: token.badge,
   };
 };

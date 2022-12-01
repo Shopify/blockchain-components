@@ -14,12 +14,13 @@ const TokenList = ({
 }) => (
   <TokenListWrapper>
     {tokens?.map((token, index) => {
-      const {title, subtitle, imageUrl, badge} = getTokenInfo(token);
+      const {title, subtitle, imageUrl, round, badge} = getTokenInfo(token);
       return (
         <Fragment key={title}>
           <TokenBase
             title={title}
             subtitle={subtitle}
+            round={round}
             icon={<TokenListImage imageUrl={imageUrl} alt={title} />}
             badge={badge}
           />
