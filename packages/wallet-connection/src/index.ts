@@ -7,8 +7,7 @@ export {ConnectorIcon} from './components/ConnectorIcon/ConnectorIcon';
 /**
  * Constants
  */
-// These aren't working for WalletConnect for some reason 😕
-// export {defaultConnectors} from './constants/defaults';
+export {getDefaultConnectors} from './connectors/getDefaultConnectors';
 
 /**
  * Hooks

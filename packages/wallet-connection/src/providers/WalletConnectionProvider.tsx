@@ -9,17 +9,19 @@ import {
   useState,
 } from 'react';
 import {ThemeProvider} from 'shared';
-import {Connector} from 'wagmi';
 
 import {ModalProvider} from './ModalProvider';
 
 import {SignatureModal} from '../components/Modal';
 import {useWallet} from '../hooks/useWallet';
 import {GlobalStyle} from '../style/global';
+import {Connector} from '../types/connector';
 import {ProviderProps} from '../types/provider';
 import {SignatureResponse, UseWalletProps, Wallet} from '../types/wallet';
+import {Chain} from 'wagmi';
 
 export interface WalletConnectionProviderValue {
+  chains: Chain[];
   clearWalletConnection: () => void;
   pendingConnector?: Connector;
   setPendingConnector: Dispatch<SetStateAction<Connector | undefined>>;
@@ -29,6 +31,7 @@ export interface WalletConnectionProviderValue {
 }
 
 const defaultContextValue: WalletConnectionProviderValue = {
+  chains: [],
   clearWalletConnection: () => {},
   pendingConnector: undefined,
   setPendingConnector: () => {},
@@ -40,6 +43,7 @@ export const WalletConnectionContext =
   createContext<WalletConnectionProviderValue>(defaultContextValue);
 
 export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
+  chains,
   children,
   customTheme,
   theme,
@@ -132,6 +136,7 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
   return (
     <WalletConnectionContext.Provider
       value={{
+        chains,
         clearWalletConnection,
         pendingConnector,
         setPendingConnector,

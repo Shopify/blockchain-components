@@ -1,15 +1,16 @@
 import {useCallback} from 'react';
-import {Connector} from 'wagmi';
+
 import {ConnectArgs} from '@wagmi/core';
 
 import {SheetContent, StyledLink, Subtext} from '../style';
 import {ConnectorButton} from '../../ConnectorButton';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
+import {Connector} from '../../../types/connector';
 
 interface ConnectScreenProps {
   connect: (args?: Partial<ConnectArgs>) => void;
-  connectors: Connector<any, any, any>[];
+  connectors: Connector[];
 }
 
 const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
@@ -17,14 +18,17 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
   const {navigation} = useModal();
 
   const handleConnect = useCallback(
-    (connector: Connector<any, any, any>) => {
+    (connector: Connector) => {
       setPendingConnector(connector);
-      if (connector.id === 'walletConnect') {
+
+      const {connector: wagmiConnector} = connector;
+      connect({connector: wagmiConnector});
+
+      if (wagmiConnector.id === 'walletConnect') {
         navigation.navigate(ModalRoute.Scan);
         return;
       }
 
-      connect({connector});
       navigation.navigate(ModalRoute.Connecting);
     },
     [navigation],
@@ -36,16 +40,19 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
 
   return (
     <SheetContent>
-      {connectors.map((connector) => {
+      {connectors.map((providedConnector) => {
+        const {connector, id, name} = providedConnector;
+
         if (!connector.ready) {
           return null;
         }
 
         return (
           <ConnectorButton
-            key={connector.id}
-            onClick={() => handleConnect(connector)}
-            name={connector.name}
+            id={id}
+            key={id}
+            onClick={() => handleConnect(providedConnector)}
+            name={name}
           />
         );
       })}

@@ -4,7 +4,6 @@ import {useTheme} from 'styled-components';
 
 import {AppIcon, Container, IconContainer} from './style';
 import {useWalletConnection} from '../../providers/WalletConnectionProvider';
-import {getConnectorData} from '../../constants/connectors';
 
 const APP_LOGO_SIZE = 88;
 const DEFAULT_QR_CODE_SIZE = 380;
@@ -32,7 +31,7 @@ export function QRCode({uri}: Props) {
   const matrix = generateMatrix(uri);
   const {modal, typography} = useTheme();
   const {pendingConnector} = useWalletConnection();
-  const {icon} = getConnectorData(pendingConnector?.name);
+  const icon = pendingConnector?.icon;
 
   const foreground = typography.colorPrimary;
   const background = modal.background;

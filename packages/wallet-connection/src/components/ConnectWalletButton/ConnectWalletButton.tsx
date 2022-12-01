@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
+import {Button} from 'shared';
 
-import {Button} from 'shared'
 import {useModal} from '../../providers/ModalProvider';
 
 export interface ConnectWalletButtonProps {
@@ -30,7 +30,5 @@ export const ConnectWalletButton = ({
     onClick?.();
   }, [onClick]);
 
-  return (
-    <Button label={label} onClick={handleClick}/>
-  );
+  return <Button label={label} onClick={handleClick} />;
 };
