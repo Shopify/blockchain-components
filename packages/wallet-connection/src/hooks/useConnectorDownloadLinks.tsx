@@ -1,15 +1,21 @@
 import {Button} from 'shared';
 
-import {getConnectorData} from '../constants/connectors';
+import {useWalletConnection} from '../providers/WalletConnectionProvider';
 import {getBrowserInfo} from '../utils/getBrowser';
 import {isInstalled} from '../utils/isInstalled';
 
 /**
  * A utility hook for conditionally displaying download links for browser extensions + mobile apps.
  */
-export function useConnectorDownloadLinks(connectorName?: string) {
+export function useConnectorDownloadLinks() {
+  const {pendingConnector} = useWalletConnection();
+
+  if (!pendingConnector) {
+    return null;
+  }
+
+  const {browserExtensions, mobileApps, name} = pendingConnector;
   const {browser, mobilePlatform} = getBrowserInfo();
-  const {browserExtensions, mobileApps, name} = getConnectorData(connectorName);
   const extensionInstalled = isInstalled(name);
 
   if (!browserExtensions && !mobileApps) {

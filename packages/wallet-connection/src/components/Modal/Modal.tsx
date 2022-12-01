@@ -13,6 +13,7 @@ import {
 } from './Screens';
 import {Screen} from './Screens/types';
 
+import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
 import {useWalletConnection} from '../../providers/WalletConnectionProvider';
 import {ConnectionState} from '../../types/connectionState';
@@ -36,6 +37,7 @@ const ModalScreens: {[key in keyof typeof ModalRoute]: Screen} = {
 };
 
 export const Modal = () => {
+  const {connectors} = useDefaultConnectors();
   const {active, closeModal, navigation} = useModal();
   const {pendingConnector} = useWalletConnection();
   const screenData = ModalScreens[navigation.route];
@@ -43,7 +45,7 @@ export const Modal = () => {
     ConnectionState.Connecting,
   );
 
-  const {connect, connectAsync, connectors} = useConnect({
+  const {connect} = useConnect({
     onError: (error) => {
       setStatus(ConnectionState.Failed);
       console.error(
@@ -105,7 +107,7 @@ export const Modal = () => {
         return <GetAWalletScreen />;
 
       case ModalRoute.Scan:
-        return <ScanScreen connectAsync={connectAsync} state={status} />;
+        return <ScanScreen connect={connect} state={status} />;
 
       case ModalRoute.WhatAreWallets:
         return <WhatAreWalletsScreen />;

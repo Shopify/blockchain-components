@@ -104,7 +104,7 @@ function App({serverArguments}: AppProps) {
         wallet={{
           address: wallet?.address,
           ensName: undefined,
-          icon: <ConnectorIcon wagmiId={wallet?.connectorId} />,
+          icon: <ConnectorIcon id={wallet?.connectorId} />,
         }}
         availableDate="08 September 2022 09:00 UTC"
         gateRequirement={serverArguments?.initialState?.gateRequirement}

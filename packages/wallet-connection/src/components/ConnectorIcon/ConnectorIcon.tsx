@@ -1,14 +1,9 @@
-import {ConnectorIconWrapper} from './style';
-import {findConnector} from '../../constants/connectors';
+import {useConnectorData} from '../../hooks/useConnectorData';
 
-const ConnectorIcon = ({
-  connectorName,
-  wagmiId,
-}: {
-  connectorName?: string;
-  wagmiId?: string;
-}) => {
-  const {icon} = findConnector({connectorName, wagmiId});
+import {ConnectorIconWrapper} from './style';
+
+const ConnectorIcon = ({id = 'unknown'}: {id?: string}) => {
+  const {icon} = useConnectorData({id});
 
   if (!icon) return null;
 
