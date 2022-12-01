@@ -18,6 +18,7 @@ export const useTokengateCardState = ({
   lockedSubtitle,
   unlockedTitle,
   unlockedSubtitle,
+  unlockingTokens,
 }: Pick<
   TokengatingCardProps,
   | 'wallet'
@@ -28,12 +29,19 @@ export const useTokengateCardState = ({
   | 'unlockedTitle'
   | 'unlockedSubtitle'
   | 'availableDate'
+  | 'unlockingTokens'
 >) => {
+  const lockedTitleWithDefault = lockedTitle || 'Holder exclusive';
+  const lockedSubtitleWithDefault =
+    lockedSubtitle || 'To unlock this product, you need:';
+  const unlockedTitleWithDefault = unlockedTitle || 'Exclusive unlocked';
+  const unlockedSubtitleWithDefault =
+    unlockedSubtitle || 'Your token got you access to this product!';
+
   if (wallet?.address && !isLocked) {
     return {
-      title: unlockedTitle || 'Exclusive unlocked',
-      subtitle:
-        unlockedSubtitle || 'Your token got you access to this product!',
+      title: unlockedTitleWithDefault,
+      subtitle: unlockedSubtitleWithDefault,
       sections: [
         TokengateCardSection.TokenList,
         TokengateCardSection.ConnectedWallet,
@@ -41,10 +49,21 @@ export const useTokengateCardState = ({
     };
   }
 
+  if (wallet?.address && isLocked && unlockingTokens) {
+    return {
+      title: unlockedTitleWithDefault,
+      subtitle: unlockedSubtitleWithDefault,
+      sections: [
+        TokengateCardSection.TokengateRequirement,
+        TokengateCardSection.ConnectedWallet,
+      ],
+    };
+  }
+
   if (isSoldOut) {
     return {
-      title: lockedTitle || 'Holder exclusive',
-      subtitle: lockedSubtitle || 'To unlock this product, you need:',
+      title: lockedTitleWithDefault,
+      subtitle: lockedSubtitleWithDefault,
       sections: [
         TokengateCardSection.TokengateRequirement,
         TokengateCardSection.SoldOut,
@@ -57,8 +76,8 @@ export const useTokengateCardState = ({
 
   if (dateObject && dateObject > now) {
     return {
-      title: lockedTitle || 'Holder exclusive',
-      subtitle: lockedSubtitle || 'To unlock this product, you need:',
+      title: lockedTitleWithDefault,
+      subtitle: lockedSubtitleWithDefault,
       sections: [
         TokengateCardSection.TokengateRequirement,
         TokengateCardSection.AvailableSoon,
@@ -67,8 +86,8 @@ export const useTokengateCardState = ({
   }
 
   return {
-    title: lockedTitle || 'Holder exclusive',
-    subtitle: lockedSubtitle || 'To unlock this product, you need:',
+    title: lockedTitleWithDefault,
+    subtitle: lockedSubtitleWithDefault,
     sections: [
       TokengateCardSection.TokengateRequirement,
       TokengateCardSection.ConnectWallet,

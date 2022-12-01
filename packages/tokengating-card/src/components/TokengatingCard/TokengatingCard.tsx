@@ -33,6 +33,7 @@ const TokengatingCard = ({
     unlockedTitle,
     unlockedSubtitle,
     availableDate,
+    unlockingTokens,
   });
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
@@ -50,7 +51,10 @@ const TokengatingCard = ({
       ),
       [TokengateCardSection.TokenList]: <TokenList tokens={unlockingTokens} />,
       [TokengateCardSection.TokengateRequirement]: (
-        <TokengateRequirement gateRequirement={gateRequirement} />
+        <TokengateRequirement
+          gateRequirement={gateRequirement}
+          unlockingTokens={unlockingTokens}
+        />
       ),
       [TokengateCardSection.AvailableSoon]: (
         <AvailableSoonButton availableDate={availableDate} />
