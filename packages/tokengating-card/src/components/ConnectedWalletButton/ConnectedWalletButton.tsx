@@ -2,9 +2,9 @@ import {
   ConnectedWalletButtonStyle,
   ConnectedWalletIcon,
   ConnectedWalletAddress,
-  ConnectedWalletDropdown,
+  // ConnectedWalletDropdown,
 } from './style';
-import {ChevronDown} from '../../assets/icons/ChevronDown';
+// import {ChevronDown} from '../../assets/icons/ChevronDown';
 import {formatWalletAddress} from './utils';
 
 interface ConnectedWalletButtonProps {
@@ -28,7 +28,7 @@ const ConnectedWalletButton = ({
     <ConnectedWalletAddress>
       {ensName || formatWalletAddress({address})}
     </ConnectedWalletAddress>
-    <ConnectedWalletDropdown>{ChevronDown}</ConnectedWalletDropdown>
+    {/* <ConnectedWalletDropdown>{ChevronDown}</ConnectedWalletDropdown> */}
   </ConnectedWalletButtonStyle>
 );
 export {ConnectedWalletButton};
