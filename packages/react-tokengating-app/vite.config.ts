@@ -8,17 +8,8 @@ export default defineConfig({
   build: {
     assetsDir: '',
     rollupOptions: {
-      external: ['ethers', 'react', 'wagmi'],
       input: './src/index.tsx',
-      output: {
-        inlineDynamicImports: true,
-        entryFileNames: '[name].js',
-        globals: {
-          ethers: 'ethers',
-          react: 'React',
-          wagmi: 'wagmi',
-        },
-      },
+      output: {entryFileNames: '[name].js'},
     },
   },
 });
