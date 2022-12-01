@@ -34,9 +34,13 @@
   "dependencies": {
     "@shopify/tokengating-card": "*",
     "@shopify/wallet-connection": "*",
-    "shared": "*"
+    "ethers": "^5.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "wagmi": "^0.8.8"
   },
   "devDependencies": {
+    "shared": "*",
     "tsconfig": "*"
   }
 }

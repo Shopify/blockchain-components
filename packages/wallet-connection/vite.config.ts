@@ -1,24 +1,30 @@
-import {resolve} from 'path';
-import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react';
+import {resolve} from 'path';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import {defineConfig} from 'vite';
 import nodePolyfills from 'vite-plugin-node-stdlib-browser';
 
 export default defineConfig({
-  plugins: [nodePolyfills(), react()],
   build: {
+    assetsDir: '',
+    minify: false,
+    target: 'es2021',
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: '@shopify/wallet-connection',
       fileName: 'index',
     },
     rollupOptions: {
-      external: ['react', 'wagmi'],
+      external: ['wagmi'],
+      input: './src/index.ts',
       output: {
+        format: 'esm',
         globals: {
-          react: 'react',
+          react: 'React',
           wagmi: 'wagmi',
         },
       },
     },
   },
+  plugins: [peerDepsExternal(), nodePolyfills(), react()],
 });
