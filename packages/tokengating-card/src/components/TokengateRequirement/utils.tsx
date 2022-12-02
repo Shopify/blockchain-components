@@ -22,7 +22,7 @@ export const mapGateRequirementToTokenListProps = ({
     if (hasMissingTokens) {
       const unlockingTokenForCurrentTokenSeries =
         findUnlockingTokenForTokenSeries({tokenSeries, unlockingTokens});
-      badge = unlockingTokens?.length &&
+      badge = unlockingTokens?.length !== undefined &&
         !unlockingTokenForCurrentTokenSeries && <TokengateRequirementBadge />;
     }
 
