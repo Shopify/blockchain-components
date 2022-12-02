@@ -105,8 +105,7 @@ function App({serverArguments}: AppProps) {
         availableDate="08 September 2022 09:00 UTC"
         gateRequirement={serverArguments?.initialState?.gateRequirement}
         unlockingTokens={
-          checkIfWalletMeetsRequirementsResponse?.unlockingTokens ||
-          serverArguments?.initialState?.unlockingTokens
+          checkIfWalletMeetsRequirementsResponse?.unlockingTokens
         }
       />
     </>

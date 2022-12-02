@@ -2,10 +2,7 @@ export interface TokenSeries {
   name: string;
   conditionsDescription: string;
   imageUrl: string;
-}
-
-export interface TokenSeriesWithBadge extends TokenSeries {
-  badge: React.ReactNode;
+  contractAddress: string;
 }
 
 export interface GateRequirement {
@@ -19,6 +16,7 @@ export interface UnlockingToken {
     title: string;
     mediaUrl: string;
     contractName: string;
+    contractAddress: string;
   };
 }
 

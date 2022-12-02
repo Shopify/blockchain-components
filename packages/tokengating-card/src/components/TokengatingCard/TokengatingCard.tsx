@@ -7,8 +7,8 @@ import {TokengatingCardProps} from './types';
 import {ThemeProvider} from 'shared';
 import {AvailableSoonButton} from '../AvailableSoonButton/AvailableSoonButton';
 import {SoldOutButton} from '../SoldOutButton/SoldOutButton';
-import {TokenList} from '../TokenList/TokenList';
 import {TokengateRequirement} from '../TokengateRequirement/TokengateRequirement';
+import {UnlockingTokens} from '../UnlockingTokens/UnlockingTokens';
 
 const TokengatingCard = (props: TokengatingCardProps) => {
   const {
@@ -34,11 +34,17 @@ const TokengatingCard = (props: TokengatingCardProps) => {
           address={wallet?.address}
         />
       ),
-      [TokengateCardSection.TokenList]: <TokenList tokens={unlockingTokens} />,
+      [TokengateCardSection.UnlockingTokens]: (
+        <UnlockingTokens unlockingTokens={unlockingTokens} />
+      ),
       [TokengateCardSection.TokengateRequirement]: (
+        <TokengateRequirement gateRequirement={gateRequirement} />
+      ),
+      [TokengateCardSection.TokengateRequirementMissingTokens]: (
         <TokengateRequirement
           gateRequirement={gateRequirement}
           unlockingTokens={unlockingTokens}
+          hasMissingTokens
         />
       ),
       [TokengateCardSection.AvailableSoon]: (

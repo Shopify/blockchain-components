@@ -1,25 +1,26 @@
 import {GateRequirement, UnlockingToken} from '../TokengatingCard/types';
 import {TokenList} from '../TokenList/TokenList';
-import {TokengateRequirementBadge} from './TokengateRequirementBadge';
 import {TokengateRequirementSeparator} from './TokengateRequirementSeparator';
+import {mapGateRequirementToTokenListProps} from './utils';
 
 const TokengateRequirement = ({
   gateRequirement,
   unlockingTokens,
+  hasMissingTokens,
 }: {
   gateRequirement?: GateRequirement;
   unlockingTokens?: UnlockingToken[];
+  hasMissingTokens?: boolean;
 }) => {
-  const tokenSeriesWithBadge = gateRequirement?.tokenSeries.map((token) => {
-    // TODO: For now, we are assuming that if there are unlockingTokens,
-    // all the badges should be the cross.
-    // For the future, we should check if there are no unlockingTokens related to the current tokenSeries
-    const badge = unlockingTokens && <TokengateRequirementBadge />;
-    return {badge, ...token};
+  const tokenSeries = mapGateRequirementToTokenListProps({
+    gateRequirement,
+    unlockingTokens,
+    hasMissingTokens,
   });
+
   return (
     <TokenList
-      tokens={tokenSeriesWithBadge}
+      tokens={tokenSeries}
       separator={
         <TokengateRequirementSeparator operator={gateRequirement?.operator} />
       }
