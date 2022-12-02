@@ -57,7 +57,16 @@ export const Polaris: DefaultTheme = {
       fontSize: '14px',
       fontWeight: '400',
       lineHeight: '20px',
+
+      bold: {
+        fontWeight: '600',
+      },
     },
+  },
+
+  availableSoonButton: {
+    background: PolarisColors.Grayscale['1'],
+    border: 'none',
   },
 
   connectButton: {
@@ -70,26 +79,25 @@ export const Polaris: DefaultTheme = {
     boxShadow: `0px 1px 0px ${PolarisColors.Grayscale['8']}, inset 0px -1px 0px ${PolarisColors.Grayscale['9']}`,
   },
 
-  walletConnectorButton: {
+  modal: {
     background: PolarisColors.Grayscale['0'],
-    backgroundHover: PolarisColors.Grayscale['1'],
-    border: `1px solid ${PolarisColors.Grayscale['3']}`,
-    borderRadius: '4px',
-    textColor: PolarisColors.Grayscale['6'],
-    padding: '12px 24px',
-    boxShadow: `0px 1px 0px ${PolarisColors.Grayscale['7']}`,
-    horizontalAlignment: 'flex-start',
+    overlayBackground: 'rgba(0, 0, 0, 0.5)',
+    border: '',
+    borderRadius: '5px',
+    boxShadow: `0px 0px 1px ${PolarisColors.Grayscale['9']}, 0px 26px 80px ${PolarisColors.Grayscale['9']}`,
+    padding: '20px',
   },
 
-  availableSoonButton: {
-    background: PolarisColors.Grayscale['1'],
-    border: 'none'
+  other: {
+    iconColor: PolarisColors.Grayscale['5'],
+    dividerColour: PolarisColors.Grayscale['2'],
   },
 
-  soldOutButton: {
-    background: PolarisColors.Grayscale['1'],
+  popovers: {
+    background: PolarisColors.Grayscale['0'],
     border: 'none',
-    textColor: PolarisColors.Grayscale['1']
+    borderRadius: '5px',
+    boxShadow: `0px 3px 6px -3px ${PolarisColors.Grayscale['10']}, 0px 8px 20px -4px ${PolarisColors.Grayscale['11']}`,
   },
 
   secondaryButton: {
@@ -102,28 +110,24 @@ export const Polaris: DefaultTheme = {
     boxShadow: `0px 1px 0px ${PolarisColors.Grayscale['7']}`,
   },
 
+  soldOutButton: {
+    background: PolarisColors.Grayscale['1'],
+    border: 'none',
+    textColor: PolarisColors.Grayscale['1'],
+  },
+
   tokenBase: {
     background: PolarisColors.Grayscale['0'],
   },
 
-  modal: {
+  walletConnectorButton: {
     background: PolarisColors.Grayscale['0'],
-    overlayBackground: 'rgba(0, 0, 0, 0.5)',
-    border: '',
-    borderRadius: '5px',
-    boxShadow: `0px 0px 1px ${PolarisColors.Grayscale['9']}, 0px 26px 80px ${PolarisColors.Grayscale['9']}`,
-    padding: '20px',
-  },
-
-  popovers: {
-    background: PolarisColors.Grayscale['0'],
-    border: 'none',
-    borderRadius: '5px',
-    boxShadow: `0px 3px 6px -3px ${PolarisColors.Grayscale['10']}, 0px 8px 20px -4px ${PolarisColors.Grayscale['11']}`,
-  },
-
-  other: {
-    iconColor: PolarisColors.Grayscale['5'],
-    dividerColour: PolarisColors.Grayscale['2'],
+    backgroundHover: PolarisColors.Grayscale['1'],
+    border: `1px solid ${PolarisColors.Grayscale['3']}`,
+    borderRadius: '4px',
+    textColor: PolarisColors.Grayscale['6'],
+    padding: '12px 24px',
+    boxShadow: `0px 1px 0px ${PolarisColors.Grayscale['7']}`,
+    horizontalAlignment: 'flex-start',
   },
 };

@@ -54,8 +54,17 @@ export const Dawn: DefaultTheme = {
       fontFamily: 'Assistant, sans-serif',
       fontSize: '14px',
       fontWeight: '400',
-      lineHeight: '18px',
+      lineHeight: '20px',
+
+      bold: {
+        fontWeight: '600',
+      },
     },
+  },
+
+  availableSoonButton: {
+    background: DawnColors.Grayscale['1'],
+    border: 'none',
   },
 
   connectButton: {
@@ -68,20 +77,25 @@ export const Dawn: DefaultTheme = {
     boxShadow: 'none',
   },
 
-  walletConnectorButton: {
+  modal: {
     background: DawnColors.Grayscale['0'],
-    backgroundHover: DawnColors.Grayscale['0'],
-    border: `1px solid ${DawnColors.Grayscale['5']}`,
+    overlayBackground: DawnColors.Grayscale['6'],
+    border: `1px solid  ${DawnColors.Grayscale['5']}`,
     borderRadius: '0',
-    textColor: DawnColors.Blues['0'],
-    padding: '12.5px 16px',
-    boxShadow: 'none',
-    horizontalAlignment: 'flex-start',
+    boxShadow: `0px 8px 32px ${DawnColors.Grayscale['4']}`,
+    padding: '24px',
   },
 
-  availableSoonButton: {
-    background: DawnColors.Grayscale['1'],
-    border: 'none',
+  other: {
+    iconColor: DawnColors.Grayscale['3'],
+    dividerColour: DawnColors.Grayscale['1'],
+  },
+
+  popovers: {
+    background: DawnColors.Grayscale['0'],
+    border: `1px solid  ${DawnColors.Grayscale['5']}`,
+    borderRadius: '0',
+    boxShadow: 'none',
   },
 
   soldOutButton: {
@@ -104,24 +118,14 @@ export const Dawn: DefaultTheme = {
     background: DawnColors.Grayscale['2'],
   },
 
-  modal: {
+  walletConnectorButton: {
     background: DawnColors.Grayscale['0'],
-    overlayBackground: DawnColors.Grayscale['6'],
-    border: `1px solid  ${DawnColors.Grayscale['5']}`,
+    backgroundHover: DawnColors.Grayscale['0'],
+    border: `1px solid ${DawnColors.Grayscale['5']}`,
     borderRadius: '0',
-    boxShadow: `0px 8px 32px ${DawnColors.Grayscale['4']}`,
-    padding: '24px',
-  },
-
-  popovers: {
-    background: DawnColors.Grayscale['0'],
-    border: `1px solid  ${DawnColors.Grayscale['5']}`,
-    borderRadius: '0',
+    textColor: DawnColors.Blues['0'],
+    padding: '12.5px 16px',
     boxShadow: 'none',
-  },
-
-  other: {
-    iconColor: DawnColors.Grayscale['3'],
-    dividerColour: DawnColors.Grayscale['1'],
+    horizontalAlignment: 'flex-start',
   },
 };
