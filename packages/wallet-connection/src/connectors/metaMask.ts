@@ -30,6 +30,10 @@ export const MetaMask = ({chains}: ConnectorProps): ConnectorInstance => {
       Android: 'https://play.google.com/store/apps/details?id=io.metamask',
       iOS: 'https://apps.apple.com/us/app/metamask-blockchain-wallet/id1438144202',
     },
+    mobileAppPrefixes: {
+      Android: '',
+      iOS: 'https://metamask.app.link/wc?uri=',
+    },
     icon: metaMaskIcon,
     id: 'metaMask',
     name: 'MetaMask',

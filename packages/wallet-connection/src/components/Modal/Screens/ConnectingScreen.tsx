@@ -10,6 +10,7 @@ import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLink
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
 import {ConnectionState} from '../../../types/connectionState';
+import {getBrowserInfo} from '../../../utils/getBrowser';
 
 interface ConnectingScreenProps {
   connect: (args?: Partial<ConnectArgs>) => void;
@@ -20,6 +21,8 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   const {navigation} = useModal();
   const {pendingConnector} = useWalletConnection();
   const downloadButtons = useConnectorDownloadLinks();
+
+  const {mobilePlatform} = getBrowserInfo();
 
   const canTryAgain =
     state === ConnectionState.Failed || state === ConnectionState.Rejected;
@@ -45,7 +48,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
           <Button onClick={() => connect({connector})} label="Try again" />
         ) : null}
 
-        {qrCodeSupported ? (
+        {!mobilePlatform && qrCodeSupported ? (
           <Button onClick={handleUseQRCode} label="Use QR code" />
         ) : null}
 

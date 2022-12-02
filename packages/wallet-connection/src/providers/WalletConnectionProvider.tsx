@@ -9,16 +9,17 @@ import {
   useState,
 } from 'react';
 import {ThemeProvider} from 'shared';
+import {Chain} from 'wagmi';
 
 import {ModalProvider} from './ModalProvider';
 
 import {SignatureModal} from '../components/Modal';
 import {useWallet} from '../hooks/useWallet';
+import {useWalletConnectDeeplink} from '../hooks/useWalletConnectDeeplink';
 import {GlobalStyle} from '../style/global';
 import {Connector} from '../types/connector';
 import {ProviderProps} from '../types/provider';
 import {SignatureResponse, UseWalletProps, Wallet} from '../types/wallet';
-import {Chain} from 'wagmi';
 
 export interface WalletConnectionProviderValue {
   chains: Chain[];
@@ -55,6 +56,7 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
   >();
   const [message, setMessage] = useState<string | undefined>();
 
+  const {deleteKey} = useWalletConnectDeeplink();
   const {disconnect, signing, signMessage} = useWallet({
     onConnect: (response) => {
       if (response) {
@@ -67,6 +69,12 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
   });
 
   const clearWalletConnection = useCallback(() => {
+    /**
+     * If the pending connector's wagmiConnector is walletConnect
+     * and the user is on a mobile device we need to remove the
+     * walletConnect storage key.
+     */
+    deleteKey();
     setMessage(undefined);
     disconnect();
   }, [disconnect]);

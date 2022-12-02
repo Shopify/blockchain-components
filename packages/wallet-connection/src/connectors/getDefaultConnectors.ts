@@ -11,11 +11,9 @@ export const getDefaultConnectors = ({chains}: {chains: Chain[]}) => {
 
   availableConnectors.forEach(({createConnector}: ConnectorInstance) => {
     const createdConnector = createConnector();
-    const isWalletConnect = 'qrcode' in createdConnector;
+    const isWalletConnect = createdConnector.id === 'walletConnect';
 
     if (isWalletConnect) {
-      const {connector} = createdConnector;
-
       /**
        * Since we're reusing wallet connect connectors we should check if
        * this connector is already inside of connectors.
@@ -25,7 +23,10 @@ export const getDefaultConnectors = ({chains}: {chains: Chain[]}) => {
        * connector from Wagmi. But, WalletConnect itself will use two different
        * WC connectors. One for support with WalletConnect's modal and one without.
        */
-      if (connectors.some((item) => item.id === connector.id)) {
+
+      // FIX THIS.
+      // Check for the serialized options to match as well.
+      if (connectors.some((item) => item.id === 'walletConnect')) {
         return;
       }
     }
