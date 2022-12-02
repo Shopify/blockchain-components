@@ -49,18 +49,24 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
       ) {
         wagmiConnector.on('message', async () => {
           try {
-            const provider = await wagmiConnector.getProvider();
+            const {uri} = (await wagmiConnector.getProvider()).connector;
 
-            const {uri} = provider.connector;
-            console.log('uri', uri);
+            const encodedUri =
+              mobilePlatform === 'Android' ? uri : encodeURIComponent(uri);
 
-            const mobileUri = `${prefix}${uri}`;
-            console.log('mobileUri', mobileUri);
-            console.log('mobileUri', mobileUri.split('?')[0]);
+            const deeplinkUri = `${prefix}${encodedUri}`;
 
-            setKey({href: mobileUri, name: connector.name});
+            setKey({href: deeplinkUri, name: connector.name});
 
-            window.location.href = mobileUri;
+            if (deeplinkUri.startsWith('http')) {
+              const link = document.createElement('a');
+              link.href = deeplinkUri;
+              link.target = '_blank';
+              link.rel = 'noreferrer noopener';
+              link.click();
+            } else {
+              window.location.href = deeplinkUri;
+            }
           } catch (error) {
             console.error(
               'Caught exception while attempting to retrieve URI for mobile WC connector',

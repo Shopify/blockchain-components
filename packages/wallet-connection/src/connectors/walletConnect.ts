@@ -8,10 +8,20 @@ import {buildWalletConnectConnector} from './buildWalletConnectConnector';
 export const WalletConnect = ({chains}: ConnectorProps): ConnectorInstance => {
   const {mobilePlatform} = getBrowserInfo();
 
+  const supportedWalletConnectWallets = [
+    'Rainbow',
+    'Ledger',
+    'Trezor',
+    'Trust Wallet',
+    'Argent',
+    'Safe',
+  ];
+
   return {
     createConnector: () => {
       const connector = buildWalletConnectConnector({
         chains,
+        mobileLinks: supportedWalletConnectWallets,
         qrcode: mobilePlatform !== undefined,
       });
 

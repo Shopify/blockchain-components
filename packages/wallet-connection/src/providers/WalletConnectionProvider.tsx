@@ -60,7 +60,18 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
   const {disconnect, signing, signMessage} = useWallet({
     onConnect: (response) => {
       if (response) {
-        setWallet({...response, signed: false});
+        let {connectorId, connectorName} = response;
+
+        // Override the connector here.
+        // At the moment this only works on the first request because we don't
+        // have persisted data of where the wallet was connected from.
+        if (pendingConnector) {
+          const {id, name} = pendingConnector;
+          connectorId = id;
+          connectorName = name;
+        }
+
+        setWallet({...response, connectorId, connectorName, signed: false});
         return;
       }
 
