@@ -5,6 +5,7 @@ import {
   TokenBaseSubtitle,
   TokenBaseText,
   TokenBaseBadge,
+  TokenBaseIconWrapper,
 } from './style';
 
 interface TokenBaseProps {
@@ -17,10 +18,12 @@ interface TokenBaseProps {
 
 const TokenBase = ({title, subtitle, icon, round, badge}: TokenBaseProps) => (
   <TokenBaseStyle>
-    <TokenBaseIcon round={round}>
-      {icon}
-      <TokenBaseBadge>{badge}</TokenBaseBadge>
-    </TokenBaseIcon>
+    <TokenBaseIconWrapper>
+      <TokenBaseIcon round={round}>
+        {icon}
+        <TokenBaseBadge>{badge}</TokenBaseBadge>
+      </TokenBaseIcon>
+    </TokenBaseIconWrapper>
     <TokenBaseText>
       <TokenBaseTitle>{title}</TokenBaseTitle>
       <TokenBaseSubtitle>{subtitle}</TokenBaseSubtitle>

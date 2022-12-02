@@ -11,9 +11,12 @@ export const TokenBaseStyle = styled.div`
 export const TokenBaseIcon = styled.div<{round: boolean}>`
   height: 48px;
   width: 48px;
-  margin-right: 12px;
   border-radius: ${(props) => (props.round ? '50%' : '4px')};
   overflow: hidden;
+`;
+
+export const TokenBaseIconWrapper = styled.div`
+  margin-right: 12px;
   position: relative;
 `;
 
