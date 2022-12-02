@@ -21,7 +21,9 @@ export function useConnectorDownloadLinks() {
 
     return (
       <Button
-        label={`Get the ${pendingConnector.name} app`}
+        label={`${mobilePlatform ? 'Open' : 'Get'} the ${
+          pendingConnector.name
+        } app`}
         link={{href: platformAppStoreLink, target: '_blank'}}
       />
     );

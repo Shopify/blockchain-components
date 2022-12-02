@@ -1,6 +1,14 @@
 import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+    /**
+    * This is to override some style inherited from some external
+    * CSS that is hiding wallet app icons in WalletConnect's modal.
+    */
+    div:empty {
+        display: unset;
+    }
+
     h1, h2, h3 {
         font-family: ${({theme}) => theme.typography.body.fontFamily};
         font-style: normal;

@@ -3,7 +3,7 @@ interface ItemProps {
   name: string;
 }
 
-// WalletConnect relies on this key being exactly this.
+// WalletConnect relies on this as the key for deeplinking.
 const STORAGE_KEY = 'WALLETCONNECT_DEEPLINK_CHOICE';
 
 export function useWalletConnectDeeplink() {

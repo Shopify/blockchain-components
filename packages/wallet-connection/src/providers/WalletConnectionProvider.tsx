@@ -62,9 +62,13 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
       if (response) {
         let {connectorId, connectorName} = response;
 
-        // Override the connector here.
-        // At the moment this only works on the first request because we don't
-        // have persisted data of where the wallet was connected from.
+        /**
+         * Temporary --
+         *
+         * Override the connectorId and connectorName.
+         * This will only work on the first request since we do
+         * not have persisted data for the user's chosen wallet.
+         */
         if (pendingConnector) {
           const {id, name} = pendingConnector;
           connectorId = id;

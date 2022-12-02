@@ -17,7 +17,7 @@ interface ConnectScreenProps {
 
 const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
   const {setPendingConnector} = useWalletConnection();
-  const {navigation} = useModal();
+  const {closeModal, navigation} = useModal();
 
   const {mobilePlatform} = getBrowserInfo();
   const {setKey} = useWalletConnectDeeplink();
@@ -29,23 +29,41 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
       const {connector: wagmiConnector, mobileAppPrefixes} = connector;
       connect({connector: wagmiConnector});
 
-      if (wagmiConnector.id === 'walletConnect' && !mobilePlatform) {
+      const isWalletConnect =
+        connector.id === 'walletConnect' &&
+        wagmiConnector.id === 'walletConnect';
+
+      /**
+       * If the user chooses WalletConnect on desktop take them to
+       * the scan screen.
+       */
+      if (isWalletConnect && !mobilePlatform) {
         navigation.navigate(ModalRoute.Scan);
         return;
       }
 
+      /**
+       * If the user chooses WalletConnect on mobile, close the modal
+       * so we're not stacking modals.
+       */
+      if (isWalletConnect && mobilePlatform) {
+        closeModal();
+        return;
+      }
+
+      // Check for a mobile URI prefix.
       const prefix =
         mobileAppPrefixes?.[mobilePlatform === 'Android' ? 'Android' : 'iOS'];
 
       /**
-       * Check if this connector is using WalletConnect
-       * under the hood but is not the normal WalletConnect.
+       * Check if this connector is using WalletConnect under the hood and
+       * whether or not we have a prefix / mobile app available for the platform.
        */
       if (
-        connector.id !== 'walletConnect' &&
+        !isWalletConnect &&
         wagmiConnector.id === 'walletConnect' &&
         mobilePlatform &&
-        prefix
+        prefix !== undefined
       ) {
         wagmiConnector.on('message', async () => {
           try {
@@ -73,8 +91,6 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
             );
           }
         });
-
-        return;
       }
 
       navigation.navigate(ModalRoute.Connecting);

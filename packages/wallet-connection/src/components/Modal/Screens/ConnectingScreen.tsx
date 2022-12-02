@@ -2,7 +2,7 @@ import {ConnectArgs} from '@wagmi/core';
 import {useCallback, useMemo} from 'react';
 import {Button} from 'shared';
 
-import {ModalContent} from './state-content';
+import {getScreenContent} from './screenContent';
 
 import {BodyText, ButtonContainer, ConnectorIcon, SheetContent} from '../style';
 import {Spinner} from '../../Spinner';
@@ -57,7 +57,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
     );
   }, [canTryAgain, connect, handleUseQRCode, pendingConnector]);
 
-  const {body, title} = ModalContent[state];
+  const {body, title} = getScreenContent(state);
 
   return (
     <SheetContent>

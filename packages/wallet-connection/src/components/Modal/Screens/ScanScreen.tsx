@@ -3,7 +3,7 @@ import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button} from 'shared';
 import {useConnect} from 'wagmi';
 
-import {ModalContent} from './state-content';
+import {getScreenContent} from './screenContent';
 
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
@@ -25,7 +25,7 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
 
   const {mobilePlatform} = getBrowserInfo();
 
-  const {body} = ModalContent[state];
+  const {body} = getScreenContent(state);
 
   const bodyContent = useMemo(() => {
     const isRelevantState = [
