@@ -1,26 +1,18 @@
 import {Fragment} from 'react';
-import {UnlockingToken, TokenSeriesWithBadge} from '../TokengatingCard/types';
 import {TokenBase} from '../TokenBase/TokenBase';
 import {TokenListImage} from './TokenListImage';
 import {TokenListWrapper} from './style';
-import {getTokenInfo} from './utils';
+import {TokenListProps} from './types';
 
-const TokenList = ({
-  tokens,
-  separator,
-}: {
-  tokens?: (UnlockingToken | TokenSeriesWithBadge)[];
-  separator?: React.ReactElement;
-}) => (
+const TokenList = ({tokens, separator}: TokenListProps) => (
   <TokenListWrapper>
-    {tokens?.map((token, index) => {
-      const {title, subtitle, imageUrl, round, badge} = getTokenInfo(token);
+    {tokens?.map(({title, subtitle, imageUrl, badge, round}, index) => {
       return (
         <Fragment key={title}>
           <TokenBase
             title={title}
             subtitle={subtitle}
-            round={round}
+            round={Boolean(round)}
             icon={<TokenListImage imageUrl={imageUrl} alt={title} />}
             badge={badge}
           />

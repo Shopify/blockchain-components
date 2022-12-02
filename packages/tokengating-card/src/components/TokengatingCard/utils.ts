@@ -2,7 +2,8 @@ import {TokengatingCardProps} from './types';
 
 export enum TokengateCardSection {
   TokengateRequirement = 'TokengateRequirement',
-  TokenList = 'TokenList',
+  TokengateRequirementMissingTokens = 'TokengateRequirementMissingTokens',
+  UnlockingTokens = 'UnlockingTokens',
   ConnectWallet = 'ConnectWallet',
   ConnectedWallet = 'ConnectedWallet',
   AvailableSoon = 'AvailableSoon',
@@ -27,14 +28,14 @@ const getSections = ({
 }: TokengatingCardProps) => {
   if (wallet?.address && !isLocked) {
     return [
-      TokengateCardSection.TokenList,
+      TokengateCardSection.UnlockingTokens,
       TokengateCardSection.ConnectedWallet,
     ];
   }
 
   if (wallet?.address && isLocked && unlockingTokens) {
     return [
-      TokengateCardSection.TokengateRequirement,
+      TokengateCardSection.TokengateRequirementMissingTokens,
       TokengateCardSection.ConnectedWallet,
     ];
   }
