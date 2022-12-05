@@ -19,7 +19,7 @@ export const useTokengateCardState = (
   };
 };
 
-const getSections = ({
+export const getSections = ({
   wallet,
   availableDate,
   isLocked,
