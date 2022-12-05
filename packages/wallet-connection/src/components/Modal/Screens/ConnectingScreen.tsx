@@ -2,7 +2,7 @@ import {ConnectArgs} from '@wagmi/core';
 import {useCallback, useMemo} from 'react';
 import {Button} from 'shared';
 
-import {ModalContent} from './state-content';
+import {getScreenContent} from './screenContent';
 
 import {BodyText, ButtonContainer, ConnectorIcon, SheetContent} from '../style';
 import {Spinner} from '../../Spinner';
@@ -10,6 +10,7 @@ import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLink
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
 import {ConnectionState} from '../../../types/connectionState';
+import {getBrowserInfo} from '../../../utils/getBrowser';
 
 interface ConnectingScreenProps {
   connect: (args?: Partial<ConnectArgs>) => void;
@@ -20,6 +21,8 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   const {navigation} = useModal();
   const {pendingConnector} = useWalletConnection();
   const downloadButtons = useConnectorDownloadLinks();
+
+  const {mobilePlatform} = getBrowserInfo();
 
   const canTryAgain =
     state === ConnectionState.Failed || state === ConnectionState.Rejected;
@@ -45,16 +48,16 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
           <Button onClick={() => connect({connector})} label="Try again" />
         ) : null}
 
-        {qrCodeSupported ? (
+        {!mobilePlatform && qrCodeSupported ? (
           <Button onClick={handleUseQRCode} label="Use QR code" />
         ) : null}
 
         {downloadButtons}
       </ButtonContainer>
     );
-  }, [canTryAgain, connect, handleUseQRCode, pendingConnector]);
+  }, [canTryAgain, connect, handleUseQRCode, mobilePlatform, pendingConnector]);
 
-  const {body, title} = ModalContent[state];
+  const {body, title} = getScreenContent(state);
 
   return (
     <SheetContent>

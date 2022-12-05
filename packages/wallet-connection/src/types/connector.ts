@@ -8,7 +8,7 @@ export interface ConnectorProps {
 }
 
 export type ConnectorInstance = {
-  createConnector: () => any;
+  createConnector: () => WagmiConnector;
   /**
    * A list of browser extension URLs for supported browsers.
    *
@@ -30,6 +30,10 @@ export type ConnectorInstance = {
    * Mobile applications for both mobile OS providers.
    */
   mobileApps?: {
+    Android?: string;
+    iOS?: string;
+  };
+  mobileAppPrefixes?: {
     Android?: string;
     iOS?: string;
   };

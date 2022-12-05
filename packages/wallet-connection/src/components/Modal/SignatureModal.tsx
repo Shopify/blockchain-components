@@ -31,13 +31,21 @@ export const SignatureModal = () => {
         </Header>
         <SheetContent>
           <BodyText>
-            Signing a message proves ownership of a wallet address.
+            {signing
+              ? 'Signature request sent. Please sign the message in your wallet.'
+              : 'Signing a message proves ownership of a wallet address.'}
           </BodyText>
 
           {signing ? <Spinner /> : null}
 
           <ButtonContainer>
-            <Button label="Sign message" onClick={signMessage} primary />
+            {/*
+             * Prevent the user from invoking multiple signature requests as it currently
+             * breaks the onMessageSigned callback flow.
+             */}
+            {signing ? null : (
+              <Button label={'Sign message'} onClick={signMessage} primary />
+            )}
           </ButtonContainer>
         </SheetContent>
       </Sheet>
