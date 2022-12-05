@@ -55,7 +55,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
         {downloadButtons}
       </ButtonContainer>
     );
-  }, [canTryAgain, connect, handleUseQRCode, pendingConnector]);
+  }, [canTryAgain, connect, handleUseQRCode, mobilePlatform, pendingConnector]);
 
   const {body, title} = getScreenContent(state);
 

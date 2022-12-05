@@ -60,7 +60,7 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
        * whether or not we have a prefix / mobile app available for the platform.
        */
       if (
-        !isWalletConnect &&
+        connector.id !== 'walletConnect' &&
         wagmiConnector.id === 'walletConnect' &&
         mobilePlatform &&
         prefix !== undefined
@@ -95,7 +95,7 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
 
       navigation.navigate(ModalRoute.Connecting);
     },
-    [mobilePlatform, navigation],
+    [connect, mobilePlatform, navigation, setKey],
   );
 
   const handleWhatAreWallets = useCallback(() => {
