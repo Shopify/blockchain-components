@@ -1,28 +1,23 @@
-import {Button, FillerIllustration} from 'shared';
+import {Fragment} from 'react';
+import {GetAConnectorButton} from '../../GetAConnectorButton';
+import {Divider, SheetContent} from '../style';
 
-import {BodyText, GetAWalletContent, SheetContent} from '../style';
+// Will add Coinbase in a follow-up PR
+const CONNECTORS = ['metaMask', 'rainbow'];
 
-/**
- * Copy and illustration are not finalized.
- * This is temporary until they are.
- */
 const GetAWalletScreen = () => {
   return (
     <SheetContent>
-      <GetAWalletContent>
-        {FillerIllustration}
-        {/* eslint-disable-next-line @shopify/jsx-no-hardcoded-content */}
-        <h3>Start exploring web3</h3>
-        {/* eslint-disable-next-line @shopify/jsx-no-hardcoded-content */}
-        <BodyText>Your wallet is the gateway to all things web3.</BodyText>
-      </GetAWalletContent>
-      <Button
-        label="Find your first wallet"
-        link={{
-          href: 'https://ethereum.org/en/wallets/find-wallet/#main-content',
-          target: '_blank',
-        }}
-      />
+      {CONNECTORS.map((connectorId, index) => {
+        const shouldHaveDivider = index < CONNECTORS.length - 1;
+
+        return (
+          <Fragment key={connectorId}>
+            <GetAConnectorButton connectorId={connectorId} />
+            {shouldHaveDivider ? <Divider /> : null}
+          </Fragment>
+        );
+      })}
     </SheetContent>
   );
 };

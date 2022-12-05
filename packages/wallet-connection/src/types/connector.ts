@@ -34,6 +34,10 @@ export interface ConnectorInstance {
    */
   id: string;
   /**
+   * Marketing site for Get a wallet screen on desktop
+   */
+  marketingSite?: string;
+  /**
    * Mobile applications for both mobile OS providers.
    */
   mobileApps?: {

@@ -89,7 +89,7 @@ export const Dawn: DefaultTheme = {
 
   other: {
     iconColor: DawnColors.Grayscale['3'],
-    dividerColour: DawnColors.Grayscale['1'],
+    dividerColor: DawnColors.Grayscale['1'],
   },
 
   popovers: {

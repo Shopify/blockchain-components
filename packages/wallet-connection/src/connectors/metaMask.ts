@@ -26,6 +26,7 @@ export const MetaMask = ({chains}: ConnectorProps): ConnectorInstance => {
       Firefox: 'https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/',
       Opera: 'https://addons.opera.com/en-gb/extensions/details/metamask-10/',
     },
+    marketingSite: 'https://metamask.io/',
     mobileApps: {
       Android: 'https://play.google.com/store/apps/details?id=io.metamask',
       iOS: 'https://apps.apple.com/us/app/metamask-blockchain-wallet/id1438144202',

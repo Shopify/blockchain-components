@@ -30,6 +30,10 @@ export const ConnectorIcon = styled.div`
   margin: 24px auto;
 `;
 
+export const Divider = styled.hr`
+  margin: 12px 0px;
+`;
+
 export const GetAWalletContent = styled.div`
   align-self: center;
 

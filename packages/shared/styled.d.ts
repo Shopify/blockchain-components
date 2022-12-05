@@ -80,7 +80,7 @@ declare module 'styled-components' {
 
     other: {
       iconColor: string;
-      dividerColour: string;
+      dividerColor: string;
     };
 
     popovers: {
