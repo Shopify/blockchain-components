@@ -36,7 +36,7 @@ export interface TokengatingCardProps {
   };
   gateRequirement?: GateRequirement;
   unlockingTokens?: UnlockingToken[];
-  availableDate: string;
+  availableDate?: string;
 }
 
 export const instanceOfUnlockingToken = (
