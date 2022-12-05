@@ -24,8 +24,9 @@ export const getDefaultConnectors = ({chains}: {chains: Chain[]}) => {
        * WC connectors. One for support with WalletConnect's modal and one without.
        */
 
-      // FIX THIS.
-      // Check for the serialized options to match as well.
+      // When we begin adding more connectors (e.g. Ledger, Rainbow, etc.) we should
+      // take a look at this code again to make sure we're seeing the expected connectors.
+      // We should always have TWO walletConnect connectors (one with a qr code and one without).
       if (connectors.some((item) => item.id === 'walletConnect')) {
         return;
       }
