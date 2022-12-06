@@ -5,9 +5,9 @@ namespace DawnColors {
     0: '#FFFFFF',
     1: '#DFDFDF',
     2: '#121212',
-    3: '#000000',
+    3: '#5C5F62',
     4: 'rgba(0, 0, 0, 0.08)',
-    5: 'rgba(18, 18, 18, 0.08)',
+    5: 'rgba(18, 18, 18, 0.55)',
     6: 'rgba(18, 18, 18, 0.2)',
   };
 
@@ -35,14 +35,13 @@ export const Dawn: DefaultTheme = {
     heading: {
       fontFamily: 'Assistant, sans-serif',
       fontWeight: '400',
-
       h1: {
         fontSize: '28px',
         lineHeight: '32px',
       },
       h2: {
-        fontSize: '24px',
-        lineHeight: '28px',
+        fontSize: '22px',
+        lineHeight: '24px',
       },
       h3: {
         fontSize: '16px',
@@ -80,7 +79,7 @@ export const Dawn: DefaultTheme = {
   modal: {
     background: DawnColors.Grayscale['0'],
     overlayBackground: DawnColors.Grayscale['6'],
-    border: `1px solid  ${DawnColors.Grayscale['5']}`,
+    border: 'none',
     borderRadius: '0',
     boxShadow: `0px 8px 32px ${DawnColors.Grayscale['4']}`,
     padding: '24px',

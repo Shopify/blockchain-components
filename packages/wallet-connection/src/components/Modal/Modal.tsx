@@ -1,9 +1,9 @@
-import {useMemo, useState} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {useConnect} from 'wagmi';
 import {IconButton} from 'shared';
 import {ArrowLeft, Cancel} from 'shared/assets/icons';
 
-import {Background, Sheet, Header} from './style';
+import {Background, Container, Sheet, Header} from './style';
 import {
   ConnectScreen,
   ConnectingScreen,
@@ -44,6 +44,12 @@ export const Modal = () => {
   const [status, setStatus] = useState<ConnectionState>(
     ConnectionState.Connecting,
   );
+
+  const handleBackdropPress = useCallback(() => {
+    if (!active) return;
+
+    closeModal();
+  }, [active, closeModal]);
 
   const {connect} = useConnect({
     onError: (error) => {
@@ -118,7 +124,8 @@ export const Modal = () => {
   }, [connect, connectors, navigation.route, status]);
 
   return (
-    <Background $visible={active}>
+    <Container $visible={active}>
+      <Background onClick={handleBackdropPress} />
       <Sheet>
         <Header>
           {navigation.goBack ? (
@@ -136,6 +143,6 @@ export const Modal = () => {
 
         {screenComponent}
       </Sheet>
-    </Background>
+    </Container>
   );
 };

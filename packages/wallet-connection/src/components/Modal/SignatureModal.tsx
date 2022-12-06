@@ -11,13 +11,20 @@ import {
   BodyText,
   ButtonContainer,
   SheetContent,
+  Container,
 } from './style';
+import {useCallback} from 'react';
 
 export const SignatureModal = () => {
   const {clearWalletConnection, signing, signMessage} = useWalletConnection();
 
+  const handleDismiss = useCallback(() => {
+    clearWalletConnection();
+  }, [clearWalletConnection]);
+
   return (
-    <Background $visible={true}>
+    <Container $visible={true}>
+      <Background onClick={handleDismiss} />
       <Sheet>
         <Header>
           <h2>Sign message</h2>
@@ -49,6 +56,6 @@ export const SignatureModal = () => {
           </ButtonContainer>
         </SheetContent>
       </Sheet>
-    </Background>
+    </Container>
   );
 };
