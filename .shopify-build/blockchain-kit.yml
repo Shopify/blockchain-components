@@ -15,7 +15,10 @@ steps:
     run:
       - yarn install
       - yarn build
-  - label: Tests
-    timeout: 5m
+  - label: '🤓 Unit tests'
+    cache:
+      - node_modules
     run:
-      - echo "Hello World"
+      - yarn install
+      - yarn test
+    timeout: 5m

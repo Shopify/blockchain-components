@@ -63,7 +63,7 @@ const getSections = ({
   ];
 };
 
-const getTitleAndSubtitle = ({
+export const getTitleAndSubtitle = ({
   isLocked,
   lockedTitle,
   lockedSubtitle,
