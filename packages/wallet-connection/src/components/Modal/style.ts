@@ -1,24 +1,12 @@
 import styled from 'styled-components';
+import {breakpoints} from 'shared';
 
-export const Background = styled.div<{$visible: boolean}>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+export const Background = styled.div`
+  position: absolute;
+  height: 100%;
+  width: 100%;
   background-color: ${({theme}) => theme.modal.overlayBackground};
-  opacity: ${({$visible}) => ($visible ? 1 : 0)};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: ${({$visible}) => ($visible ? 'all' : 'none')};
   z-index: 1;
-`;
-
-export const ConnectorIcon = styled.div`
-  height: 76px;
-  width: 76px;
-  margin: 24px auto;
 `;
 
 export const BodyText = styled.p`
@@ -34,6 +22,30 @@ export const ButtonContainer = styled.div`
   flex-direction: column;
   row-gap: 12px;
   margin-top: 12px;
+`;
+
+export const Container = styled.div<{$visible: boolean}>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: ${({$visible}) => ($visible ? 1 : 0)};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: ${({$visible}) => ($visible ? 'auto' : 'none')};
+  z-index: 1;
+
+  @media ${breakpoints.mdDown} {
+    align-items: flex-end;
+  }
+`;
+
+export const ConnectorIcon = styled.div`
+  height: 76px;
+  width: 76px;
+  margin: 24px auto;
 `;
 
 export const GetAWalletContent = styled.div`
@@ -87,12 +99,22 @@ export const ListItemContent = styled.div`
 
 export const Sheet = styled.div`
   max-width: 380px;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
   width: 100%;
   background-color: ${({theme}) => theme.modal.background};
   border: ${({theme}) => theme.modal.border};
   border-radius: ${({theme}) => theme.modal.borderRadius};
   box-shadow: ${({theme}) => theme.modal.boxShadow};
   padding: ${({theme}) => theme.modal.padding};
+
+  @media ${breakpoints.mdDown} {
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    max-width: unset;
+    padding: 20px;
+  }
 `;
 
 export const SheetContent = styled.div`
@@ -106,14 +128,8 @@ export const SheetContent = styled.div`
   }
 `;
 
-export const Subtext = styled.span`
-  color: rgba(18, 18, 18, 0.75);
-  font-weight: ${({theme}) => theme.typography.body.fontWeight};
-  font-size: ${({theme}) => theme.typography.body.fontSize};
-  line-height: ${({theme}) => theme.typography.body.lineHeight};
-`;
-
 export const StyledLink = styled.span`
+  margin-top: 14px;
   font-weight: ${({theme}) => theme.typography.body.bold.fontWeight};
   font-size: ${({theme}) => theme.typography.body.fontSize};
   line-height: ${({theme}) => theme.typography.body.lineHeight};
@@ -121,6 +137,13 @@ export const StyledLink = styled.span`
   text-decoration: underline;
   display: block;
   cursor: pointer;
+`;
+
+export const Subtext = styled.span`
+  color: rgba(18, 18, 18, 0.75);
+  font-weight: ${({theme}) => theme.typography.body.fontWeight};
+  font-size: ${({theme}) => theme.typography.body.fontSize};
+  line-height: ${({theme}) => theme.typography.body.lineHeight};
 `;
 
 export const WalletListItem = styled.div`

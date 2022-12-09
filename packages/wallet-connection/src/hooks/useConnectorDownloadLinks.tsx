@@ -19,11 +19,12 @@ export function useConnectorDownloadLinks() {
       return null;
     }
 
+    const labelPrefix = mobilePlatform ? 'Open' : 'Get';
+    const labelSuffix = mobilePlatform ? '' : ` for ${platform}`;
+
     return (
       <Button
-        label={`${mobilePlatform ? 'Open' : 'Get'} the ${
-          pendingConnector.name
-        } app`}
+        label={`${labelPrefix} ${pendingConnector.name} ${labelSuffix}`}
         link={{href: platformAppStoreLink, target: '_blank'}}
       />
     );

@@ -17,6 +17,10 @@ export const Button = styled.button`
   &:hover {
     background: ${({theme}) => theme.walletConnectorButton.backgroundHover};
   }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 `;
 
 export const ConnectorName = styled.label`

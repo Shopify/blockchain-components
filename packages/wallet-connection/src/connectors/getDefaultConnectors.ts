@@ -3,11 +3,16 @@ import {Chain, Connector as WagmiConnector} from 'wagmi';
 import {ConnectorInstance} from '../types/connector';
 
 import {MetaMask} from './metaMask';
+import {Rainbow} from './rainbow';
 import {WalletConnect} from './walletConnect';
 
 export const getDefaultConnectors = ({chains}: {chains: Chain[]}) => {
   const connectors: WagmiConnector[] = [];
-  const availableConnectors = [MetaMask({chains}), WalletConnect({chains})];
+  const availableConnectors = [
+    MetaMask({chains}),
+    Rainbow({chains}),
+    WalletConnect({chains}),
+  ];
 
   availableConnectors.forEach(({createConnector}: ConnectorInstance) => {
     const createdConnector = createConnector();

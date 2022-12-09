@@ -29,15 +29,11 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
       const {connector: wagmiConnector, mobileAppPrefixes} = connector;
       connect({connector: wagmiConnector});
 
-      const isWalletConnect =
-        connector.id === 'walletConnect' &&
-        wagmiConnector.id === 'walletConnect';
-
       /**
-       * If the user chooses WalletConnect on desktop take them to
-       * the scan screen.
+       * If the user chooses a connector that is using WalletConnect
+       * as the connector, take the user to the scan screen.
        */
-      if (isWalletConnect && !mobilePlatform) {
+      if (wagmiConnector.id === 'walletConnect' && !mobilePlatform) {
         navigation.navigate(ModalRoute.Scan);
         return;
       }
@@ -46,7 +42,11 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
        * If the user chooses WalletConnect on mobile, close the modal
        * so we're not stacking modals.
        */
-      if (isWalletConnect && mobilePlatform) {
+      if (
+        connector.id === 'walletConnect' &&
+        wagmiConnector.id === 'walletConnect' &&
+        mobilePlatform
+      ) {
         closeModal();
         return;
       }

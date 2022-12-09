@@ -10,6 +10,11 @@ export {IconButton} from './components/IconButton';
 export {ThemeProvider} from './providers/ThemeProvider';
 
 /**
+ * Styles
+ */
+export {breakpoints} from './styles/breakpoints';
+
+/**
  * Themes
  */
 export {Dawn, Polaris} from './themes';
