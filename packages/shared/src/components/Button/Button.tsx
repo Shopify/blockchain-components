@@ -1,3 +1,4 @@
+import {Fragment} from 'react';
 import {LinkButton, ButtonWrapper} from './style';
 
 export type ButtonBaseProps = {
@@ -5,6 +6,7 @@ export type ButtonBaseProps = {
   className?: HTMLDivElement['className'];
   label: string;
   primary?: boolean;
+  fullWidth?: boolean;
 };
 
 export type LinkButtonProps = ButtonBaseProps & {
@@ -27,32 +29,34 @@ export const Button = ({
   label,
   link,
   primary = false,
+  fullWidth = false,
   ...props
 }: ButtonProps) => {
-  if (link) {
-    return (
-      /**
-       * Should indicate that it's an external link somehow, maybe with an icon
-       * Will add once the design for this page is confirmed
-       */
-      <LinkButton
-        id={id}
-        role="link"
-        href={link.href}
-        target={link.target}
-        title={label}
-        aria-label={label}
-      >
-        <ButtonWrapper id={id} type="button" {...props}>
-          {label}
-        </ButtonWrapper>
-      </LinkButton>
-    );
-  }
+  const {Wrapper, wrapperProps} = link
+    ? {
+        Wrapper: LinkButton,
+        wrapperProps: {
+          id: id,
+          role: 'link',
+          href: link.href,
+          target: link.target,
+          title: label,
+          ariaLabel: label,
+        },
+      }
+    : {Wrapper: Fragment, wrapperProps: {}};
 
   return (
-    <ButtonWrapper id={id} type="button" primary={primary} {...props}>
-      {label}
-    </ButtonWrapper>
+    <Wrapper {...wrapperProps}>
+      <ButtonWrapper
+        id={id}
+        primary={primary}
+        fullWidth={fullWidth}
+        type="button"
+        {...props}
+      >
+        {label}
+      </ButtonWrapper>
+    </Wrapper>
   );
 };

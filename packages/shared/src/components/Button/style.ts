@@ -26,12 +26,16 @@ export const SecondaryButtonWrapper = css`
   }
 `;
 
-export const ButtonWrapper = styled.button<{primary?: Boolean}>`
+export const ButtonWrapper = styled.button<{
+  primary?: Boolean;
+  fullWidth?: Boolean;
+}>`
   ${({primary}) => (primary ? PrimaryButtonWrapper : SecondaryButtonWrapper)}
   font-weight: ${({theme}) => theme.typography.heading.fontWeight};
   font-size: ${({theme}) => theme.typography.heading.h3.fontSize};
   line-height: ${({theme}) => theme.typography.heading.h3.lineHeight};
   letter-spacing: ${({theme}) => theme.typography.letterSpacing};
+  width: ${({fullWidth}) => (fullWidth ? '100%' : 'auto')};
   display: flex;
   flex-direction: row;
   justify-content: center;
