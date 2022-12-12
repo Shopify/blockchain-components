@@ -7,4 +7,5 @@ export interface TokenListProps {
     round?: boolean;
   }[];
   separator?: React.ReactElement;
+  isLoading?: boolean;
 }
