@@ -7,10 +7,12 @@ const TokengateRequirement = ({
   gateRequirement,
   unlockingTokens,
   hasMissingTokens,
+  isLoading,
 }: {
   gateRequirement?: GateRequirement;
   unlockingTokens?: UnlockingToken[];
   hasMissingTokens?: boolean;
+  isLoading?: boolean;
 }) => {
   const tokenSeries = mapGateRequirementToTokenListProps({
     gateRequirement,
@@ -20,6 +22,7 @@ const TokengateRequirement = ({
 
   return (
     <TokenList
+      isLoading={isLoading}
       tokens={tokenSeries}
       separator={
         <TokengateRequirementSeparator operator={gateRequirement?.operator} />

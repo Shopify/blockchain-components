@@ -51,6 +51,9 @@ const TokengatingCard = (props: TokengatingCardProps) => {
         <AvailableSoonButton availableDate={availableDate} />
       ),
       [TokengateCardSection.SoldOut]: <SoldOutButton />,
+      [TokengateCardSection.TokengateRequirementSkeleton]: (
+        <TokengateRequirement isLoading />
+      ),
     }),
     [
       onConnectWallet,
