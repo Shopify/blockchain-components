@@ -9,6 +9,7 @@ export const TokenBaseStyle = styled.div`
 `;
 
 export const TokenBaseIcon = styled.div<{round: boolean}>`
+  display: flex;
   height: 48px;
   width: 48px;
   border-radius: ${(props) => (props.round ? '50%' : '4px')};
