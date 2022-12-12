@@ -6,6 +6,7 @@ export const TokenBaseStyle = styled.div`
   width: auto;
   height: 45px;
   padding: 12px 0;
+  box-sizing: unset;
 `;
 
 export const TokenBaseIcon = styled.div<{round: boolean}>`
