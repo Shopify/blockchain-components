@@ -29,7 +29,7 @@ export const TokenBaseBadge = styled.div`
 export const TokenBaseText = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   font-family: 'Assistant', sans-serif;
   font-style: normal;
   font-weight: 400;
