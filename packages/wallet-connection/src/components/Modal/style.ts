@@ -24,24 +24,6 @@ export const ButtonContainer = styled.div`
   margin-top: 12px;
 `;
 
-export const Container = styled.div<{$visible: boolean}>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: ${({$visible}) => ($visible ? 1 : 0)};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: ${({$visible}) => ($visible ? 'auto' : 'none')};
-  z-index: 1;
-
-  @media ${breakpoints.mdDown} {
-    align-items: flex-end;
-  }
-`;
-
 export const ConnectorIcon = styled.div`
   height: 76px;
   width: 76px;
@@ -101,7 +83,6 @@ export const Sheet = styled.div`
   max-width: 380px;
   position: relative;
   z-index: 10;
-  pointer-events: auto;
   width: 100%;
   background-color: ${({theme}) => theme.modal.background};
   border: ${({theme}) => theme.modal.border};
@@ -160,5 +141,27 @@ export const WalletListItem = styled.div`
 
   p + p {
     margin: default;
+  }
+`;
+
+export const Wrapper = styled.div<{$visible: boolean}>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: ${({$visible}) => ($visible ? 1 : 0)};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: ${({$visible}) => ($visible ? 'auto' : 'none')};
+  z-index: 1;
+
+  @media ${breakpoints.mdDown} {
+    align-items: flex-end;
+  }
+
+  ${Background}, ${Sheet} {
+    pointer-events: inherit;
   }
 `;
