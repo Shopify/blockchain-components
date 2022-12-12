@@ -3,6 +3,19 @@ containers:
     build:
       from: ubuntu-latest
       type: ci
+  publish-container:
+    environment: production
+    build:
+      from: ubuntu-latest
+      run:
+        - yarn install
+        - yarn turbo run build --filter="react-tokengating-app"
+        - mkdir -p assets/react-tokengating-app && cp -R packages/react-tokengating-app/dist/index.js assets/react-tokengating-app/index-staging.js
+      publish:
+        cdn:
+          artifacts:
+            - path: 'assets'
+              patterns: ['*.html', '**/*.js']
 
 steps:
   - label: Typecheck
@@ -22,3 +35,5 @@ steps:
       - yarn install
       - yarn test
     timeout: 5m
+  - build: publish-container
+    branches: 'staging'
