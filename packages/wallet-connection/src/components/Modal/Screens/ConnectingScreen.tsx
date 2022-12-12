@@ -1,11 +1,10 @@
 import {ConnectArgs} from '@wagmi/core';
 import {useCallback, useMemo} from 'react';
-import {Button} from 'shared';
+import {Button, Spinner} from 'shared';
 
 import {getScreenContent} from './screenContent';
 
 import {BodyText, ButtonContainer, ConnectorIcon, SheetContent} from '../style';
-import {Spinner} from '../../Spinner';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';

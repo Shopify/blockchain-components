@@ -1,12 +1,14 @@
 import {Fragment} from 'react';
 import {LinkButton, ButtonWrapper} from './style';
+import {Spinner} from 'shared/src/components/Spinner';
 
 export type ButtonBaseProps = {
   id?: string;
   className?: HTMLDivElement['className'];
-  label: string;
-  primary?: boolean;
   fullWidth?: boolean;
+  label: string;
+  loading?: boolean;
+  primary?: boolean;
 };
 
 export type LinkButtonProps = ButtonBaseProps & {
@@ -26,10 +28,11 @@ export type ButtonProps = DefaultButtonProps | LinkButtonProps;
 
 export const Button = ({
   id,
+  fullWidth = false,
   label,
+  loading = false,
   link,
   primary = false,
-  fullWidth = false,
   ...props
 }: ButtonProps) => {
   const {Wrapper, wrapperProps} = link
@@ -50,12 +53,12 @@ export const Button = ({
     <Wrapper {...wrapperProps}>
       <ButtonWrapper
         id={id}
-        primary={primary}
+        primary={loading ? false : primary}
         fullWidth={fullWidth}
         type="button"
         {...props}
       >
-        {label}
+        {loading ? <Spinner /> : label}
       </ButtonWrapper>
     </Wrapper>
   );

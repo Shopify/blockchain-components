@@ -1,20 +1,21 @@
+import {Button} from 'shared/src/components/Button';
+
 interface ConnectWalletButtonProps {
-  onConnectWallet: () => void;
+  loading?: boolean;
+  onConnectWallet?: () => void;
 }
 
-const ConnectWalletButton = ({onConnectWallet}: ConnectWalletButtonProps) => (
-  // Small test of a button that only uses classes.
-  // The commented version uses styled components.
-  // I'll keep it here so that we can easily move back to it
-  // <ConnectWalletButtonStyle id="connectWallet" onClick={onConnectWallet}>
-  //   Connect wallet
-  // </ConnectWalletButtonStyle>
-  <button
+const ConnectWalletButton = ({
+  onConnectWallet,
+  loading,
+}: ConnectWalletButtonProps) => (
+  <Button
     id="connectWallet"
+    fullWidth
+    label="Connect wallet"
+    loading={loading}
     onClick={onConnectWallet}
-    className="button button--full-width"
-  >
-    Connect wallet
-  </button>
+    primary
+  />
 );
 export {ConnectWalletButton};
