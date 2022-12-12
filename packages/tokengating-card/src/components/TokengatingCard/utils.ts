@@ -8,6 +8,7 @@ export enum TokengateCardSection {
   ConnectedWallet = 'ConnectedWallet',
   AvailableSoon = 'AvailableSoon',
   SoldOut = 'SoldOut',
+  TokengateRequirementSkeleton = 'TokengateRequirementSkeleton',
 }
 
 export const useTokengateCardState = (
@@ -25,7 +26,15 @@ export const getSections = ({
   isLocked,
   isSoldOut,
   unlockingTokens,
+  isLoading,
 }: TokengatingCardProps) => {
+  if (isLoading) {
+    return [
+      TokengateCardSection.TokengateRequirementSkeleton,
+      TokengateCardSection.ConnectWallet,
+    ];
+  }
+
   if (wallet?.address && !isLocked) {
     return [
       TokengateCardSection.UnlockingTokens,

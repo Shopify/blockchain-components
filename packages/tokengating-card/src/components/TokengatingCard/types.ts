@@ -21,6 +21,7 @@ export interface UnlockingToken {
 }
 
 export interface TokengatingCardProps {
+  isLoading?: boolean;
   isLocked: boolean;
   isSoldOut?: boolean;
   lockedTitle?: string;

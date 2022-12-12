@@ -24,6 +24,7 @@ import {eventBus, useLazyEventBus} from './utils';
 interface AppProps {
   serverArguments?: {
     initialState: {
+      isLoading: boolean;
       locked: boolean;
       gateRequirement?: GateRequirement;
       unlockingTokens?: UnlockingToken[];
@@ -93,6 +94,7 @@ function App({serverArguments}: AppProps) {
   return (
     <>
       <TokengatingCard
+        isLoading={serverArguments?.initialState?.isLoading}
         isLocked={isLocked}
         isSoldOut={false}
         onConnectWallet={openModal}
