@@ -11,10 +11,7 @@ module.exports = {
     'plugin:react/jsx-runtime',
   ],
   parserOptions: {
-    extends: './packages/tsconfig/base.json',
-    compilerOptions: {noEmit: true},
-    include: ['./packages/**/*.ts', './packages/**/*.tsx'],
-    exclude: ['./packages/*/build/**/*'],
+    project: ['./tsconfig.eslint.json'],
   },
   rules: {
     '@typescript-eslint/consistent-indexed-object-style': 'off',
