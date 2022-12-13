@@ -1,3 +1,12 @@
+shared:
+  yarn_caches: &yarn_caches
+    cache:
+      - docusaurus/node_modules
+      - node_modules
+      - packages/react-tokengating-app/node_modules
+      - packages/tokengating-card/node_modules
+      - packages/wallet-connection/node_modules
+
 containers:
   default:
     build:
@@ -18,22 +27,33 @@ containers:
               patterns: ['*.html', '**/*.js']
 
 steps:
-  - label: Typecheck
+  - <<: *yarn_caches
+    label: ':eslint: ESLint'
+    timeout: 5m
+    run:
+      - yarn install
+      - yarn lint
+
+  - <<: *yarn_caches
+    label: ':typescript: Type checking'
     timeout: 5m
     run:
       - yarn install
       - yarn typecheck
-  - label: Build
+
+  - <<: *yarn_caches
+    label: ':jest: Unit tests'
+    timeout: 5m
+    run:
+      - yarn install
+      - yarn test
+
+  - <<: *yarn_caches
+    label: '🔨 Build'
     timeout: 5m
     run:
       - yarn install
       - yarn build
-  - label: '🤓 Unit tests'
-    cache:
-      - node_modules
-    run:
-      - yarn install
-      - yarn test
-    timeout: 5m
+
   - build: publish-container
     branches: 'staging'
