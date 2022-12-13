@@ -1,3 +1,4 @@
+import {useCallback} from 'react';
 import {Button, IconButton} from 'shared';
 import {Cancel} from 'shared/assets/icons';
 
@@ -13,7 +14,6 @@ import {
   SheetContent,
   Container,
 } from './style';
-import {useCallback} from 'react';
 
 export const SignatureModal = () => {
   const {clearWalletConnection, signing, signMessage} = useWalletConnection();
@@ -22,11 +22,20 @@ export const SignatureModal = () => {
     clearWalletConnection();
   }, [clearWalletConnection]);
 
+  const handleSignMessage = useCallback(() => {
+    signMessage();
+  }, [signMessage]);
+
   return (
+    // This is addressed in the persistent state PR.
+    // eslint-disable-next-line react/jsx-boolean-value
     <Container $visible={true}>
       <Background onClick={handleDismiss} />
       <Sheet>
         <Header>
+          {/*
+          eslint-disable-next-line @shopify/jsx-no-hardcoded-content
+          */}
           <h2>Sign message</h2>
 
           <IconButton
@@ -51,7 +60,11 @@ export const SignatureModal = () => {
              * breaks the onMessageSigned callback flow.
              */}
             {signing ? null : (
-              <Button label={'Sign message'} onClick={signMessage} primary />
+              <Button
+                label="Sign message"
+                onClick={handleSignMessage}
+                primary
+              />
             )}
           </ButtonContainer>
         </SheetContent>

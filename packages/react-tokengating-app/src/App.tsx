@@ -38,7 +38,7 @@ function App({serverArguments}: AppProps) {
   // Mock wallet connection for now
   const {openModal} = useConnectionModal();
   const [isLocked, setIsLocked] = useState(
-    serverArguments?.initialState?.locked ?? true,
+    serverArguments?.initialState.locked ?? true,
   );
 
   const [
@@ -85,32 +85,28 @@ function App({serverArguments}: AppProps) {
         message: requestWalletVerificationResponse.verification.message,
       });
     }
-  }, [requestWalletVerificationResponse?.verification?.message]);
+  }, [requestWalletVerificationResponse?.verification?.message, signMessage]);
 
   useEffect(() => {
     setIsLocked(!checkIfWalletMeetsRequirementsResponse?.isUnlocked);
   }, [checkIfWalletMeetsRequirementsResponse?.isUnlocked]);
 
   return (
-    <>
-      <TokengatingCard
-        isLoading={serverArguments?.initialState?.isLoading}
-        isLocked={isLocked}
-        isSoldOut={false}
-        onConnectWallet={openModal}
-        onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
-        wallet={{
-          address: wallet?.address,
-          ensName: undefined,
-          icon: <ConnectorIcon id={wallet?.connectorId} />,
-        }}
-        availableDate="08 September 2022 09:00 UTC"
-        gateRequirement={serverArguments?.initialState?.gateRequirement}
-        unlockingTokens={
-          checkIfWalletMeetsRequirementsResponse?.unlockingTokens
-        }
-      />
-    </>
+    <TokengatingCard
+      isLoading={serverArguments?.initialState?.isLoading}
+      isLocked={isLocked}
+      isSoldOut={false}
+      onConnectWallet={openModal}
+      onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
+      wallet={{
+        address: wallet?.address,
+        ensName: undefined,
+        icon: <ConnectorIcon id={wallet?.connectorId} />,
+      }}
+      availableDate="08 September 2022 09:00 UTC"
+      gateRequirement={serverArguments?.initialState?.gateRequirement}
+      unlockingTokens={checkIfWalletMeetsRequirementsResponse?.unlockingTokens}
+    />
   );
 }
 
