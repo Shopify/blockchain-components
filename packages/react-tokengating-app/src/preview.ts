@@ -42,6 +42,7 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
                   'https://i.seadn.io/gae/k9HIMmZMIpgCM0PpaJJo3Lp1rzLKHgYBqehzihsFJ1EgP_xZVDCrqjVQJJyfkX0_HaFxf0IQgO8Ws-5lkqlIhCnh_cBlzOqa1xeVww?auto=format&w=1000',
                 title: 'Townfolk #103',
                 tokenId: '103',
+                orderLimit: '2'
               },
             },
             {
@@ -52,6 +53,7 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
                   'https://lh3.googleusercontent.com/ccbUlfwRAjrGj3OBdKI9mJL0sQqBc8kXloSrk-9dOuOmIbhGqMwCpAZp_kpqsFK-0s3SqOjb7qi-8Jo7kEhmxZ_gSub9MphvrHKwBA=w650',
                 title: 'Squaddy #24',
                 tokenId: '24',
+                orderLimit: '2'
               },
             },
           ],

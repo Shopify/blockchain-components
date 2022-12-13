@@ -118,6 +118,7 @@ export const Polaris: DefaultTheme = {
 
   tokenBase: {
     background: PolarisColors.Grayscale['0'],
+    textColor: PolarisColors.Grayscale['4'],
   },
 
   walletConnectorButton: {

@@ -6,6 +6,7 @@ import {
   TokenBaseText,
   TokenBaseBadge,
   TokenBaseIconWrapper,
+  TokenBaseOrderLimit,
 } from './style';
 
 interface TokenBaseProps {
@@ -14,9 +15,17 @@ interface TokenBaseProps {
   icon: React.ReactNode;
   round: boolean;
   badge?: React.ReactNode;
+  orderLimit?: React.ReactNode;
 }
 
-const TokenBase = ({title, subtitle, icon, round, badge}: TokenBaseProps) => (
+const TokenBase = ({
+  title,
+  subtitle,
+  icon,
+  round,
+  badge,
+  orderLimit,
+}: TokenBaseProps) => (
   <TokenBaseStyle>
     <TokenBaseIconWrapper>
       <TokenBaseIcon round={round}>
@@ -28,6 +37,7 @@ const TokenBase = ({title, subtitle, icon, round, badge}: TokenBaseProps) => (
       <TokenBaseTitle>{title}</TokenBaseTitle>
       <TokenBaseSubtitle>{subtitle}</TokenBaseSubtitle>
     </TokenBaseText>
+    <TokenBaseOrderLimit>0/{orderLimit}</TokenBaseOrderLimit>
   </TokenBaseStyle>
 );
 

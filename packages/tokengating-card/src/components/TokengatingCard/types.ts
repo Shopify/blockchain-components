@@ -17,6 +17,7 @@ export interface UnlockingToken {
     mediaUrl: string;
     contractName: string;
     contractAddress: string;
+    orderLimit: string;
   };
 }
 

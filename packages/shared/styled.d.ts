@@ -100,6 +100,7 @@ declare module 'styled-components' {
 
     tokenBase: {
       background: string;
+      textColor: string;
     };
 
     walletConnectorButton: ButtonStyle & {
