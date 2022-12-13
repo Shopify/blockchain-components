@@ -8,7 +8,7 @@ import {ModalRoute, useModal} from '../../providers/ModalProvider';
 import {useWalletConnection} from '../../providers/WalletConnectionProvider';
 import {ConnectionState} from '../../types/connectionState';
 
-import {Background, Container, Sheet, Header} from './style';
+import {Background, Header, Sheet, Wrapper} from './style';
 import {
   ConnectScreen,
   ConnectingScreen,
@@ -124,7 +124,7 @@ export const Modal = () => {
   }, [connect, connectors, navigation.route, status]);
 
   return (
-    <Container $visible={active}>
+    <Wrapper $visible={active}>
       <Background onClick={handleBackdropPress} />
       <Sheet>
         <Header>
@@ -143,6 +143,6 @@ export const Modal = () => {
 
         {screenComponent}
       </Sheet>
-    </Container>
+    </Wrapper>
   );
 };

@@ -7,12 +7,12 @@ import {useWalletConnection} from '../../providers/WalletConnectionProvider';
 
 import {
   Background,
-  Sheet,
-  Header,
   BodyText,
   ButtonContainer,
+  Header,
+  Sheet,
   SheetContent,
-  Container,
+  Wrapper,
 } from './style';
 
 export const SignatureModal = () => {
@@ -29,7 +29,7 @@ export const SignatureModal = () => {
   return (
     // This is addressed in the persistent state PR.
     // eslint-disable-next-line react/jsx-boolean-value
-    <Container $visible={true}>
+    <Wrapper $visible={true}>
       <Background onClick={handleDismiss} />
       <Sheet>
         <Header>
@@ -69,6 +69,6 @@ export const SignatureModal = () => {
           </ButtonContainer>
         </SheetContent>
       </Sheet>
-    </Container>
+    </Wrapper>
   );
 };
