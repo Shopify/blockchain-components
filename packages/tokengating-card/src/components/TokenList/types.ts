@@ -5,7 +5,7 @@ export interface TokenListProps {
     imageUrl: string;
     badge?: React.ReactNode;
     round?: boolean;
-    orderLimit?: string;
+    rightContent?: string;
   }[];
   separator?: React.ReactElement;
   isLoading?: boolean;

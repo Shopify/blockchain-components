@@ -52,7 +52,7 @@ export const TokenBaseSubtitle = styled.p`
   letter-spacing: 0.4px;
 `;
 
-export const TokenBaseOrderLimit = styled.p`
+export const TokenBaseRightContent = styled.p`
   font-size: 12px;
   align-items: center;
   margin-left: auto;

@@ -13,7 +13,7 @@ const TokenList = ({tokens, separator, isLoading}: TokenListProps) => {
   return (
     <TokenListWrapper>
       {tokens?.map(
-        ({title, subtitle, imageUrl, badge, round, orderLimit}, index) => (
+        ({title, subtitle, imageUrl, badge, round, rightContent}, index) => (
           <Fragment key={title}>
             <TokenBase
               title={title}
@@ -21,7 +21,7 @@ const TokenList = ({tokens, separator, isLoading}: TokenListProps) => {
               round={Boolean(round)}
               icon={<TokenListImage imageUrl={imageUrl} alt={title} />}
               badge={badge}
-              orderLimit={orderLimit}
+              rightContent={rightContent}
             />
             {index < tokens.length - 1 ? separator : null}
           </Fragment>
