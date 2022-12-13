@@ -43,9 +43,14 @@
     "wagmi": "^0.8.8"
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "@types/qrcode": "^1.5.0",
+    "@types/redux-logger": "^3.0.9",
     "@types/styled-components": "^5.1.26",
     "@types/ua-parser-js": "^0.7.36",
+    "react-redux": "^8.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "shared": "*",
     "tsconfig": "*"
   }
