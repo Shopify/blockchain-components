@@ -1,0 +1,13 @@
+# Please do not remove this file as it is required to populate the `catalog.docs.shopify.io` page
+
+# Modify 'title'
+title: Blockchain Kit
+
+# Modify 'description'
+description: >
+  A monorepo consisting of blockchain essentials for Shopify storefronts.
+
+repository:
+  home: https://github.com/Shopify/blockchain-kit
+  branch: main
+  blob_url: "%home%/blob/%branch%/%path%"
