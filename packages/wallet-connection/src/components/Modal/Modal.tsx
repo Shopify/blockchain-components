@@ -3,20 +3,20 @@ import {useConnect} from 'wagmi';
 import {IconButton} from 'shared';
 import {ArrowLeft, Cancel} from 'shared/assets/icons';
 
+import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
+import {ModalRoute, useModal} from '../../providers/ModalProvider';
+import {useWalletConnection} from '../../providers/WalletConnectionProvider';
+import {ConnectionState} from '../../types/connectionState';
+
 import {Background, Container, Sheet, Header} from './style';
 import {
   ConnectScreen,
   ConnectingScreen,
   GetAWalletScreen,
   ScanScreen,
+  Screen,
   WhatAreWalletsScreen,
 } from './Screens';
-import {Screen} from './Screens/types';
-
-import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
-import {ModalRoute, useModal} from '../../providers/ModalProvider';
-import {useWalletConnection} from '../../providers/WalletConnectionProvider';
-import {ConnectionState} from '../../types/connectionState';
 
 const ModalScreens: {[key in keyof typeof ModalRoute]: Screen} = {
   Connect: {
@@ -59,7 +59,7 @@ export const Modal = () => {
       );
     },
     onMutate: ({connector}) => {
-      if (connector) {
+      if (connector.ready) {
         setStatus(ConnectionState.Connecting);
       } else {
         setStatus(ConnectionState.Unavailable);
@@ -99,7 +99,7 @@ export const Modal = () => {
     }
 
     return screenData.title;
-  }, [pendingConnector, screen, screenData]);
+  }, [navigation, pendingConnector?.name, screenData.title]);
 
   const screenComponent = useMemo(() => {
     switch (navigation.route) {
