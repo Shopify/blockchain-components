@@ -5,6 +5,7 @@ export {Button} from './components/Button/Button';
 export {IconButton} from './components/IconButton';
 export {SkeletonThumbnail} from './components/SkeletonThumbnail/SkeletonThumbnail';
 export {SkeletonDisplayText} from './components/SkeletonDisplayText/SkeletonDisplayText';
+export {Spinner} from './components/Spinner';
 
 /**
  * Providers
