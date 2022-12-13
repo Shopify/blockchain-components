@@ -13,7 +13,6 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
     },
-    minify: false,
     rollupOptions: {
       input: './src/index.tsx',
       output: {

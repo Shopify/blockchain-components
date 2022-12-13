@@ -7,7 +7,6 @@ import nodePolyfills from 'vite-plugin-node-stdlib-browser';
 export default defineConfig({
   build: {
     assetsDir: '',
-    minify: false,
     target: 'es2021',
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
