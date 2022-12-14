@@ -2,8 +2,9 @@ import {create, QRCode as QRCodeType} from 'qrcode';
 import {ReactElement, useMemo} from 'react';
 import {useTheme} from 'styled-components';
 
-import {AppIcon, Container, IconContainer} from './style';
 import {useWalletConnection} from '../../providers/WalletConnectionProvider';
+
+import {AppIcon, Container, IconContainer} from './style';
 
 const APP_LOGO_SIZE = 88;
 const DEFAULT_QR_CODE_SIZE = 380;
@@ -22,10 +23,9 @@ const generateMatrix = (value: string) => {
   );
 };
 
-type Props = {
+interface Props {
   uri: string;
-  clearArea?: boolean;
-};
+}
 
 export function QRCode({uri}: Props) {
   const matrix = generateMatrix(uri);
@@ -46,7 +46,7 @@ export function QRCode({uri}: Props) {
     const whitespaceStart = length / 2 - iconWhitespace / 2;
     const whitespaceEnd = length / 2 + iconWhitespace / 2 - 1;
 
-    let positioning = [
+    const positioning = [
       {x: 0, y: 0},
       {x: 1, y: 0},
       {x: 0, y: 1},
@@ -93,6 +93,7 @@ export function QRCode({uri}: Props) {
         if (shouldRender) {
           svg.push(
             <circle
+              // eslint-disable-next-line react/no-array-index-key
               key={`circle-${i}-${j}`}
               cx={i * cellSize + cellSize / 2}
               cy={j * cellSize + cellSize / 2}
@@ -105,7 +106,7 @@ export function QRCode({uri}: Props) {
     });
 
     return svg;
-  }, [matrix, uri]);
+  }, [background, foreground, icon, length, matrix]);
 
   return (
     <Container>

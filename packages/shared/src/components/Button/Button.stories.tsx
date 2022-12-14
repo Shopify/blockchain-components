@@ -1,4 +1,5 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
+
 import {ThemeProvider} from '../../providers/ThemeProvider';
 
 import {Button} from './Button';
@@ -20,7 +21,7 @@ export default ButtonStory;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Button> = (args) => {
-  return <Button {...args} onClick={() => {}} label={'Connect Wallet'} />;
+  return <Button {...args} label="Connect Wallet" />;
 };
 
 export const Primary = Template.bind({});

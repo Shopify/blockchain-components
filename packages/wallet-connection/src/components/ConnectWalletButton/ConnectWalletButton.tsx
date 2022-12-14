@@ -28,7 +28,7 @@ export const ConnectWalletButton = ({
   const handleClick = useCallback(() => {
     openModal();
     onClick?.();
-  }, [onClick]);
+  }, [onClick, openModal]);
 
   return <Button label={label} onClick={handleClick} />;
 };

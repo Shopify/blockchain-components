@@ -1,13 +1,12 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import {useCallback} from 'react';
-
-import {ConnectArgs} from '@wagmi/core';
 
 import {SheetContent, StyledLink} from '../style';
 import {ConnectorButton} from '../../ConnectorButton';
 import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
-import {Connector} from '../../../types/connector';
+import {ConnectArgs, Connector} from '../../../types/connector';
 import {getBrowserInfo} from '../../../utils/getBrowser';
 
 interface ConnectScreenProps {
@@ -23,6 +22,7 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
   const {setKey} = useWalletConnectDeeplink();
 
   const handleConnect = useCallback(
+    // eslint-disable-next-line @typescript-eslint/require-await
     async (connector: Connector) => {
       setPendingConnector(connector);
 
@@ -95,12 +95,19 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
 
       navigation.navigate(ModalRoute.Connecting);
     },
-    [connect, mobilePlatform, navigation, setKey],
+    [
+      closeModal,
+      connect,
+      mobilePlatform,
+      navigation,
+      setKey,
+      setPendingConnector,
+    ],
   );
 
   const handleWhatAreWallets = useCallback(() => {
     navigation.navigate(ModalRoute.WhatAreWallets);
-  }, []);
+  }, [navigation]);
 
   return (
     <SheetContent>
@@ -120,6 +127,8 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
           />
         );
       })}
+
+      {/* eslint-disable-next-line @shopify/jsx-no-hardcoded-content */}
       <StyledLink
         aria-label="What is a wallet?"
         role="link"

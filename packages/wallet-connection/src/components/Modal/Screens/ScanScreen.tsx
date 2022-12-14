@@ -1,16 +1,16 @@
-import {ConnectArgs} from '@wagmi/core';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button} from 'shared';
 import {useConnect} from 'wagmi';
-
-import {getScreenContent} from './screenContent';
 
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
 import {QRCode} from '../../QRCode';
 import {BodyText, ButtonContainer, SheetContent} from '../style';
+import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
 import {getBrowserInfo} from '../../../utils/getBrowser';
+
+import {getScreenContent} from './screenContent';
 
 interface ScanScreenProps {
   connect: (args?: Partial<ConnectArgs> | undefined) => void;
@@ -41,9 +41,9 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
     }
 
     return null;
-  }, [state]);
+  }, [body, state]);
 
-  const handleUseDefaultWalletConnect = () => {
+  const handleUseDefaultWalletConnect = useCallback(() => {
     // Make sure the WalletConnect connector is available in our current client instance.
     // At the moment this only refreshes the connector's uri.
     const connector = connectors.find(({id}) => id === 'walletConnect');
@@ -53,7 +53,7 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
     }
 
     connect({connector});
-  };
+  }, [connect, connectors]);
 
   const buttons = useMemo(() => {
     // We only want to show the wallet connect modal button if
@@ -74,16 +74,23 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
         {walletConnectModalButton}
       </ButtonContainer>
     );
-  }, [handleUseDefaultWalletConnect, mobilePlatform, pendingConnector]);
+  }, [
+    downloadButtons,
+    handleUseDefaultWalletConnect,
+    mobilePlatform,
+    pendingConnector?.id,
+  ]);
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   const scanToConnect = useCallback(async () => {
-    if (!pendingConnector || qrCodeURI || !pendingConnector?.qrCodeSupported) {
+    if (!pendingConnector || qrCodeURI || !pendingConnector.qrCodeSupported) {
       return;
     }
 
     const {connector} = pendingConnector;
 
     if (connector.id === 'walletConnect') {
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       connector.on('message', async () => {
         try {
           const provider = await connector.getProvider();
@@ -92,7 +99,7 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
 
           // User rejected the request, regenerate the URI.
           provider.connector.on('disconnect', () => {
-            connect({connector: connector});
+            connect({connector});
           });
         } catch (error) {
           console.error(
@@ -115,6 +122,7 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
       scanToConnect();
     }
     // Run once on mount -- no deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

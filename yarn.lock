@@ -1355,7 +1355,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@coinbase/wallet-sdk@^3.5.3":
+"@coinbase/wallet-sdk@^3.5.3", "@coinbase/wallet-sdk@^3.5.4":
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.6.2.tgz#e8633001136e0236a746f6462c0dff2f881db343"
   integrity sha512-HzxajB+qS+G9//c+th5uJ8KSt+jQ6/U+cgL9Sv89Wx6Mif+Lg5HxGtc6JQcIdHuYk9AFX+nXNSXtTGRdpHkdDg==
@@ -2645,6 +2645,11 @@
     "@json-rpc-tools/types" "^1.7.6"
     "@pedrouid/environment" "^1.0.1"
 
+"@ledgerhq/connect-kit-loader@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/connect-kit-loader/-/connect-kit-loader-1.0.1.tgz#fce00582e92b666c8b33d4e5ec4f52c2e05c7e46"
+  integrity sha512-OAJh9rMaypS1ttrSMwPznXqglJGcP3WPTTgz9YAKfkaMyUtZcHx7hCj4d6f7DdSVZOgWcyEYfZ8M2QrA2gtvgQ==
+
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
@@ -2915,9 +2920,9 @@
     babel-plugin-react-test-id "^1.0.2"
     babel-plugin-transform-inline-environment-variables "^0.4.3"
 
-"@shopify/docusaurus-shopify-theme@https://github.com/Shopify/docusaurus-shopify-theme.git":
+"@shopify/docusaurus-shopify-theme@https://github.com/Shopify/docusaurus-shopify-theme":
   version "0.4.2"
-  resolved "https://github.com/Shopify/docusaurus-shopify-theme.git#bfc1c896990411fb4d602c634164c4da38363220"
+  resolved "https://github.com/Shopify/docusaurus-shopify-theme#ed254974e75a9d497fb21e191cfd98d2199ffbb9"
   dependencies:
     "@docusaurus/utils-validation" "^2.2.0"
     mermaid "^9.2.2"
@@ -4808,12 +4813,39 @@
     magic-string "^0.26.7"
     react-refresh "^0.14.0"
 
+"@wagmi/chains@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@wagmi/chains/-/chains-0.1.1.tgz#108441cdbc461d0ff1024738db038ce8fb1c3e58"
+  integrity sha512-isHtXKy6acossn6NQsBzgY25CH+m+v/eAjCUv8HAmAAYHxhvo59fWGneiSRK2pCPdjN3VIG5ZcMG4cAaO7qqjQ==
+
+"@wagmi/connectors@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-0.1.1.tgz#5de7605fe2655435ac40b8f4f7fae281919bae84"
+  integrity sha512-W9w73o9HCYzuBsDHuujwBT/nGGIu5qLBSqVqslXf/S1Q9OiWoudmuIs3opuYqxgw5MpWbMqhq6QaxA7Qcd6NrA==
+  dependencies:
+    "@coinbase/wallet-sdk" "^3.5.4"
+    "@ledgerhq/connect-kit-loader" "^1.0.1"
+    "@walletconnect/ethereum-provider" "^1.8.0"
+    abitype "^0.1.8"
+    eventemitter3 "^4.0.7"
+
 "@wagmi/core@0.7.9":
   version "0.7.9"
   resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.7.9.tgz#6ba054d8496e81b16b1c36a6faa6942233f4ecfb"
   integrity sha512-97KCELUP5Q1AagRyE7SmpLh4/v3xdcy/XMbybLvvtQbgmi3y5oEzy4h/wJMY1hEZlmicqyWZAHHm6xIr1tP5HA==
   dependencies:
     abitype "^0.1.8"
+    eventemitter3 "^4.0.7"
+    zustand "^4.1.4"
+
+"@wagmi/core@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.8.3.tgz#0d441f10c73f14fbb9e13d7145b5fdf467489064"
+  integrity sha512-NbdExzEoBuZqknbYNMfZyxwQYEesxEBeLZQlsK7lV5R0eNXqpayZv9cuQCMRMTSCs/VkSx6Dpy+IZeFMqlikAQ==
+  dependencies:
+    "@wagmi/chains" "0.1.1"
+    "@wagmi/connectors" "0.1.1"
+    abitype "^0.2.5"
     eventemitter3 "^4.0.7"
     zustand "^4.1.4"
 
@@ -5324,6 +5356,11 @@ abitype@^0.1.7, abitype@^0.1.8:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/abitype/-/abitype-0.1.8.tgz#f47d397b95d81a445a0d0ef2fdd7827131b3fd74"
   integrity sha512-2pde0KepTzdfu19ZrzYTYVIWo69+6UbBCY4B1RDiwWgo2XZtFSJhF6C+XThuRXbbZ823J0Rw1Y5cP0NXYVcCdQ==
+
+abitype@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/abitype/-/abitype-0.2.5.tgz#e571ef2ed99db1cae551fffde5bcbcee4e446177"
+  integrity sha512-t1iiokWYpkrziu4WL2Gb6YdGvaP9ZKs7WnA39TI8TsW2E99GVRgDPW/xOKhzoCdyxOYt550CNYEFluCwGaFHaA==
 
 accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.8:
   version "1.3.8"

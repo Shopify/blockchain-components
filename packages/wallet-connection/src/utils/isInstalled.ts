@@ -10,6 +10,8 @@ export function isInstalled(connectorName: string) {
     // Not sure if we should inclue isBraveWallet or isTokenary or not.
     const {isMetaMask} = window.ethereum;
 
+    // ESLint seems to think this is always true, but there are cases where it might be isBrave, etc.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (isMetaMask) {
       return true;
     }

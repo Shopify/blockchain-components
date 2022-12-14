@@ -13,10 +13,10 @@ const SUPPORTED_BROWSERS = [
   Browser.Opera,
 ];
 
-export type BrowserInfo = {
+export interface BrowserInfo {
   browser: Browser;
   mobilePlatform: string | undefined;
-};
+}
 
 export const getBrowserInfo = (): BrowserInfo => {
   try {

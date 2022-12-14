@@ -1,3 +1,4 @@
+/* eslint-disable @shopify/jsx-no-hardcoded-content */
 import {SoldOutButtonStyle, SoldOutButtonDescriptionStyle} from './style';
 
 const SoldOutButton = () => (

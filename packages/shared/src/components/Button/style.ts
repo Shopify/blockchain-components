@@ -27,8 +27,8 @@ export const SecondaryButtonWrapper = css`
 `;
 
 export const ButtonWrapper = styled.button<{
-  primary?: Boolean;
-  fullWidth?: Boolean;
+  primary?: boolean;
+  fullWidth?: boolean;
 }>`
   ${({primary}) => (primary ? PrimaryButtonWrapper : SecondaryButtonWrapper)}
   font-weight: ${({theme}) => theme.typography.heading.fontWeight};

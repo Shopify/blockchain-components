@@ -3,11 +3,18 @@ import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 
 import {Browser} from './browser';
 
+export interface ConnectArgs {
+  /** Chain ID to connect to */
+  chainId?: number;
+  /** Connector to connect */
+  connector: WagmiConnector;
+}
+
 export interface ConnectorProps {
   chains: Chain[];
 }
 
-export type ConnectorInstance = {
+export interface ConnectorInstance {
   createConnector: () => WagmiConnector;
   /**
    * A list of browser extension URLs for supported browsers.
@@ -49,7 +56,7 @@ export type ConnectorInstance = {
    * Whether or not connecting with a QR code is supported.
    */
   qrCodeSupported: boolean;
-};
+}
 
 export type Connector = Omit<ConnectorInstance, 'createConnector'> & {
   connector: WagmiConnector;
