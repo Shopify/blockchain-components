@@ -3,11 +3,14 @@ import {
   PropsWithChildren,
   useCallback,
   useContext,
+  useMemo,
   useState,
 } from 'react';
 
+import {Modal} from '../components';
+
+// eslint-disable-next-line import/no-cycle
 import {useWalletConnection} from './WalletConnectionProvider';
-import {Modal} from '../components/Modal';
 
 export enum ModalRoute {
   Connect = 'Connect',
@@ -85,21 +88,30 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
     setActive(false);
     setHistory([]);
     setRoute(ModalRoute.Connect);
-  }, []);
+  }, [pendingConnector, setPendingConnector]);
+
+  const contextValue = useMemo(() => {
+    return {
+      active,
+      closeModal: handleCloseModal,
+      navigation: {
+        goBack: history.length ? handleGoBack : undefined,
+        navigate: handleNavigate,
+        route,
+      },
+      openModal: () => setActive(true),
+    };
+  }, [
+    active,
+    handleCloseModal,
+    handleGoBack,
+    handleNavigate,
+    history.length,
+    route,
+  ]);
 
   return (
-    <ModalContext.Provider
-      value={{
-        active,
-        closeModal: handleCloseModal,
-        navigation: {
-          goBack: history.length ? handleGoBack : undefined,
-          navigate: handleNavigate,
-          route,
-        },
-        openModal: () => setActive(true),
-      }}
-    >
+    <ModalContext.Provider value={contextValue}>
       {children}
       <Modal />
     </ModalContext.Provider>
@@ -108,6 +120,5 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
 
 export const useModal = () => {
   const context = useContext(ModalContext);
-  if (!context) throw Error('ModalProvider not present.');
   return context;
 };
