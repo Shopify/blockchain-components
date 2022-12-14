@@ -6,20 +6,22 @@ import {
   SetStateAction,
   useCallback,
   useContext,
+  useMemo,
   useState,
 } from 'react';
 import {ThemeProvider} from 'shared';
 import {Chain} from 'wagmi';
 
-import {ModalProvider} from './ModalProvider';
-
-import {SignatureModal} from '../components/Modal';
+import {SignatureModal} from '../components';
 import {useWallet} from '../hooks/useWallet';
 import {useWalletConnectDeeplink} from '../hooks/useWalletConnectDeeplink';
 import {GlobalStyle} from '../style/global';
 import {Connector} from '../types/connector';
 import {ProviderProps} from '../types/provider';
 import {SignatureResponse, UseWalletProps, Wallet} from '../types/wallet';
+
+// eslint-disable-next-line import/no-cycle
+import {ModalProvider} from './ModalProvider';
 
 export interface WalletConnectionProviderValue {
   chains: Chain[];
@@ -37,6 +39,7 @@ const defaultContextValue: WalletConnectionProviderValue = {
   pendingConnector: undefined,
   setPendingConnector: () => {},
   signing: false,
+  // eslint-disable-next-line @typescript-eslint/require-await
   signMessage: async () => undefined,
 };
 
@@ -92,7 +95,7 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
     deleteKey();
     setMessage(undefined);
     disconnect();
-  }, [disconnect]);
+  }, [deleteKey, disconnect]);
 
   /**
    * ## requestSignature
@@ -156,18 +159,27 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
     [clearWalletConnection, signMessage, message, wallet],
   );
 
+  const contextValue = useMemo(() => {
+    return {
+      chains,
+      clearWalletConnection,
+      pendingConnector,
+      setPendingConnector,
+      signing,
+      signMessage: requestSignature,
+      wallet,
+    };
+  }, [
+    chains,
+    clearWalletConnection,
+    pendingConnector,
+    requestSignature,
+    signing,
+    wallet,
+  ]);
+
   return (
-    <WalletConnectionContext.Provider
-      value={{
-        chains,
-        clearWalletConnection,
-        pendingConnector,
-        setPendingConnector,
-        signing,
-        signMessage: requestSignature,
-        wallet,
-      }}
-    >
+    <WalletConnectionContext.Provider value={contextValue}>
       <ThemeProvider theme={theme} customTheme={customTheme}>
         <GlobalStyle />
         <ModalProvider>{children}</ModalProvider>
@@ -179,7 +191,6 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
 
 export const useWalletConnection = () => {
   const context = useContext(WalletConnectionContext);
-  if (!context) throw Error('WalletConnection context not present.');
   return context;
 };
 
@@ -194,7 +205,6 @@ export const useExternalWalletConnection = ({
   onMessageSigned: onMessageSignedCallback,
 }: UseWalletProps) => {
   const context = useContext(WalletConnectionContext);
-  if (!context) throw Error('WalletConnection context not present.');
   const {pendingConnector, signing, signMessage, wallet} = context;
 
   const {connecting, disconnect} = useWallet({
