@@ -14,7 +14,6 @@ export {
   Apps,
   ArrowLeft,
   Cancel,
-  FillerIllustration,
   Gift,
   Key,
   MetaMask,

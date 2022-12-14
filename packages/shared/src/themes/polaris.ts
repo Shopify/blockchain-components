@@ -92,7 +92,7 @@ export const Polaris: DefaultTheme = {
 
   other: {
     iconColor: PolarisColors.Grayscale['5'],
-    dividerColour: PolarisColors.Grayscale['2'],
+    dividerColor: PolarisColors.Grayscale['2'],
   },
 
   popovers: {

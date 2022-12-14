@@ -21,13 +21,21 @@ export function useConnectorData({id}: {id: string}): UseConnectorDataResponse {
     const connector = connectors.find((item) => item.id === id);
 
     if (connector) {
-      const {browserExtensions, icon, id, mobileApps, name, qrCodeSupported} =
-        connector;
+      const {
+        browserExtensions,
+        icon,
+        id,
+        marketingSite,
+        mobileApps,
+        name,
+        qrCodeSupported,
+      } = connector;
 
       return {
         browserExtensions,
         icon,
         id,
+        marketingSite,
         mobileApps,
         name,
         qrCodeSupported,
