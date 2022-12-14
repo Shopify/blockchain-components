@@ -1,5 +1,6 @@
+import {ConnectorIcon} from '../ConnectorIcon';
+
 import {Button, ConnectorName} from './style';
-import {ConnectorIcon} from '../ConnectorIcon/ConnectorIcon';
 
 interface ConnectorButtonProps {
   id: string;
@@ -15,5 +16,3 @@ export const ConnectorButton = ({id, name, onClick}: ConnectorButtonProps) => {
     </Button>
   );
 };
-
-export default ConnectorButton;

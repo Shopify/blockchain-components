@@ -1,15 +1,15 @@
-import {ConnectArgs} from '@wagmi/core';
 import {useCallback, useMemo} from 'react';
 import {Button, Spinner} from 'shared';
-
-import {getScreenContent} from './screenContent';
 
 import {BodyText, ButtonContainer, ConnectorIcon, SheetContent} from '../style';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
+import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
 import {getBrowserInfo} from '../../../utils/getBrowser';
+
+import {getScreenContent} from './screenContent';
 
 interface ConnectingScreenProps {
   connect: (args?: Partial<ConnectArgs>) => void;
@@ -43,7 +43,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
 
     return (
       <ButtonContainer>
-        {canTryAgain && pendingConnector ? (
+        {canTryAgain ? (
           <Button onClick={() => connect({connector})} label="Try again" />
         ) : null}
 
@@ -54,7 +54,14 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
         {downloadButtons}
       </ButtonContainer>
     );
-  }, [canTryAgain, connect, handleUseQRCode, mobilePlatform, pendingConnector]);
+  }, [
+    canTryAgain,
+    connect,
+    downloadButtons,
+    handleUseQRCode,
+    mobilePlatform,
+    pendingConnector,
+  ]);
 
   const {body, title} = getScreenContent(state);
 

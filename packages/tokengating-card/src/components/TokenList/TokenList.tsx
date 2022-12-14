@@ -1,8 +1,10 @@
 import {Fragment} from 'react';
-import {TokenBase} from '../TokenBase/TokenBase';
+
+import {TokenBase} from '../TokenBase';
+
+import {TokenListWrapper} from './style';
 import {TokenListImage} from './TokenListImage';
 import {TokenListSkeleton} from './TokenListSkeleton';
-import {TokenListWrapper} from './style';
 import {TokenListProps} from './types';
 
 const TokenList = ({tokens, separator, isLoading}: TokenListProps) => {

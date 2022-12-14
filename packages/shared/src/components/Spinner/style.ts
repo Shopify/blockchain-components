@@ -1,4 +1,3 @@
-// Packages
 import styled, {keyframes} from 'styled-components';
 
 const spinAnimation = keyframes`

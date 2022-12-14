@@ -1,5 +1,5 @@
-import {UnlockingToken} from '../TokengatingCard/types';
-import {TokenListProps} from '../TokenList/types';
+import {UnlockingToken} from '../TokengatingCard';
+import {TokenListProps} from '../TokenList';
 
 export const mapUnlockingTokensToTokenListProps = ({
   unlockingTokens,

@@ -2,9 +2,7 @@ import {
   ConnectedWalletButtonStyle,
   ConnectedWalletIcon,
   ConnectedWalletAddress,
-  // ConnectedWalletDropdown,
 } from './style';
-// import {ChevronDown} from '../../assets/icons/ChevronDown';
 import {formatWalletAddress} from './utils';
 
 interface ConnectedWalletButtonProps {

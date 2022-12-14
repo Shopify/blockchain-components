@@ -1,16 +1,18 @@
 import {ReactNode, Fragment, useMemo} from 'react';
-import {Card} from '../Card/Card';
-import {ConnectedWalletButton} from '../ConnectedWalletButton/ConnectedWalletButton';
-import {ConnectWalletButton} from '../ConnectWalletButton/ConnectWalletButton';
+import {ThemeProvider} from 'shared';
+
+import {AvailableSoonButton} from '../AvailableSoonButton';
+import {Card} from '../Card';
+import {ConnectedWalletButton} from '../ConnectedWalletButton';
+import {ConnectWalletButton} from '../ConnectWalletButton';
+import {SoldOutButton} from '../SoldOutButton';
+import {TokengateRequirement} from '../TokengateRequirement';
+import {UnlockingTokens} from '../UnlockingTokens';
+
 import {TokengateCardSection, useTokengateCardState} from './utils';
 import {TokengatingCardProps} from './types';
-import {ThemeProvider} from 'shared';
-import {AvailableSoonButton} from '../AvailableSoonButton/AvailableSoonButton';
-import {SoldOutButton} from '../SoldOutButton/SoldOutButton';
-import {TokengateRequirement} from '../TokengateRequirement/TokengateRequirement';
-import {UnlockingTokens} from '../UnlockingTokens/UnlockingTokens';
 
-const TokengatingCard = (props: TokengatingCardProps) => {
+export const TokengatingCard = (props: TokengatingCardProps) => {
   const {
     onConnectWallet,
     onConnectedWalletActions,
@@ -77,5 +79,3 @@ const TokengatingCard = (props: TokengatingCardProps) => {
     </ThemeProvider>
   );
 };
-
-export {TokengatingCard};

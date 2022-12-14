@@ -1,4 +1,4 @@
-import {TokenList} from '../TokenList/TokenList';
+import {TokenList} from '../TokenList';
 
 const TokengateRequirementSkeleton = () => {
   return <TokenList isLoading />;

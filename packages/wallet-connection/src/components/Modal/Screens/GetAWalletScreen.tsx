@@ -12,7 +12,9 @@ const GetAWalletScreen = () => {
     <SheetContent>
       <GetAWalletContent>
         {FillerIllustration}
+        {/* eslint-disable-next-line @shopify/jsx-no-hardcoded-content */}
         <h3>Start exploring web3</h3>
+        {/* eslint-disable-next-line @shopify/jsx-no-hardcoded-content */}
         <BodyText>Your wallet is the gateway to all things web3.</BodyText>
       </GetAWalletContent>
       <Button

@@ -32,7 +32,7 @@ export function useConnectorDownloadLinks() {
 
   if (
     !pendingConnector ||
-    (!pendingConnector?.browserExtensions && !pendingConnector?.mobileApps)
+    (!pendingConnector.browserExtensions && !pendingConnector.mobileApps)
   ) {
     return null;
   }

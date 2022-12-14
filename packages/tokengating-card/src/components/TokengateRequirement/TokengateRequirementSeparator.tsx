@@ -1,4 +1,5 @@
-import {GateRequirement} from '../TokengatingCard/types';
+import {GateRequirement} from '../TokengatingCard';
+
 import {TokengateRequirementSeparatorStyle} from './style';
 
 const TokengateRequirementSeparator = ({

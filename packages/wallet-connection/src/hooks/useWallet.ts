@@ -18,17 +18,17 @@ export function useWallet({
   const {error, isLoading, signMessageAsync} = useSignMessage();
 
   useEffect(() => {
-    if (address && connector?.id && connector?.name) {
+    if (address && connector?.id && connector.name) {
       const value = {
         address,
-        connectorId: connector?.id,
-        connectorName: connector?.name,
+        connectorId: connector.id,
+        connectorName: connector.name,
         connectedAt: new Date().toISOString(),
       };
 
       onConnect?.(value);
     }
-  }, [address, connector?.id, connector?.name]);
+  }, [address, connector?.id, connector?.name, onConnect]);
 
   const signMessage = useCallback(
     async ({address, message}: SignMessageProps) => {
@@ -50,7 +50,7 @@ export function useWallet({
         throw error || new Error('Verification process failed.');
       }
     },
-    [onMessageSigned, signMessageAsync],
+    [error, onMessageSigned, signMessageAsync],
   );
 
   return {

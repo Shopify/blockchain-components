@@ -10,13 +10,13 @@ const WhatAreWalletsScreen = () => {
 
   const handleGetAWallet = useCallback(() => {
     navigation.navigate(ModalRoute.GetAWallet);
-  }, []);
+  }, [navigation]);
 
   return (
     <SheetContent>
       {WhatAreWalletsInformation.map(({content, icon, title}) => {
         return (
-          <WalletListItem>
+          <WalletListItem key={title}>
             <Icon>{icon}</Icon>
 
             <ListItemContent>

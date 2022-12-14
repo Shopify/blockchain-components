@@ -1,15 +1,17 @@
 import {Fragment} from 'react';
-import {LinkButton, ButtonWrapper} from './style';
-import {Spinner} from 'shared/src/components/Spinner';
 
-export type ButtonBaseProps = {
+import {Spinner} from '../Spinner';
+
+import {LinkButton, ButtonWrapper} from './style';
+
+export interface ButtonBaseProps {
   id?: string;
   className?: HTMLDivElement['className'];
   fullWidth?: boolean;
   label: string;
   loading?: boolean;
   primary?: boolean;
-};
+}
 
 export type LinkButtonProps = ButtonBaseProps & {
   link: {
@@ -39,7 +41,7 @@ export const Button = ({
     ? {
         Wrapper: LinkButton,
         wrapperProps: {
-          id: id,
+          id,
           role: 'link',
           href: link.href,
           target: link.target,

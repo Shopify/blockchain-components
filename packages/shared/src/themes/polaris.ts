@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/no-namespace */
 import {DefaultTheme} from 'styled-components';
 
 namespace PolarisColors {

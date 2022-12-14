@@ -24,6 +24,7 @@ function convert(availableDate: AvailableSoonButtonProps['availableDate']) {
 }
 
 const AvailableSoonButton = ({availableDate}: AvailableSoonButtonProps) => (
+  // eslint-disable-next-line @shopify/jsx-no-hardcoded-content
   <AvailableSoonButtonStyle>
     Available {convert(availableDate)}
   </AvailableSoonButtonStyle>
