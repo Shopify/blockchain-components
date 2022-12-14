@@ -1,4 +1,4 @@
-import {WalletConnect as walletConnectIcon} from 'shared/assets/connectors';
+import {WalletConnect as walletConnectIcon} from 'shared';
 
 import {ConnectorInstance, ConnectorProps} from '../types/connector';
 import {getBrowserInfo} from '../utils/getBrowser';

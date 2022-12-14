@@ -1,5 +1,4 @@
-import {Button} from 'shared';
-import {FillerIllustration} from 'shared/assets/icons';
+import {Button, FillerIllustration} from 'shared';
 
 import {BodyText, GetAWalletContent, SheetContent} from '../style';
 

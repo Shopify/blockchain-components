@@ -1,6 +1,5 @@
 import {useCallback} from 'react';
-import {Button, IconButton, Spinner} from 'shared';
-import {Cancel} from 'shared/assets/icons';
+import {Button, Cancel, IconButton, Spinner} from 'shared';
 
 import {useWalletConnection} from '../../providers/WalletConnectionProvider';
 

@@ -1,4 +1,4 @@
-import {MetaMask as metaMaskIcon} from 'shared/assets/connectors';
+import {MetaMask as metaMaskIcon} from 'shared';
 import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
 
 import {ConnectorInstance, ConnectorProps} from '../types/connector';
@@ -11,9 +11,9 @@ export const MetaMask = ({chains}: ConnectorProps): ConnectorInstance => {
 
   return {
     createConnector: () => {
-      const connector = !mmInstalled
-        ? buildWalletConnectConnector({chains})
-        : new MetaMaskConnector({chains});
+      const connector = mmInstalled
+        ? new MetaMaskConnector({chains})
+        : buildWalletConnectConnector({chains});
 
       return connector;
     },

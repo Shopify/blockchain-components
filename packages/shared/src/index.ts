@@ -8,6 +8,21 @@ export {SkeletonDisplayText} from './components/SkeletonDisplayText/SkeletonDisp
 export {Spinner} from './components/Spinner';
 
 /**
+ * Icons
+ */
+export {
+  Apps,
+  ArrowLeft,
+  Cancel,
+  FillerIllustration,
+  Gift,
+  Key,
+  MetaMask,
+  Rainbow,
+  WalletConnect,
+} from './icons';
+
+/**
  * Providers
  */
 export {ThemeProvider} from './providers/ThemeProvider';
