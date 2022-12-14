@@ -93,14 +93,14 @@ function getGateRequirement() {
             conditionsDescription: 'Any token',
             contractAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
             imageUrl:
-              'https://s3-alpha-sig.figma.com/img/4af6/bc17/b1ccba7536568db8f1c172664c336c15?Expires=1670803200&Signature=DHM2F96vlOu~FdWHOGKIyxz1h~ABKxiYkp4O8KmuGnS80a6nuXdHXbZvt809aFtcJo8c1HUYS6nsI9AQuaRC5M7b5oMJTIPdnAvASulKXvbuRjAjPvuDfGPJziJCfj0cMb-I2DA4KGlGFlsuJs4jfBTRH0JINihzjlcFoy-XiRjGMYTnMQa0k4r63ZSzwJWQSG-t0-TZFDtCiQ-KC148YNXxOLsU6rS9Tm-b-3qzbobzJiJTvhum54dDSkNCYPMmWsrS~WwH4FVx1xaOOFDek0HzsGpUXHvQmZeQ7uBos5McdwToKgeYYb9qNF20uj8AJ0I8oSaPG351v4olYdV8Zw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+              'https://i.seadn.io/gae/Ywa40DYuhA_QIsok7A8wOhHS8RXn_j0MVh_pqabfO_USbZzoViHh82ucJk35b2QlEqHRttU32F_0NvRZBxhaVzP4UgyUNEPzuEi2?auto=format&w=384',
           },
           {
             name: 'Squaddy',
             conditionsDescription: 'Any token',
             contractAddress: '0x33023E456aF4C186A32c57f8ad61c34cB33f5cC1',
             imageUrl:
-              'https://s3-alpha-sig.figma.com/img/8a01/14ee/54c147e4cc682d409dbedd86608a436e?Expires=1670803200&Signature=eqTrg3iObfLR6B6loY2Dqu1AcJeJjX0eiGpvYB-A5khGzoWyHQC-enPYnEOkBUp-2L--mrphhHPHVo8mejgX4mOWSDmuMECIUOWGH2w7d~eZVGdglkN~-PsqhCCaxkrt7hxfS3Zo~BnsrezX~ND7gtY0DHoCGPo2S58xX9FxxfwPSerhttmByxx69tUsN9cqbeveIpVhGBC-EnbnWZnBYgFhkSEspPRmhmN-gF-J-YjInKFz4uG2GyZoThroyiMp-CDMVJatufCijQF9B5uvEjnLghdAmZfUxYiFpo0P6kWPUO7bS8xPBGEEnpiHyx73CpVgc3WKN~m5SZ59dgPDcA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+              'https://i.seadn.io/gae/QM_-oRsm9DoB2GQ9iuMbJtdWaVJjrOwIkEVEjdPHdsSWTilWIfNOPgKSD502tv9NMTOCSP9kQve8b8h_jQahzs3a4EVH11Ck0l9iKw?auto=format&w=384',
           },
         ],
         operator: 'OR',
