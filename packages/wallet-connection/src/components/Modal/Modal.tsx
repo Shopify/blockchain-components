@@ -1,7 +1,6 @@
 import {useCallback, useMemo, useState} from 'react';
 import {useConnect} from 'wagmi';
-import {IconButton} from 'shared';
-import {ArrowLeft, Cancel} from 'shared/assets/icons';
+import {ArrowLeft, Cancel, IconButton} from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';

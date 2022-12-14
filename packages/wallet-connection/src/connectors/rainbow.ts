@@ -1,4 +1,4 @@
-import {Rainbow as rainbowIcon} from 'shared/assets/connectors';
+import {Rainbow as rainbowIcon} from 'shared';
 
 import {ConnectorInstance, ConnectorProps} from '../types/connector';
 import {getBrowserInfo} from '../utils/getBrowser';
