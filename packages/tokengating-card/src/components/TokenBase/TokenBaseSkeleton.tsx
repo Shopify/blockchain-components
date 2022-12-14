@@ -1,4 +1,5 @@
 import {SkeletonThumbnail, SkeletonDisplayText} from 'shared/src';
+
 import {
   TokenBaseStyle,
   TokenBaseIcon,

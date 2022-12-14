@@ -93,10 +93,11 @@ function App({serverArguments}: AppProps) {
 
   return (
     <TokengatingCard
-      isLoading={serverArguments?.initialState?.isLoading}
+      isLoading={serverArguments?.initialState.isLoading}
       isLocked={isLocked}
       isSoldOut={false}
       onConnectWallet={openModal}
+      // eslint-disable-next-line no-console
       onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
       wallet={{
         address: wallet?.address,
@@ -104,7 +105,7 @@ function App({serverArguments}: AppProps) {
         icon: <ConnectorIcon id={wallet?.connectorId} />,
       }}
       availableDate="08 September 2022 09:00 UTC"
-      gateRequirement={serverArguments?.initialState?.gateRequirement}
+      gateRequirement={serverArguments?.initialState.gateRequirement}
       unlockingTokens={checkIfWalletMeetsRequirementsResponse?.unlockingTokens}
     />
   );

@@ -40,7 +40,7 @@ export interface CheckIfWalletMeetsRequirementsEvent extends EventBusEvent {
   };
 }
 
-export type PayloadErrors = {
+export interface PayloadErrors {
   /**
    * Any errors included during the event bus payload.
    */
@@ -48,9 +48,6 @@ export type PayloadErrors = {
     message: string;
     internalError: Error;
   }[];
-};
+}
 
-type WithSuffix<
-  Type extends EventName,
-  Suffix extends string,
-> = `${Type}${Suffix}`;
+type WithSuffix<T extends EventName, U extends string> = `${T}${U}`;
