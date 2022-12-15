@@ -143,7 +143,7 @@ describe('walletSlice', () => {
       });
     });
 
-    it('sets pendingCnnector to undefined', () => {
+    it('sets pendingConnector to undefined', () => {
       const existingState = {
         ...initialState,
         pendingConnector: DEFAULT_SERIALIZED_CONNECTOR,
