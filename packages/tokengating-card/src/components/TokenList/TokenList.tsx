@@ -9,7 +9,11 @@ import {TokenListProps} from './types';
 
 const TokenList = ({tokens, separator, isLoading}: TokenListProps) => {
   if (isLoading) {
-    return <TokenListSkeleton round />;
+    return (
+      <TokenListWrapper>
+        <TokenListSkeleton round />
+      </TokenListWrapper>
+    );
   }
 
   return (
