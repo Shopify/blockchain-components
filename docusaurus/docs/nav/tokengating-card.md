@@ -18,7 +18,29 @@ import {
   UnlockingToken,
 } from '@shopify/tokengating-card';
 
-const mockGateRequirement: GateRequirement = {
+function TokengatingCardExample() {
+  const [isLocked, setIsLocked] = useState(true);
+  const [wallet, setWallet] = useState<Wallet>({});
+  const [unlockingTokens, setUnlockingTokens] = useState<UnlockingToken[]>([]);
+
+  const onConnectWallet = () => {
+    setWallet(getMockWallet());
+    setIsLocked(false);
+    setUnlockingTokens(getMockUnlockingTokens());
+  };
+
+  return (
+    <TokengatingCard
+      isLocked={isLocked}
+      gateRequirement={getMockGateRequirement()}
+      onConnectWallet={onConnectWallet}
+      wallet={wallet}
+      unlockingTokens={unlockingTokens}
+    />
+  );
+}
+
+const getMockGateRequirement = (): GateRequirement => ({
   id: 'gateRequirementId',
   operator: 'OR' as const,
   tokenSeries: [
@@ -37,13 +59,13 @@ const mockGateRequirement: GateRequirement = {
         'https://i.seadn.io/gae/QM_-oRsm9DoB2GQ9iuMbJtdWaVJjrOwIkEVEjdPHdsSWTilWIfNOPgKSD502tv9NMTOCSP9kQve8b8h_jQahzs3a4EVH11Ck0l9iKw?auto=format&w=384',
     },
   ],
-};
+});
 
-const mockWallet: Wallet = {
+const getMockWallet = (): Wallet => ({
   address: '0xab5801a7d398351b8be11c439e05c5b3259aec9b',
-};
+});
 
-const mockUnlockingTokens: UnlockingToken[] = [
+const getMockUnlockingTokens = (): UnlockingToken[] => [
   {
     contractAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
     contractName: 'CommerceTown',
@@ -61,28 +83,6 @@ const mockUnlockingTokens: UnlockingToken[] = [
     tokenId: '24',
   },
 ];
-
-function TokengatingCardExample() {
-  const [isLocked, setIsLocked] = useState(true);
-  const [wallet, setWallet] = useState<Wallet>({});
-  const [unlockingTokens, setUnlockingTokens] = useState<UnlockingToken[]>([]);
-
-  const onConnectWallet = () => {
-    setWallet(mockWallet);
-    setIsLocked(false);
-    setUnlockingTokens(mockUnlockingTokens);
-  };
-
-  return (
-    <TokengatingCard
-      isLocked={isLocked}
-      gateRequirement={mockGateRequirement}
-      onConnectWallet={onConnectWallet}
-      wallet={wallet}
-      unlockingTokens={unlockingTokens}
-    />
-  );
-}
 ```
 
 ### Props
