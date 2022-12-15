@@ -44,7 +44,7 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
                 title: 'Townfolk #103',
                 tokenId: '103',
                 totalOrderLimit: '2',
-                consumedOrderLimit: '0'
+                consumedOrderLimit: '0',
               },
             },
             {
@@ -56,7 +56,7 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
                 title: 'Squaddy #24',
                 tokenId: '24',
                 totalOrderLimit: '2',
-                consumedOrderLimit: '0'
+                consumedOrderLimit: '0',
               },
             },
           ],
