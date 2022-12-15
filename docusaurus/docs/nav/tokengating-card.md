@@ -9,7 +9,7 @@ Examples + Edit in CodeSandbox
 
 Storybook link / inject storybook?
 
-```
+```typescript
 import {useState} from 'react';
 import {
   TokengatingCard,
