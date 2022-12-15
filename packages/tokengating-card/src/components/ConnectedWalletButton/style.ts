@@ -6,6 +6,10 @@ export const ConnectedWalletButtonStyle = styled(ButtonWrapper)`
   border: ${({theme}) => theme.walletConnectorButton.border};
   color: ${({theme}) => theme.walletConnectorButton.textColor};
   width: 100%;
+
+  &:hover {
+    outline: ${({theme}) => theme.walletConnectorButton.hover.outline};
+  }
 `;
 
 export const ConnectedWalletIcon = styled.div`

@@ -70,12 +70,15 @@ export const Dawn: DefaultTheme = {
 
   connectButton: {
     background: DawnColors.Grayscale['2'],
-    backgroundHover: DawnColors.Grayscale['2'],
     border: 'none',
     borderRadius: '0',
-    textColor: DawnColors.Grayscale['0'],
-    padding: '12px 30px',
     boxShadow: 'none',
+    padding: '12px 30px',
+    textColor: DawnColors.Grayscale['0'],
+
+    hover: {
+      outline: `1.3px solid ${DawnColors.Grayscale['2']}`,
+    },
   },
 
   modal: {
@@ -107,12 +110,15 @@ export const Dawn: DefaultTheme = {
 
   secondaryButton: {
     background: DawnColors.Grayscale['0'],
-    backgroundHover: DawnColors.Grayscale['0'],
     border: `1px solid ${DawnColors.Grayscale['2']}`,
     borderRadius: '0',
-    textColor: DawnColors.Grayscale['2'],
-    padding: '8.5px 16px',
     boxShadow: 'none',
+    padding: '8.5px 16px',
+    textColor: DawnColors.Grayscale['2'],
+
+    hover: {
+      outline: `1.3px solid ${DawnColors.Grayscale['2']}`,
+    },
   },
 
   tokenBase: {
@@ -121,12 +127,15 @@ export const Dawn: DefaultTheme = {
 
   walletConnectorButton: {
     background: DawnColors.Grayscale['0'],
-    backgroundHover: DawnColors.Grayscale['0'],
     border: `1px solid ${DawnColors.Grayscale['5']}`,
     borderRadius: '0',
-    textColor: DawnColors.Blues['0'],
-    padding: '12.5px 16px',
     boxShadow: 'none',
+    padding: '12.5px 16px',
+    textColor: DawnColors.Blues['0'],
     horizontalAlignment: 'flex-start',
+
+    hover: {
+      outline: `1.3px solid ${DawnColors.Grayscale['2']}`,
+    },
   },
 };
