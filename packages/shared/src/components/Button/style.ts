@@ -9,7 +9,7 @@ export const PrimaryButtonWrapper = css`
   box-shadow: ${({theme}) => theme.connectButton.boxShadow};
 
   &:hover {
-    background: ${({theme}) => theme.connectButton.backgroundHover};
+    outline: ${({theme}) => theme.connectButton.hover.outline};
   }
 `;
 
@@ -22,7 +22,7 @@ export const SecondaryButtonWrapper = css`
   box-shadow: ${({theme}) => theme.secondaryButton.boxShadow};
 
   &:hover {
-    background: ${({theme}) => theme.secondaryButton.backgroundHover};
+    outline: ${({theme}) => theme.secondaryButton.hover.outline};
   }
 `;
 

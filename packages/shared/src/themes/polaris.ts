@@ -72,12 +72,15 @@ export const Polaris: DefaultTheme = {
 
   connectButton: {
     background: PolarisColors.Greens['0'],
-    backgroundHover: PolarisColors.Greens['1'],
     border: 'none',
     borderRadius: '4px',
-    textColor: PolarisColors.Grayscale['0'],
-    padding: '8px 16px',
     boxShadow: `0px 1px 0px ${PolarisColors.Grayscale['8']}, inset 0px -1px 0px ${PolarisColors.Grayscale['9']}`,
+    padding: '8px 16px',
+    textColor: PolarisColors.Grayscale['0'],
+
+    hover: {
+      background: PolarisColors.Greens['1'],
+    },
   },
 
   modal: {
@@ -103,12 +106,15 @@ export const Polaris: DefaultTheme = {
 
   secondaryButton: {
     background: PolarisColors.Grayscale['0'],
-    backgroundHover: PolarisColors.Grayscale['1'],
     border: `1px solid ${PolarisColors.Grayscale['3']}`,
     borderRadius: '4px',
-    textColor: PolarisColors.Grayscale['6'],
-    padding: '12px 24px',
     boxShadow: `0px 1px 0px ${PolarisColors.Grayscale['7']}`,
+    padding: '12px 24px',
+    textColor: PolarisColors.Grayscale['6'],
+
+    hover: {
+      background: PolarisColors.Grayscale['1'],
+    },
   },
 
   soldOutButton: {
@@ -124,12 +130,15 @@ export const Polaris: DefaultTheme = {
 
   walletConnectorButton: {
     background: PolarisColors.Grayscale['0'],
-    backgroundHover: PolarisColors.Grayscale['1'],
     border: `1px solid ${PolarisColors.Grayscale['3']}`,
     borderRadius: '4px',
-    textColor: PolarisColors.Grayscale['6'],
-    padding: '12px 24px',
     boxShadow: `0px 1px 0px ${PolarisColors.Grayscale['7']}`,
+    padding: '12px 24px',
+    textColor: PolarisColors.Grayscale['6'],
     horizontalAlignment: 'flex-start',
+
+    hover: {
+      background: PolarisColors.Grayscale['1'],
+    },
   },
 };

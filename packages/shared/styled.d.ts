@@ -12,12 +12,16 @@ declare module 'styled-components' {
 
   export interface ButtonStyle {
     background: string;
-    backgroundHover: string;
     border: string;
     borderRadius: string;
-    textColor: string;
     boxShadow: string;
     padding: Padding;
+    textColor: string;
+
+    hover: {
+      background?: string;
+      outline?: string;
+    };
   }
 
   export interface FontStyle {
