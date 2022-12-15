@@ -33,6 +33,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@storybook/react": "^6.5.13",
     "@types/styled-components": "^5.1.26",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
