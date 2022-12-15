@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint"
+    "lint": "eslint '**/*.ts*'"
   },
   "main": "src/index.ts",
   "types": "src/index.ts",

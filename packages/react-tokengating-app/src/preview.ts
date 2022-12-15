@@ -9,6 +9,7 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
     isLoading: true,
   },
   setupEventBus: (eventBusFromReactApp: any) => {
+    // eslint-disable-next-line no-console
     console.log('Theme: event bus listening');
     eventBus = eventBusFromReactApp;
 

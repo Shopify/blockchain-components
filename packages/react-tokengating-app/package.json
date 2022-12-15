@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint",
+    "lint": "eslint '**/*.ts*'",
     "typecheck": "tsc",
     "preview": "vite preview"
   },

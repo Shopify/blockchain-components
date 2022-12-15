@@ -28,7 +28,7 @@
   "scripts": {
     "build": "vite build && tsc --emitDeclarationOnly",
     "dev": "vite build --mode=development --watch",
-    "lint": "eslint",
+    "lint": "eslint '**/*.ts*'",
     "typecheck": "tsc"
   },
   "dependencies": {

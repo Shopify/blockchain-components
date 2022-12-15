@@ -1,11 +1,13 @@
-import {useConnectorData} from '../../hooks/useConnectorData';
 import {useMemo} from 'react';
 import {Button} from 'shared/src/components/Button';
+
+import {ConnectorName} from '../ConnectorButton';
+import {ConnectorIcon} from '../ConnectorIcon';
+import {useConnectorData} from '../../hooks/useConnectorData';
 import {Size} from '../../types/sizes';
-import {ConnectorName} from '../ConnectorButton/style';
-import {ConnectorIcon} from '../ConnectorIcon/ConnectorIcon';
-import {ConnectorData, Wrapper} from './style';
 import {getBrowserInfo} from '../../utils/getBrowser';
+
+import {ConnectorData, Wrapper} from './style';
 
 interface GetAConnectorButtonProps {
   connectorId: string;
@@ -23,11 +25,11 @@ export const GetAConnectorButton = ({
     }
 
     if (mobilePlatform === 'Android') {
-      return mobileApps?.['Android'] || marketingSite;
+      return mobileApps?.Android || marketingSite;
     }
 
     if (mobilePlatform === 'iOS') {
-      return mobileApps?.['iOS'] || marketingSite;
+      return mobileApps?.iOS || marketingSite;
     }
 
     return marketingSite;
@@ -43,9 +45,10 @@ export const GetAConnectorButton = ({
         <ConnectorIcon id={connectorId} size={Size.Large} />
         <ConnectorName>{name}</ConnectorName>
       </ConnectorData>
+
       <Button
         aria-label={`Get ${name}`}
-        label={'Get'}
+        label="Get"
         link={{href: downloadLink, target: '_blank'}}
       />
     </Wrapper>

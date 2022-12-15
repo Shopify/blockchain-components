@@ -10,8 +10,29 @@ import {chains, client} from './wagmi';
 
 window.gmShop = {
   ThemeAppExtension: class ThemeAppExtension {
-    private arguments;
+    private readonly arguments;
     private root: ReactDOM.Root | undefined;
+
+    constructor(args: any) {
+      this.arguments = args;
+    }
+
+    mount() {
+      const container = document.getElementById(this.arguments.containerId);
+      if (!container) return;
+
+      this.root = ReactDOM.createRoot(container as HTMLElement);
+      this.root.render(this.AppWithProviders({}));
+
+      // Setup event gm-shop-merchant-app event bus
+      // eslint-disable-next-line no-console
+      console.log('Event bus initialized');
+      this.arguments?.setupEventBus?.(eventBus);
+    }
+
+    update(updatedProps: any) {
+      this.root?.render(this.AppWithProviders({updatedProps}));
+    }
 
     private AppWithProviders({updatedProps}: {updatedProps?: any}) {
       return (
@@ -34,26 +55,6 @@ window.gmShop = {
           </WagmiConfig>
         </React.StrictMode>
       );
-    }
-
-    constructor(args: any) {
-      this.arguments = args;
-    }
-
-    mount() {
-      const container = document.getElementById(this.arguments.containerId);
-      if (!container) return;
-
-      this.root = ReactDOM.createRoot(container as HTMLElement);
-      this.root.render(this.AppWithProviders({}));
-
-      // Setup event gm-shop-merchant-app event bus
-      console.log('Event bus initialized');
-      this.arguments?.setupEventBus?.(eventBus);
-    }
-
-    update(updatedProps: any) {
-      this.root?.render(this.AppWithProviders({updatedProps}));
     }
   },
 };

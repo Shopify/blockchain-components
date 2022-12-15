@@ -1,31 +1,32 @@
-import {eventBus} from './eventBus';
+import {useCallback, useState} from 'react';
 
 import {EventBusEvent, PayloadErrors} from '../../types/events';
-import {useCallback, useState} from 'react';
+
+import {eventBus} from './eventBus';
 
 type WrappedPayload<T> = PayloadErrors & T;
 
 export type EventBusStatus = 'loading' | 'success' | 'error' | 'idle';
 
-export function useLazyEventBus<EventT extends EventBusEvent>(
-  event: EventT['event'],
+export function useLazyEventBus<T extends EventBusEvent>(
+  event: T['event'],
 ): [
-  dispatch: (variables: EventT['variables']) => void,
+  dispatch: (variables: T['variables']) => void,
   responseWithStatusAndErrors: {
-    data?: WrappedPayload<EventT['response']>;
+    data?: WrappedPayload<T['response']>;
     status: string;
   },
 ] {
   const [status, setStatus] = useState<EventBusStatus>('idle');
-  const [data, setData] = useState<WrappedPayload<EventT['response']>>();
+  const [data, setData] = useState<WrappedPayload<T['response']>>();
 
   const dispatch = useCallback(
-    (variables: EventT['variables']) => {
+    (variables: T['variables']) => {
       setStatus('loading');
       const promise = new Promise((resolve, reject) => {
         const listener = eventBus.on(
           `${event}-themeToReact`,
-          (eventResponse: WrappedPayload<EventT['response']>) => {
+          (eventResponse: WrappedPayload<T['response']>) => {
             eventBus.remove(`${event}-themeToReact`, listener);
 
             if (eventResponse.userErrors) {

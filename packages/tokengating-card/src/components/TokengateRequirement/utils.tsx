@@ -1,9 +1,6 @@
-import {TokenListProps} from '../TokenList/types';
-import {
-  GateRequirement,
-  TokenSeries,
-  UnlockingToken,
-} from '../TokengatingCard/types';
+import {TokenListProps} from '../TokenList';
+import {GateRequirement, TokenSeries, UnlockingToken} from '../TokengatingCard';
+
 import {TokengateRequirementBadge} from './TokengateRequirementBadge';
 
 export const mapGateRequirementToTokenListProps = ({

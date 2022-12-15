@@ -2,8 +2,8 @@ import {Dawn} from './dawn';
 import {Polaris} from './polaris';
 
 export const AvailableThemes = {
-  Dawn: Dawn,
-  Polaris: Polaris,
+  Dawn,
+  Polaris,
 };
 
 /**

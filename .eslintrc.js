@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   env: {
     node: true,
   },
@@ -11,22 +12,31 @@ module.exports = {
     'plugin:react/jsx-runtime',
   ],
   parserOptions: {
-    project: ['./tsconfig.eslint.json'],
+    project: ['./tsconfig.json'],
   },
+  ignorePatterns: ['node_modules', 'dist', 'vite.config*'],
   rules: {
-    '@typescript-eslint/consistent-indexed-object-style': 'off',
     '@shopify/jsx-no-complex-expressions': 'off',
+    '@typescript-eslint/ban-ts-comment': [
+      'error',
+      {
+        'ts-ignore': 'allow-with-description',
+      },
+    ],
+    '@typescript-eslint/consistent-indexed-object-style': 'off',
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'typeParameter',
+        format: ['PascalCase'],
+        prefix: ['T', 'U'],
+      },
+    ],
     'no-catch-shadow': 'off',
     'no-console': [
       'error',
       {
         allow: ['warn', 'error'],
-      },
-    ],
-    '@typescript-eslint/ban-ts-comment': [
-      'error',
-      {
-        'ts-ignore': 'allow-with-description',
       },
     ],
   },
