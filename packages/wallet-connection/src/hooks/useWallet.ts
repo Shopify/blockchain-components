@@ -28,7 +28,8 @@ export function useWallet({
 
       onConnect?.(value);
     }
-  }, [address, connector?.id, connector?.name, onConnect]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, connector?.id, connector?.name]);
 
   const signMessage = useCallback(
     async ({address, message}: SignMessageProps) => {

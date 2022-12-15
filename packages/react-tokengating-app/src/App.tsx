@@ -85,7 +85,8 @@ function App({serverArguments}: AppProps) {
         message: requestWalletVerificationResponse.verification.message,
       });
     }
-  }, [requestWalletVerificationResponse?.verification?.message, signMessage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [requestWalletVerificationResponse?.verification?.message]);
 
   useEffect(() => {
     setIsLocked(!checkIfWalletMeetsRequirementsResponse?.isUnlocked);
