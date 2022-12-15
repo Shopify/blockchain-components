@@ -17,8 +17,8 @@ export interface UnlockingToken {
     mediaUrl: string;
     contractName: string;
     contractAddress: string;
-    totalOrderLimit?: string;
-    consumedOrderLimit?: string;
+    totalOrderLimit?: number;
+    consumedOrderLimit?: number;
   };
 }
 
@@ -33,6 +33,7 @@ export interface CustomTitles {
   lockedSubtitle?: string;
   unlockedTitle?: string;
   unlockedSubtitle?: string;
+  unlockedSubtitleWithOrderLimit?: string;
 }
 
 export interface TokengatingCardProps {
