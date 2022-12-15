@@ -3,13 +3,16 @@ containers:
     docker: gcr.io/shopify-docker-images/apps/production/apidocs-generator-alpine:production
 
 steps:
-  - label: 📝 Assemble docs
+  - label: '📝 Assemble docs'
     git:
       history: shallow
-    timeout: 5m
+    timeout: 10m
     run:
       # this is not recommended, but necessary since our repo uses turborepo.
       # see the disclaimer here: https://turbo.build/repo/docs/getting-started/existing-monorepo#install-turbo
       - apk add --no-cache libc6-compat
       - cd /projects/api-node && ./assemble --type=docs --microsite-root=/docusaurus
+    only:
+      path_changed:
+        - docusaurus/**
     container: docs_container
