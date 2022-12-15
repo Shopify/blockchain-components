@@ -74,11 +74,10 @@ export const getSections = ({
 
 export const getTitleAndSubtitle = ({
   isLocked,
-  lockedTitle,
-  lockedSubtitle,
-  unlockedTitle,
-  unlockedSubtitle,
+  exclusiveCustomTitles,
 }: TokengatingCardProps) => {
+  const {lockedTitle, lockedSubtitle, unlockedTitle, unlockedSubtitle} =
+    exclusiveCustomTitles ?? {};
   if (isLocked) {
     return {
       title: lockedTitle || 'Holder exclusive',

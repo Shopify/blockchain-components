@@ -22,8 +22,7 @@ describe('TokengatingCard - utils', () => {
         const lockedSubtitle = 'lockedSubtitle';
         const {title, subtitle} = getTitleAndSubtitle({
           ...defaultTokengatingCardProps,
-          lockedTitle,
-          lockedSubtitle,
+          exclusiveCustomTitles: {lockedTitle, lockedSubtitle},
         });
         expect(title).toBe(lockedTitle);
         expect(subtitle).toBe(lockedSubtitle);
@@ -46,8 +45,7 @@ describe('TokengatingCard - utils', () => {
         const {title, subtitle} = getTitleAndSubtitle({
           ...defaultTokengatingCardProps,
           isLocked: false,
-          unlockedTitle,
-          unlockedSubtitle,
+          exclusiveCustomTitles: {unlockedTitle, unlockedSubtitle},
         });
         expect(title).toBe(unlockedTitle);
         expect(subtitle).toBe(unlockedSubtitle);

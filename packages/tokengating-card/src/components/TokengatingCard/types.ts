@@ -20,23 +20,29 @@ export interface UnlockingToken {
   };
 }
 
-export interface TokengatingCardProps {
-  isLoading?: boolean;
-  isLocked: boolean;
-  isSoldOut?: boolean;
+export interface Wallet {
+  address?: string;
+  ensName?: string;
+  icon?: React.ReactNode;
+}
+
+export interface CustomTitles {
   lockedTitle?: string;
   lockedSubtitle?: string;
   unlockedTitle?: string;
   unlockedSubtitle?: string;
+}
+
+export interface TokengatingCardProps {
+  isLoading?: boolean;
+  isLocked: boolean;
+  isSoldOut?: boolean;
   onConnectWallet: () => void;
   onConnectedWalletActions: () => void;
-  wallet?: {
-    address?: string;
-    ensName?: string;
-    icon?: React.ReactNode;
-  };
+  wallet?: Wallet;
   gateRequirement?: GateRequirement;
   unlockingTokens?: UnlockingToken[];
+  exclusiveCustomTitles?: CustomTitles;
   availableDate?: string;
 }
 
