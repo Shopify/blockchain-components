@@ -1,14 +1,15 @@
 import {Button} from 'shared';
 
-import {useWalletConnection} from '../providers/WalletConnectionProvider';
 import {getBrowserInfo} from '../utils/getBrowser';
 import {isInstalled} from '../utils/isInstalled';
+
+import {useAppSelector} from './useAppState';
 
 /**
  * A utility hook for conditionally displaying download links for browser extensions + mobile apps.
  */
 export function useConnectorDownloadLinks() {
-  const {pendingConnector} = useWalletConnection();
+  const {pendingConnector} = useAppSelector((state) => state.wallet);
 
   const {browser, mobilePlatform} = getBrowserInfo();
 

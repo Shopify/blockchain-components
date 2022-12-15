@@ -35,6 +35,16 @@ export type SignatureResponse =
 
 export interface Wallet extends ConnectedWallet {
   /**
+   * The message which the wallet signed. Will be undefined
+   * in the event that the wallet has not yet signed the message.
+   */
+  message?: string;
+  /**
+   * The signed message from the signature transaction. Will be
+   * undefined in the event that the wallet has not yet signed the message.
+   */
+  signature?: string;
+  /**
    * Whether the wallet has completed verification.
    */
   signed?: boolean;
@@ -45,8 +55,9 @@ export interface Wallet extends ConnectedWallet {
 }
 
 export interface UseWalletProps {
-  onConnect?: (wallet?: ConnectedWallet) => void;
+  onConnect?: (wallet?: Wallet) => void;
   onMessageSigned?: (response: SignatureResponse) => void;
+  signOnConnect?: boolean;
 }
 
 export interface UseWalletResponse {

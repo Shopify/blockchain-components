@@ -8,9 +8,8 @@ import {
 } from 'react';
 
 import {Modal} from '../components';
-
-// eslint-disable-next-line import/no-cycle
-import {useWalletConnection} from './WalletConnectionProvider';
+import {useAppDispatch, useAppSelector} from '../hooks/useAppState';
+import {setPendingConnector} from '../slices/walletSlice';
 
 export enum ModalRoute {
   Connect = 'Connect',
@@ -44,7 +43,8 @@ const defaultState: ModalProviderValue = {
 export const ModalContext = createContext<ModalProviderValue>(defaultState);
 
 export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
-  const {pendingConnector, setPendingConnector} = useWalletConnection();
+  const dispatch = useAppDispatch();
+  const {pendingConnector} = useAppSelector((state) => state.wallet);
 
   const [active, setActive] = useState(false);
   const [route, setRoute] = useState(ModalRoute.Connect);
@@ -82,13 +82,13 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
   const handleCloseModal = useCallback(() => {
     // Clear the pending connector
     if (pendingConnector) {
-      setPendingConnector(undefined);
+      dispatch(setPendingConnector(undefined));
     }
 
     setActive(false);
     setHistory([]);
     setRoute(ModalRoute.Connect);
-  }, [pendingConnector, setPendingConnector]);
+  }, [dispatch, pendingConnector]);
 
   const contextValue = useMemo(() => {
     return {

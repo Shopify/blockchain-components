@@ -64,6 +64,19 @@ function App({serverArguments}: AppProps) {
   const {signMessage, wallet} = useWalletConnection({
     onConnect: (response) => {
       if (response?.address) {
+        /**
+         * If the wallet has already signed a message then check if the
+         * wallet satisfies the gate requirements.
+         */
+        if (response?.signed) {
+          checkIfWalletMeetsRequirements({
+            address: response.address,
+            message: response.message,
+            signature: response.signature,
+          });
+          return;
+        }
+
         requestWalletVerification({address: response.address});
       }
     },

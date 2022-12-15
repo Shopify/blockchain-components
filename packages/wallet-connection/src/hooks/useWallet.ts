@@ -1,35 +1,85 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback} from 'react';
 import {useAccount, useDisconnect, useSignMessage} from 'wagmi';
 
+import {addWallet, setAddressToVerify} from '../slices/walletSlice';
 import {
   SignMessageProps,
   SignatureResponse,
   UseWalletProps,
   UseWalletResponse,
+  Wallet,
 } from '../types/wallet';
+
+import {useAppDispatch, useAppSelector} from './useAppState';
 
 export function useWallet({
   onConnect,
   onMessageSigned,
+  signOnConnect,
 }: UseWalletProps): UseWalletResponse {
-  const {address, connector, isConnecting} = useAccount();
+  const dispatch = useAppDispatch();
+  const {connectedWallets, pendingConnector} = useAppSelector(
+    (state) => state.wallet,
+  );
+
+  const handleConnect = useCallback(
+    ({address}: {address?: string}) => {
+      if (!address) {
+        return;
+      }
+
+      // See if the wallet is already connected and exists in our store.
+      const wallet = connectedWallets.find((item) => item.address === address);
+
+      if (wallet) {
+        /**
+         * Check if the wallet has already signed the signature request.
+         * If not, then we can check against the params for signOnConnect and
+         * dispatch the address to verify if needed.
+         */
+        if (!wallet.signed && signOnConnect) {
+          dispatch(setAddressToVerify(address));
+        }
+
+        // Call the onConnect callback.
+        onConnect?.(wallet);
+
+        return;
+      }
+
+      /**
+       * Check to ensure we have a pending connector before proceeding.
+       *
+       * We require information from the pending connector to determine
+       * where the connection originated (for UX purposes).
+       */
+      if (pendingConnector) {
+        const wallet: Wallet = {
+          address,
+          connectorId: pendingConnector.id,
+          connectorName: pendingConnector.name,
+          // If signatures are requested on connection, set signed to false
+          signed: signOnConnect ? false : undefined,
+        };
+
+        // Add the wallet to our store
+        dispatch(addWallet(wallet));
+
+        // If we're signing on connect, then dispatch the adress to verify to the store
+        if (signOnConnect) {
+          dispatch(setAddressToVerify(address));
+        }
+
+        // Call the onConnect callback.
+        onConnect?.(wallet);
+      }
+    },
+    [connectedWallets, dispatch, onConnect, pendingConnector, signOnConnect],
+  );
+
+  const {isConnecting} = useAccount({onConnect: handleConnect});
   const {disconnect} = useDisconnect();
-
   const {error, isLoading, signMessageAsync} = useSignMessage();
-
-  useEffect(() => {
-    if (address && connector?.id && connector.name) {
-      const value = {
-        address,
-        connectorId: connector.id,
-        connectorName: connector.name,
-        connectedAt: new Date().toISOString(),
-      };
-
-      onConnect?.(value);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, connector?.id, connector?.name]);
 
   const signMessage = useCallback(
     async ({address, message}: SignMessageProps) => {
