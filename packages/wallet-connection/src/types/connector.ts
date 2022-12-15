@@ -69,3 +69,8 @@ export type Connector = Omit<ConnectorInstance, 'createConnector'> & {
    */
   ready?: boolean;
 };
+
+export type SerializedConnector = Omit<
+  Connector,
+  'connector' | 'icon' | 'modalConnector' | 'ready'
+>;
