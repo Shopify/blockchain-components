@@ -18,18 +18,21 @@ const TokenList = ({tokens, separator, isLoading}: TokenListProps) => {
 
   return (
     <TokenListWrapper>
-      {tokens?.map(({title, subtitle, imageUrl, badge, round}, index) => (
-        <Fragment key={title}>
-          <TokenBase
-            title={title}
-            subtitle={subtitle}
-            round={Boolean(round)}
-            icon={<TokenListImage imageUrl={imageUrl} alt={title} />}
-            badge={badge}
-          />
-          {index < tokens.length - 1 ? separator : null}
-        </Fragment>
-      ))}
+      {tokens?.map(
+        ({title, subtitle, imageUrl, badge, round, rightContent}, index) => (
+          <Fragment key={title}>
+            <TokenBase
+              title={title}
+              subtitle={subtitle}
+              round={Boolean(round)}
+              icon={<TokenListImage imageUrl={imageUrl} alt={title} />}
+              badge={badge}
+              rightContent={rightContent}
+            />
+            {index < tokens.length - 1 ? separator : null}
+          </Fragment>
+        ),
+      )}
     </TokenListWrapper>
   );
 };

@@ -6,6 +6,7 @@ import {
   TokenBaseText,
   TokenBaseBadge,
   TokenBaseIconWrapper,
+  TokenBaseRightContent,
 } from './style';
 
 interface TokenBaseProps {
@@ -14,9 +15,17 @@ interface TokenBaseProps {
   icon: React.ReactNode;
   round: boolean;
   badge?: React.ReactNode;
+  rightContent?: React.ReactNode;
 }
 
-const TokenBase = ({title, subtitle, icon, round, badge}: TokenBaseProps) => (
+const TokenBase = ({
+  title,
+  subtitle,
+  icon,
+  round,
+  badge,
+  rightContent,
+}: TokenBaseProps) => (
   <TokenBaseStyle>
     <TokenBaseIconWrapper>
       <TokenBaseIcon round={round}>
@@ -28,6 +37,7 @@ const TokenBase = ({title, subtitle, icon, round, badge}: TokenBaseProps) => (
       <TokenBaseTitle>{title}</TokenBaseTitle>
       <TokenBaseSubtitle>{subtitle}</TokenBaseSubtitle>
     </TokenBaseText>
+    <TokenBaseRightContent>{rightContent}</TokenBaseRightContent>
   </TokenBaseStyle>
 );
 

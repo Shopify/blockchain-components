@@ -116,6 +116,7 @@ export const Dawn: DefaultTheme = {
 
   tokenBase: {
     background: DawnColors.Grayscale['2'],
+    textColor: DawnColors.Grayscale['2']
   },
 
   walletConnectorButton: {

@@ -51,3 +51,9 @@ export const TokenBaseSubtitle = styled.p`
   line-height: 20px;
   letter-spacing: 0.4px;
 `;
+
+export const TokenBaseRightContent = styled.p`
+  font-size: 12px;
+  align-items: center;
+  margin-left: auto;
+`;
