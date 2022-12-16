@@ -10,5 +10,7 @@ export const mapUnlockingTokensToTokenListProps = ({
     title: unlockingToken.token.title,
     subtitle: unlockingToken.token.contractName,
     imageUrl: unlockingToken.token.mediaUrl,
-    rightContent: `${unlockingToken.token.consumedOrderLimit}/${unlockingToken.token.totalOrderLimit}`,
+    rightContent: unlockingToken.token.totalOrderLimit
+      ? `${unlockingToken.token.consumedOrderLimit}/${unlockingToken.token.totalOrderLimit}`
+      : undefined,
   }));
