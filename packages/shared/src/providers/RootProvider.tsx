@@ -1,8 +1,10 @@
-import {AvailableThemes} from '../themes';
 import {FC} from 'react';
-import {I18nProvider} from './I18nProvider';
 import {ThemeProvider as StyledThemeProvider} from 'styled-components';
+
+import {AvailableThemes} from '../themes';
 import {ThemeProps} from '../types/theme';
+
+import {I18nProvider} from './I18nProvider';
 
 export const RootProvider: FC<ThemeProps> = ({
   children,

@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {I18nContext, I18nManager} from '@shopify/react-i18n';
 
 interface I18nProviderProps {
@@ -7,13 +7,11 @@ interface I18nProviderProps {
 
 export const LOCALE = 'en';
 
-export const I18nProvider = ({children}: I18nProviderProps) => {
-  const i18nManager = useMemo(() => {
-    return new I18nManager({
-      locale: LOCALE,
-    });
-  }, []);
+const i18nManager = new I18nManager({
+  locale: LOCALE,
+});
 
+export const I18nProvider = ({children}: I18nProviderProps) => {
   return (
     <I18nContext.Provider value={i18nManager}>{children}</I18nContext.Provider>
   );

@@ -25,5 +25,13 @@ export default defineConfig({
       },
     },
   },
-  plugins: [peerDepsExternal(), nodePolyfills(), react()],
+  plugins: [
+    peerDepsExternal(),
+    nodePolyfills(),
+    react({
+      babel: {
+        plugins: ['@shopify/react-i18n/babel'],
+      },
+    }),
+  ],
 });
