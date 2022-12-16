@@ -4,7 +4,9 @@ import {ThemeProvider as StyledThemeProvider} from 'styled-components';
 import {AvailableThemes} from '../themes';
 import {ThemeProps} from '../types/theme';
 
-export const ThemeProvider: FC<ThemeProps> = ({
+import {I18nProvider} from './I18nProvider';
+
+export const RootProvider: FC<ThemeProps> = ({
   children,
   customTheme,
   theme = 'Dawn',
@@ -12,8 +14,10 @@ export const ThemeProvider: FC<ThemeProps> = ({
   const providedTheme = AvailableThemes[theme];
 
   return (
-    <StyledThemeProvider theme={customTheme || providedTheme}>
-      {children}
-    </StyledThemeProvider>
+    <I18nProvider>
+      <StyledThemeProvider theme={customTheme || providedTheme}>
+        {children}
+      </StyledThemeProvider>
+    </I18nProvider>
   );
 };

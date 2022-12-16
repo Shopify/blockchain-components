@@ -1,6 +1,6 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
-import {ThemeProvider} from '../../providers/ThemeProvider';
+import {RootProvider} from '../../providers/RootProvider';
 
 import {Button} from './Button';
 
@@ -10,9 +10,9 @@ const ButtonStory: ComponentMeta<typeof Button> = {
   component: Button,
   decorators: [
     (Story) => (
-      <ThemeProvider>
+      <RootProvider>
         <Story />
-      </ThemeProvider>
+      </RootProvider>
     ),
   ],
 };

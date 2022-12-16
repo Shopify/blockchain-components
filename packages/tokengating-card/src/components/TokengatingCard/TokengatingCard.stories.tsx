@@ -1,5 +1,5 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {ThemeProvider} from 'shared/src';
+import {RootProvider} from 'shared/src';
 
 import {TokengatingCard} from './TokengatingCard';
 
@@ -46,9 +46,9 @@ const TokengatingCardStory: ComponentMeta<typeof TokengatingCard> = {
   component: TokengatingCard,
   decorators: [
     (Story) => (
-      <ThemeProvider>
+      <RootProvider>
         <Story />
-      </ThemeProvider>
+      </RootProvider>
     ),
   ],
 };

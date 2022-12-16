@@ -1,5 +1,5 @@
 import {ReactNode, Fragment, useMemo} from 'react';
-import {ThemeProvider} from 'shared';
+import {RootProvider} from 'shared';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
@@ -70,12 +70,12 @@ export const TokengatingCard = (props: TokengatingCardProps) => {
   );
 
   return (
-    <ThemeProvider>
+    <RootProvider>
       <Card title={title} subtitle={subtitle}>
         {sections.map((section: TokengateCardSection) => (
           <Fragment key={section}>{sectionMapping[section]}</Fragment>
         ))}
       </Card>
-    </ThemeProvider>
+    </RootProvider>
   );
 };

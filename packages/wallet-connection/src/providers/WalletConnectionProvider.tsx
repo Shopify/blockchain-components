@@ -9,7 +9,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import {ThemeProvider} from 'shared';
+import {RootProvider} from 'shared';
 import {Chain} from 'wagmi';
 
 import {SignatureModal} from '../components';
@@ -180,11 +180,11 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
 
   return (
     <WalletConnectionContext.Provider value={contextValue}>
-      <ThemeProvider theme={theme} customTheme={customTheme}>
+      <RootProvider theme={theme} customTheme={customTheme}>
         <GlobalStyle />
         <ModalProvider>{children}</ModalProvider>
         {message ? <SignatureModal /> : null}
-      </ThemeProvider>
+      </RootProvider>
     </WalletConnectionContext.Provider>
   );
 };
