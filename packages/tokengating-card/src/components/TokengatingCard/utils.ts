@@ -80,7 +80,7 @@ export const getTitleAndSubtitle = (props: TokengatingCardProps) => {
     lockedSubtitle,
     unlockedTitle,
     unlockedSubtitle,
-    unlockedSubtitleWithOrderLimit
+    unlockedSubtitleWithOrderLimit,
   } = exclusiveCustomTitles ?? {};
 
   if (isLocked) {
