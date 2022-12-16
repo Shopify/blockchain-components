@@ -75,8 +75,14 @@ export const getSections = ({
 export const getTitleAndSubtitle = (props: TokengatingCardProps) => {
   const {isLocked, exclusiveCustomTitles} = props;
 
-  const {lockedTitle, lockedSubtitle, unlockedTitle, unlockedSubtitle, unlockedSubtitleWithOrderLimit} =
-    exclusiveCustomTitles ?? {};
+  const {
+    lockedTitle,
+    lockedSubtitle,
+    unlockedTitle,
+    unlockedSubtitle,
+    unlockedSubtitleWithOrderLimit
+  } = exclusiveCustomTitles ?? {};
+
   if (isLocked) {
     return {
       title: lockedTitle || 'Holder exclusive',
@@ -104,9 +110,9 @@ const getCombinedOrderLimit = ({unlockingTokens}: TokengatingCardProps) => {
   const initialValue = 0;
   const combinedOrderLimit = unlockingTokens?.reduce(
     (accumulator: number, unlockingToken: UnlockingToken) => {
-      if (!unlockingToken?.token?.totalOrderLimit) return accumulator;
+      if (!unlockingToken.token.totalOrderLimit) return accumulator;
 
-      return accumulator + unlockingToken?.token?.totalOrderLimit;
+      return accumulator + unlockingToken.token.totalOrderLimit;
     },
     initialValue,
   );
