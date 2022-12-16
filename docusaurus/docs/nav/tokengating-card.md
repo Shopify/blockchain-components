@@ -1,13 +1,39 @@
 ---
 id: tokengating-card
-title: Tokengting Card
+title: Tokengating Card
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+export const stories = [
+  'locked-without-wallet',
+  'locked-without-unlocking-tokens',
+  'unlocked',
+  'loading'
+];
+
+export const getTabTitleFromStory = (story) => story.replaceAll('-', ' ');
+
+export const StorybookTabs = () => (
+  <Tabs>
+    {stories.map((story) => (
+      <TabItem value={story} label={getTabTitleFromStory(story)} default>
+        <iframe
+          title="locked-without-wallet"
+          src={`https://main--639b1f308693132693d9b82c.chromatic.com/iframe.html?path=/story/tokengatingcard--${story}`}
+          width="400"
+          height="400"
+        />
+      </TabItem>
+      )
+    )}
+  </Tabs>
+)
 
 #### Description
 
-Examples + Edit in CodeSandbox
-
-Storybook link / inject storybook?
+<StorybookTabs />
 
 ```typescript
 import {useState} from 'react';
