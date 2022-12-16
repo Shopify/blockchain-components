@@ -24,7 +24,7 @@ export {
 /**
  * Providers
  */
-export {ThemeProvider} from './providers/ThemeProvider';
+export {RootProvider} from './providers/RootProvider';
 
 /**
  * Styles

@@ -49,20 +49,20 @@ export const getSections = ({
     ];
   }
 
-  if (isSoldOut) {
-    return [
-      TokengateCardSection.TokengateRequirement,
-      TokengateCardSection.SoldOut,
-    ];
-  }
-
   const now = new Date();
   const dateObject = availableDate ? new Date(availableDate) : null;
 
-  if (dateObject && dateObject > now) {
+  if (isSoldOut && dateObject && dateObject > now) {
     return [
       TokengateCardSection.TokengateRequirement,
       TokengateCardSection.AvailableSoon,
+    ];
+  }
+
+  if (true) {
+    return [
+      TokengateCardSection.TokengateRequirement,
+      TokengateCardSection.SoldOut,
     ];
   }
 
