@@ -2,7 +2,8 @@ import {create, QRCode as QRCodeType} from 'qrcode';
 import {ReactElement, useMemo} from 'react';
 import {useTheme} from 'styled-components';
 
-import {useWalletConnection} from '../../providers/WalletConnectionProvider';
+import {useAppSelector} from '../../hooks/useAppState';
+import {useConnectorData} from '../../hooks/useConnectorData';
 
 import {AppIcon, Container, IconContainer} from './style';
 
@@ -29,9 +30,10 @@ interface Props {
 
 export function QRCode({uri}: Props) {
   const matrix = generateMatrix(uri);
+  const {pendingConnector} = useAppSelector((state) => state.wallet);
+  const {icon} = useConnectorData({id: pendingConnector?.id});
+
   const {modal, typography} = useTheme();
-  const {pendingConnector} = useWalletConnection();
-  const icon = pendingConnector?.icon;
 
   const foreground = typography.colorPrimary;
   const background = modal.background;

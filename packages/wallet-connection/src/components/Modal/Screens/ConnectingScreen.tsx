@@ -2,9 +2,10 @@ import {useCallback, useMemo} from 'react';
 import {Button, Spinner} from 'shared';
 
 import {BodyText, ButtonContainer, ConnectorIcon, SheetContent} from '../style';
+import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
+import {useAppSelector} from '../../../hooks/useAppState';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
-import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
 import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
 import {getBrowserInfo} from '../../../utils/getBrowser';
@@ -17,8 +18,9 @@ interface ConnectingScreenProps {
 }
 
 const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
+  const {pendingConnector} = useAppSelector((state) => state.wallet);
+  const {connector, icon} = useConnectorData({id: pendingConnector?.id});
   const {navigation} = useModal();
-  const {pendingConnector} = useWalletConnection();
   const downloadButtons = useConnectorDownloadLinks();
 
   const {mobilePlatform} = getBrowserInfo();
@@ -31,15 +33,11 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   }, [navigation]);
 
   const buttons = useMemo(() => {
-    if (!pendingConnector) {
+    if (!connector || !pendingConnector || !downloadButtons) {
       return null;
     }
 
-    const {connector, qrCodeSupported} = pendingConnector;
-
-    if (!canTryAgain && !qrCodeSupported && !downloadButtons) {
-      return null;
-    }
+    const {qrCodeSupported} = pendingConnector;
 
     return (
       <ButtonContainer>
@@ -57,6 +55,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   }, [
     canTryAgain,
     connect,
+    connector,
     downloadButtons,
     handleUseQRCode,
     mobilePlatform,
@@ -67,7 +66,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
 
   return (
     <SheetContent>
-      <ConnectorIcon>{pendingConnector?.icon}</ConnectorIcon>
+      <ConnectorIcon>{icon}</ConnectorIcon>
 
       <h1>{title}</h1>
 

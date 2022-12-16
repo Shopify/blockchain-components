@@ -3,9 +3,10 @@ import {useCallback} from 'react';
 
 import {SheetContent, StyledLink} from '../style';
 import {ConnectorButton} from '../../ConnectorButton';
+import {useAppDispatch} from '../../../hooks/useAppState';
 import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
-import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
+import {setPendingConnector} from '../../../slices/walletSlice';
 import {ConnectArgs, Connector} from '../../../types/connector';
 import {getBrowserInfo} from '../../../utils/getBrowser';
 
@@ -15,7 +16,7 @@ interface ConnectScreenProps {
 }
 
 const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
-  const {setPendingConnector} = useWalletConnection();
+  const dispatch = useAppDispatch();
   const {closeModal, navigation} = useModal();
 
   const {mobilePlatform} = getBrowserInfo();
@@ -24,9 +25,33 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
   const handleConnect = useCallback(
     // eslint-disable-next-line @typescript-eslint/require-await
     async (connector: Connector) => {
-      setPendingConnector(connector);
+      const {
+        browserExtensions,
+        connector: wagmiConnector,
+        id,
+        mobileApps,
+        mobileAppPrefixes,
+        name,
+        qrCodeSupported,
+      } = connector;
 
-      const {connector: wagmiConnector, mobileAppPrefixes} = connector;
+      /**
+       * This is destructured intentionally.
+       *
+       * With Redux we cannot store non-serialized data, meaning that
+       * anything which is constructed (e.g. a Connector from Wagmi)
+       */
+      dispatch(
+        setPendingConnector({
+          browserExtensions,
+          id,
+          mobileAppPrefixes,
+          mobileApps,
+          name,
+          qrCodeSupported,
+        }),
+      );
+
       connect({connector: wagmiConnector});
 
       /**
@@ -95,14 +120,7 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
 
       navigation.navigate(ModalRoute.Connecting);
     },
-    [
-      closeModal,
-      connect,
-      mobilePlatform,
-      navigation,
-      setKey,
-      setPendingConnector,
-    ],
+    [closeModal, connect, dispatch, mobilePlatform, navigation, setKey],
   );
 
   const handleWhatAreWallets = useCallback(() => {

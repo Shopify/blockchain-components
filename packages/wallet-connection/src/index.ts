@@ -12,10 +12,9 @@ export {getDefaultConnectors} from './connectors/getDefaultConnectors';
 /**
  * Hooks
  */
-export {useWallet} from './hooks/useWallet';
 export {useConnectionModal} from './hooks/useConnectionModal';
 export {useModal} from './providers/ModalProvider';
-export {useExternalWalletConnection as useWalletConnection} from './providers/WalletConnectionProvider';
+export {useWalletConnection} from './hooks/useWalletConnection';
 
 /**
  * Providers

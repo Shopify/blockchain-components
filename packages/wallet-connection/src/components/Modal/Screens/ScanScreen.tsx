@@ -2,8 +2,9 @@ import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button} from 'shared';
 import {useConnect} from 'wagmi';
 
+import {useAppSelector} from '../../../hooks/useAppState';
+import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
-import {useWalletConnection} from '../../../providers/WalletConnectionProvider';
 import {QRCode} from '../../QRCode';
 import {BodyText, ButtonContainer, SheetContent} from '../style';
 import {ConnectArgs} from '../../../types/connector';
@@ -19,7 +20,10 @@ interface ScanScreenProps {
 
 const ScanScreen = ({connect, state}: ScanScreenProps) => {
   const {connectors} = useConnect();
-  const {pendingConnector} = useWalletConnection();
+  const {pendingConnector} = useAppSelector((state) => state.wallet);
+  const {connector} = useConnectorData({
+    id: pendingConnector?.id,
+  });
   const downloadButtons = useConnectorDownloadLinks();
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
 
@@ -83,11 +87,14 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
 
   // eslint-disable-next-line @typescript-eslint/require-await
   const scanToConnect = useCallback(async () => {
-    if (!pendingConnector || qrCodeURI || !pendingConnector.qrCodeSupported) {
+    if (
+      !connector ||
+      !pendingConnector ||
+      qrCodeURI ||
+      !pendingConnector.qrCodeSupported
+    ) {
       return;
     }
-
-    const {connector} = pendingConnector;
 
     if (connector.id === 'walletConnect') {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -115,7 +122,7 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
         console.error(exception);
       }
     }
-  }, [connect, pendingConnector, qrCodeURI]);
+  }, [connect, connector, pendingConnector, qrCodeURI]);
 
   useEffect(() => {
     if (!qrCodeURI) {

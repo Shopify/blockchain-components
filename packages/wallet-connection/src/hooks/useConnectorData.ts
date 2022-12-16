@@ -1,4 +1,5 @@
 import {useMemo} from 'react';
+import {Connector} from 'wagmi';
 
 import {ConnectorInstance} from '../types/connector';
 
@@ -7,32 +8,40 @@ import {useDefaultConnectors} from './useDefaultConnectors';
 type UseConnectorDataResponse = Omit<
   ConnectorInstance,
   'createConnector' | 'modalConnector'
->;
+> & {
+  connector?: Connector;
+};
 
 /**
  * A hook for accessing connector data (e.g. icons, mobile links, etc.) outside
  * of the pendingConnector.
  */
-export function useConnectorData({id}: {id: string}): UseConnectorDataResponse {
+export function useConnectorData({
+  id,
+}: {
+  id?: string;
+}): UseConnectorDataResponse {
   const {connectors} = useDefaultConnectors();
 
   const connectorData = useMemo(() => {
     // Search our collection of connectors for a matching id (e.g. `rainbowWallet` or `metaMask`).
-    const connector = connectors.find((item) => item.id === id);
+    const data = connectors.find((item) => item.id === id);
 
-    if (connector) {
+    if (data) {
       const {
         browserExtensions,
+        connector,
         icon,
         id,
         marketingSite,
         mobileApps,
         name,
         qrCodeSupported,
-      } = connector;
+      } = data;
 
       return {
         browserExtensions,
+        connector,
         icon,
         id,
         marketingSite,

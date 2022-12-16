@@ -78,4 +78,12 @@ export const walletSlice = createSlice({
   },
 });
 
-export const {setMessage} = walletSlice.actions;
+export const {
+  addWallet,
+  clearSignatureState,
+  setAddressToVerify,
+  setMessage,
+  setPendingConnector,
+  removeWallet,
+  updateWallet,
+} = walletSlice.actions;

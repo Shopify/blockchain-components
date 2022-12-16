@@ -1,7 +1,9 @@
 import {useCallback} from 'react';
 import {Button, Cancel, IconButton, Spinner} from 'shared';
 
-import {useWalletConnection} from '../../providers/WalletConnectionProvider';
+import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
+import {useWalletConnection} from '../../hooks/useWalletConnection';
+import {clearSignatureState} from '../../slices/walletSlice';
 
 import {
   Background,
@@ -14,20 +16,20 @@ import {
 } from './style';
 
 export const SignatureModal = () => {
-  const {clearWalletConnection, signing, signMessage} = useWalletConnection();
+  const dispatch = useAppDispatch();
+  const {message} = useAppSelector((state) => state.wallet);
+  const {signing, signMessage} = useWalletConnection();
 
   const handleDismiss = useCallback(() => {
-    clearWalletConnection();
-  }, [clearWalletConnection]);
+    dispatch(clearSignatureState());
+  }, [dispatch]);
 
   const handleSignMessage = useCallback(() => {
     signMessage();
   }, [signMessage]);
 
   return (
-    // This is addressed in the persistent state PR.
-    // eslint-disable-next-line react/jsx-boolean-value
-    <Wrapper $visible={true}>
+    <Wrapper $visible={message !== undefined}>
       <Background onClick={handleDismiss} />
       <Sheet>
         <Header>
@@ -40,7 +42,7 @@ export const SignatureModal = () => {
             aria-label="Close"
             icon={Cancel}
             // For now we can just clear the connected wallet + verification status
-            onClick={clearWalletConnection}
+            onClick={handleDismiss}
           />
         </Header>
         <SheetContent>

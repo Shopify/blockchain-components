@@ -3,7 +3,12 @@ import {Chain} from 'wagmi';
 
 import {Wallet} from './wallet';
 
-export type ProviderProps = ThemeProps & {
-  chains: Chain[];
-  wallet?: Wallet;
-};
+export interface SignatureProviderProps {
+  signOnConnect?: boolean;
+}
+
+export type ProviderProps = ThemeProps &
+  SignatureProviderProps & {
+    chains: Chain[];
+    wallet?: Wallet;
+  };

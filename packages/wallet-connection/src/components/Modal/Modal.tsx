@@ -3,8 +3,8 @@ import {useConnect} from 'wagmi';
 import {ArrowLeft, Cancel, IconButton} from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
+import {useAppSelector} from '../../hooks/useAppState';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
-import {useWalletConnection} from '../../providers/WalletConnectionProvider';
 import {ConnectionState} from '../../types/connectionState';
 
 import {Background, Header, Sheet, Wrapper} from './style';
@@ -36,9 +36,9 @@ const ModalScreens: {[key in keyof typeof ModalRoute]: Screen} = {
 };
 
 export const Modal = () => {
+  const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {connectors} = useDefaultConnectors();
   const {active, closeModal, navigation} = useModal();
-  const {pendingConnector} = useWalletConnection();
   const screenData = ModalScreens[navigation.route];
   const [status, setStatus] = useState<ConnectionState>(
     ConnectionState.Connecting,

@@ -1,6 +1,7 @@
 import {getDefaultConnectors} from '../connectors/getDefaultConnectors';
-import {useWalletConnection} from '../providers/WalletConnectionProvider';
 import {Connector, ConnectorInstance} from '../types/connector';
+
+import {useWalletConnection} from './useWalletConnection';
 
 export function useDefaultConnectors() {
   const {chains} = useWalletConnection();
