@@ -55,5 +55,14 @@ steps:
       - yarn install
       - yarn build
 
+  - <<: *yarn_caches
+    label: ':storybook: Chromatic'
+    timeout: 20m
+    git:
+      history: true
+    run:
+      - yarn: ~
+      - npx chromatic --auto-accept-changes=main --exit-once-uploaded
+
   - build: publish-container
     branches: 'staging'
