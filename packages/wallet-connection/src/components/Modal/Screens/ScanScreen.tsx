@@ -1,17 +1,17 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button} from 'shared';
 import {useConnect} from 'wagmi';
+import {useI18n} from '@shopify/react-i18n';
 
 import {useAppSelector} from '../../../hooks/useAppState';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
+import {useModalScreenContent} from '../../../hooks/useModalContent/useModalContent';
 import {QRCode} from '../../QRCode';
 import {BodyText, ButtonContainer, SheetContent} from '../style';
 import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
 import {getBrowserInfo} from '../../../utils/getBrowser';
-
-import {getScreenContent} from './screenContent';
 
 interface ScanScreenProps {
   connect: (args?: Partial<ConnectArgs> | undefined) => void;
@@ -24,12 +24,13 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
   const {connector} = useConnectorData({
     id: pendingConnector?.id,
   });
+  const [i18n] = useI18n();
   const downloadButtons = useConnectorDownloadLinks();
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
 
   const {mobilePlatform} = getBrowserInfo();
 
-  const {body} = getScreenContent(state);
+  const {body} = useModalScreenContent(state);
 
   const bodyContent = useMemo(() => {
     const isRelevantState = [
@@ -68,7 +69,7 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
       isWalletConnect && !mobilePlatform ? (
         <Button
           onClick={handleUseDefaultWalletConnect}
-          label="Use WalletConnect modal"
+          label={i18n.translate('modalScreens.ScanScreen.button')}
         />
       ) : null;
 
@@ -81,6 +82,7 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
   }, [
     downloadButtons,
     handleUseDefaultWalletConnect,
+    i18n,
     mobilePlatform,
     pendingConnector?.id,
   ]);

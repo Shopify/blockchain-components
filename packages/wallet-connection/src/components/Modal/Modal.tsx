@@ -1,5 +1,6 @@
 import {useCallback, useMemo, useState} from 'react';
 import {useConnect} from 'wagmi';
+import {useI18n} from '@shopify/react-i18n';
 import {ArrowLeft, Cancel, IconButton} from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
@@ -13,36 +14,21 @@ import {
   ConnectingScreen,
   GetAWalletScreen,
   ScanScreen,
-  Screen,
   WhatAreWalletsScreen,
 } from './Screens';
-
-const ModalScreens: {[key in keyof typeof ModalRoute]: Screen} = {
-  Connect: {
-    title: 'Connect wallet',
-  },
-  Connecting: {
-    title: 'Connect with',
-  },
-  GetAWallet: {
-    title: 'Get a wallet',
-  },
-  Scan: {
-    title: 'Scan with',
-  },
-  WhatAreWallets: {
-    title: 'What is a wallet?',
-  },
-};
 
 export const Modal = () => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {connectors} = useDefaultConnectors();
+  const [i18n] = useI18n();
   const {active, closeModal, navigation} = useModal();
-  const screenData = ModalScreens[navigation.route];
   const [status, setStatus] = useState<ConnectionState>(
     ConnectionState.Connecting,
   );
+
+  const screenTitle = i18n.translate(navigation.route, {
+    scope: 'Modal.title',
+  });
 
   const handleBackdropPress = useCallback(() => {
     if (!active) return;
@@ -94,11 +80,11 @@ export const Modal = () => {
     const {route} = navigation;
 
     if (route === ModalRoute.Connecting || route === ModalRoute.Scan) {
-      return `${screenData.title} ${pendingConnector?.name}`;
+      return `${screenTitle} ${pendingConnector?.name}`;
     }
 
-    return screenData.title;
-  }, [navigation, pendingConnector?.name, screenData.title]);
+    return screenTitle;
+  }, [navigation, pendingConnector?.name, screenTitle]);
 
   const screenComponent = useMemo(() => {
     switch (navigation.route) {
@@ -129,7 +115,7 @@ export const Modal = () => {
         <Header>
           {navigation.goBack ? (
             <IconButton
-              aria-label="Back"
+              aria-label={i18n.translate('Modal.back.accessibilityLabel')}
               icon={ArrowLeft}
               onClick={navigation.goBack}
             />
@@ -137,7 +123,11 @@ export const Modal = () => {
 
           <h2>{headerTitle}</h2>
 
-          <IconButton aria-label="Close" icon={Cancel} onClick={closeModal} />
+          <IconButton
+            aria-label={i18n.translate('Modal.close.accessibilityLabel')}
+            icon={Cancel}
+            onClick={closeModal}
+          />
         </Header>
 
         {screenComponent}

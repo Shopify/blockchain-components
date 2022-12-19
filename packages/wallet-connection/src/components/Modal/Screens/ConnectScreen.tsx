@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import {useCallback} from 'react';
+import {useI18n} from '@shopify/react-i18n';
 
 import {SheetContent, StyledLink} from '../style';
 import {ConnectorButton} from '../../ConnectorButton';
@@ -18,6 +19,7 @@ interface ConnectScreenProps {
 const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
   const dispatch = useAppDispatch();
   const {closeModal, navigation} = useModal();
+  const [i18n] = useI18n();
 
   const {mobilePlatform} = getBrowserInfo();
   const {setKey} = useWalletConnectDeeplink();
@@ -146,13 +148,12 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
         );
       })}
 
-      {/* eslint-disable-next-line @shopify/jsx-no-hardcoded-content */}
       <StyledLink
-        aria-label="What is a wallet?"
+        aria-label={i18n.translate('modalScreens.ConnectScreen.whatIsAWallet')}
         role="link"
         onClick={handleWhatAreWallets}
       >
-        What is a wallet?
+        {i18n.translate('modalScreens.ConnectScreen.whatIsAWallet')}
       </StyledLink>
     </SheetContent>
   );

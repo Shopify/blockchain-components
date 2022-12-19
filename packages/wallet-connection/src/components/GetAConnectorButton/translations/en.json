@@ -1,0 +1,6 @@
+{
+  "GetAConnectorButton": {
+    "buttonText": "Get",
+    "accessibilityLabel": "Get {name}"
+  }
+}

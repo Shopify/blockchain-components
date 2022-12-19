@@ -1,0 +1,8 @@
+{
+  "hooks": {
+    "connectorDownloadLinks": {
+      "open": "Open",
+      "get": "Get"
+    }
+  }
+}
