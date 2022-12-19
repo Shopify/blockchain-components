@@ -30,6 +30,15 @@ const unlockingTokenCommerceTown = {
     tokenId: '103',
   },
 };
+
+const unlockingTokenCommerceTownWithOrderLimit = {
+  token: {
+    ...unlockingTokenCommerceTown.token,
+    consumedOrderLimit: 0,
+    totalOrderLimit: 2,
+  },
+};
+
 const unlockingTokenSquad = {
   token: {
     contractAddress: '0x33023E456aF4C186A32c57f8ad61c34cB33f5cC1',
@@ -38,6 +47,14 @@ const unlockingTokenSquad = {
       'https://lh3.googleusercontent.com/ccbUlfwRAjrGj3OBdKI9mJL0sQqBc8kXloSrk-9dOuOmIbhGqMwCpAZp_kpqsFK-0s3SqOjb7qi-8Jo7kEhmxZ_gSub9MphvrHKwBA=w650',
     title: 'Squaddy #24',
     tokenId: '24',
+  },
+};
+
+const unlockingTokenSquadWithOrderLimit = {
+  token: {
+    ...unlockingTokenSquad.token,
+    consumedOrderLimit: 0,
+    totalOrderLimit: 2,
   },
 };
 
@@ -102,6 +119,26 @@ Unlocked.args = {
     operator: 'OR',
   },
   unlockingTokens: [unlockingTokenCommerceTown, unlockingTokenSquad],
+  onConnectWallet: () => {},
+  onConnectedWalletActions: () => {},
+};
+
+export const UnlockedWithOrderLimits = Template.bind({});
+UnlockedWithOrderLimits.args = {
+  isLoading: false,
+  isLocked: false,
+  wallet: {
+    address: '0xab5801a7d398351b8be11c439e05c5b3259aec9b',
+  },
+  gateRequirement: {
+    id: 'gateRequirement-id',
+    tokenSeries,
+    operator: 'OR',
+  },
+  unlockingTokens: [
+    unlockingTokenCommerceTownWithOrderLimit,
+    unlockingTokenSquadWithOrderLimit,
+  ],
   onConnectWallet: () => {},
   onConnectedWalletActions: () => {},
 };

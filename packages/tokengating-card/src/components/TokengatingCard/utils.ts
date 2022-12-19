@@ -1,4 +1,4 @@
-import {TokengatingCardProps} from './types';
+import {TokengatingCardProps, UnlockingToken} from './types';
 
 export enum TokengateCardSection {
   TokengateRequirement = 'TokengateRequirement',
@@ -72,12 +72,17 @@ export const getSections = ({
   ];
 };
 
-export const getTitleAndSubtitle = ({
-  isLocked,
-  exclusiveCustomTitles,
-}: TokengatingCardProps) => {
-  const {lockedTitle, lockedSubtitle, unlockedTitle, unlockedSubtitle} =
-    exclusiveCustomTitles ?? {};
+export const getTitleAndSubtitle = (props: TokengatingCardProps) => {
+  const {isLocked, exclusiveCustomTitles} = props;
+
+  const {
+    lockedTitle,
+    lockedSubtitle,
+    unlockedTitle,
+    unlockedSubtitle,
+    unlockedSubtitleWithOrderLimit,
+  } = exclusiveCustomTitles ?? {};
+
   if (isLocked) {
     return {
       title: lockedTitle || 'Holder exclusive',
@@ -85,8 +90,34 @@ export const getTitleAndSubtitle = ({
     };
   }
 
+  if (getCombinedOrderLimit(props)) {
+    return {
+      title: unlockedTitle || 'Exclusive unlocked',
+      subtitle:
+        unlockedSubtitleWithOrderLimit ||
+        `You can buy up to ${getCombinedOrderLimit(props)} with your
+      tokens.`,
+    };
+  }
+
   return {
     title: unlockedTitle || 'Exclusive unlocked',
     subtitle: unlockedSubtitle || 'Your token got you access to this product!',
   };
+};
+
+const getCombinedOrderLimit = ({unlockingTokens}: TokengatingCardProps) => {
+  const initialValue = 0;
+  const combinedOrderLimit = unlockingTokens?.reduce(
+    (accumulator: number, unlockingToken: UnlockingToken) => {
+      if (!unlockingToken.token.totalOrderLimit) return accumulator;
+
+      return accumulator + unlockingToken.token.totalOrderLimit;
+    },
+    initialValue,
+  );
+
+  return combinedOrderLimit && combinedOrderLimit > 0
+    ? combinedOrderLimit
+    : undefined;
 };
