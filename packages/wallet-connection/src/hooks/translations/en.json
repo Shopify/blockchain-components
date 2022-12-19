@@ -1,0 +1,36 @@
+{
+  "hooks": {
+    "modalScreenContent": {
+      "alreadyConnected": {
+        "title": "Error",
+        "body": "This connector is already connected"
+      },
+      "connected": {
+        "title": "Success!",
+        "body": "Connected successfully"
+      },
+      "connecting": {
+        "title": "Confirm in {platform}",
+        "body": "Requesting connection",
+        "mobileApp": "the mobile app",
+        "browserExtension": "browser extension"
+      },
+      "failed": {
+        "title": "Error",
+        "body": "Failed to connect."
+      },
+      "rejected": {
+        "title": "Rejected",
+        "body": "Request rejected."
+      },
+      "unavailable": {
+        "title": "Unavailable",
+        "body": "Unable to access connector."
+      }
+    },
+    "connectorDownloadLinks": {
+      "open": "Open",
+      "get": "Get"
+    }
+  }
+}

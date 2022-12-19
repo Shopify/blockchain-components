@@ -1,4 +1,5 @@
 import {useMemo} from 'react';
+import {useI18n} from '@shopify/react-i18n';
 import {Button} from 'shared/src/components/Button';
 
 import {ConnectorName} from '../ConnectorButton';
@@ -18,6 +19,7 @@ export const GetAConnectorButton = ({
 }: GetAConnectorButtonProps) => {
   const {marketingSite, mobileApps, name} = useConnectorData({id: connectorId});
   const {mobilePlatform} = getBrowserInfo();
+  const [i18n] = useI18n();
 
   const downloadLink = useMemo(() => {
     if (!marketingSite && mobileApps) {
@@ -47,8 +49,10 @@ export const GetAConnectorButton = ({
       </ConnectorData>
 
       <Button
-        aria-label={`Get ${name}`}
-        label="Get"
+        aria-label={i18n.translate('GetConnectorButton.accessibilityLabel', {
+          name,
+        })}
+        label={i18n.translate('GetConnectorButton.buttonText')}
         link={{href: downloadLink, target: '_blank'}}
       />
     </Wrapper>

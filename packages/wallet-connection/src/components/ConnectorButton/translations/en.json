@@ -1,0 +1,5 @@
+{
+  "ConnectorButton": {
+    "accessibilityLabel": "Connect with {name}"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "Modal": {
+    "connect": {
+      "title": "Connect wallet"
+    },
+    "connecting": {
+      "title": "Connect with"
+    },
+    "getAWallet": {
+      "title": "Get a wallet"
+    },
+    "scan": {
+      "title": "Scan with"
+    },
+    "whatAreWallets": {
+      "title": "What is a wallet?"
+    },
+    "signature": {
+      "title": "Sign message",
+      "sentRequest": "Signature request sent. Please sign the message in your wallet.",
+      "toSign": "Signing a message proves ownership of a wallet address."
+    },
+    "accessibilityLabel": {
+      "back": "Back",
+      "close": "Close"
+    }
+  }
+}

@@ -4,13 +4,12 @@ import {Button, Spinner} from 'shared';
 import {BodyText, ButtonContainer, ConnectorIcon, SheetContent} from '../style';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
+import {useModalScreenContent} from '../../../hooks/useModalScreenContent';
 import {useAppSelector} from '../../../hooks/useAppState';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
 import {getBrowserInfo} from '../../../utils/getBrowser';
-
-import {getScreenContent} from './screenContent';
 
 interface ConnectingScreenProps {
   connect: (args?: Partial<ConnectArgs>) => void;
@@ -62,7 +61,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
     pendingConnector,
   ]);
 
-  const {body, title} = getScreenContent(state);
+  const {body, title} = useModalScreenContent(state);
 
   return (
     <SheetContent>

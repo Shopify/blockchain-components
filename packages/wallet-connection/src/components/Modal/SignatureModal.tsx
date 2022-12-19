@@ -1,5 +1,6 @@
 import {useCallback} from 'react';
 import {Button, Cancel, IconButton, Spinner} from 'shared';
+import {useI18n} from '@shopify/react-i18n';
 
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
 import {useWalletConnection} from '../../hooks/useWalletConnection';
@@ -18,6 +19,7 @@ import {
 export const SignatureModal = () => {
   const dispatch = useAppDispatch();
   const {message} = useAppSelector((state) => state.wallet);
+  const [i18n] = useI18n();
   const {signing, signMessage} = useWalletConnection();
 
   const handleDismiss = useCallback(() => {
@@ -33,13 +35,10 @@ export const SignatureModal = () => {
       <Background onClick={handleDismiss} />
       <Sheet>
         <Header>
-          {/*
-          eslint-disable-next-line @shopify/jsx-no-hardcoded-content
-          */}
-          <h2>Sign message</h2>
+          <h2>{i18n.translate('Modal.signature.title')}</h2>
 
           <IconButton
-            aria-label="Close"
+            aria-label={i18n.translate('Modal.accessibilityLabel.close')}
             icon={Cancel}
             // For now we can just clear the connected wallet + verification status
             onClick={handleDismiss}
@@ -48,8 +47,8 @@ export const SignatureModal = () => {
         <SheetContent>
           <BodyText>
             {signing
-              ? 'Signature request sent. Please sign the message in your wallet.'
-              : 'Signing a message proves ownership of a wallet address.'}
+              ? i18n.translate('Modal.signature.sentRequest')
+              : i18n.translate('Modal.signature.toSign')}
           </BodyText>
 
           {signing ? <Spinner /> : null}
@@ -61,7 +60,7 @@ export const SignatureModal = () => {
              */}
             {signing ? null : (
               <Button
-                label="Sign message"
+                label={i18n.translate('Modal.signature.title')}
                 onClick={handleSignMessage}
                 primary
               />

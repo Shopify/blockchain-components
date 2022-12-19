@@ -1,5 +1,6 @@
 import {useCallback, useMemo, useState} from 'react';
 import {useConnect} from 'wagmi';
+import {useI18n} from '@shopify/react-i18n';
 import {ArrowLeft, Cancel, IconButton} from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
@@ -17,32 +18,34 @@ import {
   WhatAreWalletsScreen,
 } from './Screens';
 
-const ModalScreens: {[key in keyof typeof ModalRoute]: Screen} = {
-  Connect: {
-    title: 'Connect wallet',
-  },
-  Connecting: {
-    title: 'Connect with',
-  },
-  GetAWallet: {
-    title: 'Get a wallet',
-  },
-  Scan: {
-    title: 'Scan with',
-  },
-  WhatAreWallets: {
-    title: 'What is a wallet?',
-  },
-};
-
 export const Modal = () => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {connectors} = useDefaultConnectors();
+  const [i18n] = useI18n();
   const {active, closeModal, navigation} = useModal();
-  const screenData = ModalScreens[navigation.route];
   const [status, setStatus] = useState<ConnectionState>(
     ConnectionState.Connecting,
   );
+
+  const ModalScreens: {[key in keyof typeof ModalRoute]: Screen} = {
+    Connect: {
+      title: i18n.translate('Modal.connect.title'),
+    },
+    Connecting: {
+      title: i18n.translate('Modal.connecting.title'),
+    },
+    GetAWallet: {
+      title: i18n.translate('Modal.getAWallet.title'),
+    },
+    Scan: {
+      title: i18n.translate('Modal.scan.title'),
+    },
+    WhatAreWallets: {
+      title: i18n.translate('Modal.whatAreWallets.title'),
+    },
+  };
+
+  const screenData = ModalScreens[navigation.route];
 
   const handleBackdropPress = useCallback(() => {
     if (!active) return;
@@ -129,7 +132,7 @@ export const Modal = () => {
         <Header>
           {navigation.goBack ? (
             <IconButton
-              aria-label="Back"
+              aria-label={i18n.translate('Modal.accessibilityLabel.back')}
               icon={ArrowLeft}
               onClick={navigation.goBack}
             />
@@ -137,7 +140,11 @@ export const Modal = () => {
 
           <h2>{headerTitle}</h2>
 
-          <IconButton aria-label="Close" icon={Cancel} onClick={closeModal} />
+          <IconButton
+            aria-label={i18n.translate('Modal.accessibilityLabel.close')}
+            icon={Cancel}
+            onClick={closeModal}
+          />
         </Header>
 
         {screenComponent}
