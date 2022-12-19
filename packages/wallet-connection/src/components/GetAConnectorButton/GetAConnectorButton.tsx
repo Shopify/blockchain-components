@@ -49,10 +49,10 @@ export const GetAConnectorButton = ({
       </ConnectorData>
 
       <Button
-        aria-label={i18n.translate('GetConnectorButton.accessibilityLabel', {
+        aria-label={i18n.translate('GetAConnectorButton.accessibilityLabel', {
           name,
         })}
-        label={i18n.translate('GetConnectorButton.buttonText')}
+        label={i18n.translate('GetAConnectorButton.buttonText')}
         link={{href: downloadLink, target: '_blank'}}
       />
     </Wrapper>

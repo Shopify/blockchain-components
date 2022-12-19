@@ -4,7 +4,7 @@ import {Button, Spinner} from 'shared';
 import {BodyText, ButtonContainer, ConnectorIcon, SheetContent} from '../style';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
-import {useModalScreenContent} from '../../../hooks/useModalScreenContent';
+import {useModalScreenContent} from '../../../hooks/useModalContent/useModalContent';
 import {useAppSelector} from '../../../hooks/useAppState';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {ConnectArgs} from '../../../types/connector';

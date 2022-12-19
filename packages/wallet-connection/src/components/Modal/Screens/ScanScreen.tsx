@@ -6,7 +6,7 @@ import {useI18n} from '@shopify/react-i18n';
 import {useAppSelector} from '../../../hooks/useAppState';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
-import {useModalScreenContent} from '../../../hooks/useModalScreenContent';
+import {useModalScreenContent} from '../../../hooks/useModalContent/useModalContent';
 import {QRCode} from '../../QRCode';
 import {BodyText, ButtonContainer, SheetContent} from '../style';
 import {ConnectArgs} from '../../../types/connector';

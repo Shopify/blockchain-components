@@ -14,7 +14,6 @@ import {
   ConnectingScreen,
   GetAWalletScreen,
   ScanScreen,
-  Screen,
   WhatAreWalletsScreen,
 } from './Screens';
 
@@ -27,25 +26,9 @@ export const Modal = () => {
     ConnectionState.Connecting,
   );
 
-  const ModalScreens: {[key in keyof typeof ModalRoute]: Screen} = {
-    Connect: {
-      title: i18n.translate('Modal.connect.title'),
-    },
-    Connecting: {
-      title: i18n.translate('Modal.connecting.title'),
-    },
-    GetAWallet: {
-      title: i18n.translate('Modal.getAWallet.title'),
-    },
-    Scan: {
-      title: i18n.translate('Modal.scan.title'),
-    },
-    WhatAreWallets: {
-      title: i18n.translate('Modal.whatAreWallets.title'),
-    },
-  };
-
-  const screenData = ModalScreens[navigation.route];
+  const screenTitle = i18n.translate(navigation.route, {
+    scope: 'Modal.title',
+  });
 
   const handleBackdropPress = useCallback(() => {
     if (!active) return;
@@ -97,11 +80,11 @@ export const Modal = () => {
     const {route} = navigation;
 
     if (route === ModalRoute.Connecting || route === ModalRoute.Scan) {
-      return `${screenData.title} ${pendingConnector?.name}`;
+      return `${screenTitle} ${pendingConnector?.name}`;
     }
 
-    return screenData.title;
-  }, [navigation, pendingConnector?.name, screenData.title]);
+    return screenTitle;
+  }, [navigation, pendingConnector?.name, screenTitle]);
 
   const screenComponent = useMemo(() => {
     switch (navigation.route) {
@@ -132,7 +115,7 @@ export const Modal = () => {
         <Header>
           {navigation.goBack ? (
             <IconButton
-              aria-label={i18n.translate('Modal.accessibilityLabel.back')}
+              aria-label={i18n.translate('Modal.back.accessibilityLabel')}
               icon={ArrowLeft}
               onClick={navigation.goBack}
             />
@@ -141,7 +124,7 @@ export const Modal = () => {
           <h2>{headerTitle}</h2>
 
           <IconButton
-            aria-label={i18n.translate('Modal.accessibilityLabel.close')}
+            aria-label={i18n.translate('Modal.close.accessibilityLabel')}
             icon={Cancel}
             onClick={closeModal}
           />

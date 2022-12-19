@@ -38,7 +38,7 @@ export const SignatureModal = () => {
           <h2>{i18n.translate('Modal.signature.title')}</h2>
 
           <IconButton
-            aria-label={i18n.translate('Modal.accessibilityLabel.close')}
+            aria-label={i18n.translate('Modal.close.accessibilityLabel')}
             icon={Cancel}
             // For now we can just clear the connected wallet + verification status
             onClick={handleDismiss}
