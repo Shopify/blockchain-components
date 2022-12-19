@@ -1,3 +1,5 @@
+import {useI18n} from '@shopify/react-i18n';
+
 import {TokengatingCardProps, UnlockingToken} from './types';
 
 export enum TokengateCardSection {
@@ -16,7 +18,7 @@ export const useTokengateCardState = (
 ) => {
   return {
     sections: getSections(tokengatingCardProps),
-    ...getTitleAndSubtitle(tokengatingCardProps),
+    ...useTitleAndSubtitle(tokengatingCardProps),
   };
 };
 
@@ -72,7 +74,8 @@ export const getSections = ({
   ];
 };
 
-export const getTitleAndSubtitle = (props: TokengatingCardProps) => {
+export const useTitleAndSubtitle = (props: TokengatingCardProps) => {
+  const [i18n] = useI18n();
   const {isLocked, exclusiveCustomTitles} = props;
 
   const {
@@ -85,24 +88,28 @@ export const getTitleAndSubtitle = (props: TokengatingCardProps) => {
 
   if (isLocked) {
     return {
-      title: lockedTitle || 'Holder exclusive',
-      subtitle: lockedSubtitle || 'To unlock this product, you need:',
+      title: lockedTitle || i18n.translate('TokengatingCard.locked.title'),
+      subtitle:
+        lockedSubtitle || i18n.translate('TokengatingCard.locked.subtitle'),
     };
   }
 
   if (getCombinedOrderLimit(props)) {
     return {
-      title: unlockedTitle || 'Exclusive unlocked',
+      title: unlockedTitle || i18n.translate('TokengatingCard.unlocked.title'),
       subtitle:
         unlockedSubtitleWithOrderLimit ||
-        `You can buy up to ${getCombinedOrderLimit(props)} with your
-      tokens.`,
+        i18n.translate('TokengatingCard.unlocked.subtitle', {
+          orderLimit: getCombinedOrderLimit(props),
+        }),
     };
   }
 
   return {
-    title: unlockedTitle || 'Exclusive unlocked',
-    subtitle: unlockedSubtitle || 'Your token got you access to this product!',
+    title: unlockedTitle || i18n.translate('TokengatingCard.unlocked.title'),
+    subtitle:
+      unlockedSubtitle ||
+      i18n.translate('TokengatingCard.unlocked.subtitleDefault'),
   };
 };
 

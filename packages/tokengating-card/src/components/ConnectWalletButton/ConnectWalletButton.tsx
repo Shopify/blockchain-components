@@ -1,3 +1,4 @@
+import {useI18n} from '@shopify/react-i18n';
 import {Button} from 'shared/src/components/Button';
 
 interface ConnectWalletButtonProps {
@@ -8,14 +9,18 @@ interface ConnectWalletButtonProps {
 const ConnectWalletButton = ({
   onConnectWallet,
   loading,
-}: ConnectWalletButtonProps) => (
-  <Button
-    id="connectWallet"
-    fullWidth
-    label="Connect wallet"
-    loading={loading}
-    onClick={onConnectWallet}
-    primary
-  />
-);
+}: ConnectWalletButtonProps) => {
+  const [i18n] = useI18n();
+
+  return (
+    <Button
+      id="connectWallet"
+      fullWidth
+      label={i18n.translate('ConnectWalletButton.buttonText')}
+      loading={loading}
+      onClick={onConnectWallet}
+      primary
+    />
+  );
+};
 export {ConnectWalletButton};

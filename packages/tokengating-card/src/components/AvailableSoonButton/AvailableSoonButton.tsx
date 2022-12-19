@@ -1,3 +1,5 @@
+import {useI18n} from '@shopify/react-i18n';
+
 import {AvailableSoonButtonStyle} from './style';
 
 interface AvailableSoonButtonProps {
@@ -23,10 +25,15 @@ function convert(availableDate: AvailableSoonButtonProps['availableDate']) {
   return `${date}, ${time}`;
 }
 
-const AvailableSoonButton = ({availableDate}: AvailableSoonButtonProps) => (
-  // eslint-disable-next-line @shopify/jsx-no-hardcoded-content
-  <AvailableSoonButtonStyle>
-    Available {convert(availableDate)}
-  </AvailableSoonButtonStyle>
-);
+const AvailableSoonButton = ({availableDate}: AvailableSoonButtonProps) => {
+  const [i18n] = useI18n();
+
+  return (
+    <AvailableSoonButtonStyle>
+      {i18n.translate('AvailableSoonButton.buttonText', {
+        date: convert(availableDate),
+      })}
+    </AvailableSoonButtonStyle>
+  );
+};
 export {AvailableSoonButton};
