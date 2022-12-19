@@ -61,7 +61,7 @@ function App({serverArguments}: AppProps) {
     EventName.CheckIfWalletMeetsRequirements,
   );
 
-  const {signMessage, wallet} = useWalletConnection({
+  const {disconnect, signMessage, wallet} = useWalletConnection({
     onConnect: (response) => {
       if (response?.address) {
         /**
@@ -79,6 +79,10 @@ function App({serverArguments}: AppProps) {
 
         requestWalletVerification({address: response.address});
       }
+    },
+    onDisconnect: (response) => {
+      // eslint-disable-next-line no-console
+      console.log('disconnected wallet with data', response);
     },
     onMessageSigned: (response) => {
       if (!response) return;
@@ -111,8 +115,7 @@ function App({serverArguments}: AppProps) {
       isLocked={isLocked}
       isSoldOut={false}
       onConnectWallet={openModal}
-      // eslint-disable-next-line no-console
-      onConnectedWalletActions={() => console.log('onConnectedWalletActions')}
+      onConnectedWalletActions={disconnect}
       wallet={{
         address: wallet?.address,
         ensName: undefined,

@@ -17,8 +17,9 @@ export function useWalletConnection(props?: UseWalletConnectionProps) {
   const walletConnectionContext = useContext(WalletConnectionContext);
   const signatureContext = useContext(SignatureContext);
 
-  const {connecting} = useWallet({
+  const {connecting, disconnect} = useWallet({
     onConnect: props?.onConnect,
+    onDisconnect: props?.onDisconnect,
   });
 
   const {signMessage, signOnConnect, signing} = signatureContext;
@@ -36,6 +37,7 @@ export function useWalletConnection(props?: UseWalletConnectionProps) {
   return {
     chains,
     connecting,
+    disconnect,
     pendingConnector,
     signing,
     signMessage: signMessageCallback,
