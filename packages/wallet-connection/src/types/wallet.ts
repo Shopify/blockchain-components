@@ -56,6 +56,7 @@ export interface Wallet extends ConnectedWallet {
 
 export interface UseWalletProps {
   onConnect?: (wallet?: Wallet) => void;
+  onDisconnect?: (wallet?: Wallet) => void;
   onMessageSigned?: (response: SignatureResponse) => void;
   signOnConnect?: boolean;
 }

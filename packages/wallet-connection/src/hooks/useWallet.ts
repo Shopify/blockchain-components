@@ -1,7 +1,11 @@
 import {useCallback} from 'react';
 import {useAccount, useDisconnect, useSignMessage} from 'wagmi';
 
-import {addWallet, setAddressToVerify} from '../slices/walletSlice';
+import {
+  addWallet,
+  removeWallet,
+  setAddressToVerify,
+} from '../slices/walletSlice';
 import {
   SignMessageProps,
   SignatureResponse,
@@ -14,6 +18,7 @@ import {useAppDispatch, useAppSelector} from './useAppState';
 
 export function useWallet({
   onConnect,
+  onDisconnect,
   onMessageSigned,
   signOnConnect,
 }: UseWalletProps): UseWalletResponse {
@@ -77,9 +82,40 @@ export function useWallet({
     [connectedWallets, dispatch, onConnect, pendingConnector, signOnConnect],
   );
 
-  const {isConnecting} = useAccount({onConnect: handleConnect});
+  const {address, isConnecting} = useAccount({
+    onConnect: handleConnect,
+  });
   const {disconnect} = useDisconnect();
   const {error, isLoading, signMessageAsync} = useSignMessage();
+
+  const handleDisconnect = useCallback(() => {
+    if (!address) {
+      throw new Error('No wallet connected');
+    }
+
+    /**
+     * Find the wallet in our store and remove it.
+     *
+     * If we don't find the wallet for some reason we can
+     * assume there is stale state and still perform the disconnect.
+     *
+     * Another assumption being made here is that we don't have
+     * multiple of the same address in our store. Since we prevent
+     * the addition of any wallets that have a matching address, this
+     * is a relatively safe assumption.
+     */
+    const walletToDisconnect = connectedWallets.find(
+      (wallet) => wallet.address === address,
+    );
+
+    if (walletToDisconnect) {
+      dispatch(removeWallet(walletToDisconnect));
+
+      onDisconnect?.(walletToDisconnect);
+    }
+
+    disconnect();
+  }, [address, connectedWallets, disconnect, dispatch, onDisconnect]);
 
   const signMessage = useCallback(
     async ({address, message}: SignMessageProps) => {
@@ -106,7 +142,7 @@ export function useWallet({
 
   return {
     connecting: isConnecting,
-    disconnect,
+    disconnect: handleDisconnect,
     signing: isLoading,
     signMessage,
   };
