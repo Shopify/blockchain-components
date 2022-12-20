@@ -28,7 +28,7 @@ export const ConnectButton = () => {
   }, []);
 
   if (!connectedWallets.length) {
-    return <Button label="Connect wallet" onClick={handleClick} />;
+    return <Button fullWidth label="Connect wallet" onClick={handleClick} />;
   }
 
   const {address, connectorId} = connectedWallets[0];
