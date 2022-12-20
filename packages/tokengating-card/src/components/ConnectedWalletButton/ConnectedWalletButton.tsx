@@ -1,13 +1,14 @@
+import {formatWalletAddress} from 'shared';
+
 import {
   ConnectedWalletButtonStyle,
   ConnectedWalletIcon,
   ConnectedWalletAddress,
 } from './style';
-import {formatWalletAddress} from './utils';
 
 interface ConnectedWalletButtonProps {
   onConnectedWalletActions: () => void;
-  address?: string;
+  address: string;
   ensName?: string;
   icon?: React.ReactNode;
 }
@@ -24,7 +25,7 @@ const ConnectedWalletButton = ({
   >
     {icon && <ConnectedWalletIcon>{icon}</ConnectedWalletIcon>}
     <ConnectedWalletAddress>
-      {ensName || formatWalletAddress({address})}
+      {ensName || formatWalletAddress(address)}
     </ConnectedWalletAddress>
     {/* <ConnectedWalletDropdown>{ChevronDown}</ConnectedWalletDropdown> */}
   </ConnectedWalletButtonStyle>

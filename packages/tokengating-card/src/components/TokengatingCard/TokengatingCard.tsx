@@ -33,7 +33,7 @@ export const TokengatingCard = (props: TokengatingCardProps) => {
           onConnectedWalletActions={onConnectedWalletActions}
           icon={wallet?.icon}
           ensName={wallet?.ensName}
-          address={wallet?.address}
+          address={wallet?.address || ''}
         />
       ),
       [TokengateCardSection.UnlockingTokens]: (
