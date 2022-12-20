@@ -62,6 +62,14 @@ export const Container = styled.div`
   right: 0;
   padding: 4px 0;
   min-width: 280px;
+  /**
+    * Gross, don't look at this. Required to appear over
+    * any badges, callouts, or notices on some themes.
+    * This is the largest int supported, so it should always
+    * take priority. This is only a problem on mobile because
+    * of the placement of banners from Shopify apps.
+    */
+  z-index: 2147483647;
 
   @media ${breakpoints.mdDown} {
     position: fixed;
