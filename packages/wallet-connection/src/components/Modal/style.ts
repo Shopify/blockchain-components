@@ -24,9 +24,7 @@ export const ButtonContainer = styled.div`
   margin-top: 12px;
 `;
 
-export const ConnectorIcon = styled.div`
-  height: 76px;
-  width: 76px;
+export const ConnectingWalletIcon = styled.div`
   margin: 24px auto;
 `;
 

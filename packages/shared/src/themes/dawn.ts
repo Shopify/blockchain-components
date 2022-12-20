@@ -10,6 +10,7 @@ namespace DawnColors {
     4: 'rgba(0, 0, 0, 0.08)',
     5: 'rgba(18, 18, 18, 0.55)',
     6: 'rgba(18, 18, 18, 0.2)',
+    7: 'rgba(18, 18, 18, 0.08)',
   };
 
   export const Reds = {
@@ -96,9 +97,10 @@ export const Dawn: DefaultTheme = {
 
   popovers: {
     background: DawnColors.Grayscale['0'],
-    border: `1px solid  ${DawnColors.Grayscale['5']}`,
+    border: `1px solid  ${DawnColors.Grayscale['7']}`,
     borderRadius: '0',
-    boxShadow: 'none',
+    boxShadow: `0px 3px 6px -3px rgba(23, 24, 24, 0.08),
+    0px 8px 20px -4px rgba(23, 24, 24, 0.12)`,
   },
 
   soldOutButton: {

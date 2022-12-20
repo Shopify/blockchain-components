@@ -1,14 +1,21 @@
 import {useCallback, useMemo} from 'react';
 import {Button, Spinner} from 'shared';
 
-import {BodyText, ButtonContainer, ConnectorIcon, SheetContent} from '../style';
+import {ConnectorIcon} from '../../ConnectorIcon';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {useModalScreenContent} from '../../../hooks/useModalContent/useModalContent';
 import {useAppSelector} from '../../../hooks/useAppState';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
+import {
+  BodyText,
+  ButtonContainer,
+  ConnectingWalletIcon,
+  SheetContent,
+} from '../style';
 import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
+import {Size} from '../../../types/sizes';
 import {getBrowserInfo} from '../../../utils/getBrowser';
 
 interface ConnectingScreenProps {
@@ -18,7 +25,7 @@ interface ConnectingScreenProps {
 
 const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
-  const {connector, icon} = useConnectorData({id: pendingConnector?.id});
+  const {connector} = useConnectorData({id: pendingConnector?.id});
   const {navigation} = useModal();
   const downloadButtons = useConnectorDownloadLinks();
 
@@ -65,7 +72,9 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
 
   return (
     <SheetContent>
-      <ConnectorIcon>{icon}</ConnectorIcon>
+      <ConnectingWalletIcon>
+        <ConnectorIcon id={pendingConnector?.id} size={Size.Xl} />
+      </ConnectingWalletIcon>
 
       <h1>{title}</h1>
 
