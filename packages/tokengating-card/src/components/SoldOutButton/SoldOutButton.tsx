@@ -1,13 +1,20 @@
-/* eslint-disable @shopify/jsx-no-hardcoded-content */
+import {useI18n} from '@shopify/react-i18n';
+
 import {SoldOutButtonStyle, SoldOutButtonDescriptionStyle} from './style';
 
-const SoldOutButton = () => (
-  <>
-    <SoldOutButtonStyle>Sold out</SoldOutButtonStyle>
-    <SoldOutButtonDescriptionStyle>
-      Check back later for stock updates
-    </SoldOutButtonDescriptionStyle>
-  </>
-);
+const SoldOutButton = () => {
+  const [i18n] = useI18n();
+
+  return (
+    <>
+      <SoldOutButtonStyle>
+        {i18n.translate('SoldOutButton.buttonText')}
+      </SoldOutButtonStyle>
+      <SoldOutButtonDescriptionStyle>
+        {i18n.translate('SoldOutButton.description')}
+      </SoldOutButtonDescriptionStyle>
+    </>
+  );
+};
 
 export {SoldOutButton};
