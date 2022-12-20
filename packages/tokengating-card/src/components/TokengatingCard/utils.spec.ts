@@ -1,4 +1,4 @@
-import {useTitleAndSubtitle, getSections} from './utils';
+import {getTitleAndSubtitle, getSections} from './utils';
 
 const defaultTokengatingCardProps = {
   isLocked: true,
@@ -7,10 +7,10 @@ const defaultTokengatingCardProps = {
 };
 
 describe('TokengatingCard - utils', () => {
-  describe('useTitleAndSubtitle', () => {
+  describe('getTitleAndSubtitle', () => {
     describe('locked', () => {
       it('returns default title and subtitle', () => {
-        const {title, subtitle} = useTitleAndSubtitle({
+        const {title, subtitle} = getTitleAndSubtitle({
           ...defaultTokengatingCardProps,
         });
         expect(title).toBe('Holder exclusive');
@@ -20,7 +20,7 @@ describe('TokengatingCard - utils', () => {
       it('returns custom title and subtitle', () => {
         const lockedTitle = 'lockedTitle';
         const lockedSubtitle = 'lockedSubtitle';
-        const {title, subtitle} = useTitleAndSubtitle({
+        const {title, subtitle} = getTitleAndSubtitle({
           ...defaultTokengatingCardProps,
           exclusiveCustomTitles: {lockedTitle, lockedSubtitle},
         });
@@ -31,7 +31,7 @@ describe('TokengatingCard - utils', () => {
 
     describe('unlocked', () => {
       it('returns default title and subtitle', () => {
-        const {title, subtitle} = useTitleAndSubtitle({
+        const {title, subtitle} = getTitleAndSubtitle({
           ...defaultTokengatingCardProps,
           isLocked: false,
         });
@@ -42,7 +42,7 @@ describe('TokengatingCard - utils', () => {
       it('returns custom title and subtitle', () => {
         const unlockedTitle = 'unlockedTitle';
         const unlockedSubtitle = 'unlockedSubtitle';
-        const {title, subtitle} = useTitleAndSubtitle({
+        const {title, subtitle} = getTitleAndSubtitle({
           ...defaultTokengatingCardProps,
           isLocked: false,
           exclusiveCustomTitles: {unlockedTitle, unlockedSubtitle},
