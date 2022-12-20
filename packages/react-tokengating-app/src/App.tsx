@@ -68,7 +68,7 @@ function App({serverArguments}: AppProps) {
          * If the wallet has already signed a message then check if the
          * wallet satisfies the gate requirements.
          */
-        if (response?.signed) {
+        if (response.signed) {
           checkIfWalletMeetsRequirements({
             address: response.address,
             message: response.message,
