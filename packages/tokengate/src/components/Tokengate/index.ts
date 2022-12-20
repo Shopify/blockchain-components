@@ -1,2 +1,2 @@
 export type {GateRequirement, TokenSeries, UnlockingToken} from './types';
-export {Tokengate} from './Tokengate';
+export {TokengateProvider as Tokengate} from './TokengateProvider';

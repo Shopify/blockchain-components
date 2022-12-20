@@ -1,9 +1,12 @@
+/** @jest-environment jsdom */
+
 import {
   UnlockingTokenWithOrderLimitFixture,
   UnlockingTokenFixtureType,
 } from '../../fixtures';
+import {renderHook} from '../../../tests/test-utils';
 
-import {getTitleAndSubtitle, getSections} from './utils';
+import {useTitleAndSubtitle, getSections} from './utils';
 import {TokengateProps} from './types';
 
 const defaultTokengateProps: TokengateProps = {
@@ -13,65 +16,80 @@ const defaultTokengateProps: TokengateProps = {
   onConnectedWalletActions: () => {},
 };
 
-describe('Tokengate - utils', () => {
-  describe('getTitleAndSubtitle', () => {
+describe('TokengatingCard - utils', () => {
+  describe('useTitleAndSubtitle', () => {
     describe('locked', () => {
       it('returns default title and subtitle', () => {
-        const {title, subtitle} = getTitleAndSubtitle({
-          ...defaultTokengateProps,
-        });
-        expect(title).toBe('Holder exclusive');
-        expect(subtitle).toBe('To unlock this product, you need:');
+        const {result} = renderHook(() =>
+          useTitleAndSubtitle({...defaultTokengateProps}),
+        );
+
+        expect(result.current.title).toBe('Holder exclusive');
+        expect(result.current.subtitle).toBe(
+          'To unlock this product, you need:',
+        );
       });
 
       it('returns custom title and subtitle', () => {
         const lockedTitle = 'lockedTitle';
         const lockedSubtitle = 'lockedSubtitle';
-        const {title, subtitle} = getTitleAndSubtitle({
-          ...defaultTokengateProps,
-          exclusiveCustomTitles: {lockedTitle, lockedSubtitle},
-        });
-        expect(title).toBe(lockedTitle);
-        expect(subtitle).toBe(lockedSubtitle);
+        const {result} = renderHook(() =>
+          useTitleAndSubtitle({
+            ...defaultTokengateProps,
+            exclusiveCustomTitles: {lockedTitle, lockedSubtitle},
+          }),
+        );
+        expect(result.current.title).toBe(lockedTitle);
+        expect(result.current.subtitle).toBe(lockedSubtitle);
       });
     });
 
     describe('unlocked', () => {
       it('returns default title and subtitle', () => {
-        const {title, subtitle} = getTitleAndSubtitle({
-          ...defaultTokengateProps,
-          isLocked: false,
-        });
-        expect(title).toBe('Exclusive unlocked');
-        expect(subtitle).toBe('Your token got you access to this product!');
+        const {result} = renderHook(() =>
+          useTitleAndSubtitle({
+            ...defaultTokengateProps,
+            isLocked: false,
+          }),
+        );
+        expect(result.current.title).toBe('Exclusive unlocked');
+        expect(result.current.subtitle).toBe(
+          'Your token got you access to this product!',
+        );
       });
 
       it('returns custom title and subtitle', () => {
         const unlockedTitle = 'unlockedTitle';
         const unlockedSubtitle = 'unlockedSubtitle';
-        const {title, subtitle} = getTitleAndSubtitle({
-          ...defaultTokengateProps,
-          isLocked: false,
-          exclusiveCustomTitles: {unlockedTitle, unlockedSubtitle},
-        });
-        expect(title).toBe(unlockedTitle);
-        expect(subtitle).toBe(unlockedSubtitle);
+        const {result} = renderHook(() =>
+          useTitleAndSubtitle({
+            ...defaultTokengateProps,
+            isLocked: false,
+            exclusiveCustomTitles: {unlockedTitle, unlockedSubtitle},
+          }),
+        );
+        expect(result.current.title).toBe(unlockedTitle);
+        expect(result.current.subtitle).toBe(unlockedSubtitle);
       });
 
       it('returns default title and order limit subtitle if order limit is present', () => {
-        const {title, subtitle} = getTitleAndSubtitle({
-          ...defaultTokengateProps,
-          isLocked: false,
-          unlockingTokens: [
-            UnlockingTokenWithOrderLimitFixture(),
-            UnlockingTokenWithOrderLimitFixture(
-              {},
-              UnlockingTokenFixtureType.Squaddy,
-            ),
-          ],
-        });
-        expect(title).toBe('Exclusive unlocked');
-        expect(subtitle).toBe('You can buy up to 4 with your tokens.');
+        const {result} = renderHook(() =>
+          useTitleAndSubtitle({
+            ...defaultTokengateProps,
+            isLocked: false,
+            unlockingTokens: [
+              UnlockingTokenWithOrderLimitFixture(),
+              UnlockingTokenWithOrderLimitFixture(
+                {},
+                UnlockingTokenFixtureType.Squaddy,
+              ),
+            ],
+          }),
+        );
+        expect(result.current.title).toBe('Exclusive unlocked');
+        expect(result.current.subtitle).toBe(
+          'You can buy up to 4 with your tokens.',
+        );
       });
     });
   });

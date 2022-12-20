@@ -1,0 +1,13 @@
+{
+  "TokengatingCard": {
+    "locked": {
+      "title": "Holder exclusive",
+      "subtitle": "To unlock this product, you need:"
+    },
+    "unlocked": {
+      "title": "Exclusive unlocked",
+      "subtitle": "You can buy up to {orderLimit} with your tokens.",
+      "subtitleDefault": "Your token got you access to this product!"
+    }
+  }
+}
