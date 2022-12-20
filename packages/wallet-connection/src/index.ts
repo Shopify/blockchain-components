@@ -1,7 +1,7 @@
 /**
  * Components
  */
-export {ConnectWalletButton} from './components/ConnectWalletButton/ConnectWalletButton';
+export {ConnectButton} from './components/ConnectButton/ConnectButton';
 export {ConnectorIcon} from './components/ConnectorIcon/ConnectorIcon';
 
 /**

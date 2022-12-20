@@ -5,6 +5,7 @@ import {
   UnlockingToken,
 } from '@shopify/tokengating-card';
 import {
+  ConnectButton,
   Wallet,
   useConnectionModal,
   useWalletConnection,
@@ -111,6 +112,7 @@ function App({serverArguments}: AppProps) {
 
   return (
     <TokengatingCard
+      connectButton={<ConnectButton />}
       isLoading={serverArguments?.initialState.isLoading}
       isLocked={isLocked}
       isSoldOut={false}

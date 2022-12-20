@@ -16,7 +16,5 @@ export const ConnectorIcon = ({
 
   if (!icon) return null;
 
-  const iconSize = size === Size.Small ? '20px' : '40px';
-
-  return <ConnectorIconWrapper size={iconSize}>{icon}</ConnectorIconWrapper>;
+  return <ConnectorIconWrapper size={size}>{icon}</ConnectorIconWrapper>;
 };

@@ -1,3 +1,5 @@
+import {ReactNode} from 'react';
+
 export interface TokenSeries {
   name: string;
   conditionsDescription: string;
@@ -37,6 +39,7 @@ export interface CustomTitles {
 }
 
 export interface TokengatingCardProps {
+  connectButton: ReactNode;
   isLoading?: boolean;
   isLocked: boolean;
   isSoldOut?: boolean;

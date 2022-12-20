@@ -1,6 +1,7 @@
 export {Apps} from './Apps';
 export {ArrowLeft} from './ArrowLeft';
 export {Cancel} from './Cancel';
+export {CaretDown} from './CaretDown';
 export {CircleTick} from './CircleTick';
 export {Copy} from './Copy';
 export {Gift} from './Gift';

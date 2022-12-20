@@ -1,6 +1,8 @@
 import {getTitleAndSubtitle, getSections} from './utils';
+import {TokengatingCardProps} from './types';
 
-const defaultTokengatingCardProps = {
+const defaultTokengatingCardProps: TokengatingCardProps = {
+  connectButton: null,
   isLocked: true,
   onConnectWallet: () => {},
   onConnectedWalletActions: () => {},
