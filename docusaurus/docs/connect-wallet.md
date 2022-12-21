@@ -7,7 +7,7 @@ title: Connect Wallet
 
 <!-- Embedded component to go here -->
 
-### useWalletConnection
+### useConnectWallet
 
 ```typescript
 // Code sample to go here...

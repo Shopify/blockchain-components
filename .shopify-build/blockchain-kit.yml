@@ -1,12 +1,3 @@
-shared:
-  yarn_caches: &yarn_caches
-    cache:
-      - docusaurus/node_modules
-      - node_modules
-      - packages/react-tokengating-app/node_modules
-      - packages/tokengating-card/node_modules
-      - packages/wallet-connection/node_modules
-
 containers:
   default:
     build:
@@ -18,7 +9,7 @@ containers:
       from: ubuntu-latest
       run:
         - yarn install
-        - yarn turbo run build --filter="react-tokengating-app"
+        - yarn turbo build
         - mkdir -p assets/react-tokengating-app && cp -R packages/react-tokengating-app/dist/index.js assets/react-tokengating-app/index-staging.js
       publish:
         cdn:
@@ -27,36 +18,35 @@ containers:
               patterns: ['*.html', '**/*.js']
 
 steps:
-  - <<: *yarn_caches
-    label: ':eslint: ESLint'
+  - label: ':eslint: ESLint'
     timeout: 5m
     run:
-      - yarn install
+      - yarn:
+          workspaces: true
       - yarn lint
 
-  - <<: *yarn_caches
-    label: ':typescript: Type checking'
+  - label: ':typescript: Type checking'
     timeout: 5m
     run:
-      - yarn install
+      - yarn:
+          workspaces: true
       - yarn typecheck
 
-  - <<: *yarn_caches
-    label: ':jest: Unit tests'
+  - label: ':jest: Unit tests'
     timeout: 5m
     run:
-      - yarn install
+      - yarn:
+          workspaces: true
       - yarn test
 
-  - <<: *yarn_caches
-    label: '🔨 Build'
+  - label: '🔨 Build'
     timeout: 5m
     run:
-      - yarn install
+      - yarn:
+          workspaces: true
       - yarn build
 
-  - <<: *yarn_caches
-    label: ':storybook: Chromatic'
+  - label: ':storybook: Chromatic'
     timeout: 20m
     git:
       history: true
