@@ -14,12 +14,12 @@ export {getDefaultConnectors} from './connectors/getDefaultConnectors';
  */
 export {useConnectionModal} from './hooks/useConnectionModal';
 export {useModal} from './providers/ModalProvider';
-export {useConnectWallet} from './hooks/useConnectWallet';
+export {useWalletConnection} from './hooks/useWalletConnection';
 
 /**
  * Providers
  */
-export {ConnectWalletProvider} from './providers/ConnectWalletProvider';
+export {WalletConnectionProvider} from './providers/WalletConnectionProvider';
 
 /**
  * Types

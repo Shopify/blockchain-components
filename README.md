@@ -14,7 +14,7 @@ This repository is managed as a monorepo. Each package has its own `README.md` a
 
 | Package | Version | Description |
 | ------- | ------- | ----------- |
-| [@shopify/connect-wallet](packages/connect-wallet) | 0.0.0 | Crypto wallet connection library for Shopify storefronts |
+| [@shopify/wallet-connection](packages/wallet-connection) | 0.0.0 | Crypto wallet connection library for Shopify storefronts |
 
 ## Want to contribute?
 
@@ -22,7 +22,7 @@ Check out our [Contributing Guide](./.github/CONTRIBUTING.md)
 
 ## Questions?
 
-For Shopifolk, you can reach out to us in Slack in `#blockchain-apps` channel. For external inquiries, we welcome bug reports, enhancements, and feature requests via GitHub [issues](https://github.com/Shopify/blockchain-kit/issues).
+For Shopifolk, you can reach out to us in Slack in `#blockchain-apps` channel. For external inquiries, we welcome bug reports, enhancements, and feature requests via GitHub [issues](https://github.com/Shopify/wallet-connection/issues).
 
 ## License
 

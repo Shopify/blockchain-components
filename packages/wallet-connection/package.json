@@ -1,18 +1,18 @@
 {
-  "name": "@shopify/connect-wallet",
+  "name": "@shopify/wallet-connection",
   "version": "0.0.0",
   "license": "MIT",
   "description": "Crypto wallet connection library for Shopify storefronts",
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/blockchain-kit.git",
-    "directory": "packages/connect-wallet"
+    "url": "git+https://github.com/Shopify/wallet-connection.git",
+    "directory": "packages/wallet-connection"
   },
   "bugs": {
-    "url": "https://github.com/Shopify/blockchain-kit/issues"
+    "url": "https://github.com/Shopify/wallet-connection/issues"
   },
-  "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/connect-wallet/README.md",
+  "homepage": "https://github.com/Shopify/wallet-connection/blob/main/packages/wallet-connection/README.md",
   "type": "module",
   "files": [
     "dist"

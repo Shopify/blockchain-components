@@ -1,20 +1,20 @@
 import {useCallback, useContext} from 'react';
 
 import {SignatureContext} from '../providers/SignatureProvider';
-import {ConnectWalletContext} from '../providers/ConnectWalletProvider';
+import {WalletConnectionContext} from '../providers/WalletConnectionProvider';
 import {UseWalletProps} from '../types/wallet';
 
 import {useAppSelector} from './useAppState';
 import {useWallet} from './useWallet';
 
-type useConnectWalletProps = UseWalletProps;
+type UseWalletConnectionProps = UseWalletProps;
 
-export function useConnectWallet(props?: useConnectWalletProps) {
+export function useWalletConnection(props?: UseWalletConnectionProps) {
   const {connectedWallets, pendingConnector} = useAppSelector(
     (state) => state.wallet,
   );
 
-  const connectWalletContext = useContext(ConnectWalletContext);
+  const walletConnectionContext = useContext(WalletConnectionContext);
   const signatureContext = useContext(SignatureContext);
 
   const {connecting, disconnect} = useWallet({
@@ -23,7 +23,7 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   });
 
   const {signMessage, signOnConnect, signing} = signatureContext;
-  const {chains} = connectWalletContext;
+  const {chains} = walletConnectionContext;
 
   const signMessageCallback = useCallback(
     async (args?: {message?: string}) => {
