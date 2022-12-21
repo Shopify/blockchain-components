@@ -5,7 +5,7 @@ containers:
       from: ubuntu-latest
       run:
         - yarn install
-        - yarn turbo run build --filter="react-tokengating-app"
+        - yarn turbo build
         - mkdir -p assets/react-tokengating-app && cp -R packages/react-tokengating-app/dist/index.js assets/react-tokengating-app/index.js
       publish:
         cdn:

@@ -1,4 +1,4 @@
-import {getDefaultConnectors} from '@shopify/wallet-connection';
+import {getDefaultConnectors} from '@shopify/connect-wallet';
 import {chain, configureChains, createClient} from 'wagmi';
 // import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {publicProvider} from 'wagmi/providers/public';

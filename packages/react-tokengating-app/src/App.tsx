@@ -1,19 +1,18 @@
-import {useEffect, useState} from 'react';
+import {
+  ConnectButton,
+  Wallet,
+  useConnectionModal,
+  useConnectWallet,
+  ConnectorIcon,
+} from '@shopify/connect-wallet';
 import {
   TokengatingCard,
   GateRequirement,
   UnlockingToken,
 } from '@shopify/tokengating-card';
-import {
-  ConnectButton,
-  Wallet,
-  useConnectionModal,
-  useWalletConnection,
-  ConnectorIcon,
-} from '@shopify/wallet-connection';
+import {useEffect, useState} from 'react';
 
 import './DawnVariables.css';
-
 import './App.css';
 import {
   EventName,
@@ -62,7 +61,7 @@ function App({serverArguments}: AppProps) {
     EventName.CheckIfWalletMeetsRequirements,
   );
 
-  const {disconnect, signMessage, wallet} = useWalletConnection({
+  const {disconnect, signMessage, wallet} = useConnectWallet({
     onConnect: (response) => {
       if (response?.address) {
         /**

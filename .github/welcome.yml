@@ -2,10 +2,10 @@
 
 # Comment to be posted to on first time issues
 newIssueWelcomeComment: >
-  👋 Thanks for opening your first issue. A contributor should give feedback soon. If you haven’t already, please check out the [code of conduct](https://github.com/Shopify/wallet-connection/blob/master/.github/code_of_conduct.md).
+  👋 Thanks for opening your first issue. A contributor should give feedback soon. If you haven’t already, please check out the [code of conduct](https://github.com/Shopify/blockchain-kit/blob/master/.github/code_of_conduct.md).
 # Comment to be posted to on PRs from first time contributors in your repository
 newPRWelcomeComment: >
-  👋 Thanks for opening your first pull request. A contributor should give feedback soon. If you haven’t already, please check out the [code of conduct](https://github.com/Shopify/wallet-connection/blob/master/.github/code_of_conduct.md).
+  👋 Thanks for opening your first pull request. A contributor should give feedback soon. If you haven’t already, please check out the [code of conduct](https://github.com/Shopify/blockchain-kit/blob/master/.github/code_of_conduct.md).
 # Comment to be posted to on pull requests merged by a first time user
 firstPRMergeComment: >
-  🎉 Thanks for your contribution to Blockchain components!
+  🎉 Thanks for your contribution to Blockchain Kit!
