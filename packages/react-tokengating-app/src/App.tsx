@@ -15,7 +15,7 @@ import {
   RequestWalletVerificationMessageEvent,
   CheckIfWalletMeetsRequirementsEvent,
 } from './types/events';
-import {eventBus, useLazyEventBus} from './utils';
+import {useLazyEventBus} from './utils';
 
 interface AppProps {
   serverArguments?: {
@@ -30,7 +30,16 @@ interface AppProps {
   };
 }
 
-function App({serverArguments}: AppProps) {
+/**
+ * With Vite specifically, there is an issue with HMR and fast refresh where any
+ * named exports will break the flow. I was beginning to see this issue present
+ * in the development environment, and doing the following (anonymous default export)
+ * resolved the issue.
+ *
+ * More here: https://github.com/vitejs/vite/discussions/4577#discussioncomment-1161007
+ */
+// eslint-disable-next-line import/no-anonymous-default-export, react/display-name
+export default function ({serverArguments}: AppProps) {
   // Mock wallet connection for now
   const {openModal} = useConnectionModal();
   const [isLocked, setIsLocked] = useState(
@@ -124,5 +133,3 @@ function App({serverArguments}: AppProps) {
     />
   );
 }
-
-export default App;
