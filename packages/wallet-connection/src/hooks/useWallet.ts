@@ -90,11 +90,7 @@ export function useWallet({
 
   const handleDisconnect = useCallback(
     (address?: string) => {
-      let addressToDisconnect = connectedAddress as string;
-
-      if (address) {
-        addressToDisconnect = address;
-      }
+      const addressToDisconnect = address || (connectedAddress as string);
 
       if (!addressToDisconnect) {
         throw new Error(
@@ -123,7 +119,11 @@ export function useWallet({
         onDisconnect?.(walletToDisconnect);
       }
 
-      if (connectedAddress) {
+      /**
+       * Guard the disconnect invocation by checking to see if the address
+       * matches the currently connected / active wallet.
+       */
+      if (addressToDisconnect === connectedAddress) {
         disconnect();
       }
     },

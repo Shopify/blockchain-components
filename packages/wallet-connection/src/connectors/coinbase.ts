@@ -30,10 +30,6 @@ export const Coinbase = ({
       Android: 'https://play.google.com/store/apps/details?id=org.toshi',
       iOS: 'https://apps.apple.com/us/app/coinbase-wallet-store-crypto/id1278383455',
     },
-    mobileAppPrefixes: {
-      Android: '',
-      iOS: 'https://metamask.app.link/wc?uri=',
-    },
     icon: CoinbaseWallet,
     id: 'coinbase',
     name: 'Coinbase',
