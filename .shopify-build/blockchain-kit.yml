@@ -3,9 +3,9 @@ shared:
     cache:
       - docusaurus/node_modules
       - node_modules
+      - packages/connect-wallet/node_modules
       - packages/react-tokengating-app/node_modules
       - packages/tokengating-card/node_modules
-      - packages/wallet-connection/node_modules
 
 containers:
   default:

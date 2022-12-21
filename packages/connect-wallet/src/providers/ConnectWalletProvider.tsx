@@ -10,18 +10,18 @@ import {ProviderProps} from '../types/provider';
 import {ModalProvider} from './ModalProvider';
 import {SignatureProvider} from './SignatureProvider';
 
-export interface WalletConnectionProviderValue {
+export interface ConnectWalletProviderValue {
   chains: Chain[];
 }
 
-const defaultContextValue: WalletConnectionProviderValue = {
+const defaultContextValue: ConnectWalletProviderValue = {
   chains: [],
 };
 
-export const WalletConnectionContext =
-  createContext<WalletConnectionProviderValue>(defaultContextValue);
+export const ConnectWalletContext =
+  createContext<ConnectWalletProviderValue>(defaultContextValue);
 
-export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
+export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,
   children,
   customTheme,
@@ -35,7 +35,7 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
   }, [chains]);
 
   return (
-    <WalletConnectionContext.Provider value={contextValue}>
+    <ConnectWalletContext.Provider value={contextValue}>
       <RootProvider theme={theme} customTheme={customTheme}>
         <Provider store={store}>
           <GlobalStyle />
@@ -44,6 +44,6 @@ export const WalletConnectionProvider: FC<PropsWithChildren<ProviderProps>> = ({
           </SignatureProvider>
         </Provider>
       </RootProvider>
-    </WalletConnectionContext.Provider>
+    </ConnectWalletContext.Provider>
   );
 };
