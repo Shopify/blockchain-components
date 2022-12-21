@@ -6,6 +6,12 @@ export function isInstalled(connectorName: string) {
     return false;
   }
 
+  if (connectorName === 'Coinbase') {
+    const {isCoinbaseWallet} = window.ethereum;
+
+    return isCoinbaseWallet;
+  }
+
   if (connectorName === 'MetaMask') {
     // Not sure if we should inclue isBraveWallet or isTokenary or not.
     const {isMetaMask} = window.ethereum;

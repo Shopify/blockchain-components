@@ -1,15 +1,17 @@
-import {Chain, Connector as WagmiConnector} from 'wagmi';
+import {Connector as WagmiConnector} from 'wagmi';
 
-import {ConnectorInstance} from '../types/connector';
+import {ConnectorInstance, ConnectorProps} from '../types/connector';
 
+import {Coinbase} from './coinbase';
 import {MetaMask} from './metaMask';
 import {Rainbow} from './rainbow';
 import {WalletConnect} from './walletConnect';
 
-export const getDefaultConnectors = ({chains}: {chains: Chain[]}) => {
+export const getDefaultConnectors = ({appName, chains}: ConnectorProps) => {
   const connectors: WagmiConnector[] = [];
   const availableConnectors = [
     MetaMask({chains}),
+    Coinbase({appName, chains}),
     Rainbow({chains}),
     WalletConnect({chains}),
   ];

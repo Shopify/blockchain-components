@@ -63,7 +63,7 @@ export interface UseWalletProps {
 
 export interface UseWalletResponse {
   connecting: boolean;
-  disconnect: () => void;
+  disconnect: (address?: string) => void;
   signing?: boolean;
   signMessage: (args: SignMessageProps) => Promise<SignatureResponse>;
 }

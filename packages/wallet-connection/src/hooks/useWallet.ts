@@ -82,40 +82,53 @@ export function useWallet({
     [connectedWallets, dispatch, onConnect, pendingConnector, signOnConnect],
   );
 
-  const {address, isConnecting} = useAccount({
+  const {address: connectedAddress, isConnecting} = useAccount({
     onConnect: handleConnect,
   });
   const {disconnect} = useDisconnect();
   const {error, isLoading, signMessageAsync} = useSignMessage();
 
-  const handleDisconnect = useCallback(() => {
-    if (!address) {
-      throw new Error('No wallet connected');
-    }
+  const handleDisconnect = useCallback(
+    (address?: string) => {
+      const addressToDisconnect = address || (connectedAddress as string);
 
-    /**
-     * Find the wallet in our store and remove it.
-     *
-     * If we don't find the wallet for some reason we can
-     * assume there is stale state and still perform the disconnect.
-     *
-     * Another assumption being made here is that we don't have
-     * multiple of the same address in our store. Since we prevent
-     * the addition of any wallets that have a matching address, this
-     * is a relatively safe assumption.
-     */
-    const walletToDisconnect = connectedWallets.find(
-      (wallet) => wallet.address === address,
-    );
+      if (!addressToDisconnect) {
+        throw new Error(
+          'There is not a connected wallet nor was a wallet address provided to the disconnect function.',
+        );
+      }
 
-    if (walletToDisconnect) {
-      dispatch(removeWallet(walletToDisconnect));
+      /**
+       * Find the wallet in our store and remove it.
+       *
+       * If we don't find the wallet for some reason we can
+       * assume there is stale state and still perform the disconnect.
+       *
+       * Another assumption being made here is that we don't have
+       * multiple of the same address in our store. Since we prevent
+       * the addition of any wallets that have a matching address, this
+       * is a relatively safe assumption.
+       */
+      const walletToDisconnect = connectedWallets.find(
+        (wallet) => wallet.address === addressToDisconnect,
+      );
 
-      onDisconnect?.(walletToDisconnect);
-    }
+      if (walletToDisconnect) {
+        dispatch(removeWallet(walletToDisconnect));
 
-    disconnect();
-  }, [address, connectedWallets, disconnect, dispatch, onDisconnect]);
+        onDisconnect?.(walletToDisconnect);
+      }
+
+      /**
+       * Guard the disconnect invocation by checking to see if the address
+       * matches the currently connected / active wallet.
+       */
+      if (addressToDisconnect === connectedAddress) {
+        disconnect();
+      }
+    },
+    [connectedAddress, connectedWallets, disconnect, dispatch, onDisconnect],
+  );
 
   const signMessage = useCallback(
     async ({address, message}: SignMessageProps) => {

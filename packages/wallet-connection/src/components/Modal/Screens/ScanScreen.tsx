@@ -98,6 +98,20 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
       return;
     }
 
+    if (connector.id === 'coinbaseWallet') {
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      connector.on('message', async () => {
+        const provider = await connector.getProvider();
+        setQRCodeURI(provider.qrUrl);
+      });
+
+      try {
+        connect({connector});
+      } catch (exception) {
+        console.error(exception);
+      }
+    }
+
     if (connector.id === 'walletConnect') {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       connector.on('message', async () => {

@@ -40,7 +40,11 @@ export const Popover = ({onDismiss, visible}: PopoverProps) => {
           {copied ? CircleTick : Copy}
         </AddressChip>
 
-        <Button fullWidth label="Disconnect" onClick={disconnect} />
+        <Button
+          fullWidth
+          label="Disconnect"
+          onClick={() => disconnect(address)}
+        />
       </Frame>
     </Container>
   );
