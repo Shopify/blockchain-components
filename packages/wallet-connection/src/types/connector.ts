@@ -11,6 +11,7 @@ export interface ConnectArgs {
 }
 
 export interface ConnectorProps {
+  appName?: string;
   chains: Chain[];
 }
 
