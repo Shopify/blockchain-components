@@ -9,6 +9,7 @@ export enum TokengateCardSection {
   AvailableSoon = 'AvailableSoon',
   SoldOut = 'SoldOut',
   TokengateRequirementSkeleton = 'TokengateRequirementSkeleton',
+  OrderLimitReached = 'OrderLimitReached',
 }
 
 export const useTokengateCardState = (
@@ -20,18 +21,28 @@ export const useTokengateCardState = (
   };
 };
 
-export const getSections = ({
-  wallet,
-  availableDate,
-  isLocked,
-  isSoldOut,
-  unlockingTokens,
-  isLoading,
-}: TokengatingCardProps) => {
+export const getSections = (props: TokengatingCardProps) => {
+  const {
+    wallet,
+    availableDate,
+    isLocked,
+    isSoldOut,
+    unlockingTokens,
+    isLoading,
+  } = props;
+
   if (isLoading) {
     return [
       TokengateCardSection.TokengateRequirementSkeleton,
       TokengateCardSection.ConnectWallet,
+    ];
+  }
+
+  if (wallet?.address && !isLocked && getCombinedConsumedOrderLimit(props)) {
+    return [
+      TokengateCardSection.UnlockingTokens,
+      TokengateCardSection.ConnectedWallet,
+      TokengateCardSection.OrderLimitReached,
     ];
   }
 
@@ -90,13 +101,14 @@ export const getTitleAndSubtitle = (props: TokengatingCardProps) => {
     };
   }
 
-  if (getCombinedOrderLimit(props)) {
+  if (getCombinedTotalOrderLimit(props)) {
     return {
       title: unlockedTitle || 'Exclusive unlocked',
       subtitle:
         unlockedSubtitleWithOrderLimit ||
-        `You can buy up to ${getCombinedOrderLimit(props)} with your
-      tokens.`,
+        `You can buy up to ${getCombinedTotalOrderLimit(
+          props,
+        )} with your tokens.`,
     };
   }
 
@@ -106,9 +118,11 @@ export const getTitleAndSubtitle = (props: TokengatingCardProps) => {
   };
 };
 
-const getCombinedOrderLimit = ({unlockingTokens}: TokengatingCardProps) => {
+const getCombinedTotalOrderLimit = ({
+  unlockingTokens,
+}: TokengatingCardProps) => {
   const initialValue = 0;
-  const combinedOrderLimit = unlockingTokens?.reduce(
+  const combinedTotalOrderLimit = unlockingTokens?.reduce(
     (accumulator: number, unlockingToken: UnlockingToken) => {
       if (!unlockingToken.token.totalOrderLimit) return accumulator;
 
@@ -117,7 +131,25 @@ const getCombinedOrderLimit = ({unlockingTokens}: TokengatingCardProps) => {
     initialValue,
   );
 
-  return combinedOrderLimit && combinedOrderLimit > 0
-    ? combinedOrderLimit
+  return combinedTotalOrderLimit && combinedTotalOrderLimit > 0
+    ? combinedTotalOrderLimit
+    : undefined;
+};
+
+const getCombinedConsumedOrderLimit = ({
+  unlockingTokens,
+}: TokengatingCardProps) => {
+  const initialValue = 0;
+  const combinedConsumedOrderLimit = unlockingTokens?.reduce(
+    (accumulator: number, unlockingToken: UnlockingToken) => {
+      if (!unlockingToken.token.consumedOrderLimit) return accumulator;
+
+      return accumulator + unlockingToken.token.consumedOrderLimit;
+    },
+    initialValue,
+  );
+
+  return combinedConsumedOrderLimit && combinedConsumedOrderLimit > 0
+    ? combinedConsumedOrderLimit
     : undefined;
 };

@@ -39,6 +39,14 @@ const unlockingTokenCommerceTownWithOrderLimit = {
   },
 };
 
+const unlockingTokenCommerceTownWithOrderLimitMet = {
+  token: {
+    ...unlockingTokenCommerceTown.token,
+    consumedOrderLimit: 2,
+    totalOrderLimit: 2,
+  },
+};
+
 const unlockingTokenSquad = {
   token: {
     contractAddress: '0x33023E456aF4C186A32c57f8ad61c34cB33f5cC1',
@@ -54,6 +62,14 @@ const unlockingTokenSquadWithOrderLimit = {
   token: {
     ...unlockingTokenSquad.token,
     consumedOrderLimit: 0,
+    totalOrderLimit: 2,
+  },
+};
+
+const unlockingTokenSquadWithOrderLimitMet = {
+  token: {
+    ...unlockingTokenSquad.token,
+    consumedOrderLimit: 2,
     totalOrderLimit: 2,
   },
 };
@@ -138,6 +154,26 @@ UnlockedWithOrderLimits.args = {
   unlockingTokens: [
     unlockingTokenCommerceTownWithOrderLimit,
     unlockingTokenSquadWithOrderLimit,
+  ],
+  onConnectWallet: () => {},
+  onConnectedWalletActions: () => {},
+};
+
+export const UnlockedWithOrderLimitsMet = Template.bind({});
+UnlockedWithOrderLimitsMet.args = {
+  isLoading: false,
+  isLocked: false,
+  wallet: {
+    address: '0xab5801a7d398351b8be11c439e05c5b3259aec9b',
+  },
+  gateRequirement: {
+    id: 'gateRequirement-id',
+    tokenSeries,
+    operator: 'OR',
+  },
+  unlockingTokens: [
+    unlockingTokenCommerceTownWithOrderLimitMet,
+    unlockingTokenSquadWithOrderLimitMet,
   ],
   onConnectWallet: () => {},
   onConnectedWalletActions: () => {},

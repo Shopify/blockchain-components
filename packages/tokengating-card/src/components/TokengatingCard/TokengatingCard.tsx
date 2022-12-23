@@ -3,6 +3,7 @@ import {RootProvider} from 'shared';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
+import {OrderLimitReachedWarning} from '../OrderLimitReachedWarning';
 import {SoldOutButton} from '../SoldOutButton';
 import {TokengateRequirement} from '../TokengateRequirement';
 import {UnlockingTokens} from '../UnlockingTokens';
@@ -39,6 +40,7 @@ export const TokengatingCard = (props: TokengatingCardProps) => {
       [TokengateCardSection.TokengateRequirementSkeleton]: (
         <TokengateRequirement isLoading />
       ),
+      [TokengateCardSection.OrderLimitReached]: <OrderLimitReachedWarning />,
     }),
     [connectButton, unlockingTokens, gateRequirement, availableDate],
   );
