@@ -1,25 +1,26 @@
-import {
-  ConnectButton,
-  Wallet,
-  useConnectionModal,
-  useConnectWallet,
-  ConnectorIcon,
-} from '@shopify/connect-wallet';
+import {useEffect, useState} from 'react';
 import {
   TokengatingCard,
   GateRequirement,
   UnlockingToken,
 } from '@shopify/tokengating-card';
-import {useEffect, useState} from 'react';
+import {
+  ConnectButton,
+  Wallet,
+  useConnectionModal,
+  useWalletConnection,
+  ConnectorIcon,
+} from '@shopify/wallet-connection';
 
 import './DawnVariables.css';
+
 import './App.css';
 import {
   EventName,
   RequestWalletVerificationMessageEvent,
   CheckIfWalletMeetsRequirementsEvent,
 } from './types/events';
-import {useLazyEventBus} from './utils';
+import {eventBus, useLazyEventBus} from './utils';
 
 interface AppProps {
   serverArguments?: {
@@ -34,16 +35,7 @@ interface AppProps {
   };
 }
 
-/**
- * With Vite specifically, there is an issue with HMR and fast refresh where any
- * named exports will break the flow. I was beginning to see this issue present
- * in the development environment, and doing the following (anonymous default export)
- * resolved the issue.
- *
- * More here: https://github.com/vitejs/vite/discussions/4577#discussioncomment-1161007
- */
-// eslint-disable-next-line import/no-anonymous-default-export, react/display-name
-export default function ({serverArguments}: AppProps) {
+function App({serverArguments}: AppProps) {
   // Mock wallet connection for now
   const {openModal} = useConnectionModal();
   const [isLocked, setIsLocked] = useState(
@@ -70,7 +62,7 @@ export default function ({serverArguments}: AppProps) {
     EventName.CheckIfWalletMeetsRequirements,
   );
 
-  const {disconnect, signMessage, wallet} = useConnectWallet({
+  const {disconnect, signMessage, wallet} = useWalletConnection({
     onConnect: (response) => {
       if (response?.address) {
         /**
@@ -137,3 +129,5 @@ export default function ({serverArguments}: AppProps) {
     />
   );
 }
+
+export default App;

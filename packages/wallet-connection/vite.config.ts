@@ -10,7 +10,7 @@ export default defineConfig({
     target: 'es2021',
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: '@shopify/connect-wallet',
+      name: '@shopify/wallet-connection',
       fileName: 'index',
     },
     rollupOptions: {
