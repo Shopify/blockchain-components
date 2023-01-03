@@ -1,7 +1,7 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 import {RootProvider} from 'shared/src';
 
-import {TokengatingCard} from './TokengatingCard';
+import {Tokengate} from './Tokengate';
 
 const tokenSeries = [
   {
@@ -74,9 +74,9 @@ const unlockingTokenSquadWithOrderLimitMet = {
   },
 };
 
-const TokengatingCardStory: ComponentMeta<typeof TokengatingCard> = {
-  title: 'TokengatingCard',
-  component: TokengatingCard,
+const TokengateStory: ComponentMeta<typeof Tokengate> = {
+  title: 'Tokengate',
+  component: Tokengate,
   decorators: [
     (Story) => (
       <RootProvider>
@@ -86,10 +86,10 @@ const TokengatingCardStory: ComponentMeta<typeof TokengatingCard> = {
   ],
 };
 
-export default TokengatingCardStory;
+export default TokengateStory;
 
-const Template: ComponentStory<typeof TokengatingCard> = (args) => {
-  return <TokengatingCard {...args} />;
+const Template: ComponentStory<typeof Tokengate> = (args) => {
+  return <Tokengate {...args} />;
 };
 
 export const LockedWithoutWallet = Template.bind({});

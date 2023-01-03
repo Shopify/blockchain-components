@@ -1,4 +1,4 @@
-import {UnlockingToken} from '@shopify/tokengating-card';
+import {UnlockingToken} from '@shopify/tokengate';
 
 export enum EventName {
   RequestWalletVerificationMessage = 'RequestWalletVerificationMessage',

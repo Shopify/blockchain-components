@@ -1,4 +1,4 @@
-import {GateRequirement, UnlockingToken} from '../TokengatingCard';
+import {GateRequirement, UnlockingToken} from '../Tokengate';
 import {TokenList} from '../TokenList';
 
 import {TokengateRequirementSeparator} from './TokengateRequirementSeparator';

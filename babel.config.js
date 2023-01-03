@@ -9,7 +9,7 @@ module.exports = {
     // and merge with this root level config.
     './react-tokengating-app',
     './shared',
-    './tokengating-card',
+    './tokengate',
     './wallet-connection',
   ],
 };

@@ -1,3 +1,3 @@
-# Tokengating Card
+# Tokengate
 
 <!-- TODO: Fill out this README. -- >

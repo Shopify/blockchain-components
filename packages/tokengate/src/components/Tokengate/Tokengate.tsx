@@ -9,9 +9,9 @@ import {TokengateRequirement} from '../TokengateRequirement';
 import {UnlockingTokens} from '../UnlockingTokens';
 
 import {TokengateCardSection, useTokengateCardState} from './utils';
-import {TokengatingCardProps} from './types';
+import {TokengateProps} from './types';
 
-export const TokengatingCard = (props: TokengatingCardProps) => {
+export const Tokengate = (props: TokengateProps) => {
   const {connectButton, availableDate, gateRequirement, unlockingTokens} =
     props;
   const {title, subtitle, sections} = useTokengateCardState(props);

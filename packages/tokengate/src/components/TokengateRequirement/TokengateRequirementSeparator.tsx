@@ -1,4 +1,4 @@
-import {GateRequirement} from '../TokengatingCard';
+import {GateRequirement} from '../Tokengate';
 
 import {TokengateRequirementSeparatorStyle} from './style';
 

@@ -38,7 +38,7 @@ export interface CustomTitles {
   unlockedSubtitleWithOrderLimit?: string;
 }
 
-export interface TokengatingCardProps {
+export interface TokengateProps {
   connectButton: ReactNode;
   isLoading?: boolean;
   isLocked: boolean;

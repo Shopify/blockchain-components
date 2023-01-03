@@ -26,7 +26,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@shopify/tokengating-card": "*",
+    "@shopify/tokengate": "*",
     "@shopify/wallet-connection": "*",
     "ethers": "^5.7.2",
     "react": "^18.2.0",
