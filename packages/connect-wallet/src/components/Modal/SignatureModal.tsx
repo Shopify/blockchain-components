@@ -3,7 +3,7 @@ import {Button, Cancel, IconButton, Spinner} from 'shared';
 import {useI18n} from '@shopify/react-i18n';
 
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
-import {useWalletConnection} from '../../hooks/useWalletConnection';
+import {useConnectWallet} from '../../hooks/useConnectWallet';
 import {clearSignatureState} from '../../slices/walletSlice';
 
 import {
@@ -20,7 +20,7 @@ export const SignatureModal = () => {
   const dispatch = useAppDispatch();
   const {message} = useAppSelector((state) => state.wallet);
   const [i18n] = useI18n();
-  const {signing, signMessage} = useWalletConnection();
+  const {signing, signMessage} = useConnectWallet();
 
   const handleDismiss = useCallback(() => {
     dispatch(clearSignatureState());

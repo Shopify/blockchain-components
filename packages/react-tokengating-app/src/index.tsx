@@ -1,4 +1,4 @@
-import {WalletConnectionProvider} from '@shopify/wallet-connection';
+import {ConnectWalletProvider} from '@shopify/connect-wallet';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {WagmiConfig} from 'wagmi';
@@ -38,7 +38,7 @@ window.gmShop = {
       return (
         <React.StrictMode>
           <WagmiConfig client={client}>
-            <WalletConnectionProvider
+            <ConnectWalletProvider
               chains={chains}
               wallet={this.arguments?.initialState?.wallet || undefined}
             >
@@ -51,7 +51,7 @@ window.gmShop = {
                   },
                 }}
               />
-            </WalletConnectionProvider>
+            </ConnectWalletProvider>
           </WagmiConfig>
         </React.StrictMode>
       );
