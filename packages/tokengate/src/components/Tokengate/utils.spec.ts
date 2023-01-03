@@ -1,19 +1,19 @@
 import {getTitleAndSubtitle, getSections} from './utils';
-import {TokengatingCardProps} from './types';
+import {TokengateProps} from './types';
 
-const defaultTokengatingCardProps: TokengatingCardProps = {
+const defaultTokengateProps: TokengateProps = {
   connectButton: null,
   isLocked: true,
   onConnectWallet: () => {},
   onConnectedWalletActions: () => {},
 };
 
-describe('TokengatingCard - utils', () => {
+describe('Tokengate - utils', () => {
   describe('getTitleAndSubtitle', () => {
     describe('locked', () => {
       it('returns default title and subtitle', () => {
         const {title, subtitle} = getTitleAndSubtitle({
-          ...defaultTokengatingCardProps,
+          ...defaultTokengateProps,
         });
         expect(title).toBe('Holder exclusive');
         expect(subtitle).toBe('To unlock this product, you need:');
@@ -23,7 +23,7 @@ describe('TokengatingCard - utils', () => {
         const lockedTitle = 'lockedTitle';
         const lockedSubtitle = 'lockedSubtitle';
         const {title, subtitle} = getTitleAndSubtitle({
-          ...defaultTokengatingCardProps,
+          ...defaultTokengateProps,
           exclusiveCustomTitles: {lockedTitle, lockedSubtitle},
         });
         expect(title).toBe(lockedTitle);
@@ -34,7 +34,7 @@ describe('TokengatingCard - utils', () => {
     describe('unlocked', () => {
       it('returns default title and subtitle', () => {
         const {title, subtitle} = getTitleAndSubtitle({
-          ...defaultTokengatingCardProps,
+          ...defaultTokengateProps,
           isLocked: false,
         });
         expect(title).toBe('Exclusive unlocked');
@@ -45,7 +45,7 @@ describe('TokengatingCard - utils', () => {
         const unlockedTitle = 'unlockedTitle';
         const unlockedSubtitle = 'unlockedSubtitle';
         const {title, subtitle} = getTitleAndSubtitle({
-          ...defaultTokengatingCardProps,
+          ...defaultTokengateProps,
           isLocked: false,
           exclusiveCustomTitles: {unlockedTitle, unlockedSubtitle},
         });
@@ -55,7 +55,7 @@ describe('TokengatingCard - utils', () => {
 
       it('returns default title and order limit subtitle if order limit is present', () => {
         const {title, subtitle} = getTitleAndSubtitle({
-          ...defaultTokengatingCardProps,
+          ...defaultTokengateProps,
           isLocked: false,
           unlockingTokens: [
             {
@@ -91,7 +91,7 @@ describe('TokengatingCard - utils', () => {
   describe('useTokengateCardState', () => {
     it('shows requirements and connect button for locked state', () => {
       const sections = getSections({
-        ...defaultTokengatingCardProps,
+        ...defaultTokengateProps,
         isLocked: true,
       });
 
@@ -100,7 +100,7 @@ describe('TokengatingCard - utils', () => {
 
     it('shows requirements and connect button for unlocked state without wallet address', () => {
       const sections = getSections({
-        ...defaultTokengatingCardProps,
+        ...defaultTokengateProps,
         isLocked: false,
       });
 
@@ -109,7 +109,7 @@ describe('TokengatingCard - utils', () => {
 
     it('shows tokens and connected button for unlocked state', () => {
       const sections = getSections({
-        ...defaultTokengatingCardProps,
+        ...defaultTokengateProps,
         isLocked: false,
         wallet: {
           address: '0x0',
@@ -121,7 +121,7 @@ describe('TokengatingCard - utils', () => {
 
     it('shows requirements and connected button for missing tokens state', () => {
       const sections = getSections({
-        ...defaultTokengatingCardProps,
+        ...defaultTokengateProps,
         isLocked: true,
         wallet: {
           address: '0x0',
@@ -137,7 +137,7 @@ describe('TokengatingCard - utils', () => {
 
     it('shows sold out label for sold out state', () => {
       const sections = getSections({
-        ...defaultTokengatingCardProps,
+        ...defaultTokengateProps,
         isSoldOut: true,
       });
 
@@ -148,7 +148,7 @@ describe('TokengatingCard - utils', () => {
       jest.useFakeTimers().setSystemTime(new Date('2000-01-01'));
 
       const sections = getSections({
-        ...defaultTokengatingCardProps,
+        ...defaultTokengateProps,
         availableDate: '2000-01-02',
       });
 

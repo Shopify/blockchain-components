@@ -10,5 +10,5 @@ Let's discover **Blockchain Kit**.
 
 ## Available packages
 
-- Tokengating Card
+- Tokengate
 - Wallet Connection

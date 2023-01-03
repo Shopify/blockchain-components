@@ -1,9 +1,5 @@
 import {useEffect, useState} from 'react';
-import {
-  TokengatingCard,
-  GateRequirement,
-  UnlockingToken,
-} from '@shopify/tokengating-card';
+import {Tokengate, GateRequirement, UnlockingToken} from '@shopify/tokengate';
 import {
   ConnectButton,
   Wallet,
@@ -111,7 +107,7 @@ function App({serverArguments}: AppProps) {
   }, [checkIfWalletMeetsRequirementsResponse?.isUnlocked]);
 
   return (
-    <TokengatingCard
+    <Tokengate
       connectButton={<ConnectButton />}
       isLoading={serverArguments?.initialState.isLoading}
       isLocked={isLocked}

@@ -1,4 +1,4 @@
-import {TokengatingCardProps, UnlockingToken} from './types';
+import {TokengateProps, UnlockingToken} from './types';
 
 export enum TokengateCardSection {
   TokengateRequirement = 'TokengateRequirement',
@@ -12,16 +12,14 @@ export enum TokengateCardSection {
   OrderLimitReached = 'OrderLimitReached',
 }
 
-export const useTokengateCardState = (
-  tokengatingCardProps: TokengatingCardProps,
-) => {
+export const useTokengateCardState = (tokengateProps: TokengateProps) => {
   return {
-    sections: getSections(tokengatingCardProps),
-    ...getTitleAndSubtitle(tokengatingCardProps),
+    sections: getSections(tokengateProps),
+    ...getTitleAndSubtitle(tokengateProps),
   };
 };
 
-export const getSections = (props: TokengatingCardProps) => {
+export const getSections = (props: TokengateProps) => {
   const {
     wallet,
     availableDate,
@@ -83,7 +81,7 @@ export const getSections = (props: TokengatingCardProps) => {
   ];
 };
 
-export const getTitleAndSubtitle = (props: TokengatingCardProps) => {
+export const getTitleAndSubtitle = (props: TokengateProps) => {
   const {isLocked, exclusiveCustomTitles} = props;
 
   const {
@@ -118,9 +116,7 @@ export const getTitleAndSubtitle = (props: TokengatingCardProps) => {
   };
 };
 
-const getCombinedTotalOrderLimit = ({
-  unlockingTokens,
-}: TokengatingCardProps) => {
+const getCombinedTotalOrderLimit = ({unlockingTokens}: TokengateProps) => {
   const initialValue = 0;
   const combinedTotalOrderLimit = unlockingTokens?.reduce(
     (accumulator: number, unlockingToken: UnlockingToken) => {
@@ -136,9 +132,7 @@ const getCombinedTotalOrderLimit = ({
     : undefined;
 };
 
-const getCombinedConsumedOrderLimit = ({
-  unlockingTokens,
-}: TokengatingCardProps) => {
+const getCombinedConsumedOrderLimit = ({unlockingTokens}: TokengateProps) => {
   const initialValue = 0;
   const combinedConsumedOrderLimit = unlockingTokens?.reduce(
     (accumulator: number, unlockingToken: UnlockingToken) => {

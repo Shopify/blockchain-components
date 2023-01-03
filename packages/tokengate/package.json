@@ -1,18 +1,18 @@
 {
-  "name": "@shopify/tokengating-card",
+  "name": "@shopify/tokengate",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "Tokengating card library for Shopify storefronts",
+  "description": "Tokengate card library for Shopify storefronts",
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shopify/blockchain-kit.git",
-    "directory": "packages/tokengating-card"
+    "directory": "packages/tokengate"
   },
   "bugs": {
-    "url": "https://github.com/Shopify/tokengating-card/issues"
+    "url": "https://github.com/Shopify/tokengate/issues"
   },
-  "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/tokengating-card/README.md",
+  "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/tokengate/README.md",
   "type": "module",
   "files": [
     "dist"

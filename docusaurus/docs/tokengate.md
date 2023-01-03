@@ -1,6 +1,6 @@
 ---
-id: tokengating-card
-title: Tokengating Card
+id: tokengate
+title: Tokengate
 ---
 
 import Tabs from '@theme/Tabs';
@@ -21,7 +21,7 @@ export const StorybookTabs = () => (
       <TabItem value={story} label={getTabTitleFromStory(story)} default>
         <iframe
           title="locked-without-wallet"
-          src={`https://main--639b1f308693132693d9b82c.chromatic.com/iframe.html?path=/story/tokengatingcard--${story}`}
+          src={`https://main--639b1f308693132693d9b82c.chromatic.com/iframe.html?path=/story/tokengate--${story}`}
           width="400"
           height="400"
         />
@@ -38,13 +38,13 @@ export const StorybookTabs = () => (
 ```typescript
 import {useState} from 'react';
 import {
-  TokengatingCard,
+  Tokengate,
   GateRequirement,
   Wallet,
   UnlockingToken,
-} from '@shopify/tokengating-card';
+} from '@shopify/tokengate';
 
-function TokengatingCardExample() {
+function TokengateCardExample() {
   const [isLocked, setIsLocked] = useState(true);
   const [wallet, setWallet] = useState<Wallet>({});
   const [unlockingTokens, setUnlockingTokens] = useState<UnlockingToken[]>([]);
@@ -56,7 +56,7 @@ function TokengatingCardExample() {
   };
 
   return (
-    <TokengatingCard
+    <TokengateCard
       isLocked={isLocked}
       gateRequirement={getMockGateRequirement()}
       onConnectWallet={onConnectWallet}
@@ -113,9 +113,9 @@ const getMockUnlockingTokens = (): UnlockingToken[] => [
 
 ### Props
 
-#### TokengatingCard
+#### TokengateCard
 
-| interface TokengatingCard  | Type                                   | Description |
+| interface TokengateCard  | Type                                   | Description |
 | -------------------------- | -------------------------------------- | ----------- |
 | `isLocked`                 | `boolean`                              |             |
 | `onConnectWallet`          | `() => void`                           |             |

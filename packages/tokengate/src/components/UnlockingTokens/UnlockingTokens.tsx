@@ -1,4 +1,4 @@
-import {UnlockingToken} from '../TokengatingCard';
+import {UnlockingToken} from '../Tokengate';
 import {TokenList} from '../TokenList';
 
 import {mapUnlockingTokensToTokenListProps} from './utils';
