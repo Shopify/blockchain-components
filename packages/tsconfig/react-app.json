@@ -1,0 +1,15 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
+    "esModuleInterop": false,
+    "target": "esnext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "noImplicitReturns": true,
+    "useDefineForClassFields": true
+  }
+}

@@ -9,13 +9,13 @@ import {Tokengate, GateRequirement, UnlockingToken} from '@shopify/tokengate';
 import {useEffect, useState} from 'react';
 
 import './DawnVariables.css';
-import './App.css';
+import {Preview} from './style';
 import {
   EventName,
   RequestWalletVerificationMessageEvent,
   CheckIfWalletMeetsRequirementsEvent,
 } from './types/events';
-import {eventBus, useLazyEventBus} from './utils';
+import {useLazyEventBus} from './utils';
 
 interface AppProps {
   serverArguments?: {
@@ -30,8 +30,17 @@ interface AppProps {
   };
 }
 
-function App({serverArguments}: AppProps) {
-  // Mock wallet connection for now
+/**
+ * With Vite specifically, there is an issue with HMR and fast refresh where any
+ * named exports will break the flow. I was beginning to see this issue present
+ * in the development environment, and doing the following (anonymous default export)
+ * resolved the issue.
+ *
+ * More here: https://github.com/vitejs/vite/discussions/4577#discussioncomment-1161007
+ */
+// eslint-disable-next-line import/no-anonymous-default-export, react/display-name
+export default function ({serverArguments}: AppProps) {
+  const isDev = import.meta.env.DEV;
   const {openModal} = useConnectionModal();
   const [isLocked, setIsLocked] = useState(
     serverArguments?.initialState.locked ?? true,
@@ -105,7 +114,7 @@ function App({serverArguments}: AppProps) {
     setIsLocked(!checkIfWalletMeetsRequirementsResponse?.isUnlocked);
   }, [checkIfWalletMeetsRequirementsResponse?.isUnlocked]);
 
-  return (
+  const _TokengateComponent = (
     <Tokengate
       connectButton={<ConnectButton />}
       isLoading={serverArguments?.initialState.isLoading}
@@ -123,6 +132,10 @@ function App({serverArguments}: AppProps) {
       unlockingTokens={checkIfWalletMeetsRequirementsResponse?.unlockingTokens}
     />
   );
-}
 
-export default App;
+  if (isDev) {
+    return <Preview>{_TokengateComponent}</Preview>;
+  }
+
+  return _TokengateComponent;
+}
