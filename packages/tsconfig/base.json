@@ -2,6 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Default",
   "compilerOptions": {
+    "allowJs": false,
     "composite": false,
     "declaration": true,
     "declarationMap": true,
@@ -9,6 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
     "isolatedModules": true,
+    "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -17,6 +19,5 @@
     "skipLibCheck": true,
     "strict": true,
     "types": ["jest", "node", "vite/client"]
-  },
-  "exclude": ["node_modules"]
+  }
 }

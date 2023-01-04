@@ -30,8 +30,7 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
 
     listenToEvent(
       'CheckIfWalletMeetsRequirements',
-      (variables: any, dispatch: any) => {
-        const {address, message, signature} = variables;
+      (_variables: any, dispatch: any) => {
         const responseData = {
           isUnlocked: true,
           unlockingTokens: [

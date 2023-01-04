@@ -9,7 +9,7 @@ import {Tokengate, GateRequirement, UnlockingToken} from '@shopify/tokengate';
 import {useEffect, useState} from 'react';
 
 import './DawnVariables.css';
-import './App.css';
+import {Preview} from './style';
 import {
   EventName,
   RequestWalletVerificationMessageEvent,
@@ -40,7 +40,7 @@ interface AppProps {
  */
 // eslint-disable-next-line import/no-anonymous-default-export, react/display-name
 export default function ({serverArguments}: AppProps) {
-  // Mock wallet connection for now
+  const isDev = import.meta.env.DEV;
   const {openModal} = useConnectionModal();
   const [isLocked, setIsLocked] = useState(
     serverArguments?.initialState.locked ?? true,
@@ -114,7 +114,7 @@ export default function ({serverArguments}: AppProps) {
     setIsLocked(!checkIfWalletMeetsRequirementsResponse?.isUnlocked);
   }, [checkIfWalletMeetsRequirementsResponse?.isUnlocked]);
 
-  return (
+  const _TokengateComponent = (
     <Tokengate
       connectButton={<ConnectButton />}
       isLoading={serverArguments?.initialState.isLoading}
@@ -132,4 +132,10 @@ export default function ({serverArguments}: AppProps) {
       unlockingTokens={checkIfWalletMeetsRequirementsResponse?.unlockingTokens}
     />
   );
+
+  if (isDev) {
+    return <Preview>{_TokengateComponent}</Preview>;
+  }
+
+  return _TokengateComponent;
 }

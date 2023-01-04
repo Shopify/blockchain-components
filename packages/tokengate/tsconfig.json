@@ -1,7 +1,5 @@
 {
-  "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "*": ["./src/*"]
@@ -9,5 +7,6 @@
     "outDir": "./dist"
   },
   "include": ["./src", "styled.d.ts"],
-  "exclude": ["node_modules", "./dist"]
+  "exclude": ["./dist", "node_modules"],
+  "extends": "tsconfig/base.json"
 }

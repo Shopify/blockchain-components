@@ -1,4 +1,4 @@
-import {StandaloneFrame, StyledCard, Subtitle, Title} from './style';
+import {StyledCard, Subtitle, Title} from './style';
 
 interface CardProps {
   title: string;
@@ -8,9 +8,7 @@ interface CardProps {
 }
 
 const Card = ({title, subtitle, button, children}: CardProps) => {
-  const isDev = import.meta.env.DEV;
-
-  const _CardComponent = (
+  return (
     <StyledCard>
       <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>
@@ -18,12 +16,6 @@ const Card = ({title, subtitle, button, children}: CardProps) => {
       {button}
     </StyledCard>
   );
-
-  if (isDev) {
-    return <StandaloneFrame>{_CardComponent}</StandaloneFrame>;
-  }
-
-  return _CardComponent;
 };
 
 export {Card};
