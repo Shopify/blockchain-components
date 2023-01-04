@@ -72,4 +72,24 @@ describe('deepMerge', () => {
       },
     });
   });
+
+  it('does not modify original object', () => {
+    const originalObject = {
+      key1: 'key1',
+      key2: 'key2',
+    };
+    const result = deepMerge(originalObject, {
+      key2: 'newKey2',
+    });
+
+    expect(result).toStrictEqual({
+      key1: 'key1',
+      key2: 'newKey2',
+    });
+
+    expect(originalObject).toStrictEqual({
+      key1: 'key1',
+      key2: 'key2',
+    });
+  });
 });

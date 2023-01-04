@@ -1,3 +1,8 @@
+import {
+  UnlockingTokenWithOrderLimitFixture,
+  UnlockingTokenFixtureType,
+} from '../../fixtures';
+
 import {getTitleAndSubtitle, getSections} from './utils';
 import {TokengateProps} from './types';
 
@@ -58,28 +63,11 @@ describe('Tokengate - utils', () => {
           ...defaultTokengateProps,
           isLocked: false,
           unlockingTokens: [
-            {
-              token: {
-                contractAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
-                contractName: 'CommerceTown',
-                mediaUrl:
-                  'https://i.seadn.io/gae/k9HIMmZMIpgCM0PpaJJo3Lp1rzLKHgYBqehzihsFJ1EgP_xZVDCrqjVQJJyfkX0_HaFxf0IQgO8Ws-5lkqlIhCnh_cBlzOqa1xeVww?auto=format&w=1000',
-                title: 'Townfolk #103',
-                totalOrderLimit: 2,
-                consumedOrderLimit: 0,
-              },
-            },
-            {
-              token: {
-                contractAddress: '0x33023E456aF4C186A32c57f8ad61c34cB33f5cC1',
-                contractName: 'Squad',
-                mediaUrl:
-                  'https://lh3.googleusercontent.com/ccbUlfwRAjrGj3OBdKI9mJL0sQqBc8kXloSrk-9dOuOmIbhGqMwCpAZp_kpqsFK-0s3SqOjb7qi-8Jo7kEhmxZ_gSub9MphvrHKwBA=w650',
-                title: 'Squaddy #24',
-                totalOrderLimit: 2,
-                consumedOrderLimit: 0,
-              },
-            },
+            UnlockingTokenWithOrderLimitFixture(),
+            UnlockingTokenWithOrderLimitFixture(
+              {},
+              UnlockingTokenFixtureType.Squaddy,
+            ),
           ],
         });
         expect(title).toBe('Exclusive unlocked');
