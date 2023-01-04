@@ -36,3 +36,4 @@ export type {AvailableTheme, ThemeProps} from './types/theme';
  * Utils
  */
 export {formatWalletAddress} from './utils/formatters';
+export {deepMerge} from './utils/deepMerge';
