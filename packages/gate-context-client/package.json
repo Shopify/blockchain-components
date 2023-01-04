@@ -1,0 +1,39 @@
+{
+  "name": "@shopify/gate-context-client",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Crypto wallet connection library for Shopify storefronts",
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/blockchain-kit.git",
+    "directory": "packages/gate-context-client"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/blockchain-kit/issues"
+  },
+  "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/gate-context-client/README.md",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build && tsc --emitDeclarationOnly",
+    "dev": "vite build --mode=development --watch",
+    "lint": "eslint '**/*.ts*'",
+    "typecheck": "tsc"
+  },
+  "devDependencies": {
+    "tsconfig": "*",
+    "jest-fetch-mock": "^3.0.3"
+  }
+}

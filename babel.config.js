@@ -12,5 +12,6 @@ module.exports = {
     './react-tokengating-app',
     './shared',
     './tokengate',
+    './gate-context-client',
   ],
 };

@@ -20,7 +20,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build && tsc",
     "lint": "eslint '**/*.ts*'",
     "typecheck": "tsc",
     "preview": "vite preview"

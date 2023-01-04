@@ -53,7 +53,7 @@ steps:
     timeout: 5m
     run:
       - yarn install
-      - yarn build
+      - yarn build || yarn build --force
 
   - <<: *yarn_caches
     label: ':storybook: Chromatic'
