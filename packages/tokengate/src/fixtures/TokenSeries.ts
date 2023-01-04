@@ -1,8 +1,9 @@
-import {deepMerge} from 'shared/src';
+import {deepMerge} from 'shared/src/utils/deepMerge';
+import {DeepPartial} from 'shared/src/types/deepPartial';
 
 import {TokenSeries} from '../components';
 
-export const TokenSeriesFixture = (customProps?: Partial<TokenSeries>) =>
+export const TokenSeriesFixture = (customProps?: DeepPartial<TokenSeries>) =>
   deepMerge(
     {
       name: 'Squaddy',

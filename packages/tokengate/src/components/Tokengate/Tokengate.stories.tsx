@@ -1,65 +1,38 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 import {RootProvider} from 'shared/src';
 
-import {TokenSeriesArrayFixture} from '../../fixtures';
+import {
+  TokenSeriesArrayFixture,
+  UnlockingTokenFixture,
+  UnlockingTokenFixtureType,
+  UnlockingTokenWithOrderLimitFixture,
+  UnlockingTokenWithOrderLimitMetFixture,
+} from '../../fixtures';
 
 import {Tokengate} from './Tokengate';
 
 const tokenSeries = TokenSeriesArrayFixture();
 
-const unlockingTokenCommerceTown = {
-  token: {
-    contractAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
-    contractName: 'CommerceTown',
-    mediaUrl:
-      'https://i.seadn.io/gae/k9HIMmZMIpgCM0PpaJJo3Lp1rzLKHgYBqehzihsFJ1EgP_xZVDCrqjVQJJyfkX0_HaFxf0IQgO8Ws-5lkqlIhCnh_cBlzOqa1xeVww?auto=format&w=1000',
-    title: 'Townfolk #103',
-    tokenId: '103',
-  },
-};
+const unlockingTokenCommerceTown = UnlockingTokenFixture();
 
-const unlockingTokenCommerceTownWithOrderLimit = {
-  token: {
-    ...unlockingTokenCommerceTown.token,
-    consumedOrderLimit: 0,
-    totalOrderLimit: 2,
-  },
-};
+const unlockingTokenCommerceTownWithOrderLimit =
+  UnlockingTokenWithOrderLimitFixture();
 
-const unlockingTokenCommerceTownWithOrderLimitMet = {
-  token: {
-    ...unlockingTokenCommerceTown.token,
-    consumedOrderLimit: 2,
-    totalOrderLimit: 2,
-  },
-};
+const unlockingTokenCommerceTownWithOrderLimitMet =
+  UnlockingTokenWithOrderLimitMetFixture();
 
-const unlockingTokenSquad = {
-  token: {
-    contractAddress: '0x33023E456aF4C186A32c57f8ad61c34cB33f5cC1',
-    contractName: 'Squad',
-    mediaUrl:
-      'https://lh3.googleusercontent.com/ccbUlfwRAjrGj3OBdKI9mJL0sQqBc8kXloSrk-9dOuOmIbhGqMwCpAZp_kpqsFK-0s3SqOjb7qi-8Jo7kEhmxZ_gSub9MphvrHKwBA=w650',
-    title: 'Squaddy #24',
-    tokenId: '24',
-  },
-};
+const unlockingTokenSquad = UnlockingTokenFixture(
+  {},
+  UnlockingTokenFixtureType.Squaddy,
+);
 
-const unlockingTokenSquadWithOrderLimit = {
-  token: {
-    ...unlockingTokenSquad.token,
-    consumedOrderLimit: 0,
-    totalOrderLimit: 2,
-  },
-};
+const unlockingTokenSquadWithOrderLimit = UnlockingTokenWithOrderLimitFixture(
+  {},
+  UnlockingTokenFixtureType.Squaddy,
+);
 
-const unlockingTokenSquadWithOrderLimitMet = {
-  token: {
-    ...unlockingTokenSquad.token,
-    consumedOrderLimit: 2,
-    totalOrderLimit: 2,
-  },
-};
+const unlockingTokenSquadWithOrderLimitMet =
+  UnlockingTokenWithOrderLimitMetFixture({}, UnlockingTokenFixtureType.Squaddy);
 
 const TokengateStory: ComponentMeta<typeof Tokengate> = {
   title: 'Tokengate',

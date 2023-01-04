@@ -26,12 +26,23 @@ export const isObject: IIsObject = (item: any): boolean => {
 };
 
 /**
- * @description Method to perform a deep merge of objects
+ * @description Method to perform a deep merge of objects. This method does not modify the original target
  * @param {Object} target - The targeted object that needs to be merged with the supplied @sources
  * @param {Array<Object>} sources - The source(s) that will be used to update the @target object
  * @return {Object} The final merged object
  */
 export const deepMerge: IDeepMerge = (
+  target: IObject,
+  ...sources: IObject[]
+): IObject => deepMergeWithoutCloning({}, target, ...sources);
+
+/**
+ * @description Method to perform a deep merge of objects without cloning the target
+ * @param {Object} target - The targeted object that needs to be merged with the supplied @sources
+ * @param {Array<Object>} sources - The source(s) that will be used to update the @target object
+ * @return {Object} The final merged object
+ */
+export const deepMergeWithoutCloning: IDeepMerge = (
   target: IObject,
   ...sources: IObject[]
 ): IObject => {
@@ -55,7 +66,7 @@ export const deepMerge: IDeepMerge = (
               if (!result[key] || !isObject(result[key])) {
                 result[key] = {};
               }
-              deepMerge(result[key], elm[key]);
+              deepMergeWithoutCloning(result[key], elm[key]);
             } else {
               result[key] = elm[key];
             }
