@@ -1,5 +1,3 @@
-/** @jest-environment jsdom */
-
 import {
   UnlockingTokenWithOrderLimitFixture,
   UnlockingTokenFixtureType,
@@ -16,7 +14,7 @@ const defaultTokengateProps: TokengateProps = {
   onConnectedWalletActions: () => {},
 };
 
-describe('TokengatingCard - utils', () => {
+describe('Tokengate - utils', () => {
   describe('useTitleAndSubtitle', () => {
     describe('locked', () => {
       it('returns default title and subtitle', () => {

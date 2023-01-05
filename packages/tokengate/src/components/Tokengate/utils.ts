@@ -101,9 +101,8 @@ export const useTitleAndSubtitle = (tokengateProps: TokengateProps) => {
 
   if (isLocked) {
     return {
-      title: lockedTitle || i18n.translate('TokengatingCard.locked.title'),
-      subtitle:
-        lockedSubtitle || i18n.translate('TokengatingCard.locked.subtitle'),
+      title: lockedTitle || i18n.translate('Tokengate.locked.title'),
+      subtitle: lockedSubtitle || i18n.translate('Tokengate.locked.subtitle'),
     };
   }
 
@@ -111,20 +110,19 @@ export const useTitleAndSubtitle = (tokengateProps: TokengateProps) => {
 
   if (orderLimit) {
     return {
-      title: unlockedTitle || i18n.translate('TokengatingCard.unlocked.title'),
+      title: unlockedTitle || i18n.translate('Tokengate.unlocked.title'),
       subtitle:
         unlockedSubtitleWithOrderLimit ||
-        i18n.translate('TokengatingCard.unlocked.subtitle', {
+        i18n.translate('Tokengate.unlocked.subtitle', {
           orderLimit,
         }),
     };
   }
 
   return {
-    title: unlockedTitle || i18n.translate('TokengatingCard.unlocked.title'),
+    title: unlockedTitle || i18n.translate('Tokengate.unlocked.title'),
     subtitle:
-      unlockedSubtitle ||
-      i18n.translate('TokengatingCard.unlocked.subtitleDefault'),
+      unlockedSubtitle || i18n.translate('Tokengate.unlocked.subtitleDefault'),
   };
 };
 
