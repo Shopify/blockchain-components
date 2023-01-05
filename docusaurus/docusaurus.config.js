@@ -25,9 +25,9 @@ module.exports = {
       items: [
         {
           type: 'doc',
-          docId: 'getting-started',
+          docId: 'introduction',
           position: 'left',
-          label: 'Getting Started',
+          label: 'Introduction',
         },
         {
           href: 'https://github.com/shopify/blockchain-kit',

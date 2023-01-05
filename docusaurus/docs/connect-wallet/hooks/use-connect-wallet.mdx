@@ -1,0 +1,70 @@
+---
+id: use-connect-wallet
+title: useConnectWallet
+sidebar_position: 2
+---
+
+A hook that returns information related to the active connected wallet, connection status, and more.
+
+## Usage
+
+```typescript
+import {useConnectWallet, Wallet} from '@shopify/connect-wallet';
+
+export const MyComponent = () => {
+  useConnectWallet({
+    onConnect: ({address}: Wallet) =>
+      console.info(`Wallet with ${address} connected!`),
+  });
+
+  return <MyComponentMarkup />;
+};
+```
+
+:::note
+
+Ensure that any usage of `useConnectWallet` is wrapped within the [necessary providers](../getting-started#providers).
+
+:::
+
+## Props
+
+### onConnect
+| | |
+| - | - |
+| **Description**       | A callback invoked on successful connection of a wallet. |
+| **Type**              | `(wallet?: Wallet) => void` |
+| **Required**          | `false` |
+| **Default value**     | `undefined` |
+
+### onDisconnect
+| | |
+| - | - |
+| **Description**       | A callback invoked when a wallet is disconnected. This also returns the wallet that was disconnected. |
+| **Type**              | `(wallet?: Wallet) => void` |
+| **Required**          | `false` |
+| **Default value**     | `undefined` |
+
+### onMessageSigned
+| | |
+| - | - |
+| **Description**       | A callback invoked on successful signing of a signature request. |
+| **Type**              | `(message?: SignatureResponse) => void` |
+| **Required**          | `false` |
+| **Default value**     | `undefined` |
+
+## Return type
+
+```typescript
+{
+    chains: Chain[];
+    connecting: boolean;
+    disconnect: (address?: string | undefined) => void;
+    pendingConnector: SerializedConnector | undefined;
+    signing: boolean | undefined;
+    signMessage: (args?: {
+        message?: string;
+    }) => Promise<...>;
+    wallet: Wallet | undefined;
+}
+```

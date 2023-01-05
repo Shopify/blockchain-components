@@ -35,10 +35,7 @@ export const SignatureContext =
 
 export const SignatureProvider: FC<
   PropsWithChildren<SignatureProviderProps>
-> = ({
-  children,
-  signOnConnect = true,
-}: PropsWithChildren<SignatureProviderProps>) => {
+> = ({children, signOnConnect}: PropsWithChildren<SignatureProviderProps>) => {
   const dispatch = useAppDispatch();
   const {addressToVerify, connectedWallets, message} = useAppSelector(
     (state) => state.wallet,

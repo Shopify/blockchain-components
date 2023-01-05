@@ -1,0 +1,190 @@
+---
+id: custom-themes
+title: Custom Themes
+sidebar_position: 1
+---
+
+We understand the need to customize the appearance of your connect wallet library. Because of this, we've included the ability to customize nearly every aspect of every component.
+
+## Theme structure
+
+```typescript
+import {Theme} from '@shopify/connect-wallet';
+// OR
+import {Theme} from '@shopify/tokengate';
+
+const MyCustomTheme: Theme = {
+  typography: {
+    colorPrimary: string;
+    colorSecondary: string;
+    colorInteractive: string;
+    colorCritical: string;
+    letterSpacing: string;
+
+    heading: {
+      fontFamily: string;
+      fontWeight: string;
+
+      h1: {
+        fontSize: string;
+        lineHeight: string;
+      };
+
+      h2: {
+        fontSize: string;
+        lineHeight: string;
+      };
+
+      h3: {
+        fontSize: string;
+        lineHeight: string;
+      };
+    };
+
+    body: {
+      fontFamily: string;
+      fontSize: string;
+      fontWeight: string;
+      lineHeight: string;
+
+      bold: {
+        fontWeight: string;
+      };
+    };
+  };
+
+  availableSoonButton: {
+    background: string;
+    border: string;
+  };
+
+  connectButton: {
+    background: string;
+    border: string;
+    borderRadius: string;
+    boxShadow: string;
+    padding: string;
+    /**
+     * OR
+     */
+    padding: {
+      top: string;
+      left: string;
+      right: string;
+      bottom: string;
+    };
+    textColor: string;
+
+    hover: {
+      background?: string;
+      outline?: string;
+    };
+  };
+
+  modal: {
+    background: string;
+    overlayBackground: string;
+    border: string;
+    borderRadius: string;
+    boxShadow: string;
+    padding: string;
+    /**
+     * OR
+     */
+    padding: {
+      top: string;
+      left: string;
+      right: string;
+      bottom: string;
+    };
+  };
+
+  other: {
+    iconColor: string;
+    dividerColor: string;
+  };
+
+  popovers: {
+    background: string;
+    border: string;
+    borderRadius: string;
+    boxShadow: string;
+  };
+
+  secondaryButton: {
+    background: string;
+    border: string;
+    borderRadius: string;
+    boxShadow: string;
+    padding: string;
+    /**
+     * OR
+     */
+    padding: {
+      top: string;
+      left: string;
+      right: string;
+      bottom: string;
+    };
+    textColor: string;
+
+    hover: {
+      background?: string;
+      outline?: string;
+    };
+  };
+
+  soldOutButton: {
+    background: string;
+    border: string;
+    textColor: string;
+  };
+
+  tokenBase: {
+    background: string;
+    textColor: string;
+  };
+
+  walletConnectorButton: {
+    background: string;
+    border: string;
+    borderRadius: string;
+    boxShadow: string;
+    horizontalAlignment: string;
+    padding: string;
+    /**
+     * OR
+     */
+    padding: {
+      top: string;
+      left: string;
+      right: string;
+      bottom: string;
+    };
+    textColor: string;
+
+    hover: {
+      background?: string;
+      outline?: string;
+    };
+  };
+}
+```
+
+## Overwriting a provided theme
+
+Overwriting a provided theme is straightforward. Using the exported themes, spread the structure of a theme into your custom theme and override the styles you're wanting to change.
+
+```typescript
+import {Dawn, Theme} from '@shopify/connect-wallet';
+// OR
+import {Dawn, Theme} from '@shopify/tokengate';
+
+const MyCustomTheme: Theme = {
+  ...Dawn,
+  typography: {
+    ...Dawn.typography,
+    colorPrimary: '#FFADDE';
+  };
+}
+```

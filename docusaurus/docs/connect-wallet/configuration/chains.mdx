@@ -1,0 +1,23 @@
+---
+id: chains
+title: Chains
+sidebar_position: 2
+---
+
+The chains supported for `@shopify/connect-wallet` are inline with [wagmi's supported chains](https://wagmi.sh/react/chains#supported-chains).
+
+## Customizing which chains to use
+
+In the `connect-wallet-config.ts` file you created during initial [configuration](./#wagmi-configuration), change the value for chains specified during `configureChains` like so:
+
+```typescript
+// ...other imports
+import {polygon} from 'wagmi/chains';
+
+const {chains, provider, webSocketProvider} = configureChains(
+  [polygon, {/* any other chains you would like to provide go here */}],
+  [publicProvider()],
+);
+
+// ...other configuration
+```

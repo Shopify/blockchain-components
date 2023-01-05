@@ -1,7 +1,8 @@
 ---
-id: getting-started
-title: Getting Started
+id: introduction
+title: Introduction
 slug: /
+sidebar_position: 1
 ---
 
 # Blockchain Kit Intro
@@ -10,5 +11,5 @@ Let's discover **Blockchain Kit**.
 
 ## Available packages
 
-- Tokengate
-- Wallet Connection
+- [Connect wallet](./connect-wallet/)
+- [Tokengate](./tokengate)
