@@ -1,5 +1,4 @@
 import {ReactNode, Fragment, useMemo} from 'react';
-import {RootProvider} from 'shared';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
@@ -46,12 +45,10 @@ export const Tokengate = (props: TokengateProps) => {
   );
 
   return (
-    <RootProvider>
-      <Card title={title} subtitle={subtitle}>
-        {sections.map((section: TokengateCardSection) => (
-          <Fragment key={section}>{sectionMapping[section]}</Fragment>
-        ))}
-      </Card>
-    </RootProvider>
+    <Card title={title} subtitle={subtitle}>
+      {sections.map((section: TokengateCardSection) => (
+        <Fragment key={section}>{sectionMapping[section]}</Fragment>
+      ))}
+    </Card>
   );
 };

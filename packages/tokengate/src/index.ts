@@ -1,3 +1,3 @@
-export {Tokengate} from './components/Tokengate/Tokengate';
+export {Tokengate} from './components/Tokengate';
 
 export * from './components/Tokengate/types';
