@@ -2,7 +2,7 @@ import {
   UnlockingTokenWithOrderLimitFixture,
   UnlockingTokenFixtureType,
 } from '../../fixtures';
-import {renderHook} from '../../../tests/test-utils';
+import {renderHook} from '../../tests/test-utils';
 
 import {useTitleAndSubtitle, getSections} from './utils';
 import {TokengateProps} from './types';
