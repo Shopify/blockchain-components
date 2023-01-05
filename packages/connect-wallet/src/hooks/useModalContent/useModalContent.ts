@@ -1,16 +1,21 @@
 import {useI18n} from '@shopify/react-i18n';
 
 import {ConnectionState} from '../../types/connectionState';
-import {getBrowserInfo} from '../../utils/getBrowser';
+import {useAppSelector} from '../useAppState';
 
 export const useModalScreenContent = (
   state: ConnectionState,
 ): {body: string; title: string} => {
+  const {pendingConnector} = useAppSelector((state) => state.wallet);
   const [i18n] = useI18n();
-  const {mobilePlatform} = getBrowserInfo();
-  const connectingScreenPlatform = mobilePlatform
-    ? i18n.translate('modalContent.connecting.mobileApp')
-    : i18n.translate('modalContent.connecting.browserExtension');
+
+  const connectorName =
+    pendingConnector?.name ||
+    i18n.translate('modalContent.connecting.mobileApp');
+
+  const connectingScreenPlatform = pendingConnector?.browserExtensions
+    ? i18n.translate('modalContent.connecting.browserExtension')
+    : connectorName;
 
   const screenContent: {
     [key in keyof typeof ConnectionState]: {body: string; title: string};

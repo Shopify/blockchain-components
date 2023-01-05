@@ -1,7 +1,7 @@
+import {Chain} from '@wagmi/core';
 import {createContext, FC, PropsWithChildren, useMemo} from 'react';
 import {Provider} from 'react-redux';
 import {RootProvider} from 'shared';
-import {Chain} from 'wagmi';
 
 import store from '../store/configureStore';
 import {GlobalStyle} from '../style/global';

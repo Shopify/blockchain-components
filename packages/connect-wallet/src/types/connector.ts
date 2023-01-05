@@ -1,4 +1,5 @@
-import {Chain, Connector as WagmiConnector} from 'wagmi';
+import {Chain} from '@wagmi/core';
+import {Connector as WagmiConnector} from 'wagmi';
 import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 
 import {Browser} from './browser';
@@ -24,6 +25,12 @@ export interface ConnectorInstance {
    * because we can then open the link to download the extension.
    */
   browserExtensions?: {[T in Browser]?: string};
+  /**
+   * For wallet applications that have native macOS or Windows
+   * applications. This is particularly useful for applications
+   * like Ledger Live.
+   */
+  desktopAppLink?: string;
   /**
    * The wallet app's icon to render.
    */

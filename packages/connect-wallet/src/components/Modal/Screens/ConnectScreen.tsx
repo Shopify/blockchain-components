@@ -26,12 +26,13 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
   const {setKey} = useWalletConnectDeeplink();
 
   const handleConnect = useCallback(
-    // eslint-disable-next-line @typescript-eslint/require-await
     async (connector: Connector) => {
       const {
         browserExtensions,
         connector: wagmiConnector,
+        desktopAppLink,
         id,
+        marketingSite,
         mobileApps,
         mobileAppPrefixes,
         name,
@@ -47,7 +48,9 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
       dispatch(
         setPendingConnector({
           browserExtensions,
+          desktopAppLink,
           id,
+          marketingSite,
           mobileAppPrefixes,
           mobileApps,
           name,
@@ -56,6 +59,36 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
       );
 
       connect({connector: wagmiConnector});
+
+      const isLedgerConnector = connector.id === 'ledgerLive';
+      const isLedgerUsingWalletConnect =
+        isLedgerConnector && wagmiConnector.id === 'walletConnect';
+
+      /**
+       * This should only be entered if the user is on Desktop in a browser
+       * that is not Safari (guarded by the connector being WalletConnect)
+       * and if the connector being used under the hood is WalletConnect.
+       */
+      if (isLedgerUsingWalletConnect && !mobilePlatform) {
+        try {
+          const {uri} = (await wagmiConnector.getProvider()).connector;
+          const deeplinkUri = `${desktopAppLink}${encodeURIComponent(uri)}`;
+
+          /**
+           * There is a slight UX gap here where if the user is on Desktop
+           * and doesn't have Ledger Live installed then the deeplink will fail
+           * to open. Unfortunately there is not a good way to detect custom
+           * app protocols in the browser that isn't a hack.
+           */
+          window.open(deeplinkUri, '_self');
+          navigation.navigate(ModalRoute.Connecting);
+          return;
+        } catch (exception) {
+          console.error(
+            'Caught exception while attempting to retrieve URI for mobile WC connector',
+          );
+        }
+      }
 
       /**
        * We need to take the user to the scan screen under some rather specific
@@ -73,14 +106,16 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
       }
 
       /**
-       * If the user chooses WalletConnect on mobile, close the modal
-       * so we're not stacking modals.
+       * If the user chooses Ledger Live or WalletConnect and is on mobile
+       * close the modal so we're not stacking modals.
        */
-      if (
-        connector.id === 'walletConnect' &&
-        wagmiConnector.id === 'walletConnect' &&
-        mobilePlatform
-      ) {
+      const shouldCloseModal =
+        ((connector.id === 'walletConnect' &&
+          wagmiConnector.id === 'walletConnect') ||
+          isLedgerConnector) &&
+        mobilePlatform;
+
+      if (shouldCloseModal) {
         closeModal();
         return;
       }

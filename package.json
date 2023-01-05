@@ -72,6 +72,6 @@
     "typescript": "^4.4.2",
     "vite": "^3.2.3",
     "vite-plugin-node-stdlib-browser": "^0.1.1",
-    "wagmi": "^0.8.8"
+    "wagmi": "^0.10.4"
   }
 }
