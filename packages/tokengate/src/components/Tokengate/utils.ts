@@ -87,9 +87,14 @@ export const getSections = (tokengateProps: TokengateProps) => {
   ];
 };
 
-export const useTitleAndSubtitle = (tokengateProps: TokengateProps) => {
-  const {isLocked, exclusiveCustomTitles} = tokengateProps;
+export const useTitleAndSubtitle = (props: TokengateProps) => {
   const [i18n] = useI18n();
+  const {isLocked, exclusiveCustomTitles, discountCustomTitles, discount} =
+    props;
+  const orderLimit = getCombinedTotalOrderLimit(props);
+  const hasOrderLimit = orderLimit && orderLimit > 0;
+
+  const customTitles = discount ? discountCustomTitles : exclusiveCustomTitles;
 
   const {
     lockedTitle,
@@ -97,32 +102,34 @@ export const useTitleAndSubtitle = (tokengateProps: TokengateProps) => {
     unlockedTitle,
     unlockedSubtitle,
     unlockedSubtitleWithOrderLimit,
-  } = exclusiveCustomTitles ?? {};
+  } = customTitles ?? {};
 
-  if (isLocked) {
-    return {
-      title: lockedTitle || i18n.translate('Tokengate.locked.title'),
-      subtitle: lockedSubtitle || i18n.translate('Tokengate.locked.subtitle'),
-    };
-  }
+  const customTitle = isLocked ? lockedTitle : unlockedTitle;
+  const customSubtitle = isLocked ? lockedSubtitle : unlockedSubtitle;
 
-  const orderLimit = getCombinedTotalOrderLimit(tokengateProps);
+  const i18nKeyFirstLevel = discount ? 'discount' : 'exclusive';
+  const i18nKeySecondLevel = isLocked ? 'locked' : 'unlocked';
+  const i18nKeyPrefix = `Tokengate.${i18nKeyFirstLevel}.${i18nKeySecondLevel}`;
 
-  if (orderLimit) {
-    return {
-      title: unlockedTitle || i18n.translate('Tokengate.unlocked.title'),
-      subtitle:
-        unlockedSubtitleWithOrderLimit ||
-        i18n.translate('Tokengate.unlocked.subtitle', {
-          orderLimit,
-        }),
-    };
+  const title =
+    customTitle || i18n.translate(`${i18nKeyPrefix}.title`, {discount});
+  let subtitle =
+    customSubtitle ||
+    i18n.translate(`${i18nKeyPrefix}.subtitle`, {
+      orderLimit,
+    });
+
+  if (hasOrderLimit) {
+    subtitle =
+      unlockedSubtitleWithOrderLimit ||
+      i18n.translate(`${i18nKeyPrefix}.subtitleWithOrderLimit`, {
+        orderLimit,
+      });
   }
 
   return {
-    title: unlockedTitle || i18n.translate('Tokengate.unlocked.title'),
-    subtitle:
-      unlockedSubtitle || i18n.translate('Tokengate.unlocked.subtitleDefault'),
+    title,
+    subtitle,
   };
 };
 

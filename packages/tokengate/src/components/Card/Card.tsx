@@ -1,8 +1,8 @@
 import {StyledCard, Subtitle, Title} from './style';
 
 interface CardProps {
-  title: string;
-  subtitle: string;
+  title: React.ReactNode;
+  subtitle: React.ReactNode;
   button?: React.ReactNode;
   children?: React.ReactNode;
 }

@@ -47,8 +47,10 @@ export interface TokengateProps {
   onConnectedWalletActions: () => void;
   wallet?: Wallet;
   gateRequirement?: GateRequirement;
+  discount?: number;
   unlockingTokens?: UnlockingToken[];
   exclusiveCustomTitles?: CustomTitles;
+  discountCustomTitles?: CustomTitles;
   availableDate?: string;
 }
 
