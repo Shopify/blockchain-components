@@ -63,6 +63,9 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
       const isLedgerConnector = connector.id === 'ledgerLive';
       const isLedgerUsingWalletConnect =
         isLedgerConnector && wagmiConnector.id === 'walletConnect';
+      const isWagmiWalletConnect = wagmiConnector.id === 'walletConnect';
+      const isWalletConnect =
+        connector.id === 'walletConnect' && isWagmiWalletConnect;
 
       /**
        * This should only be entered if the user is on Desktop in a browser
@@ -97,7 +100,7 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
        * have the Coinbase app installed.
        */
       const shouldUseScanScreen =
-        (wagmiConnector.id === 'walletConnect' && !mobilePlatform) ||
+        (isWagmiWalletConnect && !mobilePlatform) ||
         (wagmiConnector.id === 'coinbaseWallet' && !isInstalled('Coinbase'));
 
       if (shouldUseScanScreen) {
@@ -110,10 +113,7 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
        * close the modal so we're not stacking modals.
        */
       const shouldCloseModal =
-        ((connector.id === 'walletConnect' &&
-          wagmiConnector.id === 'walletConnect') ||
-          isLedgerConnector) &&
-        mobilePlatform;
+        (isWalletConnect || isLedgerConnector) && mobilePlatform;
 
       if (shouldCloseModal) {
         closeModal();
@@ -130,7 +130,7 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
        */
       if (
         connector.id !== 'walletConnect' &&
-        wagmiConnector.id === 'walletConnect' &&
+        isWagmiWalletConnect &&
         mobilePlatform &&
         prefix !== undefined
       ) {

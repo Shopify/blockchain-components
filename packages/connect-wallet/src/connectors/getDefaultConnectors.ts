@@ -21,8 +21,8 @@ export const getDefaultConnectors = ({
   const availableConnectors = [
     MetaMask({chains}),
     Coinbase({appName, chains}),
-    LedgerLive({chains}),
     Rainbow({chains}),
+    LedgerLive({chains}),
     WalletConnect({chains}),
   ];
 

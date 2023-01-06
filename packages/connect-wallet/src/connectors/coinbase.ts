@@ -32,7 +32,7 @@ export const Coinbase = ({
     },
     icon: CoinbaseWallet,
     id: 'coinbase',
-    name: 'Coinbase',
+    name: 'Coinbase Wallet',
     qrCodeSupported: true,
   };
 };
