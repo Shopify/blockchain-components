@@ -7,6 +7,7 @@ export {CoinbaseWallet} from './CoinbaseWallet';
 export {Copy} from './Copy';
 export {Gift} from './Gift';
 export {Key} from './Key';
+export {LedgerLive} from './LedgerLive';
 export {MetaMask} from './MetaMask';
 export {Rainbow} from './Rainbow';
 export {WalletConnect} from './WalletConnect';
