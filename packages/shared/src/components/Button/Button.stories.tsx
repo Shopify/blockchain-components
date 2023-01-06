@@ -1,20 +1,11 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
-import {RootProvider} from '../../providers/RootProvider';
-
 import {Button} from './Button';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const ButtonStory: ComponentMeta<typeof Button> = {
   title: 'Shared/Button',
   component: Button,
-  decorators: [
-    (Story) => (
-      <RootProvider>
-        <Story />
-      </RootProvider>
-    ),
-  ],
 };
 
 export default ButtonStory;
