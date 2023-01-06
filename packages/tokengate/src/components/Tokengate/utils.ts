@@ -87,8 +87,19 @@ export const getSections = (tokengateProps: TokengateProps) => {
   ];
 };
 
-export const useTitleAndSubtitle = (props: TokengateProps) => {
+const useTokengateI18n = (props: TokengateProps) => {
+  const {isLocked, discount} = props;
+
   const [i18n] = useI18n();
+  const i18nKeyFirstLevel = discount ? 'discount' : 'exclusive';
+  const i18nKeySecondLevel = isLocked ? 'locked' : 'unlocked';
+  const i18nKeyPrefix = `Tokengate.${i18nKeyFirstLevel}.${i18nKeySecondLevel}`;
+  return (key: string, vars: any) =>
+    i18n.translate(`${i18nKeyPrefix}.${key}`, vars);
+};
+
+export const useTitleAndSubtitle = (props: TokengateProps) => {
+  const translateTokengateI18n = useTokengateI18n(props);
   const {isLocked, exclusiveCustomTitles, discountCustomTitles, discount} =
     props;
   const orderLimit = getCombinedTotalOrderLimit(props);
@@ -107,22 +118,17 @@ export const useTitleAndSubtitle = (props: TokengateProps) => {
   const customTitle = isLocked ? lockedTitle : unlockedTitle;
   const customSubtitle = isLocked ? lockedSubtitle : unlockedSubtitle;
 
-  const i18nKeyFirstLevel = discount ? 'discount' : 'exclusive';
-  const i18nKeySecondLevel = isLocked ? 'locked' : 'unlocked';
-  const i18nKeyPrefix = `Tokengate.${i18nKeyFirstLevel}.${i18nKeySecondLevel}`;
-
-  const title =
-    customTitle || i18n.translate(`${i18nKeyPrefix}.title`, {discount});
+  const title = customTitle || translateTokengateI18n('title', {discount});
   let subtitle =
     customSubtitle ||
-    i18n.translate(`${i18nKeyPrefix}.subtitle`, {
+    translateTokengateI18n('subtitle', {
       orderLimit,
     });
 
-  if (hasOrderLimit) {
+  if (hasOrderLimit && !isLocked) {
     subtitle =
       unlockedSubtitleWithOrderLimit ||
-      i18n.translate(`${i18nKeyPrefix}.subtitleWithOrderLimit`, {
+      translateTokengateI18n('subtitleWithOrderLimit', {
         orderLimit,
       });
   }
