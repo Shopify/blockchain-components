@@ -26,7 +26,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   children,
   customTheme,
   theme,
-  signOnConnect,
+  signOnConnect = true,
 }: PropsWithChildren<ProviderProps>) => {
   const contextValue = useMemo(() => {
     return {

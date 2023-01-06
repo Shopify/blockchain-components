@@ -13,7 +13,6 @@ export {getDefaultConnectors} from './connectors/getDefaultConnectors';
  * Hooks
  */
 export {useConnectionModal} from './hooks/useConnectionModal';
-export {useModal} from './providers/ModalProvider';
 export {useConnectWallet} from './hooks/useConnectWallet';
 
 /**
@@ -24,4 +23,5 @@ export {ConnectWalletProvider} from './providers/ConnectWalletProvider';
 /**
  * Types
  */
+export type {Connector} from './types/connector';
 export type {Wallet} from './types/wallet';

@@ -7,7 +7,7 @@ import {UseWalletProps} from '../types/wallet';
 import {useAppSelector} from './useAppState';
 import {useWallet} from './useWallet';
 
-type useConnectWalletProps = UseWalletProps;
+type useConnectWalletProps = Omit<UseWalletProps, 'signOnConnect'>;
 
 export function useConnectWallet(props?: useConnectWalletProps) {
   const {connectedWallets, pendingConnector} = useAppSelector(
@@ -17,13 +17,14 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   const connectWalletContext = useContext(ConnectWalletContext);
   const signatureContext = useContext(SignatureContext);
 
+  const {chains} = connectWalletContext;
+  const {signMessage, signOnConnect, signing} = signatureContext;
+
   const {connecting, disconnect} = useWallet({
     onConnect: props?.onConnect,
     onDisconnect: props?.onDisconnect,
+    signOnConnect,
   });
-
-  const {signMessage, signOnConnect, signing} = signatureContext;
-  const {chains} = connectWalletContext;
 
   const signMessageCallback = useCallback(
     async (args?: {message?: string}) => {
@@ -41,7 +42,6 @@ export function useConnectWallet(props?: useConnectWalletProps) {
     pendingConnector,
     signing,
     signMessage: signMessageCallback,
-    signOnConnect,
     wallet: connectedWallets.length ? connectedWallets[0] : undefined,
   };
 }
