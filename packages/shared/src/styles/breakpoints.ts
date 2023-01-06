@@ -2,12 +2,12 @@
  * Sizes are based on Bootstrap breakpoints.
  * https://getbootstrap.com/docs/5.0/layout/breakpoints/#available-breakpoints
  */
-const size = {
-  sm: '576px',
-  md: '768px',
-  lg: '992px',
-  xl: '1200px',
-  xxl: '1400px',
+export const device = {
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1400,
 };
 
 /**
@@ -20,14 +20,14 @@ const size = {
  * ```
  */
 export const breakpoints = {
-  smDown: `(max-width: ${size.sm})`,
-  smUp: `(min-width: ${size.sm})`,
-  mdDown: `(max-width: ${size.md})`,
-  mdUp: `(min-width: ${size.md})`,
-  lgDown: `(max-width: ${size.lg})`,
-  lgUp: `(min-width: ${size.lg})`,
-  xlDown: `(max-width: ${size.xl})`,
-  xlUp: `(min-width: ${size.xl})`,
-  xxlDown: `(max-width: ${size.xxl})`,
-  xxlUp: `(min-width: ${size.xxl})`,
+  smDown: `(max-width: ${device.sm}px)`,
+  smUp: `(min-width: ${device.sm}px)`,
+  mdDown: `(max-width: ${device.md}px)`,
+  mdUp: `(min-width: ${device.md}px)`,
+  lgDown: `(max-width: ${device.lg}px)`,
+  lgUp: `(min-width: ${device.lg}px)`,
+  xlDown: `(max-width: ${device.xl}px)`,
+  xlUp: `(min-width: ${device.xl}px)`,
+  xxlDown: `(max-width: ${device.xxl}px)`,
+  xxlUp: `(min-width: ${device.xxl}px)`,
 };

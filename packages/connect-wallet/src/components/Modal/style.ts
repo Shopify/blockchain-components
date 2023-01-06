@@ -92,9 +92,9 @@ export const Sheet = styled.div`
   box-shadow: ${({theme}) => theme.modal.boxShadow};
   padding: ${({theme}) => theme.modal.padding};
 
-  @media ${breakpoints.mdDown} {
-    border-top-left-radius: 32px;
-    border-top-right-radius: 32px;
+  @media ${breakpoints.smDown} {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     max-width: unset;
     padding: 20px;
   }
@@ -159,7 +159,7 @@ export const Wrapper = styled.div<{$visible: boolean}>`
   pointer-events: ${({$visible}) => ($visible ? 'auto' : 'none')};
   z-index: 1;
 
-  @media ${breakpoints.mdDown} {
+  @media ${breakpoints.smDown} {
     align-items: flex-end;
   }
 

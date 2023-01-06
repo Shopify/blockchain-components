@@ -30,7 +30,7 @@ export const AddressChip = styled.button`
 export const Background = styled.div`
   display: none;
 
-  @media ${breakpoints.mdDown} {
+  @media ${breakpoints.smDown} {
     position: absolute;
     display: block;
     height: 100%;
@@ -72,7 +72,7 @@ export const Container = styled.div`
     */
   z-index: 2147483647;
 
-  @media ${breakpoints.mdDown} {
+  @media ${breakpoints.smDown} {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -96,7 +96,7 @@ export const Frame = styled.div`
   align-items: center;
   z-index: 2;
 
-  @media ${breakpoints.mdDown} {
+  @media ${breakpoints.smDown} {
     border: unset;
     // Uses the devices safe-area-inset-bottom with an additional 24px added for consistent padding.
     padding-bottom: calc(24px + env(safe-area-inset-left, 24px));
