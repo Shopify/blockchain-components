@@ -2,7 +2,6 @@ import {UAParser} from 'ua-parser-js';
 
 import {Browser} from '../types/browser';
 
-const USERAGENT = navigator.userAgent;
 // A list of supported browser marketplaces that we can
 // provide links to marketplaces for.
 const SUPPORTED_BROWSERS = [
@@ -18,14 +17,28 @@ export interface BrowserInfo {
   mobilePlatform: string | undefined;
 }
 
+const DEFAULT_BROWSER_INFO: BrowserInfo = {
+  browser: Browser.Unknown,
+  mobilePlatform: undefined,
+};
+
 export const getBrowserInfo = (): BrowserInfo => {
   try {
+    /**
+     * TS believes that navigator is always defined
+     * which is true outside of the context of SSR.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!navigator) {
+      return DEFAULT_BROWSER_INFO;
+    }
+
     // Brave is a bit different and not supported at the moment by UAParser, so we'll check for that manually.
     // https://github.com/microsoft/TypeScript/issues/41532
     // https://github.com/brave/brave-browser/issues/10165#issuecomment-641128278
     // @ts-ignore-next-line
     const isBrave = navigator.brave && navigator.brave.isBrave();
-    const parser = new UAParser(USERAGENT);
+    const parser = new UAParser(navigator.userAgent);
     const {browser, os} = parser.getResult();
     const isMobile = os.name === 'Android' || os.name === 'iOS';
 
@@ -45,10 +58,6 @@ export const getBrowserInfo = (): BrowserInfo => {
       mobilePlatform: isMobile ? os.name : undefined,
     };
   } catch (error) {
-    console.error('Error detcting browser.');
-    return {
-      browser: Browser.Unknown,
-      mobilePlatform: undefined,
-    };
+    return DEFAULT_BROWSER_INFO;
   }
 };
