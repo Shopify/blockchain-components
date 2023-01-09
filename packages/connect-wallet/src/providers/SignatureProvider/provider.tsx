@@ -1,37 +1,20 @@
-import {
-  createContext,
-  FC,
-  PropsWithChildren,
-  useCallback,
-  useMemo,
-} from 'react';
+import {FC, PropsWithChildren, useCallback, useMemo} from 'react';
 
-import {SignatureModal} from '../components';
-import {useAppDispatch, useAppSelector} from '../hooks/useAppState';
-import {useWallet} from '../hooks/useWallet';
-import {useWalletConnectDeeplink} from '../hooks/useWalletConnectDeeplink';
+import {SignatureModal} from '../../components';
+import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
+import {useWallet} from '../../hooks/useWallet';
+import {useWalletConnectDeeplink} from '../../hooks/useWalletConnectDeeplink';
 import {
   clearSignatureState,
   setMessage,
   updateWallet,
-} from '../slices/walletSlice';
-import {SignatureProviderProps} from '../types/provider';
-import {SignatureResponse} from '../types/wallet';
+} from '../../slices/walletSlice';
+import {SignatureProviderProps} from '../../types/provider';
 
-export interface SignatureProviderValue {
-  signing?: boolean;
-  signMessage: (props?: {message?: string}) => Promise<SignatureResponse>;
-  signOnConnect?: boolean;
-}
+import {SignatureContext, SignatureProviderValue} from './context';
 
-const defaultContextValue: SignatureProviderValue = {
-  signing: false,
-  // eslint-disable-next-line @typescript-eslint/require-await
-  signMessage: async () => undefined,
-};
-
-export const SignatureContext =
-  createContext<SignatureProviderValue>(defaultContextValue);
+export {SignatureContext};
+export type {SignatureProviderValue};
 
 export const SignatureProvider: FC<
   PropsWithChildren<SignatureProviderProps>

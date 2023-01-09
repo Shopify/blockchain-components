@@ -67,6 +67,7 @@ export default function ({serverArguments}: AppProps) {
   );
 
   const {disconnect, signMessage, wallet} = useConnectWallet({
+    messageSignedOrderAttributionMode: 'ignoreErrors',
     onConnect: (response) => {
       if (response?.address) {
         /**

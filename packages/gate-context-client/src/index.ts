@@ -1,4 +1,4 @@
-import {GateContextClientOptions} from 'types';
+import {GateContextClientOptions, ShopifyGateContextGenerator} from 'types';
 
 import {getGateContextCartAjaxClient} from './cartAjaxApi';
 
@@ -11,3 +11,9 @@ export function getGateContextClient<TGateContext>(
 
   throw new Error(`Unsupported backing store: ${options.backingStore}`);
 }
+
+export type {GateContextClient} from './types';
+export type {GateContextClientOptions} from './types';
+export const emptyGateContextGenerator: ShopifyGateContextGenerator<
+  Record<string, never>
+> = (_) => Promise.resolve({});

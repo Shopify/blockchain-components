@@ -29,6 +29,34 @@ Ensure that any usage of `useConnectWallet` is wrapped within the [necessary pro
 
 ## Props
 
+### messageSignedOrderAttributionMode
+
+Order attribution is a feature provided for Shopify
+Online Storefronts.
+
+When enabled, after signing, a request will be made
+to Shopify to log the user's wallet address. This attribution will get carried over to a completed order
+with the name "Wallet Address".
+
+This allows merchants to associate an order with
+a particular wallet address.
+
+| | |
+| - | - |
+| **Description**       | Use to ignore errors with order attribution or disable it. |
+| **Type**              | `MessageSignedOrderAttributionMode` |
+| **Required**          | `false` |
+| **Default value**     | `"required"` |
+
+```typescript
+type MessageSignedOrderAttributionMode = 'required' | 'ignoreErrors' | 'disabled';
+```
+
+| Mode         | Description |
+| ------------ | ----------- |
+| required     | If set to `required`, custom message signing callbacks will not run if there is an error with order attribution. |
+| ignoreErrors | If set to `ignoreErrors`, failure to perform order attribution will fail silently. This is most applicable when wallet address is used solely for analytics. |
+| disabled     | When set to `disabled`, orders will not be attributed. This is useful outside of Shopify online storefronts or when you have specific custom logic to perform. |
 ### onConnect
 | | |
 | - | - |
