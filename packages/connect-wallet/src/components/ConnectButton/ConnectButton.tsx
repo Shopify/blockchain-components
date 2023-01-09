@@ -1,4 +1,5 @@
 import {useCallback, useState} from 'react';
+import {useI18n} from '@shopify/react-i18n';
 import {Button, CaretDown, formatWalletAddress} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
@@ -12,6 +13,7 @@ export const ConnectButton = () => {
   const {connectedWallets} = useAppSelector((state) => state.wallet);
   const {openModal} = useModal();
   const [popoverVisible, setPopoverVisible] = useState(false);
+  const [i18n] = useI18n();
 
   const handleClick = useCallback(() => {
     if (!connectedWallets.length) {
@@ -28,7 +30,13 @@ export const ConnectButton = () => {
   }, []);
 
   if (!connectedWallets.length) {
-    return <Button fullWidth label="Connect wallet" onClick={handleClick} />;
+    return (
+      <Button
+        fullWidth
+        label={i18n.translate('ConnectButton.buttonText')}
+        onClick={handleClick}
+      />
+    );
   }
 
   const {address, connectorId} = connectedWallets[0];
