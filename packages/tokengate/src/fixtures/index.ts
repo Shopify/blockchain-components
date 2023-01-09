@@ -1,4 +1,9 @@
 /**
+ * TokengateProps
+ */
+export * from './TokengateProps';
+
+/**
  * TokenSeries
  */
 export {TokenSeriesFixture, TokenSeriesArrayFixture} from './TokenSeries';
