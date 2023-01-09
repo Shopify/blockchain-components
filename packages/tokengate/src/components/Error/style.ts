@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const OrderLimitReachedWarningTextStyle = styled.p`
+export const ErrorTextStyle = styled.p`
   border: none;
   font-size: 12px;
   color: #d72c0d;
