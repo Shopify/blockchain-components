@@ -1,1 +1,1 @@
-export type {TokenSeries, UnlockingToken} from './Tokengate';
+export type {TokenSeries, UnlockingToken, TokengateProps} from './Tokengate';

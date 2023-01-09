@@ -32,9 +32,6 @@ export const TokenBaseText = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
-  font-family: 'Assistant', sans-serif;
-  font-style: normal;
-  font-weight: 400;
 `;
 
 export const TokenBaseTitle = styled.p`
