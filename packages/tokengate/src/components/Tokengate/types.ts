@@ -40,6 +40,7 @@ export interface CustomTitles {
 
 export interface TokengateProps {
   connectButton: ReactNode;
+  connectedButton?: ReactNode;
   isLoading?: boolean;
   isLocked: boolean;
   isSoldOut?: boolean;
