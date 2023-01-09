@@ -30,14 +30,14 @@
 
 <!-- ℹ️ Delete the following for small / trivial changes -->
 
-### How can this be tophatted?
+## How can this be tophatted?
 <!--
   Give as much information as needed to test the changes introduced in this PR.
 -->
 
 ...
 
-### 🎩 Checklist
+## 🎩 Checklist
 <!--
   If any of the following are not relevant you may strike them out using the ~ character before and after the checklist item's label.
 -->

@@ -6,13 +6,13 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/blockchain-kit.git",
+    "url": "git+https://github.com/Shopify/blockchain-components.git",
     "directory": "packages/tokengate"
   },
   "bugs": {
     "url": "https://github.com/Shopify/tokengate/issues"
   },
-  "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/tokengate/README.md",
+  "homepage": "https://github.com/Shopify/blockchain-components/blob/main/packages/tokengate/README.md",
   "type": "module",
   "files": [
     "dist"

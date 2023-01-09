@@ -5,9 +5,9 @@ slug: /
 sidebar_position: 1
 ---
 
-# Blockchain Kit Intro
+# Blockchain Components Intro
 
-Let's discover **Blockchain Kit**.
+Let's discover **Blockchain Components**.
 
 ## Available packages
 
