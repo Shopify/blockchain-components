@@ -23,7 +23,7 @@ export function useCopyToClipboard(): CopyToClipboardReturn {
       navigator.clipboard.writeText(text);
       setCopied(true);
     } catch (error) {
-      console.warn('Copy failed', error);
+      console.error('Copy failed', error);
     }
   }, []);
 
