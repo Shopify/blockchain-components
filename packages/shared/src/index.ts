@@ -20,7 +20,7 @@ export {RootProvider} from './providers/RootProvider';
 /**
  * Styles
  */
-export {breakpoints} from './styles/breakpoints';
+export {breakpoints, device} from './styles/breakpoints';
 
 /**
  * Themes
