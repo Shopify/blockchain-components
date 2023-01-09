@@ -1,3 +1,5 @@
+import {Dawn, Polaris, Theme} from 'shared';
+
 /**
  * Components
  */
@@ -21,7 +23,13 @@ export {useConnectWallet} from './hooks/useConnectWallet';
 export {ConnectWalletProvider} from './providers/ConnectWalletProvider';
 
 /**
+ * Themes
+ */
+export {Dawn, Polaris};
+
+/**
  * Types
  */
+export type {Theme};
 export type {Connector} from './types/connector';
 export type {Wallet} from './types/wallet';
