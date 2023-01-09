@@ -110,7 +110,7 @@ describe('Tokengate - utils', () => {
 
           expect(result.current.title).toBe('10$ holder discount');
           expect(result.current.subtitle).toBe(
-            'To unlock this product, you need:',
+            'To unlock this discount, you need:',
           );
         });
 
