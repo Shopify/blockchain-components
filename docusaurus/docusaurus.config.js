@@ -1,14 +1,14 @@
 module.exports = {
-  title: 'Blockchain kit',
+  title: 'Blockchain Components',
   tagline:
     "A brief description of the purpose of your microsite or it's content.",
-  url: 'https://blockchain-kit.docs.shopify.io',
+  url: 'https://blockchain-components.docs.shopify.io',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'Shopify',
-  projectName: 'blockchain-kit',
+  projectName: 'blockchain-components',
   themeConfig: {
     colorMode: {
       respectPrefersColorScheme: true,
@@ -17,7 +17,7 @@ module.exports = {
       additionalLanguages: ['ruby', 'sql'],
     },
     navbar: {
-      title: 'Blockchain Kit',
+      title: 'Blockchain Components',
       logo: {
         alt: 'Shopify Logo',
         src: 'img/logo.svg',
@@ -30,7 +30,7 @@ module.exports = {
           label: 'Introduction',
         },
         {
-          href: 'https://github.com/shopify/blockchain-kit',
+          href: 'https://github.com/shopify/blockchain-components',
           label: 'GitHub',
           position: 'right',
         },
@@ -44,7 +44,7 @@ module.exports = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/shopify/blockchain-kit',
+              href: 'https://github.com/shopify/blockchain-components',
             },
           ],
         },
@@ -74,7 +74,7 @@ module.exports = {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/shopify/blockchain-kit/edit/main/docusaurus/',
+            'https://github.com/shopify/blockchain-components/edit/main/docusaurus/',
         },
         blog: false,
         pages: false,
