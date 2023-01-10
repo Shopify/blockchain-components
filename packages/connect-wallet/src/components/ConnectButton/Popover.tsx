@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {createPortal} from 'react-dom';
-import {Button, CircleTick, Copy, formatWalletAddress} from 'shared';
+import {Button, CircleTick, Copy, formatWalletAddress, Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
@@ -9,7 +9,7 @@ import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
 import {useIsMounted} from '../../hooks/useIsMounted';
 import {Size} from '../../types/sizes';
 
-import {Address, AddressChip, Background, Container, Frame} from './style';
+import {AddressChip, Background, Container, Frame} from './style';
 
 interface PopoverProps {
   mobile?: boolean;
@@ -56,7 +56,9 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
         <ConnectorIcon id={connectorId} size={Size.Large} />
 
         <AddressChip onClick={() => copy(address)}>
-          <Address>{formatWalletAddress(address)}</Address>
+          <Text as="span" variant="headingSm">
+            {formatWalletAddress(address)}
+          </Text>
           {copied ? CircleTick : Copy}
         </AddressChip>
 

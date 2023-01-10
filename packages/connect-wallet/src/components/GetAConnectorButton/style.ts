@@ -14,4 +14,5 @@ export const ConnectorData = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
+  column-gap: 12px;
 `;

@@ -1,7 +1,7 @@
 import {useCallback, useMemo, useState} from 'react';
 import {useConnect} from 'wagmi';
 import {useI18n} from '@shopify/react-i18n';
-import {ArrowLeft, Cancel, IconButton} from 'shared';
+import {ArrowLeft, Cancel, IconButton, Text} from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {useAppSelector} from '../../hooks/useAppState';
@@ -121,7 +121,9 @@ export const Modal = () => {
             />
           ) : null}
 
-          <h2>{headerTitle}</h2>
+          <Text as="h2" variant="headingMd">
+            {headerTitle}
+          </Text>
 
           <IconButton
             aria-label={i18n.translate('Modal.close.accessibilityLabel')}

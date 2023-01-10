@@ -1,14 +1,6 @@
 import {breakpoints, ButtonWrapper} from 'shared';
 import styled from 'styled-components';
 
-export const Address = styled.span`
-  font-weight: ${({theme}) => theme.typography.heading.fontWeight};
-  font-size: ${({theme}) => theme.typography.heading.h3.fontSize};
-  line-height: ${({theme}) => theme.typography.heading.h3.lineHeight};
-  letter-spacing: ${({theme}) => theme.typography.letterSpacing};
-  color: #202223;
-`;
-
 export const AddressChip = styled.button`
   appearance: none;
   outline: unset;

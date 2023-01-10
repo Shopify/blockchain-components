@@ -1,8 +1,8 @@
 import {useMemo} from 'react';
 import {useI18n} from '@shopify/react-i18n';
+import {Text} from 'shared';
 import {Button} from 'shared/src/components/Button';
 
-import {ConnectorName} from '../ConnectorButton';
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useConnectorData} from '../../hooks/useConnectorData';
 import {Size} from '../../types/sizes';
@@ -44,8 +44,10 @@ export const GetAConnectorButton = ({
   return (
     <Wrapper>
       <ConnectorData>
-        <ConnectorIcon id={connectorId} size={Size.Large} />
-        <ConnectorName>{name}</ConnectorName>
+        <ConnectorIcon id={connectorId} size={Size.Medium} />
+        <Text as="span" variant="headingSm">
+          {name}
+        </Text>
       </ConnectorData>
 
       <Button

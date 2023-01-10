@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {Button, Cancel, IconButton, Spinner} from 'shared';
+import {Button, Cancel, IconButton, Spinner, Text} from 'shared';
 import {useI18n} from '@shopify/react-i18n';
 
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
@@ -8,7 +8,6 @@ import {clearSignatureState} from '../../slices/walletSlice';
 
 import {
   Background,
-  BodyText,
   ButtonContainer,
   Header,
   Sheet,
@@ -35,7 +34,9 @@ export const SignatureModal = () => {
       <Background onClick={handleDismiss} />
       <Sheet>
         <Header>
-          <h2>{i18n.translate('Modal.signature.title')}</h2>
+          <Text as="h2" variant="headingMd">
+            {i18n.translate('Modal.signature.title')}
+          </Text>
 
           <IconButton
             aria-label={i18n.translate('Modal.close.accessibilityLabel')}
@@ -45,11 +46,11 @@ export const SignatureModal = () => {
           />
         </Header>
         <SheetContent>
-          <BodyText>
+          <Text as="p">
             {signing
               ? i18n.translate('Modal.signature.sentRequest')
               : i18n.translate('Modal.signature.toSign')}
-          </BodyText>
+          </Text>
 
           {signing ? <Spinner /> : null}
 

@@ -9,14 +9,6 @@ export const Background = styled.div`
   z-index: 1;
 `;
 
-export const BodyText = styled.p`
-  font-weight: ${({theme}) => theme.typography.body.fontWeight};
-  font-size: ${({theme}) => theme.typography.body.fontSize};
-  line-height: ${({theme}) => theme.typography.body.lineHeight};
-  color: ${({theme}) => theme.typography.colorPrimary};
-  margin-bottom: 24px;
-`;
-
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,6 +30,10 @@ export const GetAWalletContent = styled.div`
   h3,
   p {
     text-align: center;
+  }
+
+  p {
+    margin-bottom: 24px;
   }
 `;
 
@@ -139,10 +135,10 @@ export const WalletListItem = styled.div`
     text-align: left;
     font-size: 14px;
     line-height: 20px;
-  }
 
-  p + p {
-    margin: default;
+    & + p {
+      margin: default;
+    }
   }
 `;
 

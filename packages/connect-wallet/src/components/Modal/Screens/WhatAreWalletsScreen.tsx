@@ -1,6 +1,6 @@
 import {useI18n} from '@shopify/react-i18n';
 import {useCallback} from 'react';
-import {Apps, Button, Gift, Key} from 'shared';
+import {Apps, Button, Gift, Key, Text} from 'shared';
 
 import {Icon, ListItemContent, SheetContent, WalletListItem} from '../style';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
@@ -19,35 +19,43 @@ const WhatAreWalletsScreen = () => {
         <Icon>{Apps}</Icon>
 
         <ListItemContent>
-          <h3>{i18n.translate('modalScreens.WhatAreWallets.home.title')}</h3>
+          <Text as="h3" variant="headingSm">
+            {i18n.translate('modalScreens.WhatAreWallets.home.title')}
+          </Text>
 
-          <p>{i18n.translate('modalScreens.WhatAreWallets.home.content')}</p>
+          <Text as="p">
+            {i18n.translate('modalScreens.WhatAreWallets.home.content')}
+          </Text>
         </ListItemContent>
       </WalletListItem>
       <WalletListItem>
         <Icon>{Key}</Icon>
 
         <ListItemContent>
-          <h3>{i18n.translate('modalScreens.WhatAreWallets.login.title')}</h3>
+          <Text as="h3" variant="headingSm">
+            {i18n.translate('modalScreens.WhatAreWallets.login.title')}
+          </Text>
 
-          <p>{i18n.translate('modalScreens.WhatAreWallets.login.content')}</p>
+          <Text as="p">
+            {i18n.translate('modalScreens.WhatAreWallets.login.content')}
+          </Text>
         </ListItemContent>
       </WalletListItem>
       <WalletListItem>
         <Icon>{Gift}</Icon>
 
         <ListItemContent>
-          <h3>
+          <Text as="h3" variant="headingSm">
             {i18n.translate(
               'modalScreens.WhatAreWallets.collaborativeCommerce.title',
             )}
-          </h3>
+          </Text>
 
-          <p>
+          <Text as="p">
             {i18n.translate(
               'modalScreens.WhatAreWallets.collaborativeCommerce.content',
             )}
-          </p>
+          </Text>
         </ListItemContent>
       </WalletListItem>
 
