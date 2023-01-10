@@ -11,7 +11,8 @@ export enum TokengateCardSection {
   AvailableSoon = 'AvailableSoon',
   SoldOut = 'SoldOut',
   TokengateRequirementSkeleton = 'TokengateRequirementSkeleton',
-  OrderLimitReached = 'OrderLimitReached',
+  OrderLimitReachedError = 'OrderLimitReachedError',
+  MissingTokensError = 'MissingTokensError',
 }
 
 export const useTokengateCardState = (tokengateProps: TokengateProps) => {
@@ -38,15 +39,11 @@ export const getSections = (tokengateProps: TokengateProps) => {
     ];
   }
 
-  if (
-    wallet?.address &&
-    !isLocked &&
-    getCombinedConsumedOrderLimit(tokengateProps)
-  ) {
+  if (wallet?.address && !isLocked && hasReachedOrderLimit(tokengateProps)) {
     return [
       TokengateCardSection.UnlockingTokens,
       TokengateCardSection.ConnectedWallet,
-      TokengateCardSection.OrderLimitReached,
+      TokengateCardSection.OrderLimitReachedError,
     ];
   }
 
@@ -61,6 +58,7 @@ export const getSections = (tokengateProps: TokengateProps) => {
     return [
       TokengateCardSection.TokengateRequirementMissingTokens,
       TokengateCardSection.ConnectedWallet,
+      TokengateCardSection.MissingTokensError,
     ];
   }
 
@@ -169,4 +167,10 @@ const getCombinedConsumedOrderLimit = ({unlockingTokens}: TokengateProps) => {
   return combinedConsumedOrderLimit && combinedConsumedOrderLimit > 0
     ? combinedConsumedOrderLimit
     : undefined;
+};
+
+const hasReachedOrderLimit = (props: TokengateProps) => {
+  const orderLimit = getCombinedTotalOrderLimit(props);
+  const consumedOrderLimit = getCombinedConsumedOrderLimit(props);
+  return orderLimit && consumedOrderLimit && consumedOrderLimit >= orderLimit;
 };

@@ -1,8 +1,9 @@
 import {ReactNode, Fragment, useMemo} from 'react';
+import {useI18n} from '@shopify/react-i18n';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
-import {OrderLimitReachedWarning} from '../OrderLimitReachedWarning';
+import {Error} from '../Error';
 import {SoldOutButton} from '../SoldOutButton';
 import {TokengateRequirement} from '../TokengateRequirement';
 import {UnlockingTokens} from '../UnlockingTokens';
@@ -11,6 +12,7 @@ import {TokengateCardSection, useTokengateCardState} from './utils';
 import {TokengateProps} from './types';
 
 export const Tokengate = (props: TokengateProps) => {
+  const [i18n] = useI18n();
   const {
     connectButton,
     connectedButton,
@@ -44,7 +46,14 @@ export const Tokengate = (props: TokengateProps) => {
       [TokengateCardSection.TokengateRequirementSkeleton]: (
         <TokengateRequirement isLoading />
       ),
-      [TokengateCardSection.OrderLimitReached]: <OrderLimitReachedWarning />,
+      [TokengateCardSection.OrderLimitReachedError]: (
+        <Error
+          text={i18n.translate('Tokengate.errors.orderLimitReachedError')}
+        />
+      ),
+      [TokengateCardSection.MissingTokensError]: (
+        <Error text={i18n.translate('Tokengate.errors.missingTokensError')} />
+      ),
     }),
     [
       connectButton,
@@ -52,6 +61,7 @@ export const Tokengate = (props: TokengateProps) => {
       unlockingTokens,
       gateRequirement,
       availableDate,
+      i18n,
     ],
   );
 

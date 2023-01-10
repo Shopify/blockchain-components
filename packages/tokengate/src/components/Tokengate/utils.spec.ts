@@ -223,6 +223,7 @@ describe('Tokengate - utils', () => {
       expect(sections).toStrictEqual([
         'TokengateRequirementMissingTokens',
         'ConnectedWallet',
+        'MissingTokensError',
       ]);
     });
 
