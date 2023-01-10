@@ -7,6 +7,10 @@ export const Background = styled.div`
   width: 100%;
   background-color: ${({theme}) => theme.modal.overlayBackground};
   z-index: 1;
+
+  &:empty {
+    display: block;
+  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -142,17 +146,15 @@ export const WalletListItem = styled.div`
   }
 `;
 
-export const Wrapper = styled.div<{$visible: boolean}>`
+export const Wrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: ${({$visible}) => ($visible ? 1 : 0)};
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: ${({$visible}) => ($visible ? 'auto' : 'none')};
   z-index: 1;
 
   @media ${breakpoints.smDown} {
