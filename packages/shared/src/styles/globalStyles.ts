@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
 
-export const GlobalStyles = styled.html`
+export const GlobalStyles = createGlobalStyle`
   div:empty {
     display: block;
   }

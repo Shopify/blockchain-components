@@ -7,10 +7,6 @@ export const Background = styled.div`
   width: 100%;
   background-color: ${({theme}) => theme.modal.overlayBackground};
   z-index: 1;
-
-  &:empty {
-    display: block;
-  }
 `;
 
 export const ButtonContainer = styled.div`
