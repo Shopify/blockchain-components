@@ -1,6 +1,6 @@
 import {useCallback, useState} from 'react';
 import {useI18n} from '@shopify/react-i18n';
-import {Button, CaretDown, device, formatWalletAddress} from 'shared';
+import {Button, CaretDown, device, formatWalletAddress, Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
@@ -8,7 +8,7 @@ import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {useModal} from '../../providers/ModalProvider';
 
 import {Popover} from './Popover';
-import {Address, CaretIcon, ConnectedButton, Wrapper} from './style';
+import {CaretIcon, ConnectedButton, Wrapper} from './style';
 
 export const ConnectButton = () => {
   const {connectedWallets} = useAppSelector((state) => state.wallet);
@@ -71,7 +71,9 @@ export const ConnectButton = () => {
     >
       <ConnectedButton fullWidth onClickCapture={handlePopover}>
         <ConnectorIcon id={connectorId} />
-        <Address>{formatWalletAddress(address)}</Address>
+        <Text as="span" variant="headingSm">
+          {formatWalletAddress(address)}
+        </Text>
         <CaretIcon>{CaretDown}</CaretIcon>
       </ConnectedButton>
 

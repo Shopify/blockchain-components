@@ -22,10 +22,3 @@ export const Button = styled.button`
     margin-bottom: 0;
   }
 `;
-
-export const ConnectorName = styled.label`
-  font-weight: ${({theme}) => theme.typography.heading.fontWeight};
-  font-size: ${({theme}) => theme.typography.heading.h3.fontSize};
-  line-height: ${({theme}) => theme.typography.heading.h3.lineHeight};
-  color: ${({theme}) => theme.typography.colorPrimary};
-`;

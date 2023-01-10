@@ -1,8 +1,9 @@
 import {useI18n} from '@shopify/react-i18n';
+import {Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 
-import {Button, ConnectorName} from './style';
+import {Button} from './style';
 
 interface ConnectorButtonProps {
   id: string;
@@ -21,7 +22,9 @@ export const ConnectorButton = ({id, name, onClick}: ConnectorButtonProps) => {
       onClick={onClick}
     >
       <ConnectorIcon id={id} />
-      <ConnectorName>{name}</ConnectorName>
+      <Text as="label" variant="headingSm">
+        {name}
+      </Text>
     </Button>
   );
 };

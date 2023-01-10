@@ -1,5 +1,5 @@
 import {useCallback, useMemo} from 'react';
-import {Button, Spinner} from 'shared';
+import {Button, Spinner, Text} from 'shared';
 
 import {ConnectorIcon} from '../../ConnectorIcon';
 import {useConnectorData} from '../../../hooks/useConnectorData';
@@ -7,12 +7,7 @@ import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLink
 import {useModalScreenContent} from '../../../hooks/useModalContent/useModalContent';
 import {useAppSelector} from '../../../hooks/useAppState';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
-import {
-  BodyText,
-  ButtonContainer,
-  ConnectingWalletIcon,
-  SheetContent,
-} from '../style';
+import {ButtonContainer, ConnectingWalletIcon, SheetContent} from '../style';
 import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
 import {Size} from '../../../types/sizes';
@@ -76,9 +71,11 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
         <ConnectorIcon id={pendingConnector?.id} size={Size.Xl} />
       </ConnectingWalletIcon>
 
-      <h1>{title}</h1>
+      <Text as="h3" variant="headingLg">
+        {title}
+      </Text>
 
-      <BodyText>{body}</BodyText>
+      <Text as="p">{body}</Text>
 
       {state === ConnectionState.Connecting &&
       pendingConnector?.name !== 'WalletConnect' ? (

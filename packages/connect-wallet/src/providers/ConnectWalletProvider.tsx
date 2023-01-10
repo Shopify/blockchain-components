@@ -4,7 +4,6 @@ import {Provider} from 'react-redux';
 import {RootProvider} from 'shared';
 
 import store from '../store/configureStore';
-import {GlobalStyle} from '../style/global';
 import {ProviderProps} from '../types/provider';
 
 import {ModalProvider} from './ModalProvider';
@@ -38,7 +37,6 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
     <ConnectWalletContext.Provider value={contextValue}>
       <RootProvider theme={theme} customTheme={customTheme}>
         <Provider store={store}>
-          <GlobalStyle />
           <SignatureProvider signOnConnect={signOnConnect}>
             <ModalProvider>{children}</ModalProvider>
           </SignatureProvider>

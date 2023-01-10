@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
-import {Button} from 'shared';
+import {Button, Text} from 'shared';
 import {useConnect} from 'wagmi';
 import {useI18n} from '@shopify/react-i18n';
 
@@ -8,7 +8,7 @@ import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {useModalScreenContent} from '../../../hooks/useModalContent/useModalContent';
 import {QRCode} from '../../QRCode';
-import {BodyText, ButtonContainer, SheetContent} from '../style';
+import {ButtonContainer, SheetContent} from '../style';
 import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
 import {getBrowserInfo} from '../../../utils/getBrowser';
@@ -42,7 +42,7 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
     ];
 
     if (isRelevantState.includes(state)) {
-      return <BodyText>{body}</BodyText>;
+      return <Text as="p">{body}</Text>;
     }
 
     return null;
