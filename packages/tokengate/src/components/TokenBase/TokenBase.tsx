@@ -1,12 +1,10 @@
+import {Text} from 'shared';
+
 import {
   TokenBaseStyle,
   TokenBaseIcon,
-  TokenBaseTitle,
-  TokenBaseSubtitle,
   TokenBaseText,
   TokenBaseBadge,
-  TokenBaseIconWrapper,
-  TokenBaseRightContent,
 } from './style';
 
 interface TokenBaseProps {
@@ -27,17 +25,22 @@ const TokenBase = ({
   rightContent,
 }: TokenBaseProps) => (
   <TokenBaseStyle>
-    <TokenBaseIconWrapper>
-      <TokenBaseIcon round={round}>
-        {icon}
-        <TokenBaseBadge>{badge}</TokenBaseBadge>
-      </TokenBaseIcon>
-    </TokenBaseIconWrapper>
+    <TokenBaseIcon round={round}>
+      {icon}
+      <TokenBaseBadge>{badge}</TokenBaseBadge>
+    </TokenBaseIcon>
+
     <TokenBaseText>
-      <TokenBaseTitle>{title}</TokenBaseTitle>
-      <TokenBaseSubtitle>{subtitle}</TokenBaseSubtitle>
+      <Text as="p" variant="body">
+        {title}
+      </Text>
+
+      <Text as="p" variant="bodySm" color="secondary">
+        {subtitle}
+      </Text>
     </TokenBaseText>
-    <TokenBaseRightContent>{rightContent}</TokenBaseRightContent>
+
+    {rightContent}
   </TokenBaseStyle>
 );
 

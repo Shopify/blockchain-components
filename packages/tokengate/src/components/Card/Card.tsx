@@ -1,4 +1,6 @@
-import {StyledCard, Subtitle, Title} from './style';
+import {Text} from 'shared';
+
+import {StyledCard} from './style';
 
 interface CardProps {
   title: React.ReactNode;
@@ -10,8 +12,12 @@ interface CardProps {
 const Card = ({title, subtitle, button, children}: CardProps) => {
   return (
     <StyledCard>
-      <Title>{title}</Title>
-      <Subtitle>{subtitle}</Subtitle>
+      <Text as="h2" variant="headingMd">
+        {title}
+      </Text>
+      <Text as="p" variant="body">
+        {subtitle}
+      </Text>
       {children}
       {button}
     </StyledCard>

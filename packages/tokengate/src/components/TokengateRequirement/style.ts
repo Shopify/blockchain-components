@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 
-export const TokengateRequirementSeparatorStyle = styled.div`
-  font-size: 11px;
-  font-weight: bold;
-  text-align: center;
+export const Divider = styled.hr`
+  appearance: none;
+  background-color: #e1e3e5;
+  border: unset;
+  flex: 1;
+  height: 1px;
+  margin: unset;
+`;
+
+export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  &:before,
-  &:after {
-    content: '';
-    width: calc(50% - 16px);
-    height: 1px;
-    background-color: #e1e3e5;
-  }
+  column-gap: 12px;
+  padding: 4px 0;
 `;
 
 export const TokengateRequirementBadgeWrapper = styled.div`

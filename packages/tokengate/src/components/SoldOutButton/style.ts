@@ -9,12 +9,12 @@ export const SoldOutButtonStyle = styled(ButtonWrapper)`
   color: #888888;
 `;
 
-export const SoldOutButtonDescriptionStyle = styled.p`
-  font-weight: ${({theme}) => theme.typography.body.fontWeight};
-  font-size: ${({theme}) => theme.typography.body.fontSize};
-  line-height: ${({theme}) => theme.typography.body.lineHeight};
-  letter-spacing: ${({theme}) => theme.typography.letterSpacing};
-  cursor: pointer;
-  color: ${({theme}) => theme.soldOutButton.textColor};
-  margin: 4px 0;
+export const Wrapper = styled.div`
+  width: 100%;
+
+  p {
+    text-align: center;
+    cursor: default;
+    margin: 4px 0;
+  }
 `;

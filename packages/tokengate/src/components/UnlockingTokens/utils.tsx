@@ -1,6 +1,8 @@
 import {UnlockingToken} from '../Tokengate';
 import {TokenListProps} from '../TokenList';
 
+import {OrderLimit} from './OrderLimit';
+
 export const mapUnlockingTokensToTokenListProps = ({
   unlockingTokens,
 }: {
@@ -12,9 +14,5 @@ export const mapUnlockingTokensToTokenListProps = ({
     imageUrl: unlockingToken.token.mediaUrl,
     consumedOrderLimit: unlockingToken.token.consumedOrderLimit,
     totalOrderLimit: unlockingToken.token.totalOrderLimit,
-    rightContent:
-      unlockingToken.token.totalOrderLimit &&
-      unlockingToken.token.totalOrderLimit > 0
-        ? `${unlockingToken.token.consumedOrderLimit}/${unlockingToken.token.totalOrderLimit}`
-        : undefined,
+    rightContent: <OrderLimit {...unlockingToken.token} />,
   }));

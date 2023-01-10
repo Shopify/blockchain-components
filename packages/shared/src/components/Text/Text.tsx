@@ -19,8 +19,6 @@ export const Text = ({
     secondary: colorSecondary,
   };
 
-  // const css = VariantMappedToCSS[variant];
-
   return (
     <Wrapper as={as} color={colorMappedToThemeColor[color]} variant={variant}>
       {children}
