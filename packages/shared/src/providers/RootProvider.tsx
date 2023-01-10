@@ -3,6 +3,7 @@ import {ThemeProvider as StyledThemeProvider} from 'styled-components';
 
 import {AvailableThemes} from '../themes';
 import {ThemeProps} from '../types/theme';
+import {GlobalStyles} from '../styles/globalStyles';
 
 import {I18nProvider} from './I18nProvider';
 
@@ -16,7 +17,7 @@ export const RootProvider: FC<ThemeProps> = ({
   return (
     <I18nProvider>
       <StyledThemeProvider theme={customTheme || providedTheme}>
-        {children}
+        <GlobalStyles>{children}</GlobalStyles>
       </StyledThemeProvider>
     </I18nProvider>
   );
