@@ -22,6 +22,7 @@ export type Element =
 export type Variant =
   | 'body'
   | 'bodyBold'
+  | 'bodySm'
   | 'headingLg'
   | 'headingMd'
   | 'headingSm';

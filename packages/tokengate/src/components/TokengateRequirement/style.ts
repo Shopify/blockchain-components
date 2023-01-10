@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
-export const TokengateRequirementSeparatorStyle = styled.div`
-  font-size: 11px;
-  font-weight: bold;
-  text-align: center;
+export const TokengateRequirementSeparatorStyle = styled.div<{$gap: string}>`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  column-gap: ${({$gap}) => $gap};
+  padding: 4px 0;
+
   &:before,
   &:after {
     content: '';
-    width: calc(50% - 16px);
+    flex: 1;
     height: 1px;
     background-color: #e1e3e5;
   }

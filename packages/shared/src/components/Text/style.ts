@@ -38,9 +38,21 @@ const BodyBold = css`
   font-weight: ${({theme}) => theme.typography.body.bold.fontWeight};
 `;
 
+const BodySmall = css`
+  ${Body};
+  /**
+   * The following values need to be added as theme values.
+   * The theme format might need to follow a convention
+   * similar to how the heading is structured.
+   */
+  font-size: 12px;
+  line-height: 16px;
+`;
+
 const VariantMappedToCSS: {[V in Variant]: VariantCSS} = {
   body: Body,
   bodyBold: BodyBold,
+  bodySm: BodySmall,
   headingLg: HeadingLg,
   headingMd: HeadingMd,
   headingSm: HeadingSm,
