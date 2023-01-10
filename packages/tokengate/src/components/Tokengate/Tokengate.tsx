@@ -11,14 +11,19 @@ import {TokengateCardSection, useTokengateCardState} from './utils';
 import {TokengateProps} from './types';
 
 export const Tokengate = (props: TokengateProps) => {
-  const {connectButton, availableDate, gateRequirement, unlockingTokens} =
-    props;
+  const {
+    connectButton,
+    connectedButton,
+    availableDate,
+    gateRequirement,
+    unlockingTokens,
+  } = props;
   const {title, subtitle, sections} = useTokengateCardState(props);
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
     () => ({
       [TokengateCardSection.ConnectWallet]: connectButton,
-      [TokengateCardSection.ConnectedWallet]: connectButton,
+      [TokengateCardSection.ConnectedWallet]: connectedButton ?? connectButton,
       [TokengateCardSection.UnlockingTokens]: (
         <UnlockingTokens unlockingTokens={unlockingTokens} />
       ),
@@ -41,7 +46,13 @@ export const Tokengate = (props: TokengateProps) => {
       ),
       [TokengateCardSection.OrderLimitReached]: <OrderLimitReachedWarning />,
     }),
-    [connectButton, unlockingTokens, gateRequirement, availableDate],
+    [
+      connectButton,
+      connectedButton,
+      unlockingTokens,
+      gateRequirement,
+      availableDate,
+    ],
   );
 
   return (
