@@ -17,6 +17,7 @@ export * from './icons';
  * Providers
  */
 export {RootProvider} from './providers/RootProvider';
+export {I18nProvider} from './providers/I18nProvider';
 
 /**
  * Styles

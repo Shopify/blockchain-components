@@ -37,6 +37,7 @@ export interface FontStyle {
 }
 
 export interface Theme {
+  name: string;
   typography: {
     colorPrimary: string;
     colorSecondary: string;

@@ -28,6 +28,7 @@ namespace PolarisColors {
 }
 
 export const Polaris: DefaultTheme = {
+  name: 'Polaris',
   typography: {
     colorPrimary: PolarisColors.Grayscale['6'],
     colorSecondary: PolarisColors.Grayscale['4'],
