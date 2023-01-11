@@ -54,7 +54,7 @@ export const ButtonWrapper = styled.button<{
   cursor: pointer;
   margin: 0;
   ${({primary}) => (primary ? PrimaryButtonWrapper : SecondaryButtonWrapper)}
-  ${({disabled}) => (disabled ? DisabledButtonWrapper : {})}
+  ${({disabled}) => disabled && DisabledButtonWrapper}
 `;
 
 export const LinkButton = styled.a`
