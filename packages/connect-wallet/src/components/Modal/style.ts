@@ -6,7 +6,13 @@ export const Background = styled.div`
   height: 100%;
   width: 100%;
   background-color: ${({theme}) => theme.modal.overlayBackground};
-  z-index: 1;
+  /**
+    * Required to appear over any badges, callouts, or notices
+    * on some themes. This is the largest int supported, so it
+    * should always take priority. This is primarily a problem
+    * when apps or themes use high z-index banners, callouts, etc.
+    */
+  z-index: 2147483647;
 `;
 
 export const ButtonContainer = styled.div`
