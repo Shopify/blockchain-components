@@ -1,28 +1,37 @@
 import {PropsWithChildren} from 'react';
+import {CSSProperties} from 'styled-components';
 
 import {AvailableThemes} from '../themes';
 
+type RequiredCSSProperty = Required<CSSProperties>;
+
 export type Padding =
-  | string
+  | RequiredCSSProperty['padding']
   | {
-      top: string;
-      left: string;
-      right: string;
-      bottom: string;
+      top: RequiredCSSProperty['paddingTop'];
+      left: RequiredCSSProperty['paddingLeft'];
+      right: RequiredCSSProperty['paddingRight'];
+      bottom: RequiredCSSProperty['paddingBottom'];
     };
 
 export interface ButtonStyle {
-  background: string;
-  border: string;
-  borderRadius: string;
-  boxShadow: string;
+  background: RequiredCSSProperty['backgroundColor'];
+  border: RequiredCSSProperty['border'];
+  borderRadius: RequiredCSSProperty['borderRadius'];
+  boxShadow: RequiredCSSProperty['boxShadow'];
   padding: Padding;
-  textColor: string;
+  textColor: RequiredCSSProperty['color'];
 
   hover: {
-    background?: string;
-    outline?: string;
+    // The following are optional properties
+    background?: CSSProperties['backgroundColor'];
+    outline?: CSSProperties['outline'];
   };
+}
+
+interface FontVariantProp {
+  fontSize: RequiredCSSProperty['fontSize'];
+  lineHeight: RequiredCSSProperty['lineHeight'];
 }
 
 export interface FontStyle {
@@ -37,80 +46,54 @@ export interface FontStyle {
 }
 
 export interface Theme {
-  name: string;
   typography: {
-    colorPrimary: string;
-    colorSecondary: string;
-    colorInteractive: string;
-    colorCritical: string;
-    letterSpacing: string;
+    colorPrimary: RequiredCSSProperty['color'];
+    colorSecondary: RequiredCSSProperty['color'];
+    colorCritical: RequiredCSSProperty['color'];
+    colorDisabled: RequiredCSSProperty['color'];
+    letterSpacing: RequiredCSSProperty['letterSpacing'];
 
     heading: {
-      fontFamily: string;
-      fontWeight: string;
+      fontFamily: RequiredCSSProperty['fontFamily'];
+      fontWeight: RequiredCSSProperty['fontWeight'];
 
-      h1: {
-        fontSize: string;
-        lineHeight: string;
-      };
-
-      h2: {
-        fontSize: string;
-        lineHeight: string;
-      };
-
-      h3: {
-        fontSize: string;
-        lineHeight: string;
-      };
+      h1: FontVariantProp;
+      h2: FontVariantProp;
+      h3: FontVariantProp;
     };
 
     body: FontStyle;
   };
 
-  availableSoonButton: {
-    background: string;
-    border: string;
+  connectButton: ButtonStyle & {
+    backgroundDisabled: RequiredCSSProperty['backgroundColor'];
   };
 
-  connectButton: ButtonStyle;
-
   modal: {
-    background: string;
-    overlayBackground: string;
-    border: string;
-    borderRadius: string;
-    boxShadow: string;
+    background: RequiredCSSProperty['backgroundColor'];
+    border: RequiredCSSProperty['border'];
+    borderRadius: RequiredCSSProperty['borderRadius'];
+    boxShadow: RequiredCSSProperty['boxShadow'];
+    overlayBackground: RequiredCSSProperty['backgroundColor'];
     padding: Padding;
   };
 
   other: {
-    iconColor: string;
-    dividerColor: string;
+    iconColor: RequiredCSSProperty['color'];
+    dividerColor: RequiredCSSProperty['backgroundColor'];
   };
 
   popovers: {
-    background: string;
-    border: string;
-    borderRadius: string;
-    boxShadow: string;
+    background: RequiredCSSProperty['backgroundColor'];
+    border: RequiredCSSProperty['border'];
+    borderRadius: RequiredCSSProperty['borderRadius'];
+    boxShadow: RequiredCSSProperty['boxShadow'];
   };
 
   secondaryButton: ButtonStyle;
 
-  soldOutButton: {
-    background: string;
-    border: string;
-    textColor: string;
-  };
-
-  tokenBase: {
-    background: string;
-    textColor: string;
-  };
-
   walletConnectorButton: ButtonStyle & {
-    horizontalAlignment: string;
+    horizontalAlignment: RequiredCSSProperty['justifyContent'];
   };
 }
 

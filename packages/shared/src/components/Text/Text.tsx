@@ -9,12 +9,12 @@ export const Text = ({
   color = 'primary',
   variant = 'body',
 }: TextProps) => {
-  const {colorCritical, colorInteractive, colorPrimary, colorSecondary} =
+  const {colorCritical, colorDisabled, colorPrimary, colorSecondary} =
     useTheme().typography;
 
   const colorMappedToThemeColor: {[C in Color]: string} = {
     critical: colorCritical,
-    interactive: colorInteractive,
+    disabled: colorDisabled,
     primary: colorPrimary,
     secondary: colorSecondary,
   };
