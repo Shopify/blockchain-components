@@ -29,6 +29,7 @@ namespace DawnColors {
 }
 
 export const Dawn: Theme = {
+  name: 'Dawn',
   typography: {
     colorPrimary: DawnColors.Grayscale['6'],
     colorSecondary: DawnColors.Grayscale['5'],
