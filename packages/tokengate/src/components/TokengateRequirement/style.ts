@@ -11,7 +11,7 @@ export const TokengateRequirementSeparatorStyle = styled.div<{$gap: string}>`
     content: '';
     flex: 1;
     height: 1px;
-    background-color: #e1e3e5;
+    background-color: ${({theme}) => theme.other.dividerColor};
   }
 `;
 
