@@ -90,6 +90,8 @@ export interface Theme {
 
   secondaryButton: ButtonStyle;
 
+  disabledButton: Pick<ButtonStyle, 'background' | 'textColor'>;
+
   walletConnectorButton: ButtonStyle & {
     horizontalAlignment: RequiredCSSProperty['justifyContent'];
   };

@@ -114,6 +114,11 @@ export const Dawn: Theme = {
     },
   },
 
+  disabledButton: {
+    background: DawnColors.Grayscale['1'],
+    textColor: DawnColors.Grayscale['4'],
+  },
+
   walletConnectorButton: {
     background: DawnColors.Grayscale['0'],
     border: `1px solid ${DawnColors.Grayscale['3']}`,

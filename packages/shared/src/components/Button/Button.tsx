@@ -8,12 +8,13 @@ export interface ButtonBaseProps {
   id?: string;
   className?: HTMLDivElement['className'];
   fullWidth?: boolean;
-  label: string;
   loading?: boolean;
   primary?: boolean;
+  disabled?: boolean;
 }
 
 export type LinkButtonProps = ButtonBaseProps & {
+  label: string;
   link: {
     href: HTMLAnchorElement['href'];
     target?: HTMLAnchorElement['target'];
@@ -23,6 +24,7 @@ export type LinkButtonProps = ButtonBaseProps & {
 
 export type DefaultButtonProps = ButtonBaseProps & {
   link?: never;
+  label: React.ReactNode;
   onClick?: () => void;
 };
 
@@ -35,6 +37,7 @@ export const Button = ({
   loading = false,
   link,
   primary = false,
+  disabled = false,
   ...props
 }: ButtonProps) => {
   const {Wrapper, wrapperProps} = link
@@ -56,6 +59,7 @@ export const Button = ({
       <ButtonWrapper
         id={id}
         primary={loading ? false : primary}
+        disabled={disabled}
         fullWidth={fullWidth}
         type="button"
         {...props}

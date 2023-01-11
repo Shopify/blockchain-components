@@ -115,6 +115,11 @@ export const Polaris: Theme = {
     },
   },
 
+  disabledButton: {
+    background: PolarisColors.Grayscale['1'],
+    textColor: PolarisColors.Grayscale['4'],
+  },
+
   walletConnectorButton: {
     background: PolarisColors.Grayscale['0'],
     border: `1px solid ${PolarisColors.Grayscale['3']}`,
