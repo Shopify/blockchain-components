@@ -2,7 +2,7 @@ import {useCallback, useMemo, useState} from 'react';
 import {createPortal} from 'react-dom';
 import {useConnect} from 'wagmi';
 import {useI18n} from '@shopify/react-i18n';
-import {ArrowLeft, Cancel, IconButton, Text} from 'shared';
+import {ArrowLeft, Cancel, IconButton, QuestionMark, Text} from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {useAppSelector} from '../../hooks/useAppState';
@@ -111,6 +111,26 @@ export const Modal = () => {
     }
   }, [connect, connectors, navigation.route, status]);
 
+  const titleLeftButton = useMemo(() => {
+    if (navigation.goBack) {
+      return (
+        <IconButton
+          aria-label={i18n.translate('Modal.icons.back')}
+          icon={ArrowLeft}
+          onClick={navigation.goBack}
+        />
+      );
+    }
+
+    return (
+      <IconButton
+        aria-label={i18n.translate('Modal.icons.whatIsAWallet')}
+        icon={QuestionMark}
+        onClick={() => navigation.navigate(ModalRoute.WhatAreWallets)}
+      />
+    );
+  }, [i18n, navigation]);
+
   if (!active || !isMounted) {
     return null;
   }
@@ -120,20 +140,14 @@ export const Modal = () => {
       <Background onClick={handleBackdropPress} />
       <Sheet>
         <Header>
-          {navigation.goBack ? (
-            <IconButton
-              aria-label={i18n.translate('Modal.back.accessibilityLabel')}
-              icon={ArrowLeft}
-              onClick={navigation.goBack}
-            />
-          ) : null}
+          {titleLeftButton}
 
           <Text as="h2" variant="headingMd">
             {headerTitle}
           </Text>
 
           <IconButton
-            aria-label={i18n.translate('Modal.close.accessibilityLabel')}
+            aria-label={i18n.translate('Modal.icons.close')}
             icon={Cancel}
             onClick={closeModal}
           />

@@ -1,8 +1,5 @@
 {
   "modalScreens": {
-    "ConnectScreen": {
-      "whatIsAWallet": "What is a wallet?"
-    },
     "ScanScreen": {
       "button": "Use WalletConnect modal"
     },

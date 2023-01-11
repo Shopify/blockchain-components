@@ -41,12 +41,14 @@ export const GetAWalletContent = styled.div`
   }
 `;
 
-export const Header = styled.div`
+export const Header = styled.div<{$padded?: boolean}>`
   display: flex;
   flex-direction: row;
   align-items: center;
   column-gap: 16px;
   margin-bottom: 20px;
+  // This is a combination of IconButton width + column-gap
+  padding-left: ${({$padded}) => $padded && '36px'};
 
   h2 {
     max-width: 100%;
@@ -56,6 +58,7 @@ export const Header = styled.div`
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    text-align: center;
   }
 `;
 
