@@ -7,7 +7,12 @@ import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLink
 import {useModalScreenContent} from '../../../hooks/useModalContent/useModalContent';
 import {useAppSelector} from '../../../hooks/useAppState';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
-import {ButtonContainer, ConnectingWalletIcon, SheetContent} from '../style';
+import {
+  ButtonContainer,
+  Center,
+  ConnectingWalletIcon,
+  SheetContent,
+} from '../style';
 import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
 import {Size} from '../../../types/sizes';
@@ -71,11 +76,13 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
         <ConnectorIcon id={pendingConnector?.id} size={Size.Xl} />
       </ConnectingWalletIcon>
 
-      <Text as="h3" variant="headingLg">
-        {title}
-      </Text>
+      <Center>
+        <Text as="h3" variant="headingLg">
+          {title}
+        </Text>
 
-      <Text as="p">{body}</Text>
+        <Text as="p">{body}</Text>
+      </Center>
 
       {state === ConnectionState.Connecting &&
       pendingConnector?.name !== 'WalletConnect' ? (

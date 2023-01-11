@@ -6,13 +6,7 @@ export const Background = styled.div`
   height: 100%;
   width: 100%;
   background-color: ${({theme}) => theme.modal.overlayBackground};
-  /**
-    * Required to appear over any badges, callouts, or notices
-    * on some themes. This is the largest int supported, so it
-    * should always take priority. This is primarily a problem
-    * when apps or themes use high z-index banners, callouts, etc.
-    */
-  z-index: 2147483647;
+  z-index: 1;
 `;
 
 export const ButtonContainer = styled.div`
@@ -20,6 +14,10 @@ export const ButtonContainer = styled.div`
   flex-direction: column;
   row-gap: 12px;
   margin-top: 12px;
+`;
+
+export const Center = styled.div`
+  text-align: center;
 `;
 
 export const ConnectingWalletIcon = styled.div`
@@ -106,11 +104,6 @@ export const SheetContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  h1,
-  p {
-    text-align: center;
-  }
 `;
 
 export const StyledLink = styled.span`
@@ -157,7 +150,13 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  /**
+    * Required to appear over any badges, callouts, or notices
+    * on some themes. This is the largest int supported, so it
+    * should always take priority. This is primarily a problem
+    * when apps or themes use high z-index banners, callouts, etc.
+    */
+  z-index: 2147483647;
 
   @media ${breakpoints.smDown} {
     align-items: flex-end;
