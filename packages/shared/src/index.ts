@@ -33,7 +33,7 @@ export {Dawn, Polaris} from './themes';
  * Types
  */
 export {type DeepPartial} from './types/deepPartial';
-export type {AvailableTheme, Theme, ThemeProps} from './types/theme';
+export type {Theme, ThemeProps} from './types/theme';
 
 /**
  * Utils

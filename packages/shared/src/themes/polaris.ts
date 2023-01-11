@@ -1,6 +1,6 @@
 /* eslint-disable line-comment-position */
 /* eslint-disable @typescript-eslint/no-namespace */
-import {DefaultTheme} from 'styled-components';
+import {Theme} from '../types/theme';
 
 namespace PolarisColors {
   export const Grayscale = {
@@ -29,7 +29,7 @@ namespace PolarisColors {
   };
 }
 
-export const Polaris: DefaultTheme = {
+export const Polaris: Theme = {
   typography: {
     colorPrimary: PolarisColors.Grayscale['7'],
     colorSecondary: PolarisColors.Grayscale['5'],

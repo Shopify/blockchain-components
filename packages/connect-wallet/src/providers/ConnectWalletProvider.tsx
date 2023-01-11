@@ -23,7 +23,6 @@ export const ConnectWalletContext =
 export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,
   children,
-  customTheme,
   theme,
   signOnConnect = true,
 }: PropsWithChildren<ProviderProps>) => {
@@ -35,7 +34,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
 
   return (
     <ConnectWalletContext.Provider value={contextValue}>
-      <RootProvider theme={theme} customTheme={customTheme}>
+      <RootProvider theme={theme}>
         <Provider store={store}>
           <SignatureProvider signOnConnect={signOnConnect}>
             <ModalProvider>{children}</ModalProvider>
