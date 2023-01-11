@@ -128,4 +128,12 @@ export const Polaris: Theme = {
       background: PolarisColors.Grayscale['1'],
     },
   },
+
+  tokengate: {
+    background: PolarisColors.Grayscale['0'],
+    border: `1px solid ${PolarisColors.Grayscale['10']}`,
+    borderRadius: '8px',
+    boxShadow: 'none',
+    padding: '16px',
+  },
 };
