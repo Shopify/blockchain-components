@@ -72,7 +72,7 @@ export const ConnectButton = () => {
     >
       <ConnectedButton fullWidth onClickCapture={handlePopover}>
         <ConnectorIcon id={connectorId} />
-        <Text as="span" variant="headingSm">
+        <Text as="span" variant="bodyLg">
           {formatWalletAddress(address)}
         </Text>
         <CaretIcon>{CaretDown}</CaretIcon>

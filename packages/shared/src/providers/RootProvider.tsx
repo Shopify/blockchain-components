@@ -7,7 +7,7 @@ import {GlobalStyles} from '../styles/globalStyles';
 
 import {I18nProvider} from './I18nProvider';
 
-export const RootProvider: FC<ThemeProps> = ({children, theme = 'Dawn'}) => {
+export const RootProvider: FC<ThemeProps> = ({children, theme = 'Default'}) => {
   const providedTheme =
     typeof theme === 'string' ? AvailableThemes[theme] : theme;
 

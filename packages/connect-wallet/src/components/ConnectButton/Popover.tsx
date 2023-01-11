@@ -56,7 +56,7 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
         <ConnectorIcon id={connectorId} size={Size.Large} />
 
         <AddressChip onClick={() => copy(address)}>
-          <Text as="span" variant="headingSm">
+          <Text as="span" variant="bodyLg">
             {formatWalletAddress(address)}
           </Text>
           {copied ? CircleTick : Copy}

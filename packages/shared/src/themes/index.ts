@@ -1,13 +1,13 @@
 import {Dawn} from './dawn';
-import {Polaris} from './polaris';
+import {Default} from './default';
 
 export const AvailableThemes = {
   Dawn,
-  Polaris,
+  Default,
 };
 
 /**
  * Export our themes so developers can inherit and override styles
  * if they choose to do so.
  */
-export {Dawn, Polaris};
+export {Dawn, Default};

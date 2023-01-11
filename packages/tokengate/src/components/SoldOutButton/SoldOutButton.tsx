@@ -15,7 +15,7 @@ const SoldOutButton = () => {
         label={i18n.translate('SoldOutButton.buttonText')}
       />
 
-      <Text as="p" variant="body">
+      <Text as="p" variant="bodyMd">
         {i18n.translate('SoldOutButton.description')}
       </Text>
     </Wrapper>

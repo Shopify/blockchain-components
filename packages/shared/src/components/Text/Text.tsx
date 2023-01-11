@@ -5,9 +5,10 @@ import {Color, TextProps} from './types';
 
 export const Text = ({
   as,
+  bold,
   children,
   color = 'primary',
-  variant = 'body',
+  variant = 'bodyMd',
 }: TextProps) => {
   const {colorCritical, colorDisabled, colorPrimary, colorSecondary} =
     useTheme().typography;
@@ -20,7 +21,12 @@ export const Text = ({
   };
 
   return (
-    <Wrapper as={as} color={colorMappedToThemeColor[color]} variant={variant}>
+    <Wrapper
+      as={as}
+      color={colorMappedToThemeColor[color]}
+      variant={variant}
+      $bold={bold}
+    >
       {children}
     </Wrapper>
   );

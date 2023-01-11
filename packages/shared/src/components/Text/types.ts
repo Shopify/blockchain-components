@@ -20,8 +20,8 @@ export type Element =
   | 'span';
 
 export type Variant =
-  | 'body'
-  | 'bodyBold'
+  | 'bodyLg'
+  | 'bodyMd'
   | 'bodySm'
   | 'headingLg'
   | 'headingMd'
@@ -31,6 +31,7 @@ export type VariantCSS = FlattenInterpolation<ThemeProps<DefaultTheme>>;
 
 export interface TextProps extends PropsWithChildren {
   as: Element;
+  bold?: boolean;
   color?: Color;
   variant?: Variant;
 }
