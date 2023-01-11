@@ -6,9 +6,12 @@ sidebar_position: 1
 
 We understand the need to customize the appearance of your connect wallet library. Because of this, we've included the ability to customize nearly every aspect of every component.
 
-## Theme structure
+## Theme type
+
+Themes leverage the [`CSSProperties`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components/index.d.ts#L27) type exported from [`@types/styled-components`](https://www.npmjs.com/package/@types/styled-components).
 
 ```typescript
+// Both packages export the Theme type.
 import {Theme} from '@shopify/connect-wallet';
 // OR
 import {Theme} from '@shopify/tokengate';

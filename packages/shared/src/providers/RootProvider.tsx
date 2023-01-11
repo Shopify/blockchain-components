@@ -7,16 +7,13 @@ import {GlobalStyles} from '../styles/globalStyles';
 
 import {I18nProvider} from './I18nProvider';
 
-export const RootProvider: FC<ThemeProps> = ({
-  children,
-  customTheme,
-  theme = 'Dawn',
-}) => {
-  const providedTheme = AvailableThemes[theme];
+export const RootProvider: FC<ThemeProps> = ({children, theme = 'Dawn'}) => {
+  const providedTheme =
+    typeof theme === 'string' ? AvailableThemes[theme] : theme;
 
   return (
     <I18nProvider>
-      <StyledThemeProvider theme={customTheme || providedTheme}>
+      <StyledThemeProvider theme={providedTheme}>
         <GlobalStyles />
         {children}
       </StyledThemeProvider>

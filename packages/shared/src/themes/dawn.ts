@@ -1,6 +1,6 @@
 /* eslint-disable line-comment-position */
 /* eslint-disable @typescript-eslint/no-namespace */
-import {DefaultTheme} from 'styled-components';
+import {Theme} from '../types/theme';
 
 namespace DawnColors {
   export const Grayscale = {
@@ -28,7 +28,7 @@ namespace DawnColors {
   };
 }
 
-export const Dawn: DefaultTheme = {
+export const Dawn: Theme = {
   typography: {
     colorPrimary: DawnColors.Grayscale['6'],
     colorSecondary: DawnColors.Grayscale['5'],
