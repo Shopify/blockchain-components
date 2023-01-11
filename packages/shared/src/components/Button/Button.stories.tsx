@@ -26,3 +26,9 @@ export const Secondary = Template.bind({});
 Secondary.args = {
   label: 'Button',
 };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: 'Button',
+  disabled: true,
+};

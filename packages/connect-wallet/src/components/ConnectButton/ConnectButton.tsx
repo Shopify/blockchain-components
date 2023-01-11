@@ -55,6 +55,7 @@ export const ConnectButton = () => {
     return (
       <Button
         fullWidth
+        primary
         label={i18n.translate('ConnectButton.buttonText')}
         onClick={handleClick}
       />

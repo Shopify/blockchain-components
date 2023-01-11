@@ -26,11 +26,22 @@ export const SecondaryButtonWrapper = css`
   }
 `;
 
+export const DisabledButtonWrapper = css`
+  cursor: default;
+  background: ${({theme}) => theme.disabledButton.background};
+  border: ${({theme}) => theme.disabledButton.background};
+  color: ${({theme}) => theme.disabledButton.textColor};
+
+  &:hover {
+    outline: none;
+  }
+`;
+
 export const ButtonWrapper = styled.button<{
   primary?: boolean;
+  disabled?: boolean;
   fullWidth?: boolean;
 }>`
-  ${({primary}) => (primary ? PrimaryButtonWrapper : SecondaryButtonWrapper)}
   font-weight: ${({theme}) => theme.typography.heading.fontWeight};
   font-size: ${({theme}) => theme.typography.heading.h3.fontSize};
   line-height: ${({theme}) => theme.typography.heading.h3.lineHeight};
@@ -42,6 +53,8 @@ export const ButtonWrapper = styled.button<{
   align-items: center;
   cursor: pointer;
   margin: 0;
+  ${({primary}) => (primary ? PrimaryButtonWrapper : SecondaryButtonWrapper)}
+  ${({disabled}) => disabled && DisabledButtonWrapper}
 `;
 
 export const LinkButton = styled.a`
