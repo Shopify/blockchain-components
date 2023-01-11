@@ -1,10 +1,12 @@
 import {useCallback, useMemo, useState} from 'react';
+import {createPortal} from 'react-dom';
 import {useConnect} from 'wagmi';
 import {useI18n} from '@shopify/react-i18n';
 import {ArrowLeft, Cancel, IconButton, Text} from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {useAppSelector} from '../../hooks/useAppState';
+import {useIsMounted} from '../../hooks/useIsMounted';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
 import {ConnectionState} from '../../types/connectionState';
 
@@ -21,6 +23,7 @@ export const Modal = () => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {connectors} = useDefaultConnectors();
   const [i18n] = useI18n();
+  const isMounted = useIsMounted();
   const {active, closeModal, navigation} = useModal();
   const [status, setStatus] = useState<ConnectionState>(
     ConnectionState.Connecting,
@@ -108,8 +111,12 @@ export const Modal = () => {
     }
   }, [connect, connectors, navigation.route, status]);
 
-  return (
-    <Wrapper $visible={active}>
+  if (!active || !isMounted) {
+    return null;
+  }
+
+  return createPortal(
+    <Wrapper>
       <Background onClick={handleBackdropPress} />
       <Sheet>
         <Header>
@@ -134,6 +141,7 @@ export const Modal = () => {
 
         {screenComponent}
       </Sheet>
-    </Wrapper>
+    </Wrapper>,
+    document.body,
   );
 };

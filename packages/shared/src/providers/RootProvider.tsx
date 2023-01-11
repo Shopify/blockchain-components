@@ -17,7 +17,8 @@ export const RootProvider: FC<ThemeProps> = ({
   return (
     <I18nProvider>
       <StyledThemeProvider theme={customTheme || providedTheme}>
-        <GlobalStyles>{children}</GlobalStyles>
+        <GlobalStyles />
+        {children}
       </StyledThemeProvider>
     </I18nProvider>
   );

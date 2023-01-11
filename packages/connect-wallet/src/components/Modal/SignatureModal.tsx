@@ -1,9 +1,11 @@
 import {useCallback} from 'react';
+import {createPortal} from 'react-dom';
 import {Button, Cancel, IconButton, Spinner, Text} from 'shared';
 import {useI18n} from '@shopify/react-i18n';
 
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
 import {useConnectWallet} from '../../hooks/useConnectWallet';
+import {useIsMounted} from '../../hooks/useIsMounted';
 import {clearSignatureState} from '../../slices/walletSlice';
 
 import {
@@ -19,6 +21,7 @@ export const SignatureModal = () => {
   const dispatch = useAppDispatch();
   const {message} = useAppSelector((state) => state.wallet);
   const [i18n] = useI18n();
+  const isMounted = useIsMounted();
   const {signing, signMessage} = useConnectWallet();
 
   const handleDismiss = useCallback(() => {
@@ -29,8 +32,12 @@ export const SignatureModal = () => {
     signMessage();
   }, [signMessage]);
 
-  return (
-    <Wrapper $visible={message !== undefined}>
+  if (!isMounted || !message) {
+    return null;
+  }
+
+  return createPortal(
+    <Wrapper>
       <Background onClick={handleDismiss} />
       <Sheet>
         <Header>
@@ -69,6 +76,7 @@ export const SignatureModal = () => {
           </ButtonContainer>
         </SheetContent>
       </Sheet>
-    </Wrapper>
+    </Wrapper>,
+    document.body,
   );
 };
