@@ -60,6 +60,7 @@ export const Button = ({
         id={id}
         primary={loading ? false : primary}
         disabled={disabled}
+        aria-disabled={disabled}
         fullWidth={fullWidth}
         type="button"
         {...props}
