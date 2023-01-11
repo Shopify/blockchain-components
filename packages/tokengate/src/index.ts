@@ -1,4 +1,4 @@
-import {Dawn, Polaris, Theme} from 'shared';
+import {Dawn, Default, Theme} from 'shared';
 
 /**
  * Components
@@ -8,7 +8,7 @@ export {Tokengate} from './components/Tokengate';
 /**
  * Themes
  */
-export {Dawn, Polaris};
+export {Dawn, Default};
 
 /**
  * Types

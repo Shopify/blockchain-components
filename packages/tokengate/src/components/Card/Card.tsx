@@ -15,7 +15,7 @@ const Card = ({title, subtitle, button, children}: CardProps) => {
       <Text as="h2" variant="headingMd">
         {title}
       </Text>
-      <Text as="p" variant="body">
+      <Text as="p" variant="bodyMd">
         {subtitle}
       </Text>
       {children}

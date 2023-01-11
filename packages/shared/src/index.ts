@@ -27,7 +27,7 @@ export {breakpoints, device} from './styles/breakpoints';
 /**
  * Themes
  */
-export {Dawn, Polaris} from './themes';
+export {Dawn, Default} from './themes';
 
 /**
  * Types

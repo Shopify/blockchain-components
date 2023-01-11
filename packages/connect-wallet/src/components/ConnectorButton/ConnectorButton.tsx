@@ -22,7 +22,7 @@ export const ConnectorButton = ({id, name, onClick}: ConnectorButtonProps) => {
       onClick={onClick}
     >
       <ConnectorIcon id={id} />
-      <Text as="label" variant="headingSm">
+      <Text as="label" variant="bodyLg">
         {name}
       </Text>
     </Button>

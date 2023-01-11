@@ -109,24 +109,6 @@ export const SheetContent = styled.div`
   justify-content: center;
 `;
 
-export const StyledLink = styled.span`
-  margin-top: 14px;
-  font-weight: ${({theme}) => theme.typography.body.bold.fontWeight};
-  font-size: ${({theme}) => theme.typography.body.fontSize};
-  line-height: ${({theme}) => theme.typography.body.lineHeight};
-  color: ${({theme}) => theme.typography.colorPrimary};
-  text-decoration: underline;
-  display: block;
-  cursor: pointer;
-`;
-
-export const Subtext = styled.span`
-  color: rgba(18, 18, 18, 0.75);
-  font-weight: ${({theme}) => theme.typography.body.fontWeight};
-  font-size: ${({theme}) => theme.typography.body.fontSize};
-  line-height: ${({theme}) => theme.typography.body.lineHeight};
-`;
-
 export const WalletListItem = styled.div`
   display: flex;
   column-gap: 16px;

@@ -27,20 +27,12 @@ export interface ButtonStyle {
   };
 }
 
-interface FontVariantProp {
-  fontSize: RequiredCSSProperty['fontSize'];
-  lineHeight: RequiredCSSProperty['lineHeight'];
-}
-
 export interface FontStyle {
-  fontFamily: string;
-  fontSize: string;
-  fontWeight: string;
-  lineHeight: string;
-
-  bold: {
-    fontWeight: string;
-  };
+  fontFamily: RequiredCSSProperty['fontFamily'];
+  fontSize: RequiredCSSProperty['fontSize'];
+  fontWeight: RequiredCSSProperty['fontWeight'];
+  fontWeightBold?: CSSProperties['fontWeight'];
+  lineHeight: RequiredCSSProperty['lineHeight'];
 }
 
 export interface Theme {
@@ -49,23 +41,15 @@ export interface Theme {
     colorSecondary: RequiredCSSProperty['color'];
     colorCritical: RequiredCSSProperty['color'];
     colorDisabled: RequiredCSSProperty['color'];
-    letterSpacing: RequiredCSSProperty['letterSpacing'];
-
-    heading: {
-      fontFamily: RequiredCSSProperty['fontFamily'];
-      fontWeight: RequiredCSSProperty['fontWeight'];
-
-      h1: FontVariantProp;
-      h2: FontVariantProp;
-      h3: FontVariantProp;
-    };
-
-    body: FontStyle;
+    bodyLg: FontStyle;
+    bodyMd: FontStyle;
+    bodySm: FontStyle;
+    headingLg: FontStyle;
+    headingMd: FontStyle;
+    headingSm: FontStyle;
   };
 
-  connectButton: ButtonStyle & {
-    backgroundDisabled: RequiredCSSProperty['backgroundColor'];
-  };
+  connectButton: ButtonStyle;
 
   modal: {
     background: RequiredCSSProperty['backgroundColor'];
@@ -75,6 +59,8 @@ export interface Theme {
     overlayBackground: RequiredCSSProperty['backgroundColor'];
     padding: Padding;
   };
+
+  disabledButton: Pick<ButtonStyle, 'background' | 'textColor'>;
 
   other: {
     iconColor: RequiredCSSProperty['color'];
@@ -90,12 +76,6 @@ export interface Theme {
 
   secondaryButton: ButtonStyle;
 
-  disabledButton: Pick<ButtonStyle, 'background' | 'textColor'>;
-
-  walletConnectorButton: ButtonStyle & {
-    horizontalAlignment: RequiredCSSProperty['justifyContent'];
-  };
-
   tokengate: {
     background: RequiredCSSProperty['backgroundColor'];
     border: RequiredCSSProperty['border'];
@@ -103,14 +83,18 @@ export interface Theme {
     boxShadow: RequiredCSSProperty['boxShadow'];
     padding: Padding;
   };
+
+  walletConnectorButton: ButtonStyle & {
+    horizontalAlignment: RequiredCSSProperty['justifyContent'];
+  };
 }
 
 export type ThemeProps = PropsWithChildren & {
   /**
-   * @defaultValue 'Dawn'
+   * @defaultValue 'Default'
    *
-   * Available themes: 'Dawn', 'Polaris', or an object
+   * Available themes: 'Dawn', 'Default', or an object
    * that matches the type signature of Theme.
    */
-  theme?: 'Dawn' | 'Polaris' | Theme;
+  theme?: 'Dawn' | 'Default' | Theme;
 };

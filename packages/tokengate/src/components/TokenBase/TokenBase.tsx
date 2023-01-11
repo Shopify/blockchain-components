@@ -31,7 +31,7 @@ const TokenBase = ({
     </TokenBaseIcon>
 
     <TokenBaseText>
-      <Text as="p" variant="body">
+      <Text as="p" variant="bodyMd">
         {title}
       </Text>
 

@@ -14,14 +14,14 @@ import {ConnectWalletProvider} from '@shopify/connect-wallet';
 export const YourApp = ({chains, children, client}) => {
   return (
     <WagmiConfig client={client}>
+      // highlight-next-line
+      <ConnectWalletProvider chains={chains}>
+        {children}
         // highlight-next-line
-        <ConnectWalletProvider chains={chains}>
-            {children}
-        // highlight-next-line
-        </ConnectWalletProvider>
+      </ConnectWalletProvider>
     </WagmiConfig>
   );
-}
+};
 ```
 
 :::note
@@ -30,37 +30,40 @@ Ensure that ConnectWalletProvider is wrapped within the [required `WagmiConfig`]
 
 :::
 
-
 ## Props
 
 ### chains
-| | |
-| - | - |
-| **Description**       | A list of the chains supported by your application. |
-| **Type**              | [`Chain[]`](https://wagmi.sh/react/providers/configuring-chains) |
-| **Required**          | `true` |
-| **Default value**     | `undefined` |
+
+|                   |                                                                  |
+| ----------------- | ---------------------------------------------------------------- |
+| **Description**   | A list of the chains supported by your application.              |
+| **Type**          | [`Chain[]`](https://wagmi.sh/react/providers/configuring-chains) |
+| **Required**      | `true`                                                           |
+| **Default value** | `undefined`                                                      |
 
 ### signOnConnect
-| | |
-| - | - |
-| **Description**       | A boolean value indicating whether you want to request signature as soon as a wallet connects or not. |
-| **Type**              | `boolean` |
-| **Required**          | `false` |
-| **Default value**     | `true` |
+
+|                   |                                                                                                       |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| **Description**   | A boolean value indicating whether you want to request signature as soon as a wallet connects or not. |
+| **Type**          | `boolean`                                                                                             |
+| **Required**      | `false`                                                                                               |
+| **Default value** | `true`                                                                                                |
 
 ### theme
-| | |
-| - | - |
-| **Description**       | A theme to use for your connect-wallet implementation. |
-| **Type**              | `Dawn`, `Polaris` or [`Theme`](../../advanced/custom-themes#theme-type) |
-| **Required**          | `false` |
-| **Default value**     | `Dawn` |
+
+|                   |                                                                         |
+| ----------------- | ----------------------------------------------------------------------- |
+| **Description**   | A theme to use for your connect-wallet implementation.                  |
+| **Type**          | `Dawn`, `Default` or [`Theme`](../../advanced/custom-themes#theme-type) |
+| **Required**      | `false`                                                                 |
+| **Default value** | `Dawn`                                                                  |
 
 ### wallet
-| | |
-| - | - |
-| **Description**       | If you are managing any wallet connections outside of the application and want to inject a connected wallet, you can do so by passing a wallet value here. |
-| **Type**              | [`Wallet`](../types/wallet) |
-| **Required**          | `false` |
-| **Default value**     | `undefined` |
+
+|                   |                                                                                                                                                            |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Description**   | If you are managing any wallet connections outside of the application and want to inject a connected wallet, you can do so by passing a wallet value here. |
+| **Type**          | [`Wallet`](../types/wallet)                                                                                                                                |
+| **Required**      | `false`                                                                                                                                                    |
+| **Default value** | `undefined`                                                                                                                                                |

@@ -34,40 +34,52 @@ export const Dawn: Theme = {
     colorSecondary: DawnColors.Grayscale['5'],
     colorCritical: DawnColors.Reds['0'],
     colorDisabled: DawnColors.Grayscale['4'],
-    letterSpacing: '0.5px',
 
-    heading: {
+    bodyLg: {
       fontFamily: 'Assistant, sans-serif',
-      fontWeight: '400',
-      h1: {
-        fontSize: '28px',
-        lineHeight: '32px',
-      },
-      h2: {
-        fontSize: '22px',
-        lineHeight: '24px',
-      },
-      h3: {
-        fontSize: '16px',
-        lineHeight: '21px',
-      },
+      fontSize: '16px',
+      fontWeight: '600',
+      lineHeight: '20px',
     },
 
-    body: {
+    bodyMd: {
       fontFamily: 'Assistant, sans-serif',
       fontSize: '14px',
       fontWeight: '400',
       lineHeight: '20px',
+    },
 
-      bold: {
-        fontWeight: '600',
-      },
+    bodySm: {
+      fontFamily: 'Assistant, sans-serif',
+      fontSize: '12px',
+      fontWeight: '400',
+      lineHeight: '16px',
+    },
+
+    headingLg: {
+      fontFamily: 'Assistant, sans-serif',
+      fontSize: '24px',
+      fontWeight: '600',
+      lineHeight: '28px',
+    },
+
+    headingMd: {
+      fontFamily: 'Assistant, sans-serif',
+      fontSize: '20px',
+      fontWeight: '600',
+      lineHeight: '24px',
+    },
+
+    headingSm: {
+      fontFamily: 'Assistant, sans-serif',
+      fontSize: '16px',
+      fontWeight: '600',
+      lineHeight: '20px',
     },
   },
 
   connectButton: {
     background: DawnColors.Grayscale['6'],
-    backgroundDisabled: DawnColors.Grayscale['1'],
     border: 'none',
     borderRadius: '0',
     boxShadow: 'none',
@@ -77,6 +89,11 @@ export const Dawn: Theme = {
     hover: {
       outline: `1.3px solid ${DawnColors.Grayscale['6']}`,
     },
+  },
+
+  disabledButton: {
+    background: DawnColors.Grayscale['1'],
+    textColor: DawnColors.Grayscale['4'],
   },
 
   modal: {
@@ -114,9 +131,12 @@ export const Dawn: Theme = {
     },
   },
 
-  disabledButton: {
-    background: DawnColors.Grayscale['1'],
-    textColor: DawnColors.Grayscale['4'],
+  tokengate: {
+    background: DawnColors.Grayscale['0'],
+    border: `1px solid ${DawnColors.Grayscale['8']}`,
+    borderRadius: '0',
+    boxShadow: 'none',
+    padding: '16px',
   },
 
   walletConnectorButton: {
@@ -131,13 +151,5 @@ export const Dawn: Theme = {
     hover: {
       outline: `1.3px solid ${DawnColors.Grayscale['6']}`,
     },
-  },
-
-  tokengate: {
-    background: DawnColors.Grayscale['0'],
-    border: `1px solid ${DawnColors.Grayscale['8']}`,
-    borderRadius: '0',
-    boxShadow: 'none',
-    padding: '16px',
   },
 };

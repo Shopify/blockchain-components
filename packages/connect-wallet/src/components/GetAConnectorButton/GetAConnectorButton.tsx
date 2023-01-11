@@ -45,7 +45,7 @@ export const GetAConnectorButton = ({
     <Wrapper>
       <ConnectorData>
         <ConnectorIcon id={connectorId} size={Size.Medium} />
-        <Text as="span" variant="headingSm">
+        <Text as="span" variant="bodyLg">
           {name}
         </Text>
       </ConnectorData>

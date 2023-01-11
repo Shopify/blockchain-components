@@ -6,9 +6,61 @@ sidebar_position: 1
 
 We understand the need to customize the appearance of your connect wallet library. Because of this, we've included the ability to customize nearly every aspect of every component.
 
-## Theme type
+## Theme types
 
 Themes leverage the [`CSSProperties`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components/index.d.ts#L27) type exported from [`@types/styled-components`](https://www.npmjs.com/package/@types/styled-components).
+
+### ButtonStyle
+
+```typescript
+export interface ButtonStyle {
+  background: RequiredCSSProperty['backgroundColor'];
+  border: RequiredCSSProperty['border'];
+  borderRadius: RequiredCSSProperty['borderRadius'];
+  boxShadow: RequiredCSSProperty['boxShadow'];
+  padding: Padding;
+  textColor: RequiredCSSProperty['color'];
+
+  hover: {
+    // The following are optional properties
+    background?: CSSProperties['backgroundColor'];
+    outline?: CSSProperties['outline'];
+  };
+}
+```
+
+### FontStyle
+
+```typescript
+export interface FontStyle {
+  fontFamily: RequiredCSSProperty['fontFamily'];
+  fontSize: RequiredCSSProperty['fontSize'];
+  fontWeight: RequiredCSSProperty['fontWeight'];
+  fontWeightBold?: CSSProperties['fontWeight'];
+  lineHeight: RequiredCSSProperty['lineHeight'];
+}
+```
+
+### Padding
+
+```typescript
+export type Padding =
+  | RequiredCSSProperty['padding']
+  | {
+      top: RequiredCSSProperty['paddingTop'];
+      left: RequiredCSSProperty['paddingLeft'];
+      right: RequiredCSSProperty['paddingRight'];
+      bottom: RequiredCSSProperty['paddingBottom'];
+    };
+```
+
+### RequiredCSSProperty
+
+```typescript
+type RequiredCSSProperty = Required<CSSProperties>;
+```
+
+### Theme
 
 ```typescript
 // Both packages export the Theme type.
@@ -16,160 +68,57 @@ import {Theme} from '@shopify/connect-wallet';
 // OR
 import {Theme} from '@shopify/tokengate';
 
-const MyCustomTheme: Theme = {
+export interface Theme {
   typography: {
-    colorPrimary: string;
-    colorSecondary: string;
-    colorInteractive: string;
-    colorCritical: string;
-    letterSpacing: string;
-
-    heading: {
-      fontFamily: string;
-      fontWeight: string;
-
-      h1: {
-        fontSize: string;
-        lineHeight: string;
-      };
-
-      h2: {
-        fontSize: string;
-        lineHeight: string;
-      };
-
-      h3: {
-        fontSize: string;
-        lineHeight: string;
-      };
-    };
-
-    body: {
-      fontFamily: string;
-      fontSize: string;
-      fontWeight: string;
-      lineHeight: string;
-
-      bold: {
-        fontWeight: string;
-      };
-    };
+    colorPrimary: RequiredCSSProperty['color'];
+    colorSecondary: RequiredCSSProperty['color'];
+    colorCritical: RequiredCSSProperty['color'];
+    colorDisabled: RequiredCSSProperty['color'];
+    bodyLg: FontStyle;
+    bodyMd: FontStyle;
+    bodySm: FontStyle;
+    headingLg: FontStyle;
+    headingMd: FontStyle;
+    headingSm: FontStyle;
   };
 
-  availableSoonButton: {
-    background: string;
-    border: string;
-  };
-
-  connectButton: {
-    background: string;
-    border: string;
-    borderRadius: string;
-    boxShadow: string;
-    padding: string;
-    /**
-     * OR
-     */
-    padding: {
-      top: string;
-      left: string;
-      right: string;
-      bottom: string;
-    };
-    textColor: string;
-
-    hover: {
-      background?: string;
-      outline?: string;
-    };
-  };
+  connectButton: ButtonStyle;
 
   modal: {
-    background: string;
-    overlayBackground: string;
-    border: string;
-    borderRadius: string;
-    boxShadow: string;
-    padding: string;
-    /**
-     * OR
-     */
-    padding: {
-      top: string;
-      left: string;
-      right: string;
-      bottom: string;
-    };
+    background: RequiredCSSProperty['backgroundColor'];
+    border: RequiredCSSProperty['border'];
+    borderRadius: RequiredCSSProperty['borderRadius'];
+    boxShadow: RequiredCSSProperty['boxShadow'];
+    overlayBackground: RequiredCSSProperty['backgroundColor'];
+    padding: Padding;
   };
 
+  disabledButton: Pick<ButtonStyle, 'background' | 'textColor'>;
+
   other: {
-    iconColor: string;
-    dividerColor: string;
+    iconColor: RequiredCSSProperty['color'];
+    dividerColor: RequiredCSSProperty['backgroundColor'];
   };
 
   popovers: {
-    background: string;
-    border: string;
-    borderRadius: string;
-    boxShadow: string;
+    background: RequiredCSSProperty['backgroundColor'];
+    border: RequiredCSSProperty['border'];
+    borderRadius: RequiredCSSProperty['borderRadius'];
+    boxShadow: RequiredCSSProperty['boxShadow'];
   };
 
-  secondaryButton: {
-    background: string;
-    border: string;
-    borderRadius: string;
-    boxShadow: string;
-    padding: string;
-    /**
-     * OR
-     */
-    padding: {
-      top: string;
-      left: string;
-      right: string;
-      bottom: string;
-    };
-    textColor: string;
+  secondaryButton: ButtonStyle;
 
-    hover: {
-      background?: string;
-      outline?: string;
-    };
+  tokengate: {
+    background: RequiredCSSProperty['backgroundColor'];
+    border: RequiredCSSProperty['border'];
+    borderRadius: RequiredCSSProperty['borderRadius'];
+    boxShadow: RequiredCSSProperty['boxShadow'];
+    padding: Padding;
   };
 
-  soldOutButton: {
-    background: string;
-    border: string;
-    textColor: string;
-  };
-
-  tokenBase: {
-    background: string;
-    textColor: string;
-  };
-
-  walletConnectorButton: {
-    background: string;
-    border: string;
-    borderRadius: string;
-    boxShadow: string;
-    horizontalAlignment: string;
-    padding: string;
-    /**
-     * OR
-     */
-    padding: {
-      top: string;
-      left: string;
-      right: string;
-      bottom: string;
-    };
-    textColor: string;
-
-    hover: {
-      background?: string;
-      outline?: string;
-    };
+  walletConnectorButton: ButtonStyle & {
+    horizontalAlignment: RequiredCSSProperty['justifyContent'];
   };
 }
 ```

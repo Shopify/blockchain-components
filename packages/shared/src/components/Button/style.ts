@@ -42,10 +42,10 @@ export const ButtonWrapper = styled.button<{
   disabled?: boolean;
   fullWidth?: boolean;
 }>`
-  font-weight: ${({theme}) => theme.typography.heading.fontWeight};
-  font-size: ${({theme}) => theme.typography.heading.h3.fontSize};
-  line-height: ${({theme}) => theme.typography.heading.h3.lineHeight};
-  letter-spacing: ${({theme}) => theme.typography.letterSpacing};
+  font-family: ${({theme}) => theme.typography.bodyLg.fontFamily};
+  font-weight: ${({theme}) => theme.typography.bodyLg.fontWeight};
+  font-size: ${({theme}) => theme.typography.bodyLg.fontSize};
+  line-height: ${({theme}) => theme.typography.bodyLg.lineHeight};
   width: ${({fullWidth}) => (fullWidth ? '100%' : 'auto')};
   display: flex;
   flex-direction: row;

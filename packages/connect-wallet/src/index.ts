@@ -1,4 +1,4 @@
-import {Dawn, Polaris, Theme} from 'shared';
+import {Dawn, Default, Theme} from 'shared';
 
 /**
  * Components
@@ -25,7 +25,7 @@ export {ConnectWalletProvider} from './providers/ConnectWalletProvider';
 /**
  * Themes
  */
-export {Dawn, Polaris};
+export {Dawn, Default};
 
 /**
  * Types
