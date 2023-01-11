@@ -55,8 +55,6 @@ export const Container = styled.div`
   padding: 4px 0;
   min-width: 280px;
   /**
-    * Gross, don't look at this.
-    *
     * Required to appear over any badges, callouts, or notices
     * on some themes. This is the largest int supported, so it
     * should always take priority. This is primarily a problem
