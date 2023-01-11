@@ -15,6 +15,8 @@ This repository is managed as a monorepo. Each package has its own `README.md` a
 | Package | Version | Description |
 | ------- | ------- | ----------- |
 | [@shopify/connect-wallet](packages/connect-wallet) | 0.0.0 | Crypto wallet connection library for Shopify storefronts |
+| [@shopify/gate-context-client](packages/gate-context-client) | 0.0.0 | Gate unlocking context client for Shopify storefronts |
+| [@shopify/tokengate](packages/tokengate) | 0.0.0 | Tokengating component for Shopify storefronts |
 
 ## Want to contribute?
 
