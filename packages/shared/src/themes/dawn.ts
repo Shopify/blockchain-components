@@ -127,4 +127,12 @@ export const Dawn: Theme = {
       outline: `1.3px solid ${DawnColors.Grayscale['6']}`,
     },
   },
+
+  tokengate: {
+    background: DawnColors.Grayscale['0'],
+    border: `1px solid ${DawnColors.Grayscale['8']}`,
+    borderRadius: '0',
+    boxShadow: 'none',
+    padding: '16px',
+  },
 };

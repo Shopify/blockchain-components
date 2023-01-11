@@ -93,6 +93,14 @@ export interface Theme {
   walletConnectorButton: ButtonStyle & {
     horizontalAlignment: RequiredCSSProperty['justifyContent'];
   };
+
+  tokengate: {
+    background: RequiredCSSProperty['backgroundColor'];
+    border: RequiredCSSProperty['border'];
+    borderRadius: RequiredCSSProperty['borderRadius'];
+    boxShadow: RequiredCSSProperty['boxShadow'];
+    padding: Padding;
+  };
 }
 
 export type ThemeProps = PropsWithChildren & {
