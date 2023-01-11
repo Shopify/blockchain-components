@@ -9,5 +9,6 @@ export {Gift} from './Gift';
 export {Key} from './Key';
 export {LedgerLive} from './LedgerLive';
 export {MetaMask} from './MetaMask';
+export {QuestionMark} from './QuestionMark';
 export {Rainbow} from './Rainbow';
 export {WalletConnect} from './WalletConnect';

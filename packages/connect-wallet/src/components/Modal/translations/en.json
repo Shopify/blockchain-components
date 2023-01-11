@@ -12,11 +12,10 @@
       "sentRequest": "Signature request sent. Please sign the message in your wallet.",
       "toSign": "Signing a message proves ownership of a wallet address."
     },
-    "close": {
-      "accessibilityLabel": "Close"
-    },
-    "back": {
-      "accessibilityLabel": "Back"
+    "icons": {
+      "back": "Go back",
+      "close": "Close modal",
+      "whatIsAWallet": "What is a wallet?"
     }
   }
 }

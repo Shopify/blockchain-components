@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import {useCallback} from 'react';
-import {useI18n} from '@shopify/react-i18n';
 
-import {SheetContent, StyledLink} from '../style';
+import {SheetContent} from '../style';
 import {ConnectorButton} from '../../ConnectorButton';
 import {useAppDispatch} from '../../../hooks/useAppState';
 import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
@@ -20,7 +19,6 @@ interface ConnectScreenProps {
 const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
   const dispatch = useAppDispatch();
   const {closeModal, navigation} = useModal();
-  const [i18n] = useI18n();
 
   const {mobilePlatform} = getBrowserInfo();
   const {setKey} = useWalletConnectDeeplink();
@@ -167,10 +165,6 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
     [closeModal, connect, dispatch, mobilePlatform, navigation, setKey],
   );
 
-  const handleWhatAreWallets = useCallback(() => {
-    navigation.navigate(ModalRoute.WhatAreWallets);
-  }, [navigation]);
-
   return (
     <SheetContent>
       {connectors.map((providedConnector) => {
@@ -189,14 +183,6 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
           />
         );
       })}
-
-      <StyledLink
-        aria-label={i18n.translate('modalScreens.ConnectScreen.whatIsAWallet')}
-        role="link"
-        onClick={handleWhatAreWallets}
-      >
-        {i18n.translate('modalScreens.ConnectScreen.whatIsAWallet')}
-      </StyledLink>
     </SheetContent>
   );
 };
