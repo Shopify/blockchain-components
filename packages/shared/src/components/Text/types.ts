@@ -5,7 +5,7 @@ import {
   ThemeProps,
 } from 'styled-components';
 
-export type Color = 'primary' | 'secondary' | 'interactive' | 'critical';
+export type Color = 'critical' | 'disabled' | 'primary' | 'secondary';
 
 export type Element =
   | 'a'

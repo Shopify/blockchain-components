@@ -1,16 +1,18 @@
+/* eslint-disable line-comment-position */
 /* eslint-disable @typescript-eslint/no-namespace */
 import {DefaultTheme} from 'styled-components';
 
 namespace DawnColors {
   export const Grayscale = {
-    0: '#FFFFFF',
-    1: '#DFDFDF',
-    2: '#121212',
-    3: '#5C5F62',
-    4: 'rgba(0, 0, 0, 0.08)',
-    5: 'rgba(18, 18, 18, 0.55)',
-    6: 'rgba(18, 18, 18, 0.2)',
-    7: 'rgba(18, 18, 18, 0.08)',
+    0: '#FFFFFF', // base background
+    1: '#F1F1F1', // button, disabled
+    2: '#E1E3E5', // divider
+    3: '#787878', // border, secondary
+    4: '#8C9196', // text, disabled
+    5: '#6D7175', // text, secondary
+    6: '#202223', // text, primary
+    7: 'rgba(0, 0, 0, 0.08)',
+    8: 'rgba(18, 18, 18, 0.2)',
   };
 
   export const Reds = {
@@ -27,12 +29,11 @@ namespace DawnColors {
 }
 
 export const Dawn: DefaultTheme = {
-  name: 'Dawn',
   typography: {
-    colorPrimary: DawnColors.Grayscale['2'],
-    colorSecondary: DawnColors.Grayscale['3'],
-    colorInteractive: '',
+    colorPrimary: DawnColors.Grayscale['6'],
+    colorSecondary: DawnColors.Grayscale['5'],
     colorCritical: DawnColors.Reds['0'],
+    colorDisabled: DawnColors.Grayscale['4'],
     letterSpacing: '0.5px',
 
     heading: {
@@ -64,13 +65,9 @@ export const Dawn: DefaultTheme = {
     },
   },
 
-  availableSoonButton: {
-    background: DawnColors.Grayscale['1'],
-    border: 'none',
-  },
-
   connectButton: {
-    background: DawnColors.Grayscale['2'],
+    background: DawnColors.Grayscale['6'],
+    backgroundDisabled: DawnColors.Grayscale['1'],
     border: 'none',
     borderRadius: '0',
     boxShadow: 'none',
@@ -78,67 +75,56 @@ export const Dawn: DefaultTheme = {
     textColor: DawnColors.Grayscale['0'],
 
     hover: {
-      outline: `1.3px solid ${DawnColors.Grayscale['2']}`,
+      outline: `1.3px solid ${DawnColors.Grayscale['6']}`,
     },
   },
 
   modal: {
     background: DawnColors.Grayscale['0'],
-    overlayBackground: DawnColors.Grayscale['6'],
-    border: 'none',
+    border: DawnColors.Grayscale['2'],
     borderRadius: '0',
-    boxShadow: `0px 8px 32px ${DawnColors.Grayscale['4']}`,
+    boxShadow: `0px 8px 32px ${DawnColors.Grayscale['7']}`,
+    overlayBackground: DawnColors.Grayscale['8'],
     padding: '24px',
   },
 
   other: {
-    iconColor: DawnColors.Grayscale['3'],
-    dividerColor: DawnColors.Grayscale['1'],
+    iconColor: DawnColors.Grayscale['4'],
+    dividerColor: DawnColors.Grayscale['2'],
   },
 
   popovers: {
     background: DawnColors.Grayscale['0'],
-    border: `1px solid  ${DawnColors.Grayscale['7']}`,
+    border: `1px solid  ${DawnColors.Grayscale['2']}`,
     borderRadius: '0',
     boxShadow: `0px 3px 6px -3px rgba(23, 24, 24, 0.08),
     0px 8px 20px -4px rgba(23, 24, 24, 0.12)`,
   },
 
-  soldOutButton: {
-    background: DawnColors.Grayscale['0'],
-    border: `1px solid`,
-    textColor: DawnColors.Grayscale['2'],
-  },
-
   secondaryButton: {
     background: DawnColors.Grayscale['0'],
-    border: `1px solid ${DawnColors.Grayscale['2']}`,
+    border: `1px solid ${DawnColors.Grayscale['3']}`,
     borderRadius: '0',
     boxShadow: 'none',
     padding: '8.5px 16px',
-    textColor: DawnColors.Grayscale['2'],
+    textColor: DawnColors.Grayscale['6'],
 
     hover: {
-      outline: `1.3px solid ${DawnColors.Grayscale['2']}`,
+      outline: `1.3px solid ${DawnColors.Grayscale['6']}`,
     },
-  },
-
-  tokenBase: {
-    background: DawnColors.Grayscale['2'],
-    textColor: DawnColors.Grayscale['2'],
   },
 
   walletConnectorButton: {
     background: DawnColors.Grayscale['0'],
-    border: `1px solid ${DawnColors.Grayscale['5']}`,
+    border: `1px solid ${DawnColors.Grayscale['3']}`,
     borderRadius: '0',
     boxShadow: 'none',
     padding: '12.5px 16px',
-    textColor: DawnColors.Blues['0'],
+    textColor: DawnColors.Grayscale['6'],
     horizontalAlignment: 'flex-start',
 
     hover: {
-      outline: `1.3px solid ${DawnColors.Grayscale['2']}`,
+      outline: `1.3px solid ${DawnColors.Grayscale['6']}`,
     },
   },
 };
