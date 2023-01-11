@@ -131,7 +131,7 @@ export const Polaris: Theme = {
 
   tokengate: {
     background: PolarisColors.Grayscale['0'],
-    border: `0.1rem solid ${PolarisColors.Grayscale['10']}`,
+    border: `1px solid ${PolarisColors.Grayscale['10']}`,
     borderRadius: '8px',
     boxShadow: 'none',
     padding: '16px',
