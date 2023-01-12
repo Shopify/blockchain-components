@@ -3,7 +3,7 @@ import {ThemeProvider as StyledThemeProvider} from 'styled-components';
 
 import {AvailableThemes} from '../themes';
 import {ThemeProps} from '../types/theme';
-import {GlobalStyles} from '../styles/globalStyles';
+import {SharedStyles} from '../styles/sharedStyles';
 
 import {I18nProvider} from './I18nProvider';
 
@@ -14,8 +14,7 @@ export const RootProvider: FC<ThemeProps> = ({children, theme = 'Default'}) => {
   return (
     <I18nProvider>
       <StyledThemeProvider theme={providedTheme}>
-        <GlobalStyles />
-        {children}
+        <SharedStyles>{children}</SharedStyles>
       </StyledThemeProvider>
     </I18nProvider>
   );

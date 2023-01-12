@@ -23,6 +23,7 @@ export {I18nProvider} from './providers/I18nProvider';
  * Styles
  */
 export {breakpoints, device} from './styles/breakpoints';
+export {NonEmptyElement} from './styles/sharedStyles';
 
 /**
  * Themes

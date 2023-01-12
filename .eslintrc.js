@@ -39,6 +39,19 @@ module.exports = {
         allow: ['warn', 'error'],
       },
     ],
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'styled-components',
+            importNames: ['createGlobalStyle'],
+            message:
+              'Usage of createGlobalStyle is not supported since it affects external DOM elements',
+          },
+        ],
+      },
+    ],
   },
   overrides: [
     {
