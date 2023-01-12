@@ -1,11 +1,10 @@
 import {create, QRCode as QRCodeType} from 'qrcode';
 import {ReactElement, useMemo} from 'react';
-import {useTheme} from 'styled-components';
 
 import {useAppSelector} from '../../hooks/useAppState';
 import {useConnectorData} from '../../hooks/useConnectorData';
 
-import {AppIcon, Container, IconContainer} from './style';
+import {AppIcon, Circle, Container, IconContainer, Rect} from './style';
 
 const APP_LOGO_SIZE = 88;
 const DEFAULT_QR_CODE_SIZE = 380;
@@ -33,11 +32,6 @@ export function QRCode({uri}: Props) {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {icon} = useConnectorData({id: pendingConnector?.id});
 
-  const {modal, typography} = useTheme();
-
-  const foreground = typography.colorPrimary;
-  const background = modal.background;
-
   const {length} = matrix;
 
   const dots = useMemo(() => {
@@ -63,9 +57,9 @@ export function QRCode({uri}: Props) {
         const size = cellSize * (7 - i * 2);
 
         svg.push(
-          <rect
+          <Rect
+            $isForeground={i % 2 === 0}
             key={`${i}-${x}-${y}`}
-            fill={i % 2 ? background : foreground}
             rx={borderRadius}
             width={size}
             height={size}
@@ -94,12 +88,11 @@ export function QRCode({uri}: Props) {
 
         if (shouldRender) {
           svg.push(
-            <circle
+            <Circle
               // eslint-disable-next-line react/no-array-index-key
               key={`circle-${i}-${j}`}
               cx={i * cellSize + cellSize / 2}
               cy={j * cellSize + cellSize / 2}
-              fill={foreground}
               r={2}
             />,
           );
@@ -108,7 +101,7 @@ export function QRCode({uri}: Props) {
     });
 
     return svg;
-  }, [background, foreground, icon, length, matrix]);
+  }, [icon, length, matrix]);
 
   return (
     <Container>
