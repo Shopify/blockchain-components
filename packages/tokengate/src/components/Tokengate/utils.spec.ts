@@ -12,13 +12,18 @@ const defaultTokengateProps: TokengateProps = {
   connectButton: null,
   isLocked: true,
   isConnected: false,
+  reaction: {
+    type: 'exclusive_access',
+  },
 };
 
 const defaultDiscountTokengateProps: TokengateProps = {
   connectButton: null,
   isLocked: true,
   isConnected: false,
-  discount: 10,
+  reaction: {
+    type: 'discount',
+  },
 };
 
 describe('Tokengate - utils', () => {
@@ -135,7 +140,7 @@ describe('Tokengate - utils', () => {
               isLocked: false,
             }),
           );
-          expect(result.current.title).toBe('Exclusive unlocked');
+          expect(result.current.title).toBe('Discount unlocked');
           expect(result.current.subtitle).toBe(
             'Your token got you access to this discount!',
           );
@@ -169,7 +174,7 @@ describe('Tokengate - utils', () => {
               ],
             }),
           );
-          expect(result.current.title).toBe('Exclusive unlocked');
+          expect(result.current.title).toBe('Discount unlocked');
           expect(result.current.subtitle).toBe(
             'You can use this discount up to 4 times with your tokens.',
           );

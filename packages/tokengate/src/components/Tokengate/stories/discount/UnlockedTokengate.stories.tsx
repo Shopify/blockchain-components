@@ -17,15 +17,21 @@ export default TokengateStory;
 
 export const NoOrderLimit = Template.bind({});
 NoOrderLimit.args = TokengatePropsUnlockedFixture({
-  discount: 10,
+  reaction: {
+    type: 'discount',
+  },
 });
 
 export const OrderLimit = Template.bind({});
 OrderLimit.args = TokengatePropsUnlockedWithOrderLimitFixture({
-  discount: 10,
+  reaction: {
+    type: 'discount',
+  },
 });
 
 export const OrderLimitReached = Template.bind({});
 OrderLimitReached.args = TokengatePropsUnlockedWithOrderLimitMetFixture({
-  discount: 10,
+  reaction: {
+    type: 'discount',
+  },
 });

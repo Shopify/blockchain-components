@@ -117,6 +117,9 @@ export default function ({serverArguments}: AppProps) {
       isSoldOut={false}
       isConnected={Boolean(wallet?.signed)}
       active={{start: '08 September 2022 09:00 UTC'}}
+      reaction={{
+        type: 'exclusive_access',
+      }}
       gateRequirement={serverArguments?.initialState.gateRequirement}
       unlockingTokens={checkIfWalletMeetsRequirementsResponse?.unlockingTokens}
     />

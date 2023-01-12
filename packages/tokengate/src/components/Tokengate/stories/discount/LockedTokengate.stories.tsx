@@ -17,22 +17,30 @@ export default TokengateStory;
 
 export const Locked = Template.bind({});
 Locked.args = TokengatePropsNotConnectedFixture({
-  discount: 10,
+  reaction: {
+    type: 'discount',
+  },
 });
 
 export const SoldOut = Template.bind({});
 SoldOut.args = TokengatePropsNotConnectedFixture({
-  discount: 10,
+  reaction: {
+    type: 'discount',
+  },
   isSoldOut: true,
 });
 
 export const StartDate = Template.bind({});
 StartDate.args = TokengatePropsNotConnectedFixture({
-  discount: 10,
+  reaction: {
+    type: 'discount',
+  },
   active: {start: addDays(new Date(), 1).toISOString()},
 });
 
 export const NoEligibleToken = Template.bind({});
 NoEligibleToken.args = TokengatePropsConnectedFixture({
-  discount: 10,
+  reaction: {
+    type: 'discount',
+  },
 });
