@@ -39,6 +39,7 @@ window.gmShop = {
         <React.StrictMode>
           <WagmiConfig client={client}>
             <ConnectWalletProvider
+              theme="Dawn"
               chains={chains}
               wallet={this.arguments?.initialState?.wallet || undefined}
             >

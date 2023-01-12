@@ -5,7 +5,7 @@ import {TokengateProps} from './types';
 
 export const TokengateProvider = (props: TokengateProps) => {
   return (
-    <RootProvider>
+    <RootProvider theme={props.theme}>
       <Tokengate {...props} />
     </RootProvider>
   );
