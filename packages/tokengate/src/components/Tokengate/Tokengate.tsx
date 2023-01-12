@@ -16,7 +16,7 @@ export const Tokengate = (props: TokengateProps) => {
   const {
     connectButton,
     connectedButton,
-    availableDate,
+    active,
     gateRequirement,
     unlockingTokens,
   } = props;
@@ -40,7 +40,7 @@ export const Tokengate = (props: TokengateProps) => {
         />
       ),
       [TokengateCardSection.AvailableSoon]: (
-        <AvailableSoonButton availableDate={availableDate} />
+        <AvailableSoonButton availableDate={active?.start} />
       ),
       [TokengateCardSection.SoldOut]: <SoldOutButton />,
       [TokengateCardSection.TokengateRequirementSkeleton]: (
@@ -60,7 +60,7 @@ export const Tokengate = (props: TokengateProps) => {
       connectedButton,
       unlockingTokens,
       gateRequirement,
-      availableDate,
+      active,
       i18n,
     ],
   );

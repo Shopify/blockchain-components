@@ -23,14 +23,8 @@ export const useTokengateCardState = (tokengateProps: TokengateProps) => {
 };
 
 export const getSections = (tokengateProps: TokengateProps) => {
-  const {
-    availableDate,
-    isLocked,
-    isSoldOut,
-    isConnected,
-    unlockingTokens,
-    isLoading,
-  } = tokengateProps;
+  const {active, isLocked, isSoldOut, isConnected, unlockingTokens, isLoading} =
+    tokengateProps;
 
   if (isLoading) {
     return [
@@ -70,7 +64,7 @@ export const getSections = (tokengateProps: TokengateProps) => {
   }
 
   const now = new Date();
-  const dateObject = availableDate ? new Date(availableDate) : null;
+  const dateObject = active?.start ? new Date(active.start) : null;
 
   if (dateObject && dateObject > now) {
     return [
