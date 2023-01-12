@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components';
 
-import {Variant, VariantCSS} from './types';
+import {Color, ThemedCSS, Variant} from './types';
 
 const HeadingLg = css<{$bold?: boolean}>`
   font-family: ${({theme}) => theme.typography.headingLg.fontFamily};
@@ -65,7 +65,30 @@ const BodySm = css<{$bold?: boolean}>`
   line-height: ${({theme}) => theme.typography.bodySm.lineHeight};
 `;
 
-const VariantMappedToCSS: {[V in Variant]: VariantCSS} = {
+const CriticalColor = css`
+  color: ${({theme}) => theme.typography.colorCritical};
+`;
+
+const DisabledColor = css`
+  color: ${({theme}) => theme.typography.colorDisabled};
+`;
+
+const PrimaryColor = css`
+  color: ${({theme}) => theme.typography.colorPrimary};
+`;
+
+const SecondaryColor = css`
+  color: ${({theme}) => theme.typography.colorSecondary};
+`;
+
+const ColorMappedToCSS: {[C in Color]: ThemedCSS} = {
+  critical: CriticalColor,
+  disabled: DisabledColor,
+  primary: PrimaryColor,
+  secondary: SecondaryColor,
+};
+
+const VariantMappedToCSS: {[V in Variant]: ThemedCSS} = {
   bodyLg: BodyLg,
   bodyMd: BodyMd,
   bodySm: BodySm,
@@ -81,10 +104,10 @@ const VariantMappedToCSS: {[V in Variant]: VariantCSS} = {
  * https://styled-components.com/docs/api#as-polymorphic-prop
  */
 export const Wrapper = styled.span<{
-  color: string;
+  color: Color;
   variant: Variant;
   $bold?: boolean;
 }>`
-  color: ${({color}) => color};
+  ${({color}) => ColorMappedToCSS[color]};
   ${({variant}) => VariantMappedToCSS[variant]};
 `;

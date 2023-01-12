@@ -1,9 +1,7 @@
 import {PropsWithChildren} from 'react';
-import {
-  DefaultTheme,
-  FlattenInterpolation,
-  ThemeProps,
-} from 'styled-components';
+import {FlattenInterpolation, ThemeProps} from 'styled-components';
+
+import {Theme} from '../../types/theme';
 
 export type Color = 'critical' | 'disabled' | 'primary' | 'secondary';
 
@@ -19,6 +17,8 @@ export type Element =
   | 'p'
   | 'span';
 
+export type ThemedCSS = FlattenInterpolation<ThemeProps<Theme>>;
+
 export type Variant =
   | 'bodyLg'
   | 'bodyMd'
@@ -27,10 +27,8 @@ export type Variant =
   | 'headingMd'
   | 'headingSm';
 
-export type VariantCSS = FlattenInterpolation<ThemeProps<DefaultTheme>>;
-
 export interface TextProps extends PropsWithChildren {
-  as: Element;
+  as?: Element;
   bold?: boolean;
   color?: Color;
   variant?: Variant;

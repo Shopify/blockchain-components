@@ -1,7 +1,5 @@
-import {useTheme} from 'styled-components';
-
 import {Wrapper} from './style';
-import {Color, TextProps} from './types';
+import {TextProps} from './types';
 
 export const Text = ({
   as,
@@ -10,23 +8,8 @@ export const Text = ({
   color = 'primary',
   variant = 'bodyMd',
 }: TextProps) => {
-  const {colorCritical, colorDisabled, colorPrimary, colorSecondary} =
-    useTheme().typography;
-
-  const colorMappedToThemeColor: {[C in Color]: string} = {
-    critical: colorCritical,
-    disabled: colorDisabled,
-    primary: colorPrimary,
-    secondary: colorSecondary,
-  };
-
   return (
-    <Wrapper
-      as={as}
-      color={colorMappedToThemeColor[color]}
-      variant={variant}
-      $bold={bold}
-    >
+    <Wrapper as={as} color={color} variant={variant} $bold={bold}>
       {children}
     </Wrapper>
   );

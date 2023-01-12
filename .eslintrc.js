@@ -45,9 +45,14 @@ module.exports = {
         paths: [
           {
             name: 'styled-components',
-            importNames: ['createGlobalStyle'],
+            importNames: [
+              'createGlobalStyle',
+              'ThemeContext',
+              'useTheme',
+              'withTheme',
+            ],
             message:
-              'Usage of createGlobalStyle is not supported since it affects external DOM elements',
+              'The import specified affects external stylesheets and creates build errors for developers using styled-components.',
           },
         ],
       },
