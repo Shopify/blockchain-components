@@ -1,4 +1,5 @@
 import {ReactNode} from 'react';
+import {ThemeProps} from 'shared';
 
 export interface TokenSeries {
   name: string;
@@ -38,7 +39,7 @@ export interface CustomTitles {
   unlockedSubtitleWithOrderLimit?: string;
 }
 
-export interface TokengateProps {
+export type TokengateProps = ThemeProps & {
   connectButton: ReactNode;
   connectedButton?: ReactNode;
   isLoading?: boolean;
@@ -53,7 +54,7 @@ export interface TokengateProps {
   exclusiveCustomTitles?: CustomTitles;
   discountCustomTitles?: CustomTitles;
   availableDate?: string;
-}
+};
 
 export const instanceOfUnlockingToken = (
   object: any,
