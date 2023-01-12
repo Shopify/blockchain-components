@@ -10,6 +10,7 @@ import {TokengateProps} from './types';
 const defaultTokengateProps: TokengateProps = {
   connectButton: null,
   isLocked: true,
+  isConnected: false,
   onConnectWallet: () => {},
   onConnectedWalletActions: () => {},
 };
@@ -17,6 +18,7 @@ const defaultTokengateProps: TokengateProps = {
 const defaultDiscountTokengateProps: TokengateProps = {
   connectButton: null,
   isLocked: true,
+  isConnected: false,
   discount: 10,
   onConnectWallet: () => {},
   onConnectedWalletActions: () => {},
@@ -202,9 +204,7 @@ describe('Tokengate - utils', () => {
       const sections = getSections({
         ...defaultTokengateProps,
         isLocked: false,
-        wallet: {
-          address: '0x0',
-        },
+        isConnected: true,
       });
 
       expect(sections).toStrictEqual(['UnlockingTokens', 'ConnectedWallet']);
@@ -214,9 +214,7 @@ describe('Tokengate - utils', () => {
       const sections = getSections({
         ...defaultTokengateProps,
         isLocked: true,
-        wallet: {
-          address: '0x0',
-        },
+        isConnected: true,
         unlockingTokens: [],
       });
 

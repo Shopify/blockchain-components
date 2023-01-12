@@ -25,12 +25,6 @@ export interface UnlockingToken {
   };
 }
 
-export interface Wallet {
-  address?: string;
-  ensName?: string;
-  icon?: React.ReactNode;
-}
-
 export interface CustomTitles {
   lockedTitle?: string;
   lockedSubtitle?: string;
@@ -45,9 +39,9 @@ export type TokengateProps = ThemeProps & {
   isLoading?: boolean;
   isLocked: boolean;
   isSoldOut?: boolean;
+  isConnected: boolean;
   onConnectWallet: () => void;
   onConnectedWalletActions: () => void;
-  wallet?: Wallet;
   gateRequirement?: GateRequirement;
   discount?: number;
   unlockingTokens?: UnlockingToken[];
