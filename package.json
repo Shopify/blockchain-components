@@ -1,6 +1,5 @@
 {
   "name": "blockchain-components",
-  "version": "1.0.0",
   "description": "A loosely related set of components for blockchain functionality on Shopify storefronts",
   "scripts": {
     "build": "turbo run build",
