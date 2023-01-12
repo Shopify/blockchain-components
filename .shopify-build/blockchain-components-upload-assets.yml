@@ -4,6 +4,12 @@ containers:
     build:
       from: ubuntu-latest
       run:
+        # before this rsync, something will run
+        # ```bash
+        # rsync --archive --ignore-existing --prune-empty-dirs /src/. /app/.
+        # ```
+        # this does not work for us because we don't want to skip existing files
+        - rsync --archive --exclude node_modules --prune-empty-dirs /src/. /app/.
         - yarn install
         - yarn turbo run build --filter="react-tokengating-app"
         - mkdir -p assets/react-tokengating-app && cp -R packages/react-tokengating-app/dist/index.js assets/react-tokengating-app/index.js
