@@ -3,7 +3,6 @@ import {
   Wallet,
   useConnectionModal,
   useConnectWallet,
-  ConnectorIcon,
 } from '@shopify/connect-wallet';
 import {Tokengate, GateRequirement, UnlockingToken} from '@shopify/tokengate';
 import {useEffect, useState} from 'react';
@@ -124,11 +123,7 @@ export default function ({serverArguments}: AppProps) {
       isSoldOut={false}
       onConnectWallet={openModal}
       onConnectedWalletActions={disconnect}
-      wallet={{
-        address: wallet?.address,
-        ensName: undefined,
-        icon: <ConnectorIcon id={wallet?.connectorId} />,
-      }}
+      isConnected={Boolean(wallet?.address)}
       availableDate="08 September 2022 09:00 UTC"
       gateRequirement={serverArguments?.initialState.gateRequirement}
       unlockingTokens={checkIfWalletMeetsRequirementsResponse?.unlockingTokens}

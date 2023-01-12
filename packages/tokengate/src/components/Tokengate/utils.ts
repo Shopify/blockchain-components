@@ -24,10 +24,10 @@ export const useTokengateCardState = (tokengateProps: TokengateProps) => {
 
 export const getSections = (tokengateProps: TokengateProps) => {
   const {
-    wallet,
     availableDate,
     isLocked,
     isSoldOut,
+    isConnected,
     unlockingTokens,
     isLoading,
   } = tokengateProps;
@@ -39,7 +39,7 @@ export const getSections = (tokengateProps: TokengateProps) => {
     ];
   }
 
-  if (wallet?.address && !isLocked && hasReachedOrderLimit(tokengateProps)) {
+  if (isConnected && !isLocked && hasReachedOrderLimit(tokengateProps)) {
     return [
       TokengateCardSection.UnlockingTokens,
       TokengateCardSection.ConnectedWallet,
@@ -47,14 +47,14 @@ export const getSections = (tokengateProps: TokengateProps) => {
     ];
   }
 
-  if (wallet?.address && !isLocked) {
+  if (isConnected && !isLocked) {
     return [
       TokengateCardSection.UnlockingTokens,
       TokengateCardSection.ConnectedWallet,
     ];
   }
 
-  if (wallet?.address && isLocked && unlockingTokens) {
+  if (isConnected && isLocked && unlockingTokens) {
     return [
       TokengateCardSection.TokengateRequirementMissingTokens,
       TokengateCardSection.ConnectedWallet,
