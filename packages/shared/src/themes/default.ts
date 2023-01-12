@@ -20,6 +20,8 @@ namespace DefaultColors {
 }
 
 export const Default: Theme = {
+  name: 'default',
+
   typography: {
     colorPrimary: DefaultColors.Grayscale['7'],
     colorSecondary: DefaultColors.Grayscale['5'],
