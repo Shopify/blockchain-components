@@ -1,0 +1,25 @@
+containers:
+  default:
+    build:
+      from: ubuntu-latest
+      type: ci
+
+# Documentation: https://shopify-build.docs.shopify.io/jobs/publish_packages_to_cloudsmith/
+steps:
+  - label: Publish to Cloudsmith
+    git:
+      history: shallow
+    run:
+      - yarn: ~
+      - yarn build
+      - yarn workspaces run pack
+      - mkdir -p ./pkg
+      - mv packages/**/*.tgz ./pkg/
+      - ls -l ./pkg
+    publish:
+      package:
+        repository_name: node
+        package_type: npm
+        artifacts:
+          - path: pkg
+            patterns: ['*.tgz']
