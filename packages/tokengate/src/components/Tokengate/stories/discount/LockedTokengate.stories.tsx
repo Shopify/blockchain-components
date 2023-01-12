@@ -29,7 +29,7 @@ SoldOut.args = TokengatePropsNotConnectedFixture({
 export const StartDate = Template.bind({});
 StartDate.args = TokengatePropsNotConnectedFixture({
   discount: 10,
-  availableDate: addDays(new Date(), 1).toISOString(),
+  active: {start: addDays(new Date(), 1).toISOString()},
 });
 
 export const NoEligibleToken = Template.bind({});

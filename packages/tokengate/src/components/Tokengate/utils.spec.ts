@@ -235,7 +235,7 @@ describe('Tokengate - utils', () => {
 
       const sections = getSections({
         ...defaultTokengateProps,
-        availableDate: '2000-01-02',
+        active: {start: '2000-01-02'},
       });
 
       expect(sections).toStrictEqual(['TokengateRequirement', 'AvailableSoon']);

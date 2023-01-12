@@ -45,7 +45,10 @@ export type TokengateProps = ThemeProps & {
   unlockingTokens?: UnlockingToken[];
   exclusiveCustomTitles?: CustomTitles;
   discountCustomTitles?: CustomTitles;
-  availableDate?: string;
+  active?: {
+    start?: string;
+    end?: string;
+  };
 };
 
 export const instanceOfUnlockingToken = (
