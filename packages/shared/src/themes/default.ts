@@ -92,10 +92,14 @@ export const Default: Theme = {
   modal: {
     background: DefaultColors.Grayscale['0'],
     border: 'none',
-    borderRadius: '16px',
     boxShadow: `0px 0px 1px rgba(0, 0, 0, 0.2), 0px 26px 80px rgba(0, 0, 0, 0.2)`,
     overlayBackground: 'rgba(18, 18, 18, 0.2)',
     padding: '24px',
+
+    borderRadius: {
+      desktop: '16px',
+      mobile: '32px 32px 0px 0px',
+    },
   },
 
   other: {

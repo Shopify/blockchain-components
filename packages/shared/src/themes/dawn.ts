@@ -11,8 +11,6 @@ namespace DawnColors {
     4: '#8C9196', // text, disabled
     5: '#6D7175', // text, secondary
     6: '#202223', // text, primary
-    7: 'rgba(0, 0, 0, 0.08)',
-    8: 'rgba(18, 18, 18, 0.2)',
   };
 
   export const Reds = {
@@ -100,10 +98,14 @@ export const Dawn: Theme = {
   modal: {
     background: DawnColors.Grayscale['0'],
     border: DawnColors.Grayscale['2'],
-    borderRadius: '0',
-    boxShadow: `0px 8px 32px ${DawnColors.Grayscale['7']}`,
-    overlayBackground: DawnColors.Grayscale['8'],
+    boxShadow: '0px 8px 32px rgba(0, 0, 0, 0.08)',
+    overlayBackground: 'rgba(18, 18, 18, 0.2)',
     padding: '24px',
+
+    borderRadius: {
+      desktop: '0',
+      mobile: '0',
+    },
   },
 
   other: {
@@ -115,8 +117,8 @@ export const Dawn: Theme = {
     background: DawnColors.Grayscale['0'],
     border: `1px solid  ${DawnColors.Grayscale['2']}`,
     borderRadius: '0',
-    boxShadow: `0px 3px 6px -3px rgba(23, 24, 24, 0.08),
-    0px 8px 20px -4px rgba(23, 24, 24, 0.12)`,
+    boxShadow:
+      '0px 3px 6px -3px rgba(23, 24, 24, 0.08), 0px 8px 20px -4px rgba(23, 24, 24, 0.12)',
   },
 
   secondaryButton: {
@@ -134,7 +136,7 @@ export const Dawn: Theme = {
 
   tokengate: {
     background: DawnColors.Grayscale['0'],
-    border: `1px solid ${DawnColors.Grayscale['8']}`,
+    border: '1px solid rgba(0, 0, 0, 0.12)',
     borderRadius: '0',
     boxShadow: 'none',
     padding: '16px',
