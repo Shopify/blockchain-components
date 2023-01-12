@@ -56,10 +56,14 @@ export interface Theme {
   modal: {
     background: RequiredCSSProperty['backgroundColor'];
     border: RequiredCSSProperty['border'];
-    borderRadius: RequiredCSSProperty['borderRadius'];
     boxShadow: RequiredCSSProperty['boxShadow'];
     overlayBackground: RequiredCSSProperty['backgroundColor'];
     padding: Padding;
+
+    borderRadius: {
+      desktop: RequiredCSSProperty['borderRadius'];
+      mobile: RequiredCSSProperty['borderRadius'];
+    };
   };
 
   disabledButton: Pick<ButtonStyle, 'background' | 'textColor'>;

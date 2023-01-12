@@ -65,8 +65,8 @@ export const Header = styled.div<{$padded?: boolean}>`
 `;
 
 export const Icon = styled.div`
-  height: 24px;
-  width: 20px;
+  height: 36px;
+  width: 36px;
 
   svg {
     /**
@@ -93,13 +93,14 @@ export const Sheet = styled.div`
   width: 100%;
   background-color: ${({theme}) => theme.modal.background};
   border: ${({theme}) => theme.modal.border};
-  border-radius: ${({theme}) => theme.modal.borderRadius};
+  border-radius: ${({theme}) => theme.modal.borderRadius.desktop};
   box-shadow: ${({theme}) => theme.modal.boxShadow};
   padding: ${({theme}) => theme.modal.padding};
 
   @media ${breakpoints.smDown} {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    border-radius: ${({theme}) => theme.modal.borderRadius.mobile};
     max-width: unset;
     padding: 20px;
   }

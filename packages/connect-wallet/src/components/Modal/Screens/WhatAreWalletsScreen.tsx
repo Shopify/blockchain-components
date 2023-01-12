@@ -1,6 +1,6 @@
 import {useI18n} from '@shopify/react-i18n';
 import {useCallback} from 'react';
-import {Apps, Button, Gift, Key, Text} from 'shared';
+import {Button, Gift, Key, Text, Wallet} from 'shared';
 
 import {Icon, ListItemContent, SheetContent, WalletListItem} from '../style';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
@@ -16,7 +16,7 @@ const WhatAreWalletsScreen = () => {
   return (
     <SheetContent>
       <WalletListItem>
-        <Icon>{Apps}</Icon>
+        <Icon>{Wallet}</Icon>
 
         <ListItemContent>
           <Text as="h3" variant="headingSm">

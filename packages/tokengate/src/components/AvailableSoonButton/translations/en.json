@@ -1,5 +1,5 @@
 {
   "AvailableSoonButton": {
-    "buttonText": "Available {date}"
+    "buttonText": "Starts {date}"
   }
 }

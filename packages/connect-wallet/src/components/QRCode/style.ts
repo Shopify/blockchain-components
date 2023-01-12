@@ -10,7 +10,7 @@ export const Container = styled.div`
   max-width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 5px;
-  border: solid 1px #c9cccf;
+  border: ${({theme}) => theme.walletConnectorButton.border};
   padding: 16px;
   position: relative;
 `;
