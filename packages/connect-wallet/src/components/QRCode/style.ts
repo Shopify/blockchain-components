@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 export const AppIcon = styled.div``;
 
+export const Circle = styled.circle`
+  fill: ${({theme}) => theme.typography.colorPrimary};
+`;
+
 export const Container = styled.div`
   max-width: 100%;
   aspect-ratio: 1 / 1;
@@ -25,4 +29,9 @@ export const IconContainer = styled.div`
     width: 76px;
     height: 76px;
   }
+`;
+
+export const Rect = styled.rect<{$isForeground: boolean}>`
+  fill: ${({$isForeground, theme}) =>
+    $isForeground ? theme.typography.colorPrimary : theme.modal.background};
 `;
