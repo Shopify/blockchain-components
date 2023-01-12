@@ -1,3 +1,5 @@
+import {TokengateProps} from 'types';
+
 import {
   UnlockingTokenWithOrderLimitFixture,
   UnlockingTokenFixtureType,
@@ -5,7 +7,6 @@ import {
 import {renderHook} from '../../tests/test-utils';
 
 import {useTitleAndSubtitle, getSections} from './utils';
-import {TokengateProps} from './types';
 
 const defaultTokengateProps: TokengateProps = {
   connectButton: null,

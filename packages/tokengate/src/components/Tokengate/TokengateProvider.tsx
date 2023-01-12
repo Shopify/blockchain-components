@@ -1,7 +1,7 @@
 import {RootProvider} from 'shared';
+import {TokengateProps} from 'types';
 
 import {Tokengate} from './Tokengate';
-import {TokengateProps} from './types';
 
 export const TokengateProvider = (props: TokengateProps) => {
   return (

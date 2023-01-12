@@ -1,5 +1,6 @@
 import {ReactNode, Fragment, useMemo} from 'react';
 import {useI18n} from '@shopify/react-i18n';
+import {TokengateProps} from 'types';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
@@ -9,7 +10,6 @@ import {TokengateRequirement} from '../TokengateRequirement';
 import {UnlockingTokens} from '../UnlockingTokens';
 
 import {TokengateCardSection, useTokengateCardState} from './utils';
-import {TokengateProps} from './types';
 
 export const Tokengate = (props: TokengateProps) => {
   const [i18n] = useI18n();

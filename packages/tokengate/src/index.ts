@@ -14,4 +14,4 @@ export {Dawn, Default};
  * Types
  */
 export type {Theme};
-export * from './components/Tokengate/types';
+export * from './types';

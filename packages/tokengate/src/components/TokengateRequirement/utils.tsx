@@ -1,5 +1,6 @@
+import {GateRequirement, TokenSeries, UnlockingToken} from 'types';
+
 import {TokenListProps} from '../TokenList';
-import {GateRequirement, TokenSeries, UnlockingToken} from '../Tokengate';
 
 import {TokengateRequirementBadge} from './TokengateRequirementBadge';
 

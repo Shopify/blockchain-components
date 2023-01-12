@@ -1,6 +1,5 @@
 import {Text} from 'shared';
-
-import {GateRequirement} from '../Tokengate';
+import {GateRequirement} from 'types';
 
 import {TokengateRequirementSeparatorStyle} from './style';
 

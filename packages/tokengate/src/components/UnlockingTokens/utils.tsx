@@ -1,4 +1,5 @@
-import {UnlockingToken} from '../Tokengate';
+import {UnlockingToken} from 'types';
+
 import {TokenListProps} from '../TokenList';
 
 import {OrderLimit} from './OrderLimit';

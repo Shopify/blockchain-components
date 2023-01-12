@@ -1,4 +1,5 @@
-import {UnlockingToken} from '../Tokengate';
+import {UnlockingToken} from 'types';
+
 import {TokenList} from '../TokenList';
 
 import {mapUnlockingTokensToTokenListProps} from './utils';

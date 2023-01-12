@@ -1,6 +1,5 @@
 import {Text} from 'shared';
-
-import {UnlockingToken} from '../Tokengate';
+import {UnlockingToken} from 'types';
 
 type OrderLimitProps = Pick<
   UnlockingToken['token'],
