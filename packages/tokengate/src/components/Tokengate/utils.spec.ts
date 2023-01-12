@@ -11,8 +11,6 @@ const defaultTokengateProps: TokengateProps = {
   connectButton: null,
   isLocked: true,
   isConnected: false,
-  onConnectWallet: () => {},
-  onConnectedWalletActions: () => {},
 };
 
 const defaultDiscountTokengateProps: TokengateProps = {
@@ -20,8 +18,6 @@ const defaultDiscountTokengateProps: TokengateProps = {
   isLocked: true,
   isConnected: false,
   discount: 10,
-  onConnectWallet: () => {},
-  onConnectedWalletActions: () => {},
 };
 
 describe('Tokengate - utils', () => {
