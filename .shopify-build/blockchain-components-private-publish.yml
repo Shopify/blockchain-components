@@ -12,7 +12,10 @@ steps:
     run:
       - yarn: ~
       - yarn build
-      - yarn workspaces run pack
+      - |
+        for package_dir in gate-context-client connect-wallet tokengate react-tokengating-app; do
+          (cd packages/"$package_dir" && yarn pack)
+        done
       - mkdir -p ./pkg
       - mv packages/**/*.tgz ./pkg/
       - ls -l ./pkg
