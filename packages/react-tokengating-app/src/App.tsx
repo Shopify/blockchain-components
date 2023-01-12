@@ -123,7 +123,7 @@ export default function ({serverArguments}: AppProps) {
       isSoldOut={false}
       onConnectWallet={openModal}
       onConnectedWalletActions={disconnect}
-      isConnected={Boolean(wallet?.address)}
+      isConnected={Boolean(wallet?.signed)}
       availableDate="08 September 2022 09:00 UTC"
       gateRequirement={serverArguments?.initialState.gateRequirement}
       unlockingTokens={checkIfWalletMeetsRequirementsResponse?.unlockingTokens}
