@@ -1,24 +1,16 @@
-import {Chain} from '@wagmi/core';
-import {createContext, FC, PropsWithChildren, useMemo} from 'react';
+import {FC, PropsWithChildren, useMemo} from 'react';
 import {Provider} from 'react-redux';
 import {RootProvider} from 'shared';
 
-import store from '../store/configureStore';
-import {ProviderProps} from '../types/provider';
+import store from '../../store/configureStore';
+import {ProviderProps} from '../../types/provider';
+import {ModalProvider} from '../ModalProvider';
+import {SignatureProvider} from '../SignatureProvider';
 
-import {ModalProvider} from './ModalProvider';
-import {SignatureProvider} from './SignatureProvider';
+import {ConnectWalletContext, ConnectWalletProviderValue} from './context';
 
-export interface ConnectWalletProviderValue {
-  chains: Chain[];
-}
-
-const defaultContextValue: ConnectWalletProviderValue = {
-  chains: [],
-};
-
-export const ConnectWalletContext =
-  createContext<ConnectWalletProviderValue>(defaultContextValue);
+export {ConnectWalletContext};
+export type {ConnectWalletProviderValue};
 
 export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,

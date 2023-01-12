@@ -34,6 +34,9 @@ steps:
     timeout: 5m
     run:
       - yarn install
+      - |
+        yarn build --filter="gate-context-client" \
+          || yarn build --filter="gate-context-client" --force
       - yarn test
 
   - label: '🔨 Build'

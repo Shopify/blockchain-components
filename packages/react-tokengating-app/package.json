@@ -26,6 +26,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@shopify/gate-context-client": "*",
     "@shopify/connect-wallet": "*",
     "@shopify/tokengate": "*",
     "ethers": "^5.7.2",
