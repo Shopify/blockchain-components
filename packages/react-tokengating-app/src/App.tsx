@@ -1,9 +1,4 @@
-import {
-  ConnectButton,
-  Wallet,
-  useConnectionModal,
-  useConnectWallet,
-} from '@shopify/connect-wallet';
+import {ConnectButton, Wallet, useConnectWallet} from '@shopify/connect-wallet';
 import {Tokengate, GateRequirement, UnlockingToken} from '@shopify/tokengate';
 import {useEffect, useState} from 'react';
 
@@ -40,7 +35,6 @@ interface AppProps {
 // eslint-disable-next-line import/no-anonymous-default-export, react/display-name
 export default function ({serverArguments}: AppProps) {
   const isDev = import.meta.env.DEV;
-  const {openModal} = useConnectionModal();
   const [isLocked, setIsLocked] = useState(
     serverArguments?.initialState.locked ?? true,
   );
@@ -65,7 +59,7 @@ export default function ({serverArguments}: AppProps) {
     EventName.CheckIfWalletMeetsRequirements,
   );
 
-  const {disconnect, signMessage, wallet} = useConnectWallet({
+  const {signMessage, wallet} = useConnectWallet({
     messageSignedOrderAttributionMode: 'ignoreErrors',
     onConnect: (response) => {
       if (response?.address) {
@@ -121,8 +115,6 @@ export default function ({serverArguments}: AppProps) {
       isLoading={serverArguments?.initialState.isLoading}
       isLocked={isLocked}
       isSoldOut={false}
-      onConnectWallet={openModal}
-      onConnectedWalletActions={disconnect}
       isConnected={Boolean(wallet?.signed)}
       availableDate="08 September 2022 09:00 UTC"
       gateRequirement={serverArguments?.initialState.gateRequirement}

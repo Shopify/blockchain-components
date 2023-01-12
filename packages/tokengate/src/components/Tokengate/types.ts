@@ -40,8 +40,6 @@ export type TokengateProps = ThemeProps & {
   isLocked: boolean;
   isSoldOut?: boolean;
   isConnected: boolean;
-  onConnectWallet: () => void;
-  onConnectedWalletActions: () => void;
   gateRequirement?: GateRequirement;
   discount?: number;
   unlockingTokens?: UnlockingToken[];

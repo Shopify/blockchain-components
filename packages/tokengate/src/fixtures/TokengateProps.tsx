@@ -44,8 +44,6 @@ export const TokengatePropsFixture = (
         tokenSeries,
         operator: 'OR' as const,
       },
-      onConnectWallet: () => {},
-      onConnectedWalletActions: () => {},
     },
     customProps ?? {},
   ) as TokengateProps;
