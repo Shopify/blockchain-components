@@ -1,17 +1,17 @@
 import {Button} from 'shared';
-import {useI18n} from '@shopify/react-i18n';
 
 import {getBrowserInfo} from '../utils/getBrowser';
 import {isInstalled} from '../utils/isInstalled';
 
 import {useAppSelector} from './useAppState';
+import {useTranslation} from './useTranslation';
 
 /**
  * A utility hook for conditionally displaying download links for browser extensions + mobile apps.
  */
 export function useConnectorDownloadLinks() {
-  const [i18n] = useI18n();
   const {pendingConnector} = useAppSelector((state) => state.wallet);
+  const {t} = useTranslation('UseConnectorDownloadLinks');
 
   const {browser, mobilePlatform} = getBrowserInfo();
 
@@ -22,9 +22,7 @@ export function useConnectorDownloadLinks() {
       return null;
     }
 
-    const labelPrefix = mobilePlatform
-      ? i18n.translate('hooks.connectorDownloadLinks.open')
-      : i18n.translate('hooks.connectorDownloadLinks.get');
+    const labelPrefix = mobilePlatform ? t('open') : t('get');
     const labelSuffix = mobilePlatform ? '' : ` for ${platform}`;
 
     return (

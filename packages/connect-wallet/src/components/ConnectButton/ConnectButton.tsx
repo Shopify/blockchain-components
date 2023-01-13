@@ -1,9 +1,9 @@
 import {useCallback, useState} from 'react';
-import {useI18n} from '@shopify/react-i18n';
 import {Button, CaretDown, device, formatWalletAddress, Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
+import {useTranslation} from '../../hooks/useTranslation';
 import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {useModal} from '../../providers/ModalProvider';
 
@@ -14,7 +14,7 @@ export const ConnectButton = () => {
   const {connectedWallets} = useAppSelector((state) => state.wallet);
   const {openModal} = useModal();
   const [popoverVisible, setPopoverVisible] = useState(false);
-  const [i18n] = useI18n();
+  const {t} = useTranslation('ConnectButton');
   const {width} = useWindowDimensions();
   const shouldUseMobileSizes = Boolean(width && width < device.sm);
 
@@ -53,12 +53,7 @@ export const ConnectButton = () => {
 
   if (!connectedWallets.length) {
     return (
-      <Button
-        fullWidth
-        primary
-        label={i18n.translate('ConnectButton.buttonText')}
-        onClick={handleClick}
-      />
+      <Button fullWidth primary label={t('buttonText')} onClick={handleClick} />
     );
   }
 

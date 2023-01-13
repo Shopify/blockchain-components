@@ -1,11 +1,11 @@
 import {useCallback} from 'react';
 import {createPortal} from 'react-dom';
 import {Button, Cancel, IconButton, Spinner, Text} from 'shared';
-import {useI18n} from '@shopify/react-i18n';
 
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
 import {useConnectWallet} from '../../hooks/useConnectWallet';
 import {useIsMounted} from '../../hooks/useIsMounted';
+import {useTranslation} from '../../hooks/useTranslation';
 import {clearSignatureState} from '../../slices/walletSlice';
 
 import {
@@ -20,7 +20,7 @@ import {
 export const SignatureModal = () => {
   const dispatch = useAppDispatch();
   const {message} = useAppSelector((state) => state.wallet);
-  const [i18n] = useI18n();
+  const {t} = useTranslation('Modal');
   const isMounted = useIsMounted();
   const {signing, signMessage} = useConnectWallet();
 
@@ -42,11 +42,11 @@ export const SignatureModal = () => {
       <Sheet>
         <Header $padded>
           <Text as="h2" variant="headingMd">
-            {i18n.translate('Modal.signature.title')}
+            {t('signature.title')}
           </Text>
 
           <IconButton
-            aria-label={i18n.translate('Modal.icons.close')}
+            aria-label={t('icons.close') as string}
             icon={Cancel}
             // For now we can just clear the connected wallet + verification status
             onClick={handleDismiss}
@@ -54,9 +54,7 @@ export const SignatureModal = () => {
         </Header>
         <SheetContent>
           <Text as="p">
-            {signing
-              ? i18n.translate('Modal.signature.sentRequest')
-              : i18n.translate('Modal.signature.toSign')}
+            {signing ? t('signature.sentRequest') : t('signature.toSign')}
           </Text>
 
           {signing ? <Spinner /> : null}
@@ -68,7 +66,7 @@ export const SignatureModal = () => {
              */}
             {signing ? null : (
               <Button
-                label={i18n.translate('Modal.signature.title')}
+                label={t('signature.title')}
                 onClick={handleSignMessage}
                 primary
               />

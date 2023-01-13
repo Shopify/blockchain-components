@@ -1,3 +1,4 @@
+export {Apps} from './Apps';
 export {ArrowLeft} from './ArrowLeft';
 export {Cancel} from './Cancel';
 export {CaretDown} from './CaretDown';

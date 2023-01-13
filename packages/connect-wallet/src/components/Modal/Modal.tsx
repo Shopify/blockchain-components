@@ -1,12 +1,12 @@
 import {useCallback, useMemo, useState} from 'react';
 import {createPortal} from 'react-dom';
 import {useConnect} from 'wagmi';
-import {useI18n} from '@shopify/react-i18n';
 import {ArrowLeft, Cancel, IconButton, QuestionMark, Text} from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {useAppSelector} from '../../hooks/useAppState';
 import {useIsMounted} from '../../hooks/useIsMounted';
+import {useTranslation} from '../../hooks/useTranslation';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
 import {ConnectionState} from '../../types/connectionState';
 
@@ -22,16 +22,12 @@ import {
 export const Modal = () => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {connectors} = useDefaultConnectors();
-  const [i18n] = useI18n();
+  const {t} = useTranslation('Modal');
   const isMounted = useIsMounted();
   const {active, closeModal, navigation} = useModal();
   const [status, setStatus] = useState<ConnectionState>(
     ConnectionState.Connecting,
   );
-
-  const screenTitle = i18n.translate(navigation.route, {
-    scope: 'Modal.title',
-  });
 
   const handleBackdropPress = useCallback(() => {
     if (!active) return;
@@ -82,12 +78,22 @@ export const Modal = () => {
   const headerTitle = useMemo(() => {
     const {route} = navigation;
 
+    const routeTitlesDict: {[R in ModalRoute]: string} = {
+      Connect: t('title.Connect'),
+      Connecting: t('title.Connecting'),
+      GetAWallet: t('title.GetAWallet'),
+      Scan: t('title.Scan'),
+      WhatAreWallets: t('title.WhatAreWallets'),
+    };
+
+    const screenTitle = routeTitlesDict[route];
+
     if (route === ModalRoute.Connecting || route === ModalRoute.Scan) {
       return `${screenTitle} ${pendingConnector?.name}`;
     }
 
     return screenTitle;
-  }, [navigation, pendingConnector?.name, screenTitle]);
+  }, [navigation, pendingConnector?.name, t]);
 
   const screenComponent = useMemo(() => {
     switch (navigation.route) {
@@ -115,7 +121,7 @@ export const Modal = () => {
     if (navigation.goBack) {
       return (
         <IconButton
-          aria-label={i18n.translate('Modal.icons.back')}
+          aria-label={t('icons.back') as string}
           icon={ArrowLeft}
           onClick={navigation.goBack}
         />
@@ -124,12 +130,12 @@ export const Modal = () => {
 
     return (
       <IconButton
-        aria-label={i18n.translate('Modal.icons.whatIsAWallet')}
+        aria-label={t('icons.whatIsAWallet') as string}
         icon={QuestionMark}
         onClick={() => navigation.navigate(ModalRoute.WhatAreWallets)}
       />
     );
-  }, [i18n, navigation]);
+  }, [navigation, t]);
 
   if (!active || !isMounted) {
     return null;
@@ -147,7 +153,7 @@ export const Modal = () => {
           </Text>
 
           <IconButton
-            aria-label={i18n.translate('Modal.icons.close')}
+            aria-label={t('icons.close') as string}
             icon={Cancel}
             onClick={closeModal}
           />

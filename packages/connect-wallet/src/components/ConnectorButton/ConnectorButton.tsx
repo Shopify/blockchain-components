@@ -1,7 +1,7 @@
-import {useI18n} from '@shopify/react-i18n';
 import {Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
+import {useTranslation} from '../../hooks/useTranslation';
 
 import {Button} from './style';
 
@@ -12,13 +12,11 @@ interface ConnectorButtonProps {
 }
 
 export const ConnectorButton = ({id, name, onClick}: ConnectorButtonProps) => {
-  const [i18n] = useI18n();
+  const {t} = useTranslation('ConnectorButton');
 
   return (
     <Button
-      aria-label={i18n.translate('ConnectorButton.accessibilityLabel', {
-        name,
-      })}
+      aria-label={t('accessibilityLabel', {name}) as string}
       onClick={onClick}
     >
       <ConnectorIcon id={id} />
