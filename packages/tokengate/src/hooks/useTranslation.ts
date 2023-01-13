@@ -6,7 +6,7 @@ import {
   UseTranslationOptions,
 } from 'react-i18next';
 
-import {i18n} from '../providers/I18nProvider';
+import {i18n} from '../providers/TokengateProvider';
 
 export function useTranslation(
   namespace: Namespace,

@@ -54,6 +54,12 @@ module.exports = {
             message:
               'The import specified affects external stylesheets and creates build errors for developers using styled-components.',
           },
+          {
+            name: 'react-i18next',
+            importNames: ['useTranslation'],
+            message:
+              'Please use the useTranslation hook defined in the hooks directory to ensure that the translation is using the proper i18nInstance and namespace.',
+          },
         ],
       },
     ],

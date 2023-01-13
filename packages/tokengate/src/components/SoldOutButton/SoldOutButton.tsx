@@ -1,22 +1,18 @@
-import {useI18n} from '@shopify/react-i18n';
 import {Text, Button} from 'shared';
+
+import {useTranslation} from '../../hooks/useTranslation';
 
 import {Wrapper} from './style';
 
 const SoldOutButton = () => {
-  const [i18n] = useI18n();
+  const {t} = useTranslation('SoldOutButton');
 
   return (
     <Wrapper>
-      <Button
-        fullWidth
-        primary
-        disabled
-        label={i18n.translate('SoldOutButton.buttonText')}
-      />
+      <Button fullWidth primary disabled label={t('buttonText')} />
 
       <Text as="p" variant="bodyMd">
-        {i18n.translate('SoldOutButton.description')}
+        {t('description')}
       </Text>
     </Wrapper>
   );

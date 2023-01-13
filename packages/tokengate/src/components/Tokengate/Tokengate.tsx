@@ -1,5 +1,4 @@
 import {ReactNode, Fragment, useMemo} from 'react';
-import {useI18n} from '@shopify/react-i18n';
 import {TokengateProps} from 'types';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
@@ -8,11 +7,12 @@ import {Error} from '../Error';
 import {SoldOutButton} from '../SoldOutButton';
 import {TokengateRequirement} from '../TokengateRequirement';
 import {UnlockingTokens} from '../UnlockingTokens';
+import {useTranslation} from '../../hooks/useTranslation';
 
 import {TokengateCardSection, useTokengateCardState} from './utils';
 
 export const Tokengate = (props: TokengateProps) => {
-  const [i18n] = useI18n();
+  const {t} = useTranslation('Tokengate');
   const {
     connectButton,
     connectedButton,
@@ -47,26 +47,24 @@ export const Tokengate = (props: TokengateProps) => {
         <TokengateRequirement isLoading />
       ),
       [TokengateCardSection.OrderLimitReachedError]: (
-        <Error
-          text={i18n.translate('Tokengate.errors.orderLimitReachedError')}
-        />
+        <Error text={t('errors.orderLimitReachedError') as string} />
       ),
       [TokengateCardSection.MissingTokensError]: (
-        <Error text={i18n.translate('Tokengate.errors.missingTokensError')} />
+        <Error text={t('errors.missingTokensError') as string} />
       ),
     }),
     [
+      active?.start,
       connectButton,
       connectedButton,
-      unlockingTokens,
       gateRequirement,
-      active,
-      i18n,
+      t,
+      unlockingTokens,
     ],
   );
 
   return (
-    <Card title={title} subtitle={subtitle}>
+    <Card title={title as string} subtitle={subtitle as string}>
       {sections.map((section: TokengateCardSection) => (
         <Fragment key={section}>{sectionMapping[section]}</Fragment>
       ))}

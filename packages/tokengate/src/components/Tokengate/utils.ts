@@ -1,5 +1,6 @@
-import {useI18n} from '@shopify/react-i18n';
 import {TokengateProps, UnlockingToken} from 'types';
+
+import {useTranslation} from '../../hooks/useTranslation';
 
 export enum TokengateCardSection {
   TokengateRequirement = 'TokengateRequirement',
@@ -81,12 +82,11 @@ export const getSections = (tokengateProps: TokengateProps) => {
 const useTokengateI18n = (props: TokengateProps) => {
   const {isLocked, discount} = props;
 
-  const [i18n] = useI18n();
+  const {t} = useTranslation('Tokengate');
   const i18nKeyFirstLevel = discount ? 'discount' : 'exclusive';
   const i18nKeySecondLevel = isLocked ? 'locked' : 'unlocked';
-  const i18nKeyPrefix = `Tokengate.${i18nKeyFirstLevel}.${i18nKeySecondLevel}`;
-  return (key: string, vars: any) =>
-    i18n.translate(`${i18nKeyPrefix}.${key}`, vars);
+  const i18nKeyPrefix = `${i18nKeyFirstLevel}.${i18nKeySecondLevel}`;
+  return (key: string, vars: any) => t(`${i18nKeyPrefix}.${key}`, vars);
 };
 
 export const useTitleAndSubtitle = (props: TokengateProps) => {

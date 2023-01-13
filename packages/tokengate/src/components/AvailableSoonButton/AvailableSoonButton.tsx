@@ -1,5 +1,6 @@
-import {useI18n} from '@shopify/react-i18n';
 import {Button} from 'shared';
+
+import {useTranslation} from '../../hooks/useTranslation';
 
 interface AvailableSoonButtonProps {
   availableDate?: string;
@@ -25,14 +26,14 @@ function convert(availableDate: AvailableSoonButtonProps['availableDate']) {
 }
 
 const AvailableSoonButton = ({availableDate}: AvailableSoonButtonProps) => {
-  const [i18n] = useI18n();
+  const {t} = useTranslation('AvailableSoonButton');
 
   return (
     <Button
       fullWidth
       primary
       disabled
-      label={i18n.translate('AvailableSoonButton.buttonText', {
+      label={t('buttonText', {
         date: convert(availableDate),
       })}
     />
