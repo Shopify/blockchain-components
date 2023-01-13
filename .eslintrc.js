@@ -14,7 +14,7 @@ module.exports = {
   parserOptions: {
     project: ['./tsconfig.json'],
   },
-  ignorePatterns: ['node_modules', 'dist', 'vite.config*'],
+  ignorePatterns: ['node_modules', 'dist', 'tsup.config.ts', 'vite.config*'],
   rules: {
     '@shopify/jsx-no-complex-expressions': 'off',
     '@typescript-eslint/ban-ts-comment': [
