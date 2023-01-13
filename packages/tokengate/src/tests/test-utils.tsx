@@ -6,18 +6,11 @@ import {
   RenderOptions,
 } from '@testing-library/react';
 import React, {ReactElement} from 'react';
-import {I18nContext, I18nManager} from '@shopify/react-i18n';
 
-const DEFAULT_LOCALE = 'en';
-
-const mockI18nProviderContext = new I18nManager({locale: DEFAULT_LOCALE});
+import {I18nProvider} from '../providers/I18nProvider';
 
 const AppContext = ({children}: {children: React.ReactNode}) => {
-  return (
-    <I18nContext.Provider value={mockI18nProviderContext}>
-      {children}
-    </I18nContext.Provider>
-  );
+  return <I18nProvider>{children}</I18nProvider>;
 };
 
 const renderWithContext = (

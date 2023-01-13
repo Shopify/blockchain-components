@@ -1,4 +1,4 @@
-import {withI18nProvider, withThemeProvider} from './decorators';
+import {withThemeProvider} from './decorators';
 
 export const parameters = {
   actions: {argTypesRegex: '^on[A-Z].*'},
@@ -10,4 +10,4 @@ export const parameters = {
   },
 };
 
-export const decorators = [withI18nProvider, withThemeProvider];
+export const decorators = [withThemeProvider];

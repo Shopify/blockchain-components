@@ -1,1 +1,1 @@
-export {TokengateProvider as Tokengate} from './TokengateProvider';
+export {Tokengate} from './Tokengate';

@@ -1,9 +1,9 @@
 import {Dawn, Default, Theme} from 'shared';
 
 /**
- * Components
+ * Providers
  */
-export {Tokengate} from './components/Tokengate';
+export {TokengateProvider as Tokengate} from './providers/TokengateProvider';
 
 /**
  * Themes
