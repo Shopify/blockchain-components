@@ -1,12 +1,12 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button, Text} from 'shared';
 import {useConnect} from 'wagmi';
-import {useI18n} from '@shopify/react-i18n';
 
 import {useAppSelector} from '../../../hooks/useAppState';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
-import {useModalScreenContent} from '../../../hooks/useModalContent/useModalContent';
+import {useModalScreenContent} from '../../../hooks/useModalContent';
+import {useTranslation} from '../../../hooks/useTranslation';
 import {QRCode} from '../../QRCode';
 import {ButtonContainer, SheetContent} from '../style';
 import {ConnectArgs} from '../../../types/connector';
@@ -19,18 +19,17 @@ interface ScanScreenProps {
 }
 
 const ScanScreen = ({connect, state}: ScanScreenProps) => {
-  const {connectors} = useConnect();
   const {pendingConnector} = useAppSelector((state) => state.wallet);
+  const {connectors} = useConnect();
   const {connector} = useConnectorData({
     id: pendingConnector?.id,
   });
-  const [i18n] = useI18n();
   const downloadButtons = useConnectorDownloadLinks();
+  const {body} = useModalScreenContent(state);
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
+  const {t} = useTranslation('Screens');
 
   const {mobilePlatform} = getBrowserInfo();
-
-  const {body} = useModalScreenContent(state);
 
   const bodyContent = useMemo(() => {
     const isRelevantState = [
@@ -69,7 +68,7 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
       isWalletConnect && !mobilePlatform ? (
         <Button
           onClick={handleUseDefaultWalletConnect}
-          label={i18n.translate('modalScreens.ScanScreen.button')}
+          label={t('Scan.button')}
         />
       ) : null;
 
@@ -82,9 +81,9 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
   }, [
     downloadButtons,
     handleUseDefaultWalletConnect,
-    i18n,
     mobilePlatform,
     pendingConnector?.id,
+    t,
   ]);
 
   // eslint-disable-next-line @typescript-eslint/require-await

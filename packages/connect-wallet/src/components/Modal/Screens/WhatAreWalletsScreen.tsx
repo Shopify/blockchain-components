@@ -1,13 +1,13 @@
-import {useI18n} from '@shopify/react-i18n';
 import {useCallback} from 'react';
-import {Button, Gift, Key, Text, Wallet} from 'shared';
+import {Apps, Button, Gift, Key, Text} from 'shared';
 
-import {Icon, ListItemContent, SheetContent, WalletListItem} from '../style';
+import {useTranslation} from '../../../hooks/useTranslation';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
+import {Icon, ListItemContent, SheetContent, WalletListItem} from '../style';
 
 const WhatAreWalletsScreen = () => {
-  const [i18n] = useI18n();
   const {navigation} = useModal();
+  const {t} = useTranslation('Screens');
 
   const handleGetAWallet = useCallback(() => {
     navigation.navigate(ModalRoute.GetAWallet);
@@ -16,16 +16,14 @@ const WhatAreWalletsScreen = () => {
   return (
     <SheetContent>
       <WalletListItem>
-        <Icon>{Wallet}</Icon>
+        <Icon>{Apps}</Icon>
 
         <ListItemContent>
           <Text as="h3" variant="headingSm">
-            {i18n.translate('modalScreens.WhatAreWallets.home.title')}
+            {t('WhatAreWallets.home.title')}
           </Text>
 
-          <Text as="p">
-            {i18n.translate('modalScreens.WhatAreWallets.home.content')}
-          </Text>
+          <Text as="p">{t('WhatAreWallets.home.content')}</Text>
         </ListItemContent>
       </WalletListItem>
       <WalletListItem>
@@ -33,12 +31,10 @@ const WhatAreWalletsScreen = () => {
 
         <ListItemContent>
           <Text as="h3" variant="headingSm">
-            {i18n.translate('modalScreens.WhatAreWallets.login.title')}
+            {t('WhatAreWallets.login.title')}
           </Text>
 
-          <Text as="p">
-            {i18n.translate('modalScreens.WhatAreWallets.login.content')}
-          </Text>
+          <Text as="p">{t('WhatAreWallets.login.content')}</Text>
         </ListItemContent>
       </WalletListItem>
       <WalletListItem>
@@ -46,15 +42,11 @@ const WhatAreWalletsScreen = () => {
 
         <ListItemContent>
           <Text as="h3" variant="headingSm">
-            {i18n.translate(
-              'modalScreens.WhatAreWallets.collaborativeCommerce.title',
-            )}
+            {t('WhatAreWallets.collaborativeCommerce.title')}
           </Text>
 
           <Text as="p">
-            {i18n.translate(
-              'modalScreens.WhatAreWallets.collaborativeCommerce.content',
-            )}
+            {t('WhatAreWallets.collaborativeCommerce.content')}
           </Text>
         </ListItemContent>
       </WalletListItem>

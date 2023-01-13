@@ -1,0 +1,19 @@
+{
+  "icons": {
+    "back": "Go back",
+    "close": "Close modal",
+    "whatIsAWallet": "What is a wallet?"
+  },
+  "signature": {
+    "title": "Sign message",
+    "sentRequest": "Signature request sent. Please sign the message in your wallet.",
+    "toSign": "Signing a message proves ownership of a wallet address."
+  },
+  "title": {
+    "Connect": "Connect wallet",
+    "Connecting": "Connect with",
+    "GetAWallet": "Get a wallet",
+    "Scan": "Scan with",
+    "WhatAreWallets": "What is a wallet?"
+  }
+}

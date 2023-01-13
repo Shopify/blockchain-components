@@ -4,7 +4,7 @@ import {Button, Spinner, Text} from 'shared';
 import {ConnectorIcon} from '../../ConnectorIcon';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
-import {useModalScreenContent} from '../../../hooks/useModalContent/useModalContent';
+import {useModalScreenContent} from '../../../hooks/useModalContent';
 import {useAppSelector} from '../../../hooks/useAppState';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {
