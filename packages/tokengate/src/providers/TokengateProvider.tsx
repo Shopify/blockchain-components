@@ -1,8 +1,7 @@
 import {RootProvider} from 'shared';
 import {TokengateProps} from 'types';
 
-// eslint-disable-next-line @shopify/strict-component-boundaries
-import {Tokengate} from '../components/Tokengate';
+import {Tokengate} from '../components';
 
 import {I18nProvider} from './I18nProvider';
 
