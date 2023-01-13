@@ -7,7 +7,6 @@
     "target": "esnext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "sourceMap": true,
-    "resolveJsonModule": true,
     "noEmit": true,
     "noImplicitReturns": true,
     "useDefineForClassFields": true

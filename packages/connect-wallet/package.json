@@ -26,10 +26,10 @@
     }
   },
   "scripts": {
-    "build": "vite build && tsc --emitDeclarationOnly",
-    "dev": "vite build --mode=development --watch",
+    "build": "tsup",
+    "dev": "DEV=true tsup --watch",
     "lint": "eslint '**/*.ts*'",
-    "typecheck": "tsc"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
@@ -58,6 +58,7 @@
     "@types/ua-parser-js": "^0.7.36",
     "@wagmi/core": "0.8.10",
     "shared": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "tsup": "^6.5.0"
   }
 }
