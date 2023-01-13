@@ -1,6 +1,5 @@
 import {deepMerge, DeepPartial} from 'shared';
-
-import {TokengateProps} from '../components';
+import {TokengateProps} from 'types';
 
 import {TokenSeriesArrayFixture} from './TokenSeries';
 import {

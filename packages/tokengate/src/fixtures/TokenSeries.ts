@@ -1,7 +1,6 @@
 import {deepMerge} from 'shared/src/utils/deepMerge';
 import {DeepPartial} from 'shared/src/types/deepPartial';
-
-import {TokenSeries} from '../components';
+import {TokenSeries} from 'types';
 
 export const TokenSeriesFixture = (customProps?: DeepPartial<TokenSeries>) =>
   deepMerge(

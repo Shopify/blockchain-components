@@ -1,6 +1,5 @@
 import {useI18n} from '@shopify/react-i18n';
-
-import {TokengateProps, UnlockingToken} from './types';
+import {TokengateProps, UnlockingToken} from 'types';
 
 export enum TokengateCardSection {
   TokengateRequirement = 'TokengateRequirement',
