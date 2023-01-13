@@ -4,9 +4,9 @@
 export * from './TokengateProps';
 
 /**
- * TokenSeries
+ * Condition
  */
-export {TokenSeriesFixture, TokenSeriesArrayFixture} from './TokenSeries';
+export {ConditionFixture, ConditionArrayFixture} from './Condition';
 
 /**
  * UnlockingTokens

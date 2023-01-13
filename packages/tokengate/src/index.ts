@@ -1,6 +1,11 @@
 import {Dawn, Default, Theme} from 'shared';
 
 /**
+ * Adaptors
+ */
+export {adaptRequirement} from './utils/adapters/requirement';
+
+/**
  * Providers
  */
 export {TokengateProvider as Tokengate} from './providers/TokengateProvider';

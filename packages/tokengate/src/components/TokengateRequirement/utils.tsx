@@ -1,4 +1,4 @@
-import {GateRequirement, TokenSeries, UnlockingToken} from 'types';
+import {GateRequirement, Condition, UnlockingToken} from 'types';
 
 import {TokenListProps} from '../TokenList';
 
@@ -13,34 +13,36 @@ export const mapGateRequirementToTokenListProps = ({
   unlockingTokens?: UnlockingToken[];
   hasMissingTokens?: boolean;
 }): TokenListProps['tokens'] =>
-  gateRequirement?.tokenSeries.map((tokenSeries) => {
+  gateRequirement?.conditions.map((condition) => {
     let badge;
 
     // Add the error badges to the token series that do not have an unlocking token
     if (hasMissingTokens) {
-      const unlockingTokenForCurrentTokenSeries =
-        findUnlockingTokenForTokenSeries({tokenSeries, unlockingTokens});
+      const unlockingTokenForCurrentCondition = findUnlockingTokenForCondition({
+        condition,
+        unlockingTokens,
+      });
       badge = unlockingTokens?.length !== undefined &&
-        !unlockingTokenForCurrentTokenSeries && <TokengateRequirementBadge />;
+        !unlockingTokenForCurrentCondition && <TokengateRequirementBadge />;
     }
 
     return {
-      title: tokenSeries.name,
-      subtitle: tokenSeries.conditionsDescription,
-      imageUrl: tokenSeries.imageUrl,
+      title: condition.name,
+      subtitle: condition.conditionsDescription,
+      imageUrl: condition.imageUrl,
       badge,
       round: true,
     };
   });
 
-export const findUnlockingTokenForTokenSeries = ({
-  tokenSeries,
+export const findUnlockingTokenForCondition = ({
+  condition,
   unlockingTokens,
 }: {
-  tokenSeries: TokenSeries;
+  condition: Condition;
   unlockingTokens?: UnlockingToken[];
 }) =>
   unlockingTokens?.find(
     (unlockingToken) =>
-      unlockingToken.token.contractAddress === tokenSeries.contractAddress,
+      unlockingToken.token.contractAddress === condition.collectionAddress,
   );
