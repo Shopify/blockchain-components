@@ -9,7 +9,7 @@ import {
   GateContextInput,
   GateContextWriteResponse,
   ShopifyGateContextGenerator,
-} from 'types';
+} from '../types';
 
 import {getShopifyRootRoute} from './shopify';
 import {CartAjaxAPICartAttributes} from './types';

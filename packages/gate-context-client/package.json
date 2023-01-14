@@ -2,7 +2,7 @@
   "name": "@shopify/gate-context-client",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "Crypto wallet connection library for Shopify storefronts",
+  "description": "Utility API utilizing the AJAX Cart API to store wallet address and signature data.",
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
@@ -27,13 +27,14 @@
     }
   },
   "scripts": {
-    "build": "vite build && tsc --emitDeclarationOnly",
-    "dev": "vite build --mode=development --watch",
+    "build": "tsup",
+    "dev": "DEV=true tsup --watch",
     "lint": "eslint '**/*.ts*'",
-    "typecheck": "tsc"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "jest-fetch-mock": "^3.0.3",
     "tsconfig": "*",
-    "jest-fetch-mock": "^3.0.3"
+    "tsup": "^6.5.0"
   }
 }
