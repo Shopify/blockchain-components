@@ -1,5 +1,3 @@
-import {TokengateProps} from 'types';
-
 import {
   UnlockingTokenWithOrderLimitFixture,
   UnlockingTokenFixtureType,
@@ -7,6 +5,7 @@ import {
   DiscountReactionFixture,
 } from '../../fixtures';
 import {renderHook} from '../../tests/test-utils';
+import {TokengateProps} from '../../types';
 
 import {useTitleAndSubtitle, getSections} from './utils';
 

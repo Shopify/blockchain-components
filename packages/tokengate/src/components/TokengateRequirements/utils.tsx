@@ -1,6 +1,5 @@
-import {Requirements, Condition, UnlockingToken} from 'types';
-
 import {TokenListProps} from '../TokenList';
+import {Requirements, Condition, UnlockingToken} from '../../types';
 
 import {TokengateRequirementsBadge} from './TokengateRequirementsBadge';
 

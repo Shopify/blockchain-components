@@ -1,4 +1,4 @@
-import {Requirements} from 'types';
+import {Requirements} from '../../types';
 
 export const adaptRequirements = (gateRequirement?: {
   operator: 'OR' | 'AND';

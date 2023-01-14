@@ -1,5 +1,6 @@
 import {deepMerge, DeepPartial} from 'shared';
-import {TokengateProps} from 'types';
+
+import {TokengateProps} from '../types';
 
 import {ConditionArrayFixture} from './Condition';
 import {

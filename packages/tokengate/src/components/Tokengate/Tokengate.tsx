@@ -1,5 +1,4 @@
 import {ReactNode, Fragment, useMemo} from 'react';
-import {TokengateProps} from 'types';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
@@ -8,6 +7,7 @@ import {SoldOutButton} from '../SoldOutButton';
 import {TokengateRequirements} from '../TokengateRequirements';
 import {UnlockingTokens} from '../UnlockingTokens';
 import {useTranslation} from '../../hooks/useTranslation';
+import {TokengateProps} from '../../types';
 
 import {TokengateCardSection, useTokengateCardState} from './utils';
 
