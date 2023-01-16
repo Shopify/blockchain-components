@@ -18,7 +18,6 @@ export interface UnlockingToken {
     mediaUrl: string;
     contractName: string;
     contractAddress: string;
-    totalOrderLimit?: number;
     consumedOrderLimit?: number;
   };
 }
@@ -29,6 +28,11 @@ export interface CustomTitles {
   unlockedTitle?: string;
   unlockedSubtitle?: string;
   unlockedSubtitleWithOrderLimit?: string;
+}
+
+export interface RedemptionLimit {
+  total: number;
+  perToken: number;
 }
 
 export type TokengateProps = ThemeProps & {
@@ -49,6 +53,7 @@ export type TokengateProps = ThemeProps & {
   reaction: {
     type: 'exclusive_access' | 'discount';
   };
+  redemptionLimit?: RedemptionLimit;
 };
 
 export const instanceOfUnlockingToken = (

@@ -49,7 +49,6 @@ export const UnlockingTokenWithOrderLimitFixture = (
       {
         token: {
           consumedOrderLimit: 0,
-          totalOrderLimit: 2,
         },
       },
       customProps ?? {},
@@ -66,7 +65,6 @@ export const UnlockingTokenWithOrderLimitMetFixture = (
       {
         token: {
           consumedOrderLimit: 2,
-          totalOrderLimit: 2,
         },
       },
       customProps ?? {},
