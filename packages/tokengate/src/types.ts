@@ -8,9 +8,9 @@ export interface Condition {
   collectionAddress: string;
 }
 
-export interface GateRequirement {
+export interface Requirements {
   conditions: Condition[];
-  operator: 'OR' | 'AND';
+  logic: 'ANY' | 'ALL';
 }
 
 export interface UnlockingToken {
@@ -39,7 +39,7 @@ export type TokengateProps = ThemeProps & {
   isLocked: boolean;
   isSoldOut?: boolean;
   isConnected: boolean;
-  gateRequirement?: GateRequirement;
+  requirements?: Requirements;
   unlockingTokens?: UnlockingToken[];
   exclusiveCustomTitles?: CustomTitles;
   discountCustomTitles?: CustomTitles;

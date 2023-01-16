@@ -1,6 +1,6 @@
-import {GateRequirement} from 'types';
+import {Requirements} from 'types';
 
-export const adaptRequirement = (gateRequirement?: {
+export const adaptRequirements = (gateRequirement?: {
   operator: 'OR' | 'AND';
   tokenSeries: {
     name: string;
@@ -8,13 +8,13 @@ export const adaptRequirement = (gateRequirement?: {
     imageUrl: string;
     contractAddress: string;
   }[];
-}): GateRequirement | undefined => {
+}): Requirements | undefined => {
   if (!gateRequirement) {
     return;
   }
 
   return {
-    operator: gateRequirement.operator,
+    logic: gateRequirement.operator === 'AND' ? 'ALL' : 'ANY',
     conditions: gateRequirement.tokenSeries.map((tokenSeries) => ({
       collectionAddress: tokenSeries.contractAddress,
       name: tokenSeries.name,
