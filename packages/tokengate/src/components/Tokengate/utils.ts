@@ -80,10 +80,10 @@ export const getSections = (tokengateProps: TokengateProps) => {
 };
 
 const useTokengateI18n = (props: TokengateProps) => {
-  const {isLocked, discount} = props;
+  const {isLocked} = props;
 
   const {t} = useTranslation('Tokengate');
-  const i18nKeyFirstLevel = discount ? 'discount' : 'exclusive';
+  const i18nKeyFirstLevel = isDiscountGate(props) ? 'discount' : 'exclusive';
   const i18nKeySecondLevel = isLocked ? 'locked' : 'unlocked';
   const i18nKeyPrefix = `${i18nKeyFirstLevel}.${i18nKeySecondLevel}`;
   return (key: string, vars: any) => t(`${i18nKeyPrefix}.${key}`, vars);
@@ -91,12 +91,13 @@ const useTokengateI18n = (props: TokengateProps) => {
 
 export const useTitleAndSubtitle = (props: TokengateProps) => {
   const translateTokengateI18n = useTokengateI18n(props);
-  const {isLocked, exclusiveCustomTitles, discountCustomTitles, discount} =
-    props;
+  const {isLocked, exclusiveCustomTitles, discountCustomTitles} = props;
   const orderLimit = getCombinedTotalOrderLimit(props);
   const hasOrderLimit = orderLimit && orderLimit > 0;
 
-  const customTitles = discount ? discountCustomTitles : exclusiveCustomTitles;
+  const customTitles = isDiscountGate(props)
+    ? discountCustomTitles
+    : exclusiveCustomTitles;
 
   const {
     lockedTitle,
@@ -109,7 +110,8 @@ export const useTitleAndSubtitle = (props: TokengateProps) => {
   const customTitle = isLocked ? lockedTitle : unlockedTitle;
   const customSubtitle = isLocked ? lockedSubtitle : unlockedSubtitle;
 
-  const title = customTitle || translateTokengateI18n('title', {discount});
+  // Hardcoding the discount to 20 for now until we sync on its shape with foundations
+  const title = customTitle || translateTokengateI18n('title', {discount: 10});
   let subtitle =
     customSubtitle ||
     translateTokengateI18n('subtitle', {
@@ -166,4 +168,8 @@ const hasReachedOrderLimit = (props: TokengateProps) => {
   const orderLimit = getCombinedTotalOrderLimit(props);
   const consumedOrderLimit = getCombinedConsumedOrderLimit(props);
   return orderLimit && consumedOrderLimit && consumedOrderLimit >= orderLimit;
+};
+
+const isDiscountGate = (props: TokengateProps) => {
+  return props.reaction.type === 'discount';
 };

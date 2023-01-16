@@ -43,6 +43,9 @@ export const TokengatePropsFixture = (
         tokenSeries,
         operator: 'OR' as const,
       },
+      reaction: {
+        type: 'exclusive_access',
+      },
     },
     customProps ?? {},
   ) as TokengateProps;

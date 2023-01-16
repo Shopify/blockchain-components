@@ -41,13 +41,15 @@ export type TokengateProps = ThemeProps & {
   isSoldOut?: boolean;
   isConnected: boolean;
   gateRequirement?: GateRequirement;
-  discount?: number;
   unlockingTokens?: UnlockingToken[];
   exclusiveCustomTitles?: CustomTitles;
   discountCustomTitles?: CustomTitles;
   active?: {
     start?: string;
     end?: string;
+  };
+  reaction: {
+    type: 'exclusive_access' | 'discount';
   };
 };
 
