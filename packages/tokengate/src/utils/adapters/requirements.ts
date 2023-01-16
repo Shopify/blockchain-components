@@ -4,7 +4,6 @@ export const adaptRequirements = (gateRequirement?: {
   operator: 'OR' | 'AND';
   tokenSeries: {
     name: string;
-    conditionsDescription: string;
     imageUrl: string;
     contractAddress: string;
   }[];
@@ -19,7 +18,6 @@ export const adaptRequirements = (gateRequirement?: {
       collectionAddress: tokenSeries.contractAddress,
       name: tokenSeries.name,
       imageUrl: tokenSeries.imageUrl,
-      conditionsDescription: 'Any token',
     })),
   };
 };

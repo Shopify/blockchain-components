@@ -20,7 +20,6 @@ interface AppProps {
         operator: 'OR' | 'AND';
         tokenSeries: {
           name: string;
-          conditionsDescription: string;
           imageUrl: string;
           contractAddress: string;
         }[];

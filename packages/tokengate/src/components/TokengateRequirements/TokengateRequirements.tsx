@@ -1,6 +1,7 @@
 import {Requirements, UnlockingToken} from 'types';
 
 import {TokenList} from '../TokenList';
+import {useTranslation} from '../../hooks/useTranslation';
 
 import {TokengateRequirementsSeparator} from './TokengateRequirementsSeparator';
 import {mapRequirementsToTokenListProps} from './utils';
@@ -16,10 +17,12 @@ const TokengateRequirements = ({
   hasMissingTokens?: boolean;
   isLoading?: boolean;
 }) => {
+  const {t} = useTranslation('TokengateRequirements');
   const items = mapRequirementsToTokenListProps({
     requirements,
     unlockingTokens,
     hasMissingTokens,
+    t,
   });
 
   return (

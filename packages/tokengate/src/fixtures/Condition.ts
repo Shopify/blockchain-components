@@ -6,7 +6,6 @@ export const ConditionFixture = (customProps?: DeepPartial<Condition>) =>
   deepMerge(
     {
       name: 'Squaddy',
-      conditionsDescription: 'Any token',
       collectionAddress: '0x33023E456aF4C186A32c57f8ad61c34cB33f5cC1',
       imageUrl:
         'https://i.seadn.io/gae/QM_-oRsm9DoB2GQ9iuMbJtdWaVJjrOwIkEVEjdPHdsSWTilWIfNOPgKSD502tv9NMTOCSP9kQve8b8h_jQahzs3a4EVH11Ck0l9iKw?auto=format&w=384',
