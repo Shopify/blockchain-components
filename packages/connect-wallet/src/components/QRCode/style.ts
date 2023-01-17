@@ -5,12 +5,12 @@ export const Circle = styled.circle`
 `;
 
 export const Container = styled.div`
-  max-width: 100%;
-  aspect-ratio: 1 / 1;
+  width: 100%;
   border-radius: 5px;
   border: ${({theme}) => theme.walletConnectorButton.border};
   padding: 16px;
   position: relative;
+  box-sizing: border-box;
 `;
 
 export const IconContainer = styled.div`
