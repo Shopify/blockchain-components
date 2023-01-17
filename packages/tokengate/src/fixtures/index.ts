@@ -9,6 +9,11 @@ export * from './TokengateProps';
 export {ConditionFixture, ConditionArrayFixture} from './Condition';
 
 /**
+ * Reaction
+ */
+export {ReactionFixture, DiscountReactionFixture} from './Reaction';
+
+/**
  * UnlockingTokens
  */
 export {

@@ -6,6 +6,7 @@ import {Tokengate} from '../../Tokengate';
 import {
   TokengatePropsNotConnectedFixture,
   TokengatePropsConnectedFixture,
+  DiscountReactionFixture,
 } from '../../../../fixtures';
 
 const TokengateStory: ComponentMeta<typeof Tokengate> = {
@@ -17,30 +18,22 @@ export default TokengateStory;
 
 export const Locked = Template.bind({});
 Locked.args = TokengatePropsNotConnectedFixture({
-  reaction: {
-    type: 'discount',
-  },
+  reaction: DiscountReactionFixture(),
 });
 
 export const SoldOut = Template.bind({});
 SoldOut.args = TokengatePropsNotConnectedFixture({
-  reaction: {
-    type: 'discount',
-  },
+  reaction: DiscountReactionFixture(),
   isSoldOut: true,
 });
 
 export const StartDate = Template.bind({});
 StartDate.args = TokengatePropsNotConnectedFixture({
-  reaction: {
-    type: 'discount',
-  },
+  reaction: DiscountReactionFixture(),
   active: {start: addDays(new Date(), 1).toISOString()},
 });
 
 export const NoEligibleToken = Template.bind({});
 NoEligibleToken.args = TokengatePropsConnectedFixture({
-  reaction: {
-    type: 'discount',
-  },
+  reaction: DiscountReactionFixture(),
 });

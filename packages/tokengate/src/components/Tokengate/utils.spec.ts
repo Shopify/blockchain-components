@@ -3,6 +3,8 @@ import {TokengateProps} from 'types';
 import {
   UnlockingTokenWithOrderLimitFixture,
   UnlockingTokenFixtureType,
+  ReactionFixture,
+  DiscountReactionFixture,
 } from '../../fixtures';
 import {renderHook} from '../../tests/test-utils';
 
@@ -12,18 +14,14 @@ const defaultTokengateProps: TokengateProps = {
   connectButton: null,
   isLocked: true,
   isConnected: false,
-  reaction: {
-    type: 'exclusive_access',
-  },
+  reaction: ReactionFixture(),
 };
 
 const defaultDiscountTokengateProps: TokengateProps = {
   connectButton: null,
   isLocked: true,
   isConnected: false,
-  reaction: {
-    type: 'discount',
-  },
+  reaction: DiscountReactionFixture(),
 };
 
 describe('Tokengate - utils', () => {
