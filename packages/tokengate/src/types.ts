@@ -1,16 +1,15 @@
 import {ReactNode} from 'react';
 import {ThemeProps} from 'shared';
 
-export interface TokenSeries {
+export interface Condition {
   name: string;
   conditionsDescription: string;
   imageUrl: string;
-  contractAddress: string;
+  collectionAddress: string;
 }
 
 export interface GateRequirement {
-  id: string;
-  tokenSeries: TokenSeries[];
+  conditions: Condition[];
   operator: 'OR' | 'AND';
 }
 
@@ -59,6 +58,6 @@ export const instanceOfUnlockingToken = (
   return 'token' in object;
 };
 
-export const instanceOfTokenSeries = (object: any): object is TokenSeries => {
-  return 'conditionsDescription' in object;
+export const instanceOfCondition = (object: any): object is Condition => {
+  return !('token' in object);
 };

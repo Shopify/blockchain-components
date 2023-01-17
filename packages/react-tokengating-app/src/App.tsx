@@ -1,5 +1,5 @@
 import {ConnectButton, Wallet, useConnectWallet} from '@shopify/connect-wallet';
-import {Tokengate, GateRequirement, UnlockingToken} from '@shopify/tokengate';
+import {Tokengate, UnlockingToken, adaptRequirement} from '@shopify/tokengate';
 import {useEffect, useState} from 'react';
 
 import './DawnVariables.css';
@@ -16,7 +16,15 @@ interface AppProps {
     initialState: {
       isLoading: boolean;
       locked: boolean;
-      gateRequirement?: GateRequirement;
+      gateRequirement?: {
+        operator: 'OR' | 'AND';
+        tokenSeries: {
+          name: string;
+          conditionsDescription: string;
+          imageUrl: string;
+          contractAddress: string;
+        }[];
+      };
       unlockingTokens?: UnlockingToken[];
       wallet?: Wallet;
     };
@@ -120,7 +128,9 @@ export default function ({serverArguments}: AppProps) {
       reaction={{
         type: 'exclusive_access',
       }}
-      gateRequirement={serverArguments?.initialState.gateRequirement}
+      gateRequirement={adaptRequirement(
+        serverArguments?.initialState.gateRequirement,
+      )}
       unlockingTokens={checkIfWalletMeetsRequirementsResponse?.unlockingTokens}
     />
   );

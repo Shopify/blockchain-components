@@ -1,7 +1,7 @@
 import {deepMerge, DeepPartial} from 'shared';
 import {TokengateProps} from 'types';
 
-import {TokenSeriesArrayFixture} from './TokenSeries';
+import {ConditionArrayFixture} from './Condition';
 import {
   UnlockingTokenFixture,
   UnlockingTokenWithOrderLimitFixture,
@@ -9,7 +9,7 @@ import {
   UnlockingTokenFixtureType,
 } from './UnlockingToken';
 
-const tokenSeries = TokenSeriesArrayFixture();
+const conditions = ConditionArrayFixture();
 
 const unlockingTokenCommerceTown = UnlockingTokenFixture();
 
@@ -40,7 +40,7 @@ export const TokengatePropsFixture = (
       isLocked: true,
       gateRequirement: {
         id: 'gateRequirement-id',
-        tokenSeries,
+        conditions,
         operator: 'OR' as const,
       },
       reaction: {
