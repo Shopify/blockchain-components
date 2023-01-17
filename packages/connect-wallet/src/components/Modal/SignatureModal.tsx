@@ -11,6 +11,7 @@ import {clearSignatureState} from '../../slices/walletSlice';
 import {
   Background,
   ButtonContainer,
+  Center,
   Header,
   Sheet,
   SheetContent,
@@ -53,9 +54,11 @@ export const SignatureModal = () => {
           />
         </Header>
         <SheetContent>
-          <Text as="p">
-            {signing ? t('signature.sentRequest') : t('signature.toSign')}
-          </Text>
+          <Center>
+            <Text as="p">
+              {signing ? t('signature.sentRequest') : t('signature.toSign')}
+            </Text>
+          </Center>
 
           {signing ? <Spinner /> : null}
 
