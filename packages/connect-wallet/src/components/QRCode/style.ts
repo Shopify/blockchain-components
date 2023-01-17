@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-export const AppIcon = styled.div``;
-
 export const Circle = styled.circle`
   fill: ${({theme}) => theme.typography.colorPrimary};
 `;

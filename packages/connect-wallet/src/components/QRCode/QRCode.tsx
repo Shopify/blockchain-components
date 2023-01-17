@@ -2,9 +2,9 @@ import {create, QRCode as QRCodeType} from 'qrcode';
 import {ReactElement, useMemo} from 'react';
 
 import {useAppSelector} from '../../hooks/useAppState';
-import {useConnectorData} from '../../hooks/useConnectorData';
+import {ConnectorIcon} from '../ConnectorIcon';
 
-import {AppIcon, Circle, Container, IconContainer, Rect} from './style';
+import {Circle, Container, IconContainer, Rect} from './style';
 
 const APP_LOGO_SIZE = 88;
 const DEFAULT_QR_CODE_SIZE = 380;
@@ -30,7 +30,6 @@ interface Props {
 export function QRCode({uri}: Props) {
   const matrix = generateMatrix(uri);
   const {pendingConnector} = useAppSelector((state) => state.wallet);
-  const {icon} = useConnectorData({id: pendingConnector?.id});
 
   const {length} = matrix;
 
@@ -84,7 +83,7 @@ export function QRCode({uri}: Props) {
           j > whitespaceStart &&
           j < whitespaceEnd;
 
-        const shouldRender = matrix[i][j] && inBounds && icon && !inMiddle;
+        const shouldRender = matrix[i][j] && inBounds && !inMiddle;
 
         if (shouldRender) {
           svg.push(
@@ -101,7 +100,7 @@ export function QRCode({uri}: Props) {
     });
 
     return svg;
-  }, [icon, length, matrix]);
+  }, [length, matrix]);
 
   return (
     <Container>
@@ -114,7 +113,7 @@ export function QRCode({uri}: Props) {
       </svg>
 
       <IconContainer>
-        <AppIcon>{icon}</AppIcon>
+        <ConnectorIcon id={pendingConnector?.id} size="Xl" />
       </IconContainer>
     </Container>
   );

@@ -66,7 +66,7 @@ export const ConnectButton = () => {
       id="connectWalletConnectedButtonWrapper"
     >
       <ConnectedButton fullWidth onClickCapture={handlePopover}>
-        <ConnectorIcon id={connectorId} />
+        <ConnectorIcon id={connectorId} size="Xs" />
         <Text as="span" variant="bodyLg">
           {formatWalletAddress(address)}
         </Text>

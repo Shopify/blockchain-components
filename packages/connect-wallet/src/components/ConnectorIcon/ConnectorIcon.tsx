@@ -1,20 +1,17 @@
 import {useConnectorData} from '../../hooks/useConnectorData';
-import {Size} from '../../types/sizes';
+import {Size, SizeProp} from '../../types/sizes';
 
 import {ConnectorIconWrapper} from './style';
 
 interface ConnectorIconProps {
   id?: string;
-  size?: Size;
+  size: SizeProp;
 }
 
-export const ConnectorIcon = ({
-  id = 'unknown',
-  size = Size.Small,
-}: ConnectorIconProps) => {
+export const ConnectorIcon = ({id = 'unknown', size}: ConnectorIconProps) => {
   const {icon} = useConnectorData({id});
 
   if (!icon) return null;
 
-  return <ConnectorIconWrapper size={size}>{icon}</ConnectorIconWrapper>;
+  return <ConnectorIconWrapper size={Size[size]}>{icon}</ConnectorIconWrapper>;
 };

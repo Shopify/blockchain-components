@@ -19,7 +19,7 @@ export const ConnectorButton = ({id, name, onClick}: ConnectorButtonProps) => {
       aria-label={t('accessibilityLabel', {name}) as string}
       onClick={onClick}
     >
-      <ConnectorIcon id={id} />
+      <ConnectorIcon id={id} size="Sm" />
       <Text as="label" variant="bodyLg">
         {name}
       </Text>
