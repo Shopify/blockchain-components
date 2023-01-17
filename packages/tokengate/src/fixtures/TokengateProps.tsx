@@ -90,6 +90,10 @@ export const TokengatePropsUnlockedWithOrderLimitFixture = (
           unlockingTokenCommerceTownWithOrderLimit,
           unlockingTokenSquadWithOrderLimit,
         ],
+        redemptionLimit: {
+          total: 4,
+          perToken: 2,
+        },
       },
       customProps ?? {},
     ),
@@ -105,6 +109,10 @@ export const TokengatePropsUnlockedWithOrderLimitMetFixture = (
           unlockingTokenCommerceTownWithOrderLimitMet,
           unlockingTokenSquadWithOrderLimitMet,
         ],
+        redemptionLimit: {
+          total: 4,
+          perToken: 2,
+        },
       },
       customProps ?? {},
     ),

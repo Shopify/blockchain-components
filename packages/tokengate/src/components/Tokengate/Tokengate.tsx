@@ -19,6 +19,7 @@ export const Tokengate = (props: TokengateProps) => {
     active,
     requirements,
     unlockingTokens,
+    redemptionLimit,
   } = props;
   const {title, subtitle, sections} = useTokengateCardState(props);
 
@@ -27,7 +28,10 @@ export const Tokengate = (props: TokengateProps) => {
       [TokengateCardSection.ConnectWallet]: connectButton,
       [TokengateCardSection.ConnectedWallet]: connectedButton ?? connectButton,
       [TokengateCardSection.UnlockingTokens]: (
-        <UnlockingTokens unlockingTokens={unlockingTokens} />
+        <UnlockingTokens
+          unlockingTokens={unlockingTokens}
+          redemptionLimit={redemptionLimit}
+        />
       ),
       [TokengateCardSection.TokengateRequirement]: (
         <TokengateRequirements requirements={requirements} />
@@ -60,6 +64,7 @@ export const Tokengate = (props: TokengateProps) => {
       requirements,
       t,
       unlockingTokens,
+      redemptionLimit,
     ],
   );
 

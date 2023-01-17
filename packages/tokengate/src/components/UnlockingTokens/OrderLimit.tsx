@@ -1,23 +1,20 @@
 import {Text} from 'shared';
-import {UnlockingToken} from 'types';
-
-type OrderLimitProps = Pick<
-  UnlockingToken['token'],
-  'totalOrderLimit' | 'consumedOrderLimit'
->;
 
 export const OrderLimit = ({
   consumedOrderLimit,
-  totalOrderLimit,
-}: OrderLimitProps) => {
+  limitPerToken,
+}: {
+  consumedOrderLimit?: number;
+  limitPerToken?: number;
+}) => {
   if (
     typeof consumedOrderLimit !== 'number' ||
-    typeof totalOrderLimit !== 'number'
+    typeof limitPerToken !== 'number'
   ) {
     return null;
   }
 
-  const markup = `${consumedOrderLimit}/${totalOrderLimit}`;
+  const markup = `${consumedOrderLimit}/${limitPerToken}`;
 
   return (
     <Text as="span" variant="bodySm" color="secondary">

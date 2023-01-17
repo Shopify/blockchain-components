@@ -88,6 +88,10 @@ describe('Tokengate - utils', () => {
             useTitleAndSubtitle({
               ...defaultTokengateProps,
               isLocked: false,
+              redemptionLimit: {
+                total: 4,
+                perToken: 2,
+              },
               unlockingTokens: [
                 UnlockingTokenWithOrderLimitFixture(),
                 UnlockingTokenWithOrderLimitFixture(
@@ -165,6 +169,10 @@ describe('Tokengate - utils', () => {
             useTitleAndSubtitle({
               ...defaultDiscountTokengateProps,
               isLocked: false,
+              redemptionLimit: {
+                total: 4,
+                perToken: 2,
+              },
               unlockingTokens: [
                 UnlockingTokenWithOrderLimitFixture(),
                 UnlockingTokenWithOrderLimitFixture(

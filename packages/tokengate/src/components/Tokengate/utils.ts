@@ -91,9 +91,13 @@ const useTokengateI18n = (props: TokengateProps) => {
 
 export const useTitleAndSubtitle = (props: TokengateProps) => {
   const translateTokengateI18n = useTokengateI18n(props);
-  const {isLocked, exclusiveCustomTitles, discountCustomTitles} = props;
-  const orderLimit = getCombinedTotalOrderLimit(props);
-  const hasOrderLimit = orderLimit && orderLimit > 0;
+  const {
+    isLocked,
+    exclusiveCustomTitles,
+    discountCustomTitles,
+    redemptionLimit,
+  } = props;
+  const hasRedemption = redemptionLimit && redemptionLimit.total > 0;
 
   const customTitles = isDiscountGate(props)
     ? discountCustomTitles
@@ -115,14 +119,14 @@ export const useTitleAndSubtitle = (props: TokengateProps) => {
   let subtitle =
     customSubtitle ||
     translateTokengateI18n('subtitle', {
-      orderLimit,
+      hasRedemption,
     });
 
-  if (hasOrderLimit && !isLocked) {
+  if (hasRedemption && !isLocked) {
     subtitle =
       unlockedSubtitleWithOrderLimit ||
       translateTokengateI18n('subtitleWithOrderLimit', {
-        orderLimit,
+        orderLimit: redemptionLimit.total,
       });
   }
 
@@ -130,22 +134,6 @@ export const useTitleAndSubtitle = (props: TokengateProps) => {
     title,
     subtitle,
   };
-};
-
-const getCombinedTotalOrderLimit = ({unlockingTokens}: TokengateProps) => {
-  const initialValue = 0;
-  const combinedTotalOrderLimit = unlockingTokens?.reduce(
-    (accumulator: number, unlockingToken: UnlockingToken) => {
-      if (!unlockingToken.token.totalOrderLimit) return accumulator;
-
-      return accumulator + unlockingToken.token.totalOrderLimit;
-    },
-    initialValue,
-  );
-
-  return combinedTotalOrderLimit && combinedTotalOrderLimit > 0
-    ? combinedTotalOrderLimit
-    : undefined;
 };
 
 const getCombinedConsumedOrderLimit = ({unlockingTokens}: TokengateProps) => {
@@ -165,7 +153,7 @@ const getCombinedConsumedOrderLimit = ({unlockingTokens}: TokengateProps) => {
 };
 
 const hasReachedOrderLimit = (props: TokengateProps) => {
-  const orderLimit = getCombinedTotalOrderLimit(props);
+  const orderLimit = props.redemptionLimit?.total;
   const consumedOrderLimit = getCombinedConsumedOrderLimit(props);
   return orderLimit && consumedOrderLimit && consumedOrderLimit >= orderLimit;
 };
