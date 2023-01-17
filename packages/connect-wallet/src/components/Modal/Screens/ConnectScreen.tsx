@@ -94,12 +94,15 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
       /**
        * We need to take the user to the scan screen under some rather specific
        * conditions. That is, the user is connecting with a WalletConnect connector
-       * and is not on mobile or if the user is connecting with Coinbase and doesn't
-       * have the Coinbase app installed.
+       * and is not on mobile OR if the user is connecting with Coinbase but doesn't
+       * have the Coinbase extension installed and isn't on a mobile device.
        */
+      const shouldUseCoinbaseScanScreen =
+        wagmiConnector.id === 'coinbaseWallet' && !isInstalled('Coinbase');
+
       const shouldUseScanScreen =
-        (isWagmiWalletConnect && !mobilePlatform) ||
-        (wagmiConnector.id === 'coinbaseWallet' && !isInstalled('Coinbase'));
+        (isWagmiWalletConnect || shouldUseCoinbaseScanScreen) &&
+        !mobilePlatform;
 
       if (shouldUseScanScreen) {
         navigation.navigate(ModalRoute.Scan);
