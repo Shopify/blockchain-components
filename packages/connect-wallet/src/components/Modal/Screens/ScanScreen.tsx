@@ -1,17 +1,16 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button, Text} from 'shared';
-import {useConnect} from 'wagmi';
 
 import {useAppSelector} from '../../../hooks/useAppState';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {useModalScreenContent} from '../../../hooks/useModalContent';
 import {useTranslation} from '../../../hooks/useTranslation';
+import {useModal} from '../../../providers/ModalProvider';
 import {QRCode} from '../../QRCode';
 import {ButtonContainer, SheetContent} from '../style';
 import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
-import {getBrowserInfo} from '../../../utils/getBrowser';
 
 interface ScanScreenProps {
   connect: (args?: Partial<ConnectArgs> | undefined) => void;
@@ -20,16 +19,14 @@ interface ScanScreenProps {
 
 const ScanScreen = ({connect, state}: ScanScreenProps) => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
-  const {connectors} = useConnect();
-  const {connector} = useConnectorData({
+  const {connector, modalConnector} = useConnectorData({
     id: pendingConnector?.id,
   });
   const downloadButtons = useConnectorDownloadLinks();
+  const {closeModal} = useModal();
   const {body} = useModalScreenContent(state);
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
   const {t} = useTranslation('Screens');
-
-  const {mobilePlatform} = getBrowserInfo();
 
   const bodyContent = useMemo(() => {
     const isRelevantState = [
@@ -47,44 +44,22 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
     return null;
   }, [body, state]);
 
-  const handleUseDefaultWalletConnect = useCallback(() => {
-    // Make sure the WalletConnect connector is available in our current client instance.
-    // At the moment this only refreshes the connector's uri.
-    const connector = connectors.find(({id}) => id === 'walletConnect');
-
-    if (!connector) {
-      return;
+  const walletConnectModalButton = useMemo(() => {
+    /**
+     * Only want to show the wc modal button if the current
+     * connector is walletConnect and we have a modalConnector
+     */
+    if (!connector || connector.id !== 'walletConnect' || !modalConnector) {
+      return null;
     }
 
-    connect({connector});
-  }, [connect, connectors]);
+    const wcCallbackFn = () => {
+      connect({connector: modalConnector});
+      closeModal();
+    };
 
-  const buttons = useMemo(() => {
-    // We only want to show the wallet connect modal button if
-    // the connector (not the wagmi connector) is wallet connect.
-    const isWalletConnect = pendingConnector?.id === 'walletConnect';
-
-    const walletConnectModalButton =
-      isWalletConnect && !mobilePlatform ? (
-        <Button
-          onClick={handleUseDefaultWalletConnect}
-          label={t('Scan.button')}
-        />
-      ) : null;
-
-    return (
-      <ButtonContainer>
-        {downloadButtons}
-        {walletConnectModalButton}
-      </ButtonContainer>
-    );
-  }, [
-    downloadButtons,
-    handleUseDefaultWalletConnect,
-    mobilePlatform,
-    pendingConnector?.id,
-    t,
-  ]);
+    return <Button onClick={wcCallbackFn} label={t('Scan.button')} />;
+  }, [closeModal, connect, connector, modalConnector, t]);
 
   // eslint-disable-next-line @typescript-eslint/require-await
   const scanToConnect = useCallback(async () => {
@@ -153,7 +128,10 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
 
       {bodyContent}
 
-      {buttons}
+      <ButtonContainer>
+        {downloadButtons}
+        {walletConnectModalButton}
+      </ButtonContainer>
     </SheetContent>
   );
 };

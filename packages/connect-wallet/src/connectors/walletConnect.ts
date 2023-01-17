@@ -17,18 +17,25 @@ export const WalletConnect = ({chains}: ConnectorProps): ConnectorInstance => {
     'Safe',
   ];
 
-  return {
-    createConnector: () => {
-      const connector = buildWalletConnectConnector({
+  const standardConnector = buildWalletConnectConnector({
+    chains,
+    mobileLinks: supportedWalletConnectWallets,
+    qrcode: mobilePlatform !== undefined,
+  });
+
+  const modalConnector = mobilePlatform
+    ? undefined
+    : buildWalletConnectConnector({
         chains,
         mobileLinks: supportedWalletConnectWallets,
-        qrcode: mobilePlatform !== undefined,
+        qrcode: true,
       });
 
-      return connector;
-    },
+  return {
+    createConnector: () => standardConnector,
     icon: walletConnectIcon,
     id: 'walletConnect',
+    modalConnector,
     name: 'WalletConnect',
     qrCodeSupported: true,
   };
