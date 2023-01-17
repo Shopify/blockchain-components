@@ -26,9 +26,8 @@ export interface ConnectorInstance {
    */
   browserExtensions?: {[T in Browser]?: string};
   /**
-   * For wallet applications that have native macOS or Windows
-   * applications. This is particularly useful for applications
-   * like Ledger Live.
+   * For wallet connectors that have native macOS or Windows
+   * applications. This is particularly useful for wallets such as Ledger.
    */
   desktopAppLink?: string;
   /**
