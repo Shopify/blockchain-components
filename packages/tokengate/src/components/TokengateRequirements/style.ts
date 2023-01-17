@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TokengateRequirementSeparatorStyle = styled.div<{$gap: string}>`
+export const TokengateRequirementsSeparatorStyle = styled.div<{$gap: string}>`
   display: flex;
   align-items: center;
   column-gap: ${({$gap}) => $gap};
@@ -15,7 +15,7 @@ export const TokengateRequirementSeparatorStyle = styled.div<{$gap: string}>`
   }
 `;
 
-export const TokengateRequirementBadgeWrapper = styled.div`
+export const TokengateRequirementsBadgeWrapper = styled.div`
   color: white;
   line-height: 0;
 `;

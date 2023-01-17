@@ -5,7 +5,7 @@ import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
 import {Error} from '../Error';
 import {SoldOutButton} from '../SoldOutButton';
-import {TokengateRequirement} from '../TokengateRequirement';
+import {TokengateRequirements} from '../TokengateRequirements';
 import {UnlockingTokens} from '../UnlockingTokens';
 import {useTranslation} from '../../hooks/useTranslation';
 
@@ -17,7 +17,7 @@ export const Tokengate = (props: TokengateProps) => {
     connectButton,
     connectedButton,
     active,
-    gateRequirement,
+    requirements,
     unlockingTokens,
   } = props;
   const {title, subtitle, sections} = useTokengateCardState(props);
@@ -30,11 +30,11 @@ export const Tokengate = (props: TokengateProps) => {
         <UnlockingTokens unlockingTokens={unlockingTokens} />
       ),
       [TokengateCardSection.TokengateRequirement]: (
-        <TokengateRequirement gateRequirement={gateRequirement} />
+        <TokengateRequirements requirements={requirements} />
       ),
       [TokengateCardSection.TokengateRequirementMissingTokens]: (
-        <TokengateRequirement
-          gateRequirement={gateRequirement}
+        <TokengateRequirements
+          requirements={requirements}
           unlockingTokens={unlockingTokens}
           hasMissingTokens
         />
@@ -44,7 +44,7 @@ export const Tokengate = (props: TokengateProps) => {
       ),
       [TokengateCardSection.SoldOut]: <SoldOutButton />,
       [TokengateCardSection.TokengateRequirementSkeleton]: (
-        <TokengateRequirement isLoading />
+        <TokengateRequirements isLoading />
       ),
       [TokengateCardSection.OrderLimitReachedError]: (
         <Error text={t('errors.orderLimitReachedError') as string} />
@@ -57,7 +57,7 @@ export const Tokengate = (props: TokengateProps) => {
       active?.start,
       connectButton,
       connectedButton,
-      gateRequirement,
+      requirements,
       t,
       unlockingTokens,
     ],

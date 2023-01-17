@@ -3,7 +3,7 @@ import {Dawn, Default, Theme} from 'shared';
 /**
  * Adaptors
  */
-export {adaptRequirement} from './utils/adapters/requirement';
+export {adaptRequirements} from './utils/adapters/requirements';
 
 /**
  * Providers

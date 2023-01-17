@@ -1,19 +1,19 @@
-import {GateRequirement, Condition, UnlockingToken} from 'types';
+import {Requirements, Condition, UnlockingToken} from 'types';
 
 import {TokenListProps} from '../TokenList';
 
-import {TokengateRequirementBadge} from './TokengateRequirementBadge';
+import {TokengateRequirementsBadge} from './TokengateRequirementsBadge';
 
-export const mapGateRequirementToTokenListProps = ({
-  gateRequirement,
+export const mapRequirementsToTokenListProps = ({
+  requirements,
   unlockingTokens,
   hasMissingTokens,
 }: {
-  gateRequirement?: GateRequirement;
+  requirements?: Requirements;
   unlockingTokens?: UnlockingToken[];
   hasMissingTokens?: boolean;
 }): TokenListProps['tokens'] =>
-  gateRequirement?.conditions.map((condition) => {
+  requirements?.conditions.map((condition) => {
     let badge;
 
     // Add the error badges to the token series that do not have an unlocking token
@@ -23,7 +23,7 @@ export const mapGateRequirementToTokenListProps = ({
         unlockingTokens,
       });
       badge = unlockingTokens?.length !== undefined &&
-        !unlockingTokenForCurrentCondition && <TokengateRequirementBadge />;
+        !unlockingTokenForCurrentCondition && <TokengateRequirementsBadge />;
     }
 
     return {
