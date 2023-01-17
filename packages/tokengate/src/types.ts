@@ -35,6 +35,14 @@ export interface RedemptionLimit {
   perToken: number;
 }
 
+export interface Reaction {
+  type: 'exclusive_access' | 'discount';
+  discount?: {
+    type: 'percentage' | 'amount';
+    value: number;
+  };
+}
+
 export type TokengateProps = ThemeProps & {
   connectButton: ReactNode;
   connectedButton?: ReactNode;
@@ -50,9 +58,7 @@ export type TokengateProps = ThemeProps & {
     start?: string;
     end?: string;
   };
-  reaction: {
-    type: 'exclusive_access' | 'discount';
-  };
+  reaction: Reaction;
   redemptionLimit?: RedemptionLimit;
 };
 

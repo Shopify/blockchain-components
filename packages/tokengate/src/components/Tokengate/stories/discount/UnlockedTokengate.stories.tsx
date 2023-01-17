@@ -6,6 +6,7 @@ import {
   TokengatePropsUnlockedFixture,
   TokengatePropsUnlockedWithOrderLimitFixture,
   TokengatePropsUnlockedWithOrderLimitMetFixture,
+  DiscountReactionFixture,
 } from '../../../../fixtures';
 
 const TokengateStory: ComponentMeta<typeof Tokengate> = {
@@ -17,21 +18,15 @@ export default TokengateStory;
 
 export const NoOrderLimit = Template.bind({});
 NoOrderLimit.args = TokengatePropsUnlockedFixture({
-  reaction: {
-    type: 'discount',
-  },
+  reaction: DiscountReactionFixture(),
 });
 
 export const OrderLimit = Template.bind({});
 OrderLimit.args = TokengatePropsUnlockedWithOrderLimitFixture({
-  reaction: {
-    type: 'discount',
-  },
+  reaction: DiscountReactionFixture(),
 });
 
 export const OrderLimitReached = Template.bind({});
 OrderLimitReached.args = TokengatePropsUnlockedWithOrderLimitMetFixture({
-  reaction: {
-    type: 'discount',
-  },
+  reaction: DiscountReactionFixture(),
 });

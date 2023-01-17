@@ -96,6 +96,7 @@ export const useTitleAndSubtitle = (props: TokengateProps) => {
     exclusiveCustomTitles,
     discountCustomTitles,
     redemptionLimit,
+    reaction,
   } = props;
   const hasRedemption = redemptionLimit && redemptionLimit.total > 0;
 
@@ -114,8 +115,12 @@ export const useTitleAndSubtitle = (props: TokengateProps) => {
   const customTitle = isLocked ? lockedTitle : unlockedTitle;
   const customSubtitle = isLocked ? lockedSubtitle : unlockedSubtitle;
 
-  // Hardcoding the discount to 20 for now until we sync on its shape with foundations
-  const title = customTitle || translateTokengateI18n('title', {discount: 10});
+  const discountText =
+    reaction.discount?.type === 'percentage'
+      ? `${reaction.discount.value}%`
+      : `$${reaction.discount?.value}`;
+  const title =
+    customTitle || translateTokengateI18n('title', {discount: discountText});
   let subtitle =
     customSubtitle ||
     translateTokengateI18n('subtitle', {
@@ -159,5 +164,5 @@ const hasReachedOrderLimit = (props: TokengateProps) => {
 };
 
 const isDiscountGate = (props: TokengateProps) => {
-  return props.reaction.type === 'discount';
+  return props.reaction.type === 'discount' && props.reaction.discount;
 };

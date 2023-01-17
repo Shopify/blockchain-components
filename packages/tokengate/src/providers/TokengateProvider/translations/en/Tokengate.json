@@ -12,7 +12,7 @@
   },
   "discount": {
     "locked": {
-      "title": "${{discount}} holder discount",
+      "title": "{{discount}} holder discount",
       "subtitle": "To unlock this discount, you need:"
     },
     "unlocked": {
