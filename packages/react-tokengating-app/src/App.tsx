@@ -117,7 +117,6 @@ export default function ({serverArguments}: AppProps) {
 
   const _TokengateComponent = (
     <Tokengate
-      theme="Dawn"
       connectButton={<ConnectButton />}
       isLoading={serverArguments?.initialState.isLoading}
       isLocked={isLocked}
