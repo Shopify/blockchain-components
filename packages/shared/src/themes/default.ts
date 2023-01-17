@@ -29,42 +29,48 @@ export const Default: Theme = {
     colorDisabled: DefaultColors.Grayscale['4'],
 
     bodyLg: {
-      fontFamily: 'SF Pro Text',
+      fontFamily:
+        'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif',
       fontSize: '16px',
       fontWeight: '500',
       lineHeight: '20px',
     },
 
     bodyMd: {
-      fontFamily: 'SF Pro Text',
+      fontFamily:
+        'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif',
       fontSize: '14px',
       fontWeight: '400',
       lineHeight: '20px',
     },
 
     bodySm: {
-      fontFamily: 'SF Pro Text',
+      fontFamily:
+        'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif',
       fontSize: '12px',
       fontWeight: '400',
       lineHeight: '16px',
     },
 
     headingLg: {
-      fontFamily: 'SF Pro Display',
+      fontFamily:
+        'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif',
       fontSize: '24px',
       fontWeight: '600',
       lineHeight: '28px',
     },
 
     headingMd: {
-      fontFamily: 'SF Pro Display',
+      fontFamily:
+        'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif',
       fontSize: '20px',
       fontWeight: '600',
       lineHeight: '24px',
     },
 
     headingSm: {
-      fontFamily: 'SF Pro Text',
+      fontFamily:
+        'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif',
       fontSize: '16px',
       fontWeight: '500',
       lineHeight: '20px',
