@@ -5,7 +5,6 @@ import {Button} from 'shared/src/components/Button';
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useConnectorData} from '../../hooks/useConnectorData';
 import {useTranslation} from '../../hooks/useTranslation';
-import {Size} from '../../types/sizes';
 import {getBrowserInfo} from '../../utils/getBrowser';
 
 import {ConnectorData, Wrapper} from './style';
@@ -46,7 +45,7 @@ export const GetAConnectorButton = ({
   return (
     <Wrapper>
       <ConnectorData>
-        <ConnectorIcon id={connectorId} size={Size.Medium} />
+        <ConnectorIcon id={connectorId} size="Md" />
         <Text as="span" variant="bodyLg">
           {name}
         </Text>

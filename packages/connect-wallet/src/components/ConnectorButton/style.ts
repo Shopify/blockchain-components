@@ -15,7 +15,7 @@ export const Button = styled.button`
     theme.walletConnectorButton.horizontalAlignment};
 
   &:hover {
-    outline: ${({theme}) => theme.walletConnectorButton.hover.outline};
+    box-shadow: ${({theme}) => theme.walletConnectorButton.hover.outline};
   }
 
   &:last-of-type {

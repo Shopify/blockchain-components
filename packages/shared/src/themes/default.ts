@@ -141,12 +141,12 @@ export const Default: Theme = {
     border: `1px solid ${DefaultColors.Grayscale['3']}`,
     borderRadius: '6px',
     boxShadow: 'none',
-    padding: '12.5px 16px',
+    padding: '12px 16px',
     textColor: DefaultColors.Grayscale['7'],
     horizontalAlignment: 'flex-start',
 
     hover: {
-      outline: `1.3px solid ${DefaultColors.Grayscale['7']}`,
+      outline: `0px 0px 0px 1px ${DefaultColors.Grayscale['7']}`,
     },
   },
 };

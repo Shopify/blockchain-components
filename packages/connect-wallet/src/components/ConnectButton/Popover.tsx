@@ -7,7 +7,6 @@ import {useAppSelector} from '../../hooks/useAppState';
 import {useConnectWallet} from '../../hooks/useConnectWallet';
 import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
 import {useIsMounted} from '../../hooks/useIsMounted';
-import {Size} from '../../types/sizes';
 
 import {AddressChip, Background, Container, Frame} from './style';
 
@@ -53,7 +52,7 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
     <Container>
       <Background onClick={onDismiss} />
       <Frame>
-        <ConnectorIcon id={connectorId} size={Size.Large} />
+        <ConnectorIcon id={connectorId} size="Lg" />
 
         <AddressChip onClick={() => copy(address)}>
           <Text as="span" variant="bodyLg">

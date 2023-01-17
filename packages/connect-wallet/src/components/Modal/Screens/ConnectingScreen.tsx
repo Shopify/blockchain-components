@@ -15,7 +15,6 @@ import {
 } from '../style';
 import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
-import {Size} from '../../../types/sizes';
 import {getBrowserInfo} from '../../../utils/getBrowser';
 
 interface ConnectingScreenProps {
@@ -73,7 +72,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   return (
     <SheetContent>
       <ConnectingWalletIcon>
-        <ConnectorIcon id={pendingConnector?.id} size={Size.Xl} />
+        <ConnectorIcon id={pendingConnector?.id} size="Xl" />
       </ConnectingWalletIcon>
 
       <Center>

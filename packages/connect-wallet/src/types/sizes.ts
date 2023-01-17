@@ -1,6 +1,9 @@
 export enum Size {
-  Small = '20px',
-  Medium = '40px',
-  Large = '48px',
+  Xs = '20px',
+  Sm = '24px',
+  Md = '40px',
+  Lg = '48px',
   Xl = '76px',
 }
+
+export type SizeProp = keyof typeof Size;
