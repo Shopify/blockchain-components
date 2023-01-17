@@ -7,6 +7,7 @@ import {initReactI18next} from 'react-i18next';
 import AvailableSoonButton from './translations/en/AvailableSoonButton.json';
 import SoldOutButton from './translations/en/SoldOutButton.json';
 import Tokengate from './translations/en/Tokengate.json';
+import TokengateRequirements from './translations/en/TokengateRequirements.json';
 
 const i18n = createInstance({
   fallbackLng: 'en',
@@ -17,6 +18,7 @@ const i18n = createInstance({
       AvailableSoonButton,
       SoldOutButton,
       Tokengate,
+      TokengateRequirements,
     },
   },
 });

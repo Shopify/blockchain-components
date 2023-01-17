@@ -8,10 +8,12 @@ export const mapRequirementsToTokenListProps = ({
   requirements,
   unlockingTokens,
   hasMissingTokens,
+  t,
 }: {
   requirements?: Requirements;
   unlockingTokens?: UnlockingToken[];
   hasMissingTokens?: boolean;
+  t: (key: string) => string;
 }): TokenListProps['tokens'] =>
   requirements?.conditions.map((condition) => {
     let badge;
@@ -28,7 +30,7 @@ export const mapRequirementsToTokenListProps = ({
 
     return {
       title: condition.name,
-      subtitle: condition.conditionsDescription,
+      subtitle: t('conditionDescription.any'),
       imageUrl: condition.imageUrl,
       badge,
       round: true,

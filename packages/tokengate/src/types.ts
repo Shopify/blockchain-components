@@ -3,7 +3,6 @@ import {ThemeProps} from 'shared';
 
 export interface Condition {
   name: string;
-  conditionsDescription: string;
   imageUrl: string;
   collectionAddress: string;
 }
