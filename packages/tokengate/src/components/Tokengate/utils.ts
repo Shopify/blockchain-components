@@ -1,6 +1,5 @@
-import {TokengateProps, UnlockingToken} from 'types';
-
 import {useTranslation} from '../../hooks/useTranslation';
+import {TokengateProps, UnlockingToken} from '../../types';
 
 export enum TokengateCardSection {
   TokengateRequirement = 'TokengateRequirement',

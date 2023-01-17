@@ -1,11 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "*": ["./src/*"]
-    },
-    "outDir": "./dist",
-    "resolveJsonModule": true
+    "baseUrl": "."
   },
   "include": ["./src", "./styled.d.ts"],
   "exclude": ["./dist", "node_modules"],

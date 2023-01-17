@@ -1,6 +1,7 @@
 import {deepMerge} from 'shared/src/utils/deepMerge';
 import {DeepPartial} from 'shared/src/types/deepPartial';
-import {UnlockingToken} from 'types';
+
+import {UnlockingToken} from '../types';
 
 export enum UnlockingTokenFixtureType {
   CommerceTown,

@@ -1,6 +1,7 @@
 import {deepMerge} from 'shared/src/utils/deepMerge';
 import {DeepPartial} from 'shared/src/types/deepPartial';
-import {Reaction} from 'types';
+
+import {Reaction} from '../types';
 
 export const ReactionFixture = (customProps?: DeepPartial<Reaction>) =>
   deepMerge(
