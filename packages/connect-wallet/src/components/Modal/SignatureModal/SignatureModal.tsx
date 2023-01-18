@@ -2,12 +2,12 @@ import {useCallback} from 'react';
 import {createPortal} from 'react-dom';
 import {Button, Cancel, IconButton, Spinner, Text} from 'shared';
 
-import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
-import {useConnectWallet} from '../../hooks/useConnectWallet';
-import {useIsMounted} from '../../hooks/useIsMounted';
-import {useTranslation} from '../../hooks/useTranslation';
-import {clearSignatureState} from '../../slices/walletSlice';
-
+import {useAppDispatch, useAppSelector} from '../../../hooks/useAppState';
+import {useConnectWallet} from '../../../hooks/useConnectWallet';
+import {useIsMounted} from '../../../hooks/useIsMounted';
+import {useTranslation} from '../../../hooks/useTranslation';
+import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
+import {clearSignatureState} from '../../../slices/walletSlice';
 import {
   Background,
   ButtonContainer,
@@ -16,22 +16,44 @@ import {
   Sheet,
   SheetContent,
   Wrapper,
-} from './style';
+} from '../style';
 
-export const SignatureModal = () => {
-  const dispatch = useAppDispatch();
+import {SignatureModalError} from './SignatureModalError';
+
+export const SignatureModal = ({
+  error,
+  clearError,
+}: {
+  error?: Error;
+  clearError: () => void;
+}) => {
   const {message} = useAppSelector((state) => state.wallet);
   const {t} = useTranslation('Modal');
   const isMounted = useIsMounted();
   const {signing, signMessage} = useConnectWallet();
+  const dispatch = useAppDispatch();
+  const {deleteKey} = useWalletConnectDeeplink();
 
   const handleDismiss = useCallback(() => {
+    clearError();
     dispatch(clearSignatureState());
-  }, [dispatch]);
+    deleteKey();
+  }, [clearError, dispatch, deleteKey]);
 
   const handleSignMessage = useCallback(() => {
+    clearError();
     signMessage();
-  }, [signMessage]);
+  }, [clearError, signMessage]);
+
+  if (error) {
+    return (
+      <SignatureModalError
+        error={error}
+        handleDismiss={handleDismiss}
+        handleTryAgain={handleSignMessage}
+      />
+    );
+  }
 
   if (!isMounted || !message) {
     return null;

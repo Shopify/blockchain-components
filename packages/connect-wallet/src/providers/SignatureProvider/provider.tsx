@@ -1,9 +1,8 @@
-import {FC, PropsWithChildren, useCallback, useMemo} from 'react';
+import {FC, PropsWithChildren, useCallback, useMemo, useState} from 'react';
 
 import {SignatureModal} from '../../components';
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
 import {useWallet} from '../../hooks/useWallet';
-import {useWalletConnectDeeplink} from '../../hooks/useWalletConnectDeeplink';
 import {
   clearSignatureState,
   setMessage,
@@ -19,13 +18,16 @@ export type {SignatureProviderValue};
 export const SignatureProvider: FC<
   PropsWithChildren<SignatureProviderProps>
 > = ({children, signOnConnect}: PropsWithChildren<SignatureProviderProps>) => {
+  const [error, setError] = useState();
   const dispatch = useAppDispatch();
   const {addressToVerify, connectedWallets, message} = useAppSelector(
     (state) => state.wallet,
   );
-  const {deleteKey} = useWalletConnectDeeplink();
-
   const {signing, signMessage} = useWallet({signOnConnect});
+
+  const clearError = useCallback(() => {
+    setError(undefined);
+  }, [setError]);
 
   /**
    * ## requestSignature
@@ -87,25 +89,16 @@ export const SignatureProvider: FC<
         }
 
         return verificationResponse;
-      } catch (error) {
+      } catch (error: any) {
         /**
          * Cancel the verification process and disconnect the wallet.
          * In the future we can consider adding a `try again` button instead
          * which then allows the user to request another signature.
          */
-        dispatch(clearSignatureState());
-        deleteKey();
-        console.error('ERROR', error);
+        setError(error);
       }
     },
-    [
-      connectedWallets,
-      addressToVerify,
-      message,
-      dispatch,
-      signMessage,
-      deleteKey,
-    ],
+    [connectedWallets, addressToVerify, message, dispatch, signMessage],
   );
 
   const contextValue = useMemo(() => {
@@ -118,7 +111,7 @@ export const SignatureProvider: FC<
 
   return (
     <SignatureContext.Provider value={contextValue}>
-      <SignatureModal />
+      <SignatureModal error={error} clearError={clearError} />
       {children}
     </SignatureContext.Provider>
   );
