@@ -1,5 +1,7 @@
 import fetchMock from 'jest-fetch-mock';
 
+import {undefinedGateContextGenerator} from '../index';
+
 import {getGateContextCartAjaxClient} from './cartAjaxApi';
 
 describe('AjaxAPI', () => {
@@ -44,6 +46,25 @@ describe('AjaxAPI', () => {
           attributes: {
             'Wallet Address': data.walletAddress,
             _shopify_gate_context: data,
+          },
+        }),
+      );
+    });
+
+    it('performs a fetch with a body NOT containing shopify gate context', async () => {
+      const gateContextAjaxClient = getGateContextCartAjaxClient({
+        backingStore: 'ajaxApi',
+        shopifyGateContextGenerator: undefinedGateContextGenerator,
+      });
+      mockFetch();
+      const data = gateContextData();
+
+      await gateContextAjaxClient.write(data);
+      expect(fetchMock.mock.calls[0][1]?.body).toBeDefined();
+      expect(fetchMock.mock.calls[0][1]!.body).toStrictEqual(
+        JSON.stringify({
+          attributes: {
+            'Wallet Address': data.walletAddress,
           },
         }),
       );

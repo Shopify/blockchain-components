@@ -1,14 +1,14 @@
 import {
   getGateContextClient,
-  emptyGateContextGenerator,
+  undefinedGateContextGenerator,
   GateContextClient,
 } from '@shopify/gate-context-client';
 import {useCallback, useMemo} from 'react';
 
 const defaultClientBuilder = () =>
-  getGateContextClient<object>({
+  getGateContextClient({
     backingStore: 'ajaxApi',
-    shopifyGateContextGenerator: emptyGateContextGenerator,
+    shopifyGateContextGenerator: undefinedGateContextGenerator,
   });
 
 interface Props {

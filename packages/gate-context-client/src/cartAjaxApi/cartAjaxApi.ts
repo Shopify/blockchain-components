@@ -64,13 +64,21 @@ async function getAttributes<TGateContext>(
 ): Promise<CartAjaxAPICartAttributes<TGateContext>> {
   const _shopify_gate_context = await gateContextGenerator(gateContextInput);
 
-  return {
+  const defaultAttributes = {
     'Wallet Address': gateContextInput.walletAddress,
+  };
+
+  if (typeof _shopify_gate_context !== 'undefined') {
     // the shopify gate context is a special attribute that is not copied to the
     // order attributes. It's intended that this data contains everything needed
     // to evaluate the gate.
-    _shopify_gate_context,
-  };
+    return {
+      ...defaultAttributes,
+      _shopify_gate_context,
+    };
+  }
+
+  return defaultAttributes;
 }
 
 export function getGateContextCartAjaxClient<TGateContext>(
