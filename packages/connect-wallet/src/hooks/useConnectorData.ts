@@ -5,10 +5,7 @@ import {ConnectorInstance} from '../types/connector';
 
 import {useDefaultConnectors} from './useDefaultConnectors';
 
-type UseConnectorDataResponse = Omit<
-  ConnectorInstance,
-  'createConnector' | 'modalConnector'
-> & {
+type UseConnectorDataResponse = Omit<ConnectorInstance, 'createConnector'> & {
   connector?: Connector;
 };
 
@@ -35,6 +32,7 @@ export function useConnectorData({
         id,
         marketingSite,
         mobileApps,
+        modalConnector,
         name,
         qrCodeSupported,
       } = data;
@@ -46,6 +44,7 @@ export function useConnectorData({
         id,
         marketingSite,
         mobileApps,
+        modalConnector,
         name,
         qrCodeSupported,
       };
