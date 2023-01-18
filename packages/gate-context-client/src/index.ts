@@ -13,6 +13,11 @@ export function getGateContextClient<TGateContext>(
 
 export type {GateContextClient} from './types';
 export type {GateContextClientOptions} from './types';
-export const emptyGateContextGenerator: ShopifyGateContextGenerator<
-  Record<string, never>
-> = (_) => Promise.resolve({});
+
+export function identityGateContextGenerator<T>(value: T) {
+  return Promise.resolve(value);
+}
+
+export const undefinedGateContextGenerator: ShopifyGateContextGenerator<
+  undefined
+> = (_) => Promise.resolve(undefined);
