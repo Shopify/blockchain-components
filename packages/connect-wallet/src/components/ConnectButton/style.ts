@@ -38,11 +38,12 @@ export const CaretIcon = styled.div`
   width: 20px;
 `;
 
-export const ConnectedButton = styled(ButtonWrapper)<{popoverOpen: boolean}>`
+export const ConnectedButton = styled(ButtonWrapper)<{$popoverOpen: boolean}>`
   column-gap: 8px;
 
   ${CaretIcon} {
-    transform: ${(props) => (props.popoverOpen ? 'rotate(180deg)' : 'none')};
+    transform: ${({$popoverOpen}) =>
+      $popoverOpen ? 'rotate(180deg)' : 'none'};
   }
 `;
 

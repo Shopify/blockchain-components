@@ -9,6 +9,12 @@ export {Spinner} from './components/Spinner';
 export {Text} from './components/Text';
 
 /**
+ * Hooks
+ */
+export {useKeyPress} from './hooks/useKeyPress';
+export {useOutsideClick} from './hooks/useOutsideClick';
+
+/**
  * Icons
  */
 export * from './icons';

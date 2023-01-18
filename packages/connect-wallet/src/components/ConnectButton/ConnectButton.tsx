@@ -1,9 +1,16 @@
-import {useCallback, useState} from 'react';
-import {Button, CaretDown, device, formatWalletAddress, Text} from 'shared';
+import {useCallback, useEffect, useState} from 'react';
+import {
+  Button,
+  CaretDown,
+  device,
+  formatWalletAddress,
+  useKeyPress,
+  useOutsideClick,
+  Text,
+} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
-import {useOutsideClick} from '../../hooks/useOutsideClick';
 import {useTranslation} from '../../hooks/useTranslation';
 import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {useModal} from '../../providers/ModalProvider';
@@ -20,14 +27,23 @@ export const ConnectButton = () => {
   const shouldUseMobileSizes = Boolean(width && width < device.sm);
 
   const ref = useOutsideClick(() => setPopoverVisible(false));
+  const escPress = useKeyPress('Escape');
+
+  const togglePopover = useCallback(() => {
+    setPopoverVisible(!popoverVisible);
+  }, [popoverVisible]);
+
+  useEffect(() => {
+    if (escPress && popoverVisible) {
+      togglePopover();
+    }
+  }, [escPress, popoverVisible, togglePopover]);
 
   const handleClick = useCallback(() => {
     if (!connectedWallets.length) {
       openModal();
     }
   }, [connectedWallets.length, openModal]);
-
-  const handlePopover = useCallback(() => setPopoverVisible(true), []);
 
   if (!connectedWallets.length) {
     return (
@@ -41,8 +57,8 @@ export const ConnectButton = () => {
     <Wrapper id="connectWalletConnectedButtonWrapper" ref={ref}>
       <ConnectedButton
         fullWidth
-        onClick={handlePopover}
-        popoverOpen={popoverVisible}
+        onClick={togglePopover}
+        $popoverOpen={popoverVisible}
       >
         <ConnectorIcon id={connectorId} size="Xs" />
         <Text as="span" variant="bodyLg">
