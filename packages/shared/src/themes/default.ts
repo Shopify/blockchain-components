@@ -109,7 +109,7 @@ export const Default: Theme = {
   },
 
   other: {
-    iconColor: DefaultColors.Grayscale['6'],
+    iconColor: DefaultColors.Grayscale['5'],
     dividerColor: DefaultColors.Grayscale['2'],
   },
 
@@ -126,7 +126,7 @@ export const Default: Theme = {
     border: `1px solid ${DefaultColors.Grayscale['3']}`,
     borderRadius: '6px',
     boxShadow: 'none',
-    padding: '8.5px 16px',
+    padding: '12px 30px',
     textColor: DefaultColors.Grayscale['7'],
 
     hover: {

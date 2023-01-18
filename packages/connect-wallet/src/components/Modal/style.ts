@@ -13,7 +13,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 12px;
-  margin-top: 12px;
+  margin-top: 16px;
 `;
 
 export const Center = styled.div`
@@ -65,6 +65,7 @@ export const Header = styled.div<{$padded?: boolean}>`
 export const Icon = styled.div`
   height: 36px;
   width: 36px;
+  color: ${({theme}) => theme.typography.colorPrimary};
 
   svg {
     /**
@@ -77,8 +78,9 @@ export const Icon = styled.div`
 `;
 
 export const ListItemContent = styled.div`
-  margin-bottom: 24px;
-
+  p {
+    margin: 4px 0px 0px 0px;
+  }
   h3 {
     margin-bottom: 4px;
   }
@@ -110,6 +112,13 @@ export const SheetContent = styled.div`
   justify-content: center;
 `;
 
+export const WalletList = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  margin: 16px 0px;
+`;
+
 export const WalletListItem = styled.div`
   display: flex;
   column-gap: 16px;
@@ -117,9 +126,6 @@ export const WalletListItem = styled.div`
 
   p {
     margin: unset;
-    text-align: left;
-    font-size: 14px;
-    line-height: 20px;
 
     & + p {
       margin: default;
