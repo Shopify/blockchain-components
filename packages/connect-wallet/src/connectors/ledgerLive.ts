@@ -13,10 +13,6 @@ export const LedgerLive = ({chains}: ConnectorProps): ConnectorInstance => {
     },
     desktopAppLink: 'ledgerlive://wc?uri=',
     marketingSite: 'https://www.ledger.com/ledger-live',
-    mobileApps: {
-      Android: 'https://play.google.com/store/apps/details?id=com.ledger.live',
-      iOS: 'https://apps.apple.com/app/id1361671700?mt=8',
-    },
     mobileAppPrefixes: {
       Android: '',
       iOS: 'ledgerlive://wc?uri=',

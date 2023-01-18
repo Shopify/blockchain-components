@@ -2,8 +2,6 @@ import {Chain} from '@wagmi/core';
 import {Connector as WagmiConnector} from 'wagmi';
 import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 
-import {Browser} from './browser';
-
 export interface ConnectArgs {
   /** Chain ID to connect to */
   chainId?: number;
@@ -18,13 +16,6 @@ export interface ConnectorProps {
 
 export interface ConnectorInstance {
   createConnector: () => WagmiConnector;
-  /**
-   * A list of browser extension URLs for supported browsers.
-   *
-   * Particularly helpful for when users do not have a wallet app extension,
-   * because we can then open the link to download the extension.
-   */
-  browserExtensions?: {[T in Browser]?: string};
   /**
    * For wallet connectors that have native macOS or Windows
    * applications. This is particularly useful for wallets such as Ledger.
@@ -44,13 +35,6 @@ export interface ConnectorInstance {
    * Marketing site for Get a wallet screen on desktop
    */
   marketingSite?: string;
-  /**
-   * Mobile applications for both mobile OS providers.
-   */
-  mobileApps?: {
-    Android?: string;
-    iOS?: string;
-  };
   /**
    * Prefixes used for opening a WalletConnect deeplink
    * on Android and iOS devices.

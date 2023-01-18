@@ -15,10 +15,6 @@ export const Rainbow = ({chains}: ConnectorProps): ConnectorInstance => {
       return connector;
     },
     marketingSite: 'https://rainbow.me/',
-    mobileApps: {
-      Android: 'https://play.google.com/store/apps/details?id=me.rainbow',
-      iOS: 'https://apps.apple.com/us/app/rainbow-ethereum-wallet/id1457119021',
-    },
     mobileAppPrefixes: {
       Android: '',
       iOS: 'https://rnbwapp.com/wc?uri=',

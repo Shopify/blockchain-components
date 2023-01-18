@@ -7,20 +7,6 @@ sidebar_position: 1
 ```typescript
 type Connector = {
   /**
-   * A list of browser extension URLs for supported browsers.
-   *
-   * Particularly helpful for when users do not have a wallet app extension,
-   * because we can then open the link to download the extension.
-   */
-  browserExtensions?: {
-    Brave?: '';
-    Chrome?: '';
-    Edge?: '';
-    Firefox?: '';
-    Opera?: '';
-    Safari?: '';
-  };
-  /**
    * See the signature for the Connector class here:
    * https://github.com/wagmi-dev/references/blob/main/packages/connectors/src/base.ts
    */
@@ -39,13 +25,6 @@ type Connector = {
    * Marketing site for Get a wallet screen.
    */
   marketingSite?: string;
-  /**
-   * Mobile applications for both mobile OS providers.
-   */
-  mobileApps?: {
-    Android?: string;
-    iOS?: string;
-  };
   /**
    * Prefixes used for opening a WalletConnect deeplink
    * on Android and iOS devices.

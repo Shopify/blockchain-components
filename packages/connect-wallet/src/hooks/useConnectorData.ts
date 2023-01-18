@@ -26,24 +26,20 @@ export function useConnectorData({
 
     if (data) {
       const {
-        browserExtensions,
         connector,
         icon,
         id,
         marketingSite,
-        mobileApps,
         modalConnector,
         name,
         qrCodeSupported,
       } = data;
 
       return {
-        browserExtensions,
         connector,
         icon,
         id,
         marketingSite,
-        mobileApps,
         modalConnector,
         name,
         qrCodeSupported,
