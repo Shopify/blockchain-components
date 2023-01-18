@@ -1,4 +1,4 @@
 {
-  "buttonText": "Get",
-  "accessibilityLabel": "Get {{name}}"
+  "accessibilityLabel": "Get {{name}}",
+  "buttonText": "Get"
 }

@@ -1,6 +1,4 @@
-import {useMemo} from 'react';
-import {Text} from 'shared';
-import {Button} from 'shared/src/components/Button';
+import {Button, Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useConnectorData} from '../../hooks/useConnectorData';
@@ -18,15 +16,7 @@ export const GetAConnectorButton = ({
   const {marketingSite, name} = useConnectorData({id: connectorId});
   const {t} = useTranslation('GetAConnectorButton');
 
-  const downloadLink = useMemo(() => {
-    if (!marketingSite) {
-      return null;
-    }
-
-    return marketingSite;
-  }, [marketingSite]);
-
-  if (!downloadLink) {
+  if (!marketingSite) {
     return null;
   }
 
@@ -42,7 +32,7 @@ export const GetAConnectorButton = ({
       <Button
         aria-label={t('accessibilityLabel', {name}) as string}
         label={t('buttonText') as string}
-        link={{href: downloadLink, target: '_blank'}}
+        link={{href: marketingSite, target: '_blank'}}
       />
     </Wrapper>
   );
