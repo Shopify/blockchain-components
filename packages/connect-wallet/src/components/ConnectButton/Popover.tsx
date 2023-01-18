@@ -49,7 +49,7 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
    * connectWalletConnectedButtonWrapper.
    */
   return createPortal(
-    <Container>
+    <Container id="shopify-connect-wallet-popover-container">
       <Background onClick={onDismiss} />
       <Frame>
         <ConnectorIcon id={connectorId} size="Lg" />
