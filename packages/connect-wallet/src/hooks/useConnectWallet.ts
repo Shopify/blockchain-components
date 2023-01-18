@@ -23,7 +23,8 @@ type MessageSignedOrderAttributionMode =
   | 'ignoreErrors'
   | 'disabled';
 
-interface useConnectWalletProps extends Omit<UseWalletProps, 'signOnConnect'> {
+interface useConnectWalletProps
+  extends Omit<UseWalletProps, 'requireSignature'> {
   /**
    * Defaults to 'required'.
    */
@@ -39,12 +40,12 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   const signatureContext = useContext(SignatureContext);
 
   const {chains} = connectWalletContext;
-  const {signMessage, signOnConnect, signing} = signatureContext;
+  const {signMessage, requireSignature, signing} = signatureContext;
 
   const {connecting, disconnect} = useWallet({
     onConnect: props?.onConnect,
     onDisconnect: props?.onDisconnect,
-    signOnConnect,
+    requireSignature,
   });
 
   const {messageSignedOrderAttributionMode, onMessageSigned} = props || {};

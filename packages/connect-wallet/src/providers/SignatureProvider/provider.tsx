@@ -6,7 +6,7 @@ import {useWallet} from '../../hooks/useWallet';
 import {
   clearSignatureState,
   setMessage,
-  updateWallet,
+  validatePendingWallet,
 } from '../../slices/walletSlice';
 import {SignatureProviderProps} from '../../types/provider';
 
@@ -17,13 +17,14 @@ export type {SignatureProviderValue};
 
 export const SignatureProvider: FC<
   PropsWithChildren<SignatureProviderProps>
-> = ({children, signOnConnect}: PropsWithChildren<SignatureProviderProps>) => {
+> = ({
+  children,
+  requireSignature,
+}: PropsWithChildren<SignatureProviderProps>) => {
   const [error, setError] = useState();
   const dispatch = useAppDispatch();
-  const {addressToVerify, connectedWallets, message} = useAppSelector(
-    (state) => state.wallet,
-  );
-  const {signing, signMessage} = useWallet({signOnConnect});
+  const {message, pendingWallet} = useAppSelector((state) => state.wallet);
+  const {disconnect, signing, signMessage} = useWallet({requireSignature});
 
   const clearError = useCallback(() => {
     setError(undefined);
@@ -35,12 +36,12 @@ export const SignatureProvider: FC<
    * Uses an optional message parameter. If no message is passed as a param, then
    * the function will utilize the message stored in state (if present).
    *
-   * If a stored message is not present AND a message is not provided,
+   * If a stored message is not present and a message is not provided,
    * the signature request will fail.
    */
   const requestSignature = useCallback(
     async (props?: {message?: string}) => {
-      if (!connectedWallets.length || !addressToVerify) {
+      if (!pendingWallet) {
         throw new Error('There are no connected wallets.');
       }
 
@@ -56,36 +57,31 @@ export const SignatureProvider: FC<
       }
 
       try {
-        const walletAwaitingSignature = connectedWallets.find(
-          (wallet) => wallet.address === addressToVerify,
-        );
-
-        if (!walletAwaitingSignature) {
-          throw new Error(
-            'Error locating wallet in local data store staged for a signature.',
-          );
-        }
-
         const verificationResponse = await signMessage({
-          address: addressToVerify,
+          address: pendingWallet.address,
           message: messageToSign,
         });
 
         if (verificationResponse?.signature) {
-          // const get the wallet by addressToVerify
-
-          dispatch(
-            updateWallet({
-              ...walletAwaitingSignature,
-              message: messageToSign,
-              signature: verificationResponse.signature,
-              signed: true,
-              signedOn: new Date().toISOString(),
-            }),
-          );
-
-          // Clear our verification state
-          dispatch(clearSignatureState());
+          try {
+            /**
+             * Note that at the moment we do not clearly communicate when
+             * the following fails. We do have a catch for errors that we
+             * throw from the reducer. However, we don't have a toast or
+             * any other form of communicating this failure to users.
+             */
+            dispatch(validatePendingWallet(verificationResponse.signature));
+          } catch (error) {
+            /**
+             * We need to disconnect the wallet that is connected in order
+             * to support subsequent connection attempts.
+             */
+            disconnect();
+            console.error(error);
+          } finally {
+            // Clear our verification state
+            dispatch(clearSignatureState());
+          }
         }
 
         return verificationResponse;
@@ -98,16 +94,16 @@ export const SignatureProvider: FC<
         setError(error);
       }
     },
-    [connectedWallets, addressToVerify, message, dispatch, signMessage],
+    [disconnect, dispatch, message, pendingWallet, signMessage],
   );
 
   const contextValue = useMemo(() => {
     return {
       signing,
       signMessage: requestSignature,
-      signOnConnect,
+      requireSignature,
     };
-  }, [requestSignature, signOnConnect, signing]);
+  }, [requestSignature, requireSignature, signing]);
 
   return (
     <SignatureContext.Provider value={contextValue}>

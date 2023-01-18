@@ -23,9 +23,13 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
   const isMounted = useIsMounted();
 
   const handleDisconnect = useCallback(() => {
-    disconnect();
+    if (!connectedWallets.length) {
+      return;
+    }
+
+    disconnect(connectedWallets[0].address);
     onDismiss();
-  }, [disconnect, onDismiss]);
+  }, [connectedWallets, disconnect, onDismiss]);
 
   if (!connectedWallets.length || !isMounted || !visible) {
     return null;

@@ -58,7 +58,7 @@ export interface UseWalletProps {
   onConnect?: (wallet?: Wallet) => void;
   onDisconnect?: (wallet?: Wallet) => void;
   onMessageSigned?: (response: SignatureResponse) => void;
-  signOnConnect?: boolean;
+  requireSignature?: boolean;
 }
 
 export interface UseWalletResponse {

@@ -41,9 +41,13 @@ export const SignatureModalError = ({
   handleTryAgain: () => void;
 }) => {
   const {t} = useTranslation('Modal');
-  const {connectedWallets} = useAppSelector((state) => state.wallet);
-  const {connectorId} = connectedWallets[0];
+  const {pendingWallet} = useAppSelector((state) => state.wallet);
   const {title, subtitle} = useTitleAndSubtitle(error);
+
+  if (!pendingWallet) {
+    return null;
+  }
+
   return createPortal(
     <Wrapper id="shopify-connect-wallet-modal-container">
       <Background onClick={handleDismiss} />
@@ -60,7 +64,7 @@ export const SignatureModalError = ({
         </Header>
         <SheetContent>
           <ConnectingWalletIcon>
-            <ConnectorIcon id={connectorId} size="Xl" />
+            <ConnectorIcon id={pendingWallet.connectorId} size="Xl" />
           </ConnectingWalletIcon>
           <Center>
             <Text as="h2" variant="headingLg">

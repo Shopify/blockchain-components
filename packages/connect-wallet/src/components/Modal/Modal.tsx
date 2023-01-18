@@ -56,12 +56,10 @@ export const Modal = () => {
           return;
         }
 
-        if (error.message === 'Connector already connected') {
-          setStatus(ConnectionState.AlreadyConnected);
+        if (error.message !== 'Connector already connected') {
+          setStatus(ConnectionState.Failed);
           return;
         }
-
-        setStatus(ConnectionState.Failed);
       }
 
       if (data) {

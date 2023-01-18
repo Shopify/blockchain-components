@@ -27,18 +27,30 @@ export const SignatureModal = ({
   error?: Error;
   clearError: () => void;
 }) => {
-  const {message} = useAppSelector((state) => state.wallet);
-  const {t} = useTranslation('Modal');
-  const isMounted = useIsMounted();
-  const {signing, signMessage} = useConnectWallet();
   const dispatch = useAppDispatch();
+  const {message} = useAppSelector((state) => state.wallet);
+  const {disconnect, signing, signMessage} = useConnectWallet();
+  const isMounted = useIsMounted();
+  const {t} = useTranslation('Modal');
   const {deleteKey} = useWalletConnectDeeplink();
 
   const handleDismiss = useCallback(() => {
+    /**
+     * Try disconnecting the wallet to ensure that the user
+     * can reconnect if they choose to do so in the future.
+     */
+    try {
+      disconnect();
+    } catch (error) {
+      console.warn(
+        'The signature flow was cancelled, but there was not a wallet which could be disconnected.',
+      );
+    }
+
     clearError();
     dispatch(clearSignatureState());
     deleteKey();
-  }, [clearError, dispatch, deleteKey]);
+  }, [clearError, dispatch, deleteKey, disconnect]);
 
   const handleSignMessage = useCallback(() => {
     clearError();

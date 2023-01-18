@@ -1,21 +1,22 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {verifyMessage} from 'ethers/lib/utils';
 
 import {SerializedConnector} from '../types/connector';
 import {Wallet} from '../types/wallet';
 
 export interface WalletSliceType {
-  addressToVerify: string | undefined;
   connectedWallets: Wallet[];
   message?: string;
   pendingConnector: SerializedConnector | undefined;
+  pendingWallet: Wallet | undefined;
   _persist: any;
 }
 
 export const initialState: WalletSliceType = {
-  addressToVerify: undefined,
   connectedWallets: [],
   message: undefined,
   pendingConnector: undefined,
+  pendingWallet: undefined,
   _persist: '',
 };
 
@@ -42,12 +43,9 @@ export const walletSlice = createSlice({
        * In this action, we're clearing all state keys that are related
        * to the signature/signing action.
        */
-      state.addressToVerify = initialState.addressToVerify;
       state.message = initialState.message;
       state.pendingConnector = initialState.pendingConnector;
-    },
-    setAddressToVerify: (state, action: PayloadAction<string | undefined>) => {
-      state.addressToVerify = action.payload;
+      state.pendingWallet = initialState.pendingWallet;
     },
     setMessage: (state, action: PayloadAction<string | undefined>) => {
       state.message = action.payload;
@@ -57,6 +55,9 @@ export const walletSlice = createSlice({
       action: PayloadAction<SerializedConnector | undefined>,
     ) => {
       state.pendingConnector = action.payload;
+    },
+    setPendingWallet: (state, action: PayloadAction<Wallet | undefined>) => {
+      state.pendingWallet = action.payload;
     },
     removeWallet: (state, action: PayloadAction<Wallet>) => {
       state.connectedWallets = state.connectedWallets.filter(
@@ -75,15 +76,85 @@ export const walletSlice = createSlice({
         };
       });
     },
+    /**
+     * Validates whether the signature provided is valid proof of ownership
+     * given the current `message` value.
+     *
+     * If the signature is valid, the wallet is moved from `pendingWallet` to
+     * `connectedWallets`.
+     *
+     * **NOTE:** This does not handle cleanup of the signature state.
+     * That is handled by clearSignatureState and should be dispatched as a
+     * separate action.
+     */
+    validatePendingWallet: (state, action: PayloadAction<string>) => {
+      // Ensure that we have a message and a pending wallet in state.
+      if (!state.message || !state.pendingWallet) {
+        return;
+      }
+
+      // Make copies of everything we are utilizing.
+      const message = state.message;
+      const pendingWallet = {...state.pendingWallet};
+
+      /**
+       * Utilize `verifyMessage` from ethers to recover the signer address
+       * from the signature.
+       */
+      const signerAddress = verifyMessage(message, action.payload);
+
+      /**
+       * If the addresses are not the same, then we should return an
+       * error indicating that failure so we can properly inform the user.
+       */
+
+      if (state.pendingWallet.address !== signerAddress) {
+        throw new Error('Invalid signature');
+      }
+
+      /**
+       * We need to know now whether we are adding or updating a wallet.
+       * At the moment I'm unsure that the signMessage will function without
+       * having requireSignature defined as true. Perhaps something to look into.
+       */
+      if (
+        state.connectedWallets.some(
+          (wallet) => wallet.address === pendingWallet.address,
+        )
+      ) {
+        state.connectedWallets.map((wallet) => {
+          if (wallet.address !== pendingWallet.address) {
+            return wallet;
+          }
+
+          return {
+            ...wallet,
+            message,
+            signature: action.payload,
+            signed: true,
+            signedOn: new Date().toISOString(),
+          };
+        });
+      } else {
+        state.connectedWallets.push({
+          ...pendingWallet,
+          message,
+          signature: action.payload,
+          signed: true,
+          signedOn: new Date().toISOString(),
+        });
+      }
+    },
   },
 });
 
 export const {
   addWallet,
   clearSignatureState,
-  setAddressToVerify,
   setMessage,
   setPendingConnector,
+  setPendingWallet,
   removeWallet,
   updateWallet,
+  validatePendingWallet,
 } = walletSlice.actions;
