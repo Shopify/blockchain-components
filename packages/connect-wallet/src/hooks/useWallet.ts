@@ -144,10 +144,12 @@ export function useWallet({
         onMessageSigned?.(response);
 
         return response;
-      } catch {
+      } catch (caughtError) {
         // If the error was returned by the use sign message hook then return that.
         // We should probably add some more verbose error handling in here as well.
-        throw error || new Error('Verification process failed.');
+        const finalError =
+          error || caughtError || new Error('Verification process failed.');
+        throw finalError;
       }
     },
     [error, onMessageSigned, signMessageAsync],

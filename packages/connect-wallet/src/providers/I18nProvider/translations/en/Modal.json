@@ -7,7 +7,17 @@
   "signature": {
     "title": "Sign message",
     "sentRequest": "Signature request sent. Please sign the message in your wallet.",
-    "toSign": "Signing a message proves ownership of a wallet address."
+    "toSign": "Signing a message proves ownership of a wallet address.",
+    "error": {
+      "requestCancelled": {
+        "title": "Request cancelled",
+        "subtitle": "Sign message in extension."
+      },
+      "generic": {
+        "title": "Couldn’t confirm",
+        "subtitle": "There was an issue confirming your wallet."
+      }
+    }
   },
   "title": {
     "Connect": "Connect wallet",
@@ -15,5 +25,8 @@
     "GetAWallet": "Get a wallet",
     "Scan": "Scan with",
     "WhatAreWallets": "What is a wallet?"
+  },
+  "button": {
+    "tryAgain": "Try again"
   }
 }
