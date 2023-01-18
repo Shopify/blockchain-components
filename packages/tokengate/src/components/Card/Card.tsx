@@ -11,7 +11,7 @@ interface CardProps {
 
 const Card = ({title, subtitle, button, children}: CardProps) => {
   return (
-    <StyledCard>
+    <StyledCard id="shopify-tokengate-card-container">
       <Text as="h2" variant="headingMd">
         {title}
       </Text>

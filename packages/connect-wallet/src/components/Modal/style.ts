@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {breakpoints, NonEmptyElement} from 'shared';
+import {breakpoints} from 'shared';
 
 export const Background = styled.div`
   position: absolute;
@@ -7,8 +7,6 @@ export const Background = styled.div`
   width: 100%;
   background-color: ${({theme}) => theme.modal.overlayBackground};
   z-index: 1;
-
-  ${NonEmptyElement}
 `;
 
 export const ButtonContainer = styled.div`

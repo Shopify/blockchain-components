@@ -142,7 +142,7 @@ export const Modal = () => {
   }
 
   return createPortal(
-    <Wrapper>
+    <Wrapper id="shopify-connect-wallet-modal-container">
       <Background onClick={handleBackdropPress} />
       <Sheet>
         <Header>

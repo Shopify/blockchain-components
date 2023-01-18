@@ -60,7 +60,7 @@ export const SignatureModal = ({
   }
 
   return createPortal(
-    <Wrapper>
+    <Wrapper id="shopify-connect-wallet-modal-container">
       <Background onClick={handleDismiss} />
       <Sheet>
         <Header $padded>

@@ -45,7 +45,7 @@ export const SignatureModalError = ({
   const {connectorId} = connectedWallets[0];
   const {title, subtitle} = useTitleAndSubtitle(error);
   return createPortal(
-    <Wrapper>
+    <Wrapper id="shopify-connect-wallet-modal-container">
       <Background onClick={handleDismiss} />
       <Sheet>
         <Header $padded>
