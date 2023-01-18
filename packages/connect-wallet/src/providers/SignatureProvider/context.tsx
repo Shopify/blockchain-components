@@ -5,7 +5,7 @@ import {SignatureResponse} from '../../types/wallet';
 export interface SignatureProviderValue {
   signing?: boolean;
   signMessage: (props?: {message?: string}) => Promise<SignatureResponse>;
-  signOnConnect?: boolean;
+  requireSignature?: boolean;
 }
 
 const defaultContextValue: SignatureProviderValue = {

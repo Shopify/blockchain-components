@@ -6,19 +6,21 @@ import {initialState, walletSlice} from './walletSlice';
 const {
   addWallet,
   clearSignatureState,
-  setAddressToVerify,
   setMessage,
   setPendingConnector,
+  setPendingWallet,
   removeWallet,
   updateWallet,
+  validatePendingWallet,
 } = walletSlice.actions;
 
 const {getInitialState, reducer} = walletSlice;
 
 const DEFAULT_WALLET: Wallet = {
-  address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+  address: '0x14791697260E4c9A71f18484C9f997B308e59325',
   connectorId: 'metaMask',
   connectorName: 'MetaMask',
+  signed: false,
 };
 
 const ALTERNATE_WALLET: Wallet = {
@@ -58,13 +60,13 @@ describe('walletSlice', () => {
   });
 
   describe('clearSignatureState', () => {
-    it('clears addressToVerify, message, and pendingConnector state values', () => {
+    it('clears message, pendingConnector, and pendingWallet state values', () => {
       const existingState = {
         ...initialState,
-        addressToVerify: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
         message:
-          'Verification message for 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+          'Verification message for 0x14791697260E4c9A71f18484C9f997B308e59325',
         pendingConnector: DEFAULT_SERIALIZED_CONNECTOR,
+        pendingWallet: {...DEFAULT_WALLET, signed: false},
       };
 
       expect(reducer(existingState, clearSignatureState())).toStrictEqual(
@@ -73,31 +75,23 @@ describe('walletSlice', () => {
     });
   });
 
-  describe('setAddressToVerify', () => {
-    it('sets address to verify to given address', () => {
-      const existingState = {
-        ...initialState,
-        addressToVerify: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-      };
-
+  describe('setPendingWallet', () => {
+    it('sets pendingWallet to provided wallet', () => {
       expect(
-        reducer(
-          existingState,
-          setAddressToVerify('0x5ea9681C3Ab9B5739810F8b91aE65EC47de62119'),
-        ),
+        reducer(initialState, setPendingWallet(DEFAULT_WALLET)),
       ).toStrictEqual({
-        ...existingState,
-        addressToVerify: '0x5ea9681C3Ab9B5739810F8b91aE65EC47de62119',
+        ...initialState,
+        pendingWallet: DEFAULT_WALLET,
       });
     });
 
-    it('sets address to verify to undefined when passed undefined', () => {
+    it('sets pending wallet to undefined when passed undefined', () => {
       const existingState = {
         ...initialState,
-        addressToVerify: '0x5ea9681C3Ab9B5739810F8b91aE65EC47de62119',
+        pendingWallet: DEFAULT_WALLET,
       };
 
-      expect(reducer(existingState, setAddressToVerify())).toStrictEqual(
+      expect(reducer(existingState, setPendingWallet(undefined))).toStrictEqual(
         initialState,
       );
     });
@@ -109,13 +103,13 @@ describe('walletSlice', () => {
         reducer(
           initialState,
           setMessage(
-            'Verification message for 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+            'Verification message for 0x14791697260E4c9A71f18484C9f997B308e59325',
           ),
         ),
       ).toStrictEqual({
         ...initialState,
         message:
-          'Verification message for 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+          'Verification message for 0x14791697260E4c9A71f18484C9f997B308e59325',
       });
     });
 
@@ -123,7 +117,7 @@ describe('walletSlice', () => {
       const existingState = {
         ...initialState,
         message:
-          'Verification message for 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+          'Verification message for 0x14791697260E4c9A71f18484C9f997B308e59325',
       };
 
       expect(reducer(existingState, setMessage())).toStrictEqual(initialState);
@@ -251,6 +245,77 @@ describe('walletSlice', () => {
 
       expect(reducer(previousState, updateWallet(updatedWallet))).toStrictEqual(
         updatedState,
+      );
+    });
+  });
+
+  describe('validatePendingWallet', () => {
+    it('does not manipulate state when state.message is undefined', () => {
+      const existingState = {
+        ...initialState,
+        pendingWallet: DEFAULT_WALLET,
+      };
+
+      expect(
+        reducer(existingState, validatePendingWallet('signedMessage')),
+      ).toStrictEqual(existingState);
+    });
+
+    it('does not manipulate state when state.pendingWallet is undefined', () => {
+      const existingState = {
+        ...initialState,
+        message: 'sign this!',
+      };
+
+      expect(
+        reducer(existingState, validatePendingWallet('signedMessage')),
+      ).toStrictEqual(existingState);
+    });
+
+    it('does not manipulate state and throws an error when the address is not verified via ethers verifyMessage util', () => {
+      const existingState = {
+        ...initialState,
+        message: 'hello world',
+        pendingWallet: DEFAULT_WALLET,
+      };
+
+      expect(() =>
+        reducer(
+          existingState,
+          validatePendingWallet(
+            '0x0aa04781e381e84b1494d00245b5232ed9106377f541256bb504b75a04a9d2be2e895e4aab9cae3af41344e43ae7d5885202b66b2fa29d4c4443871cfaa575671c',
+          ),
+        ),
+      ).toThrow('Invalid signature');
+    });
+
+    it('manipulates state when the address from verifyMessage matches the pendingWallet address', () => {
+      const existingState = {
+        ...initialState,
+        message: 'hello world',
+        pendingWallet: DEFAULT_WALLET,
+      };
+
+      /**
+       * Dispatch the action to our state and grab connectedWallets
+       * and pendingWallet.
+       */
+      //
+      const {connectedWallets} = reducer(
+        existingState,
+        validatePendingWallet(
+          '0xddd0a7290af9526056b4e35a077b9a11b513aa0028ec6c9880948544508f3c63265e99e47ad31bb2cab9646c504576b3abc6939a1710afc08cbf3034d73214b81c',
+        ),
+      );
+
+      /**
+       * We have to use objectContaining here because the dateSigned
+       * is propogated inside of the action that is dispatched.
+       */
+      expect(connectedWallets).toStrictEqual(
+        expect.arrayContaining([
+          expect.objectContaining({...DEFAULT_WALLET, signed: true}),
+        ]),
       );
     });
   });

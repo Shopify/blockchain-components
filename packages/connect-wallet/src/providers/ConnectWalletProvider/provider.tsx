@@ -17,7 +17,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,
   children,
   theme,
-  signOnConnect = true,
+  requireSignature = true,
 }: PropsWithChildren<ProviderProps>) => {
   const contextValue = useMemo(() => {
     return {
@@ -30,7 +30,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
       <I18nProvider>
         <RootProvider theme={theme}>
           <Provider store={store}>
-            <SignatureProvider signOnConnect={signOnConnect}>
+            <SignatureProvider requireSignature={requireSignature}>
               <ModalProvider>{children}</ModalProvider>
             </SignatureProvider>
           </Provider>

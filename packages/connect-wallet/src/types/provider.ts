@@ -4,7 +4,7 @@ import {ThemeProps} from 'shared';
 import {Wallet} from './wallet';
 
 export interface SignatureProviderProps {
-  signOnConnect?: boolean;
+  requireSignature?: boolean;
 }
 
 export type ProviderProps = ThemeProps &
