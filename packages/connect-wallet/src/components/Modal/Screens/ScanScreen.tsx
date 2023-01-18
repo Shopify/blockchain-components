@@ -3,7 +3,6 @@ import {Button, Text} from 'shared';
 
 import {useAppSelector} from '../../../hooks/useAppState';
 import {useConnectorData} from '../../../hooks/useConnectorData';
-import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {useModalScreenContent} from '../../../hooks/useModalContent';
 import {useTranslation} from '../../../hooks/useTranslation';
 import {useModal} from '../../../providers/ModalProvider';
@@ -19,10 +18,9 @@ interface ScanScreenProps {
 
 const ScanScreen = ({connect, state}: ScanScreenProps) => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
-  const {connector, modalConnector} = useConnectorData({
+  const {connector, marketingSite, modalConnector, name} = useConnectorData({
     id: pendingConnector?.id,
   });
-  const downloadButtons = useConnectorDownloadLinks();
   const {closeModal} = useModal();
   const {body} = useModalScreenContent(state);
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
@@ -44,22 +42,57 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
     return null;
   }, [body, state]);
 
-  const walletConnectModalButton = useMemo(() => {
-    /**
-     * Only want to show the wc modal button if the current
-     * connector is walletConnect and we have a modalConnector
-     */
-    if (!connector || connector.id !== 'walletConnect' || !modalConnector) {
+  const walletConnectModalCallback = useCallback(() => {
+    if (!modalConnector) {
+      return;
+    }
+
+    connect({connector: modalConnector});
+    closeModal();
+  }, [closeModal, connect, modalConnector]);
+
+  const buttons = useMemo(() => {
+    const hasGetProductButton = Boolean(marketingSite);
+    const hasWalletConnectButton = Boolean(
+      connector?.id === 'walletConnect' && modalConnector,
+    );
+
+    const hasButtons = hasGetProductButton || hasWalletConnectButton;
+
+    if (!hasButtons) {
       return null;
     }
 
-    const wcCallbackFn = () => {
-      connect({connector: modalConnector});
-      closeModal();
-    };
+    return (
+      <ButtonContainer>
+        {hasGetProductButton ? (
+          <Button
+            aria-label={t('Scan.getProduct', {connectorName: name}) as string}
+            label={t('Scan.getProduct', {connectorName: name}) as string}
+            link={{
+              // TypeScript 🤦
+              href: marketingSite!,
+              target: '_blank',
+            }}
+          />
+        ) : null}
 
-    return <Button onClick={wcCallbackFn} label={t('Scan.button')} />;
-  }, [closeModal, connect, connector, modalConnector, t]);
+        {hasWalletConnectButton ? (
+          <Button
+            onClick={walletConnectModalCallback}
+            label={t('Scan.wcButton')}
+          />
+        ) : null}
+      </ButtonContainer>
+    );
+  }, [
+    connector?.id,
+    marketingSite,
+    modalConnector,
+    name,
+    t,
+    walletConnectModalCallback,
+  ]);
 
   // eslint-disable-next-line @typescript-eslint/require-await
   const scanToConnect = useCallback(async () => {
@@ -128,10 +161,7 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
 
       {bodyContent}
 
-      <ButtonContainer>
-        {downloadButtons}
-        {walletConnectModalButton}
-      </ButtonContainer>
+      {buttons}
     </SheetContent>
   );
 };

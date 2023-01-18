@@ -1,6 +1,7 @@
 {
   "Scan": {
-    "button": "Use WalletConnect modal"
+    "getProduct": "Get {{connectorName}}",
+    "wcButton": "Use WalletConnect modal"
   },
   "WhatAreWallets": {
     "home": {

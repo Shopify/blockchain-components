@@ -5,7 +5,6 @@ import {Button} from 'shared/src/components/Button';
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useConnectorData} from '../../hooks/useConnectorData';
 import {useTranslation} from '../../hooks/useTranslation';
-import {getBrowserInfo} from '../../utils/getBrowser';
 
 import {ConnectorData, Wrapper} from './style';
 
@@ -16,27 +15,16 @@ interface GetAConnectorButtonProps {
 export const GetAConnectorButton = ({
   connectorId,
 }: GetAConnectorButtonProps) => {
-  const {marketingSite, mobileApps, name} = useConnectorData({id: connectorId});
+  const {marketingSite, name} = useConnectorData({id: connectorId});
   const {t} = useTranslation('GetAConnectorButton');
-  const {mobilePlatform} = getBrowserInfo();
 
   const downloadLink = useMemo(() => {
-    if (!marketingSite && mobileApps) {
+    if (!marketingSite) {
       return null;
     }
 
-    if (mobilePlatform === 'Android') {
-      return mobileApps?.Android || marketingSite;
-    }
-
-    if (mobilePlatform === 'iOS') {
-      return mobileApps?.iOS || marketingSite;
-    }
-
     return marketingSite;
-  }, [marketingSite, mobileApps, mobilePlatform]);
-
-  const buttonLabel = t('buttonText', {name});
+  }, [marketingSite]);
 
   if (!downloadLink) {
     return null;
@@ -52,8 +40,8 @@ export const GetAConnectorButton = ({
       </ConnectorData>
 
       <Button
-        aria-label={buttonLabel}
-        label={buttonLabel}
+        aria-label={t('accessibilityLabel', {name}) as string}
+        label={t('buttonText') as string}
         link={{href: downloadLink, target: '_blank'}}
       />
     </Wrapper>
