@@ -9,7 +9,6 @@ import ConnectorButton from './translations/en/ConnectorButton.json';
 import GetAConnectorButton from './translations/en/GetAConnectorButton.json';
 import Modal from './translations/en/Modal.json';
 import Screens from './translations/en/Screens.json';
-import UseConnectorDownloadLinks from './translations/en/UseConnectorDownloadLinks.json';
 import UseModalContent from './translations/en/UseModalContent.json';
 
 const i18n = createInstance({
@@ -23,7 +22,6 @@ const i18n = createInstance({
       GetAConnectorButton,
       Modal,
       Screens,
-      UseConnectorDownloadLinks,
       UseModalContent,
     },
   },

@@ -27,12 +27,10 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
     // eslint-disable-next-line @typescript-eslint/require-await
     async (connector: Connector) => {
       const {
-        browserExtensions,
         connector: wagmiConnector,
         desktopAppLink,
         id,
         marketingSite,
-        mobileApps,
         mobileAppPrefixes,
         name,
         qrCodeSupported,
@@ -46,12 +44,10 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
        */
       dispatch(
         setPendingConnector({
-          browserExtensions,
           desktopAppLink,
           id,
           marketingSite,
           mobileAppPrefixes,
-          mobileApps,
           name,
           qrCodeSupported,
         }),
@@ -110,11 +106,11 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
       }
 
       /**
-       * If the user chooses Ledger Live or WalletConnect and is on mobile
-       * close the modal so we're not stacking modals.
+       * If the user chooses Ledger (when we're using Ledger Connect Kit)
+       * or WalletConnect and is on mobile close the modal to prevent
+       * stacked modals.
        */
-      const shouldCloseModal =
-        (isWalletConnect || isLedgerConnector) && mobilePlatform;
+      const shouldCloseModal = isWalletConnect && mobilePlatform;
 
       if (shouldCloseModal) {
         closeModal();

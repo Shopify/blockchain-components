@@ -8,10 +8,8 @@
     "body": "Connected successfully"
   },
   "connecting": {
-    "title": "Confirm in {{platform}}",
-    "body": "Requesting connection",
-    "mobileApp": "the mobile app",
-    "browserExtension": "browser extension"
+    "title": "Confirm in {{connectorName}}",
+    "body": "Requesting connection"
   },
   "failed": {
     "title": "Error",

@@ -3,7 +3,6 @@ import {Button, Spinner, Text} from 'shared';
 
 import {ConnectorIcon} from '../../ConnectorIcon';
 import {useConnectorData} from '../../../hooks/useConnectorData';
-import {useConnectorDownloadLinks} from '../../../hooks/useConnectorDownloadLinks';
 import {useModalScreenContent} from '../../../hooks/useModalContent';
 import {useAppSelector} from '../../../hooks/useAppState';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
@@ -24,9 +23,10 @@ interface ConnectingScreenProps {
 
 const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
-  const {connector} = useConnectorData({id: pendingConnector?.id});
+  const {connector, qrCodeSupported} = useConnectorData({
+    id: pendingConnector?.id,
+  });
   const {navigation} = useModal();
-  const downloadButtons = useConnectorDownloadLinks();
 
   const {mobilePlatform} = getBrowserInfo();
 
@@ -38,11 +38,9 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   }, [navigation]);
 
   const buttons = useMemo(() => {
-    if (!connector || !pendingConnector || !downloadButtons) {
+    if (!connector || !pendingConnector) {
       return null;
     }
-
-    const {qrCodeSupported} = pendingConnector;
 
     return (
       <ButtonContainer>
@@ -53,18 +51,16 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
         {!mobilePlatform && qrCodeSupported ? (
           <Button onClick={handleUseQRCode} label="Use QR code" />
         ) : null}
-
-        {downloadButtons}
       </ButtonContainer>
     );
   }, [
     canTryAgain,
     connect,
     connector,
-    downloadButtons,
     handleUseQRCode,
     mobilePlatform,
     pendingConnector,
+    qrCodeSupported,
   ]);
 
   const {body, title} = useModalScreenContent(state);

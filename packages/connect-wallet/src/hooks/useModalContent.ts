@@ -9,12 +9,6 @@ export const useModalScreenContent = (
   const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {t} = useTranslation('UseModalContent');
 
-  const connectorName = pendingConnector?.name || t('the mobile app');
-
-  const connectingScreenPlatform = pendingConnector?.browserExtensions
-    ? t('browser extension')
-    : connectorName;
-
   const screenContent: {
     [key in keyof typeof ConnectionState]: {body: string; title: string};
   } = {
@@ -29,7 +23,7 @@ export const useModalScreenContent = (
     Connecting: {
       body: t('connecting.body'),
       title: t('connecting.title', {
-        platform: connectingScreenPlatform,
+        connectorName: pendingConnector?.name || 'Unknown connector',
       }),
     },
     Failed: {
