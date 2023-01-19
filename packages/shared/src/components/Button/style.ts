@@ -5,68 +5,71 @@ import {ThemedCSS} from '../../types/theme';
 import {Size} from './types';
 
 const PrimaryButtonWrapper = css`
-  background-color: ${({theme}) => theme.buttons.primary.background};
-  border: ${({theme}) => theme.buttons.primary.border};
-  border-radius: ${({theme}) => theme.buttons.primary.borderRadius};
-  box-shadow: ${({theme}) => theme.buttons.primary.boxShadow};
+  background-color: ${({theme}) => theme.buttons.variants.primary.background};
+  border: ${({theme}) => theme.buttons.variants.primary.border};
 
   label {
-    color: ${({theme}) => theme.buttons.primary.textColor};
+    color: ${({theme}) => theme.buttons.variants.primary.textColor};
   }
 
   &:hover {
-    background-color: ${({theme}) => theme.buttons.primary.hover.background};
-    box-shadow: ${({theme}) => theme.buttons.primary.hover.outline};
+    background-color: ${({theme}) =>
+      theme.buttons.variants.primary.hover.background};
+    box-shadow: ${({theme}) => theme.buttons.variants.primary.hover.boxShadow};
   }
 `;
 
 const SecondaryButtonWrapper = css`
-  background-color: ${({theme}) => theme.buttons.secondary.background};
-  border: ${({theme}) => theme.buttons.secondary.border};
-  border-radius: ${({theme}) => theme.buttons.secondary.borderRadius};
-  box-shadow: ${({theme}) => theme.buttons.secondary.boxShadow};
+  background-color: ${({theme}) => theme.buttons.variants.secondary.background};
+  border: ${({theme}) => theme.buttons.variants.secondary.border};
 
   label {
-    color: ${({theme}) => theme.buttons.secondary.textColor};
+    color: ${({theme}) => theme.buttons.variants.secondary.textColor};
   }
 
   &:hover {
-    background-color: ${({theme}) => theme.buttons.secondary.hover.background};
-    box-shadow: ${({theme}) => theme.buttons.secondary.hover.outline};
+    background-color: ${({theme}) =>
+      theme.buttons.variants.secondary.hover.background};
+    box-shadow: ${({theme}) =>
+      theme.buttons.variants.secondary.hover.boxShadow};
   }
 `;
 
 const DisabledButtonWrapper = css`
   cursor: default;
-  background-color: ${({theme}) => theme.buttons.disabled.background};
-  border: ${({theme}) => theme.buttons.disabled.background};
+  background-color: ${({theme}) => theme.buttons.variants.disabled.background};
+  border: ${({theme}) => theme.buttons.variants.disabled.border};
 
   label {
-    color: ${({theme}) => theme.buttons.disabled.textColor};
+    color: ${({theme}) => theme.buttons.variants.disabled.textColor};
   }
 
   &:hover {
-    background-color: ${({theme}) => theme.buttons.disabled.background};
+    background-color: ${({theme}) =>
+      theme.buttons.variants.disabled.background};
     box-shadow: unset;
   }
 `;
 
-const LargeButtonPadding = css`
-  padding: ${({theme}) => theme.buttons.largePadding};
+const LargeButton = css`
+  border-radius: ${({theme}) => theme.buttons.sizes.large.borderRadius};
+  padding: ${({theme}) => theme.buttons.sizes.large.padding};
 `;
 
-const MediumButtonPadding = css`
-  padding: ${({theme}) => theme.buttons.mediumPadding};
+const MediumButton = css`
+  border-radius: ${({theme}) => theme.buttons.sizes.medium.borderRadius};
+  padding: ${({theme}) => theme.buttons.sizes.medium.padding};
 `;
 
-const SmallButtonPadding = css`
-  padding: ${({theme}) => theme.buttons.smallPadding};
+const SmallButton = css`
+  border-radius: ${({theme}) => theme.buttons.sizes.small.borderRadius};
+  padding: ${({theme}) => theme.buttons.sizes.small.padding};
 `;
 
-const PaddingMappedToSize: {[S in Size]: ThemedCSS} = {
-  Lg: LargeButtonPadding,
-  Md: MediumButtonPadding,
-  Sm: SmallButtonPadding,
+const SizeMap: {[S in Size]: ThemedCSS} = {
+  Lg: LargeButton,
+  Md: MediumButton,
+  Sm: SmallButton,
 };
 
 export const ButtonWrapper = styled.button<{
@@ -87,7 +90,7 @@ export const ButtonWrapper = styled.button<{
   width: ${({fullWidth}) => (fullWidth ? '100%' : 'fit-content')};
   ${({primary}) => (primary ? PrimaryButtonWrapper : SecondaryButtonWrapper)}
   ${({disabled}) => disabled && DisabledButtonWrapper}
-  ${({size}) => PaddingMappedToSize[size]}
+  ${({size}) => SizeMap[size]}
 
   label {
     cursor: inherit;

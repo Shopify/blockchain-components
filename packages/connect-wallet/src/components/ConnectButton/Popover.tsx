@@ -72,7 +72,6 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
           fullWidth
           label={t('popover.disconnectButton')}
           onClick={handleDisconnect}
-          primary={false}
         />
       </Frame>
     </Container>,

@@ -7,26 +7,20 @@ import {
 
 type RequiredCSSProperty = Required<CSSProperties>;
 
-export type Padding =
-  | RequiredCSSProperty['padding']
-  | {
-      top: RequiredCSSProperty['paddingTop'];
-      left: RequiredCSSProperty['paddingLeft'];
-      right: RequiredCSSProperty['paddingRight'];
-      bottom: RequiredCSSProperty['paddingBottom'];
-    };
+export interface ButtonSize {
+  borderRadius: RequiredCSSProperty['borderRadius'];
+  padding: RequiredCSSProperty['padding'];
+}
 
-export interface ButtonStyle {
+export interface ButtonVariant {
   background: RequiredCSSProperty['backgroundColor'];
   border: RequiredCSSProperty['border'];
-  borderRadius: RequiredCSSProperty['borderRadius'];
-  boxShadow: RequiredCSSProperty['boxShadow'];
   textColor: RequiredCSSProperty['color'];
 
   hover: {
     // The following are optional properties
     background?: CSSProperties['backgroundColor'];
-    outline?: CSSProperties['boxShadow'];
+    boxShadow?: CSSProperties['boxShadow'];
   };
 }
 
@@ -55,13 +49,17 @@ export interface Theme {
   };
 
   buttons: {
-    primary: ButtonStyle;
-    secondary: ButtonStyle;
-    disabled: Pick<ButtonStyle, 'background' | 'textColor'>;
+    sizes: {
+      small: ButtonSize;
+      medium: ButtonSize;
+      large: ButtonSize;
+    };
 
-    smallPadding: Padding;
-    mediumPadding: Padding;
-    largePadding: Padding;
+    variants: {
+      primary: ButtonVariant;
+      secondary: ButtonVariant;
+      disabled: Omit<ButtonVariant, 'hover'>;
+    };
   };
 
   modal: {
@@ -69,7 +67,7 @@ export interface Theme {
     border: RequiredCSSProperty['border'];
     boxShadow: RequiredCSSProperty['boxShadow'];
     overlayBackground: RequiredCSSProperty['backgroundColor'];
-    padding: Padding;
+    padding: RequiredCSSProperty['padding'];
 
     borderRadius: {
       desktop: RequiredCSSProperty['borderRadius'];
@@ -94,7 +92,7 @@ export interface Theme {
     border: RequiredCSSProperty['border'];
     borderRadius: RequiredCSSProperty['borderRadius'];
     boxShadow: RequiredCSSProperty['boxShadow'];
-    padding: Padding;
+    padding: RequiredCSSProperty['padding'];
   };
 }
 

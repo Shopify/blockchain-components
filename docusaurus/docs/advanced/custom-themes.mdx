@@ -10,21 +10,26 @@ We understand the need to customize the appearance of your connect wallet librar
 
 Themes leverage the [`CSSProperties`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components/index.d.ts#L27) type exported from [`@types/styled-components`](https://www.npmjs.com/package/@types/styled-components).
 
-### ButtonStyle
+### ButtonSize
+```typescript
+export interface ButtonSize {
+  borderRadius: RequiredCSSProperty['borderRadius'];
+  padding: RequiredCSSProperty['padding'];
+}
+```
+
+### ButtonVariant
 
 ```typescript
-export interface ButtonStyle {
+export interface ButtonVariant {
   background: RequiredCSSProperty['backgroundColor'];
   border: RequiredCSSProperty['border'];
-  borderRadius: RequiredCSSProperty['borderRadius'];
-  boxShadow: RequiredCSSProperty['boxShadow'];
-  padding: Padding;
   textColor: RequiredCSSProperty['color'];
 
   hover: {
     // The following are optional properties
     background?: CSSProperties['backgroundColor'];
-    outline?: CSSProperties['outline'];
+    boxShadow?: CSSProperties['boxShadow'];
   };
 }
 ```
@@ -39,19 +44,6 @@ export interface FontStyle {
   fontWeightBold?: CSSProperties['fontWeight'];
   lineHeight: RequiredCSSProperty['lineHeight'];
 }
-```
-
-### Padding
-
-```typescript
-export type Padding =
-  | RequiredCSSProperty['padding']
-  | {
-      top: RequiredCSSProperty['paddingTop'];
-      left: RequiredCSSProperty['paddingLeft'];
-      right: RequiredCSSProperty['paddingRight'];
-      bottom: RequiredCSSProperty['paddingBottom'];
-    };
 ```
 
 ### RequiredCSSProperty
@@ -69,6 +61,8 @@ import {Theme} from '@shopify/connect-wallet';
 import {Theme} from '@shopify/tokengate';
 
 export interface Theme {
+  name?: string;
+
   typography: {
     colorPrimary: RequiredCSSProperty['color'];
     colorSecondary: RequiredCSSProperty['color'];
@@ -82,7 +76,19 @@ export interface Theme {
     headingSm: FontStyle;
   };
 
-  connectButton: ButtonStyle;
+  buttons: {
+    sizes: {
+      small: ButtonSize;
+      medium: ButtonSize;
+      large: ButtonSize;
+    };
+
+    variants: {
+      primary: ButtonVariant;
+      secondary: ButtonVariant;
+      disabled: Omit<ButtonVariant, 'hover'>;
+    };
+  };
 
   modal: {
     background: RequiredCSSProperty['backgroundColor'];
@@ -90,10 +96,8 @@ export interface Theme {
     borderRadius: RequiredCSSProperty['borderRadius'];
     boxShadow: RequiredCSSProperty['boxShadow'];
     overlayBackground: RequiredCSSProperty['backgroundColor'];
-    padding: Padding;
+    padding: RequiredCSSProperty['padding'];
   };
-
-  disabledButton: Pick<ButtonStyle, 'background' | 'textColor'>;
 
   other: {
     iconColor: RequiredCSSProperty['color'];
@@ -107,18 +111,12 @@ export interface Theme {
     boxShadow: RequiredCSSProperty['boxShadow'];
   };
 
-  secondaryButton: ButtonStyle;
-
   tokengate: {
     background: RequiredCSSProperty['backgroundColor'];
     border: RequiredCSSProperty['border'];
     borderRadius: RequiredCSSProperty['borderRadius'];
     boxShadow: RequiredCSSProperty['boxShadow'];
-    padding: Padding;
-  };
-
-  walletConnectorButton: ButtonStyle & {
-    horizontalAlignment: RequiredCSSProperty['justifyContent'];
+    padding: RequiredCSSProperty['padding'];
   };
 }
 ```

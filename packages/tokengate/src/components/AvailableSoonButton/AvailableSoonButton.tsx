@@ -38,7 +38,6 @@ const AvailableSoonButton = ({availableDate}: AvailableSoonButtonProps) => {
       label={t('buttonText', {
         date: convert(availableDate),
       })}
-      primary
       size="Lg"
     />
   );

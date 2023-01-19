@@ -78,38 +78,45 @@ export const Dawn: Theme = {
   },
 
   buttons: {
-    primary: {
-      background: DawnColors.Grayscale['6'],
-      border: 'none',
-      borderRadius: '0',
-      boxShadow: 'none',
-      textColor: DawnColors.Grayscale['0'],
-
-      hover: {
-        outline: `0px 0px 0px 1px ${DawnColors.Grayscale['6']}`,
+    sizes: {
+      small: {
+        borderRadius: '0',
+        padding: '6px 12px',
+      },
+      medium: {
+        borderRadius: '0',
+        padding: '10px 16px',
+      },
+      large: {
+        borderRadius: '0',
+        padding: '14px 20px',
       },
     },
+    variants: {
+      primary: {
+        background: DawnColors.Grayscale['6'],
+        border: 'none',
+        textColor: DawnColors.Grayscale['0'],
 
-    secondary: {
-      background: DawnColors.Grayscale['0'],
-      border: `1px solid ${DawnColors.Grayscale['3']}`,
-      borderRadius: '0',
-      boxShadow: 'none',
-      textColor: DawnColors.Grayscale['6'],
+        hover: {
+          boxShadow: `0px 0px 0px 1px ${DawnColors.Grayscale['6']}`,
+        },
+      },
+      secondary: {
+        background: DawnColors.Grayscale['0'],
+        border: `1px solid ${DawnColors.Grayscale['3']}`,
+        textColor: DawnColors.Grayscale['6'],
 
-      hover: {
-        outline: `0px 0px 0px 1px ${DawnColors.Grayscale['6']}`,
+        hover: {
+          boxShadow: `0px 0px 0px 1px ${DawnColors.Grayscale['6']}`,
+        },
+      },
+      disabled: {
+        background: DawnColors.Grayscale['1'],
+        border: 'none',
+        textColor: DawnColors.Grayscale['4'],
       },
     },
-
-    disabled: {
-      background: DawnColors.Grayscale['1'],
-      textColor: DawnColors.Grayscale['4'],
-    },
-
-    smallPadding: '6px 12px',
-    mediumPadding: '10px 16px',
-    largePadding: '14px 20px',
   },
 
   modal: {

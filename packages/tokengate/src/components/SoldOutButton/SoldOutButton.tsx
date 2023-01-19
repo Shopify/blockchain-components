@@ -14,7 +14,6 @@ const SoldOutButton = () => {
         disabled
         fullWidth
         label={t('buttonText')}
-        primary
         size="Lg"
       />
 

@@ -81,38 +81,46 @@ export const Default: Theme = {
   },
 
   buttons: {
-    primary: {
-      background: DefaultColors.Grayscale['7'],
-      border: 'none',
-      borderRadius: '6px',
-      boxShadow: 'none',
-      textColor: DefaultColors.Grayscale['0'],
-
-      hover: {
-        background: DefaultColors.Grayscale['9'],
+    sizes: {
+      small: {
+        borderRadius: '6px',
+        padding: '6px 12px',
+      },
+      medium: {
+        borderRadius: '6px',
+        padding: '10px 16px',
+      },
+      large: {
+        borderRadius: '6px',
+        padding: '14px 20px',
       },
     },
 
-    secondary: {
-      background: DefaultColors.Grayscale['0'],
-      border: `1px solid ${DefaultColors.Grayscale['3']}`,
-      borderRadius: '6px',
-      boxShadow: 'none',
-      textColor: DefaultColors.Grayscale['7'],
+    variants: {
+      primary: {
+        background: DefaultColors.Grayscale['7'],
+        border: 'none',
+        textColor: DefaultColors.Grayscale['0'],
 
-      hover: {
-        background: DefaultColors.Grayscale['8'],
+        hover: {
+          background: DefaultColors.Grayscale['9'],
+        },
+      },
+      secondary: {
+        background: DefaultColors.Grayscale['0'],
+        border: `1px solid ${DefaultColors.Grayscale['3']}`,
+        textColor: DefaultColors.Grayscale['7'],
+
+        hover: {
+          background: DefaultColors.Grayscale['8'],
+        },
+      },
+      disabled: {
+        background: DefaultColors.Grayscale['1'],
+        border: 'none',
+        textColor: DefaultColors.Grayscale['4'],
       },
     },
-
-    disabled: {
-      background: DefaultColors.Grayscale['1'],
-      textColor: DefaultColors.Grayscale['4'],
-    },
-
-    smallPadding: '6px 12px',
-    mediumPadding: '10px 16px',
-    largePadding: '14px 20px',
   },
 
   modal: {

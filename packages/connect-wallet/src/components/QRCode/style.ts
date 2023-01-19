@@ -7,7 +7,7 @@ export const Circle = styled.circle`
 export const Container = styled.div`
   width: 100%;
   border-radius: 16px;
-  border: ${({theme}) => theme.buttons.secondary.border};
+  border: ${({theme}) => theme.buttons.variants.secondary.border};
   padding: 16px;
   position: relative;
   box-sizing: border-box;
