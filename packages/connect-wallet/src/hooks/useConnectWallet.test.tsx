@@ -44,6 +44,11 @@ jest.mock('./useAppState', () => ({
 jest.mock('./useWallet', () => ({
   useWallet: jest.fn(() => ({
     connection: false,
+  })),
+}));
+
+jest.mock('./useDisconnect', () => ({
+  useDisconnect: jest.fn(() => ({
     disconnect: jest.fn(),
   })),
 }));

@@ -4,7 +4,7 @@ import {Button, CircleTick, Copy, formatWalletAddress, Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
-import {useConnectWallet} from '../../hooks/useConnectWallet';
+import {useDisconnect} from '../../hooks/useDisconnect';
 import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
 import {useIsMounted} from '../../hooks/useIsMounted';
 
@@ -18,7 +18,7 @@ interface PopoverProps {
 
 export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
   const {connectedWallets} = useAppSelector((state) => state.wallet);
-  const {disconnect} = useConnectWallet();
+  const {disconnect} = useDisconnect();
   const {copy, copied} = useCopyToClipboard();
   const isMounted = useIsMounted();
 
