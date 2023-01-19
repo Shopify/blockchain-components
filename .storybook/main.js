@@ -16,14 +16,7 @@ module.exports = {
     builder: '@storybook/builder-vite',
   },
   async viteFinal(config) {
-    config.plugins = mergePlugins(
-      config.plugins,
-      react({
-        babel: {
-          plugins: ['@shopify/react-i18n/babel'],
-        },
-      }),
-    );
+    config.plugins = mergePlugins(config.plugins, react());
     return config;
   },
 };
