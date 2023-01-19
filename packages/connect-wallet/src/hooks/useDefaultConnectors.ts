@@ -1,10 +1,11 @@
+import {useContext} from 'react';
+
 import {getDefaultConnectors} from '../connectors/getDefaultConnectors';
+import {ConnectWalletContext} from '../providers/ConnectWalletProvider';
 import {Connector, ConnectorInstance} from '../types/connector';
 
-import {useConnectWallet} from './useConnectWallet';
-
 export function useDefaultConnectors() {
-  const {chains} = useConnectWallet();
+  const {chains} = useContext(ConnectWalletContext);
   const {availableConnectors} = getDefaultConnectors({chains});
 
   const connectors: Connector[] = [];
