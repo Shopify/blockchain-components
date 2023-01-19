@@ -24,9 +24,25 @@ export function useWallet({
   );
 
   const handleConnect = useCallback(
-    ({address}: {address?: string}) => {
-      if (!address || !pendingConnector) {
+    ({address, isReconnected}: {address?: string; isReconnected: boolean}) => {
+      if (!address) {
         return;
+      }
+
+      /**
+       * Wagmi makes use of isReconnected to rehydrate the client.
+       * We need to make sure that we can re-dispatch the onConnect
+       * callback for token validation.
+       */
+      if (isReconnected) {
+        const reconnectedWallet = connectedWallets.find(
+          (wallet) => wallet.address === address,
+        );
+
+        if (reconnectedWallet) {
+          onConnect?.(reconnectedWallet);
+          return;
+        }
       }
 
       /**
@@ -35,6 +51,10 @@ export function useWallet({
        * We require information from the pending connector to determine
        * where the connection originated (for UX purposes).
        */
+      if (!pendingConnector) {
+        return;
+      }
+
       const wallet: Wallet = {
         address,
         connectorId: pendingConnector.id,
@@ -60,7 +80,7 @@ export function useWallet({
       // Call the onConnect callback provided via props
       onConnect?.(wallet);
     },
-    [dispatch, onConnect, pendingConnector, requireSignature],
+    [connectedWallets, dispatch, onConnect, pendingConnector, requireSignature],
   );
 
   const {address: connectedAddress, isConnecting} = useAccount({
