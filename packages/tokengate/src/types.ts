@@ -58,7 +58,7 @@ export type TokengateProps = ThemeProps & {
     start?: string;
     end?: string;
   };
-  reaction: Reaction;
+  reaction?: Reaction;
   redemptionLimit?: RedemptionLimit;
 };
 
