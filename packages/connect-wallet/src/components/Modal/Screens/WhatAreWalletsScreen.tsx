@@ -62,9 +62,11 @@ const WhatAreWalletsScreen = () => {
 
       <ButtonContainer>
         <Button
+          aria-label={t('WhatAreWallets.button')}
           fullWidth
           label={t('WhatAreWallets.button')}
           onClick={handleGetAWallet}
+          size="Lg"
         />
       </ButtonContainer>
     </SheetContent>

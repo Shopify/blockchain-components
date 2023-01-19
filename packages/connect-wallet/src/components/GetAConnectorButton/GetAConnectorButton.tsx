@@ -33,6 +33,7 @@ export const GetAConnectorButton = ({
         aria-label={t('accessibilityLabel', {name}) as string}
         label={t('buttonText') as string}
         link={{href: marketingSite, target: '_blank'}}
+        size="Sm"
       />
     </Wrapper>
   );

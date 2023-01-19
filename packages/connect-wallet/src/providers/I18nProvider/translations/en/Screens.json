@@ -1,4 +1,8 @@
 {
+  "Connecting": {
+    "qrCode": "Use QR Code",
+    "retry": "Retry"
+  },
   "Scan": {
     "getProduct": "Get {{connectorName}}",
     "wcButton": "Use WalletConnect modal"

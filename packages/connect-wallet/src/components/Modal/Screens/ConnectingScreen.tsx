@@ -2,9 +2,10 @@ import {useCallback, useMemo} from 'react';
 import {Button, Spinner, Text} from 'shared';
 
 import {ConnectorIcon} from '../../ConnectorIcon';
+import {useAppSelector} from '../../../hooks/useAppState';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useModalScreenContent} from '../../../hooks/useModalContent';
-import {useAppSelector} from '../../../hooks/useAppState';
+import {useTranslation} from '../../../hooks/useTranslation';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {
   ButtonContainer,
@@ -27,6 +28,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
     id: pendingConnector?.id,
   });
   const {navigation} = useModal();
+  const {t} = useTranslation('Screens');
 
   const {mobilePlatform} = getBrowserInfo();
 
@@ -45,11 +47,21 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
     return (
       <ButtonContainer>
         {canTryAgain ? (
-          <Button onClick={() => connect({connector})} label="Try again" />
+          <Button
+            aria-label={t('Connecting.retry')}
+            label={t('Connecting.retry')}
+            onClick={() => connect({connector})}
+          />
         ) : null}
 
         {!mobilePlatform && qrCodeSupported ? (
-          <Button onClick={handleUseQRCode} label="Use QR code" />
+          <Button
+            aria-label={t('Connecting.qrCode')}
+            fullWidth
+            label={t('Connecting.qrCode')}
+            onClick={handleUseQRCode}
+            size="Lg"
+          />
         ) : null}
       </ButtonContainer>
     );
@@ -61,6 +73,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
     mobilePlatform,
     pendingConnector,
     qrCodeSupported,
+    t,
   ]);
 
   const {body, title} = useModalScreenContent(state);

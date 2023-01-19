@@ -6,6 +6,7 @@ import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
 import {useConnectWallet} from '../../hooks/useConnectWallet';
 import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
+import {useTranslation} from '../../hooks/useTranslation';
 import {useIsMounted} from '../../hooks/useIsMounted';
 
 import {AddressChip, Background, Container, Frame} from './style';
@@ -21,6 +22,7 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
   const {disconnect} = useConnectWallet();
   const {copy, copied} = useCopyToClipboard();
   const isMounted = useIsMounted();
+  const {t} = useTranslation('ConnectButton');
 
   const handleDisconnect = useCallback(() => {
     if (!connectedWallets.length) {
@@ -65,7 +67,13 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
           {copied ? CircleTick : Copy}
         </AddressChip>
 
-        <Button fullWidth label="Disconnect" onClick={handleDisconnect} />
+        <Button
+          aria-label={t('popover.disconnectButton')}
+          fullWidth
+          label={t('popover.disconnectButton')}
+          onClick={handleDisconnect}
+          primary={false}
+        />
       </Frame>
     </Container>,
     portalElement,

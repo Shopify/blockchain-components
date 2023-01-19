@@ -1,72 +1,59 @@
-import {Fragment} from 'react';
-
+import {Text, Variant} from '../Text';
 import {Spinner} from '../Spinner';
 
-import {LinkButton, ButtonWrapper} from './style';
-
-export interface ButtonBaseProps {
-  id?: string;
-  className?: HTMLDivElement['className'];
-  fullWidth?: boolean;
-  loading?: boolean;
-  primary?: boolean;
-  disabled?: boolean;
-}
-
-export type LinkButtonProps = ButtonBaseProps & {
-  label: string;
-  link: {
-    href: HTMLAnchorElement['href'];
-    target?: HTMLAnchorElement['target'];
-  };
-  onClick?: never;
-};
-
-export type DefaultButtonProps = ButtonBaseProps & {
-  link?: never;
-  label: React.ReactNode;
-  onClick?: () => void;
-};
-
-export type ButtonProps = DefaultButtonProps | LinkButtonProps;
+import {ButtonWrapper} from './style';
+import type {ButtonProps, Size} from './types';
 
 export const Button = ({
-  id,
   fullWidth = false,
   label,
   loading = false,
   link,
   primary = false,
   disabled = false,
+  size = 'Md',
   ...props
 }: ButtonProps) => {
-  const {Wrapper, wrapperProps} = link
+  const wrapperProps = link
     ? {
-        Wrapper: LinkButton,
-        wrapperProps: {
-          id,
-          role: 'link',
-          href: link.href,
-          target: link.target,
-          title: label,
-          ariaLabel: label,
-        },
+        href: link.href,
+        target: link.target,
+        title: label,
+        ...props,
       }
-    : {Wrapper: Fragment, wrapperProps: {}};
+    : props;
+
+  const sizeMappedToTextVariant: {[S in Size]: Variant} = {
+    Sm: 'bodyMd',
+    Md: 'bodyMd',
+    Lg: 'bodyLg',
+  };
 
   return (
-    <Wrapper {...wrapperProps}>
-      <ButtonWrapper
-        id={id}
-        primary={loading ? false : primary}
-        disabled={disabled}
-        aria-disabled={disabled}
-        fullWidth={fullWidth}
-        type="button"
-        {...props}
-      >
-        {loading ? <Spinner /> : label}
-      </ButtonWrapper>
-    </Wrapper>
+    <ButtonWrapper
+      aria-disabled={disabled}
+      aria-label={label}
+      as={link ? 'a' : 'button'}
+      disabled={disabled}
+      fullWidth={fullWidth}
+      primary={loading ? false : primary}
+      role={link ? 'link' : 'button'}
+      size={size}
+      type="button"
+      {...wrapperProps}
+    >
+      {/*
+       * Future improvement would be to address the button size
+       * not changing when the spinner is present and hiding
+       * the text while rendering the spinner on top of it.
+       */}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Text as="label" bold variant={sizeMappedToTextVariant[size]}>
+          {label}
+        </Text>
+      )}
+    </ButtonWrapper>
   );
 };

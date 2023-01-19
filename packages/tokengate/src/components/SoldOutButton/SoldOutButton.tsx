@@ -9,7 +9,14 @@ const SoldOutButton = () => {
 
   return (
     <Wrapper>
-      <Button fullWidth primary disabled label={t('buttonText')} />
+      <Button
+        aria-label={t('buttonText')}
+        disabled
+        fullWidth
+        label={t('buttonText')}
+        primary
+        size="Lg"
+      />
 
       <Text as="p" variant="bodyMd">
         {t('description')}

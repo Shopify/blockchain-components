@@ -67,20 +67,25 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
       <ButtonContainer>
         {hasGetProductButton ? (
           <Button
-            aria-label={t('Scan.getProduct', {connectorName: name}) as string}
-            label={t('Scan.getProduct', {connectorName: name}) as string}
+            aria-label={t('Scan.getProduct', {connectorName: name})}
+            fullWidth
+            label={t('Scan.getProduct', {connectorName: name})}
             link={{
               // TypeScript 🤦
               href: marketingSite!,
               target: '_blank',
             }}
+            size="Lg"
           />
         ) : null}
 
         {hasWalletConnectButton ? (
           <Button
-            onClick={walletConnectModalCallback}
+            aria-label={t('Scan.wcButton')}
+            fullWidth
             label={t('Scan.wcButton')}
+            onClick={walletConnectModalCallback}
+            size="Lg"
           />
         ) : null}
       </ButtonContainer>

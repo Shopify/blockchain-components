@@ -1,22 +1,13 @@
 import styled from 'styled-components';
+import {ButtonWrapper} from 'shared';
 
-export const Button = styled.button`
+export const Button = styled(ButtonWrapper)`
   display: flex;
   align-items: center;
   column-gap: 8px;
   margin-bottom: 12px;
-  cursor: pointer;
-  padding: ${({theme}) => theme.walletConnectorButton.padding};
-  background: ${({theme}) => theme.walletConnectorButton.background};
-  border: ${({theme}) => theme.walletConnectorButton.border};
-  border-radius: ${({theme}) => theme.walletConnectorButton.borderRadius};
-  box-shadow: ${({theme}) => theme.walletConnectorButton.boxShadow};
-  justify-content: ${({theme}) =>
-    theme.walletConnectorButton.horizontalAlignment};
-
-  &:hover {
-    box-shadow: ${({theme}) => theme.walletConnectorButton.hover.outline};
-  }
+  padding: 12px;
+  justify-content: flex-start;
 
   &:last-of-type {
     margin-bottom: 0;

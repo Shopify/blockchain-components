@@ -1,5 +1,9 @@
 import {PropsWithChildren} from 'react';
-import {CSSProperties} from 'styled-components';
+import {
+  CSSProperties,
+  FlattenInterpolation,
+  ThemeProps as StyledThemeProps,
+} from 'styled-components';
 
 type RequiredCSSProperty = Required<CSSProperties>;
 
@@ -17,13 +21,12 @@ export interface ButtonStyle {
   border: RequiredCSSProperty['border'];
   borderRadius: RequiredCSSProperty['borderRadius'];
   boxShadow: RequiredCSSProperty['boxShadow'];
-  padding: Padding;
   textColor: RequiredCSSProperty['color'];
 
   hover: {
     // The following are optional properties
     background?: CSSProperties['backgroundColor'];
-    outline?: CSSProperties['outline'];
+    outline?: CSSProperties['boxShadow'];
   };
 }
 
@@ -51,7 +54,15 @@ export interface Theme {
     headingSm: FontStyle;
   };
 
-  connectButton: ButtonStyle;
+  buttons: {
+    primary: ButtonStyle;
+    secondary: ButtonStyle;
+    disabled: Pick<ButtonStyle, 'background' | 'textColor'>;
+
+    smallPadding: Padding;
+    mediumPadding: Padding;
+    largePadding: Padding;
+  };
 
   modal: {
     background: RequiredCSSProperty['backgroundColor'];
@@ -66,8 +77,6 @@ export interface Theme {
     };
   };
 
-  disabledButton: Pick<ButtonStyle, 'background' | 'textColor'>;
-
   other: {
     iconColor: RequiredCSSProperty['color'];
     dividerColor: RequiredCSSProperty['backgroundColor'];
@@ -80,8 +89,6 @@ export interface Theme {
     boxShadow: RequiredCSSProperty['boxShadow'];
   };
 
-  secondaryButton: ButtonStyle;
-
   tokengate: {
     background: RequiredCSSProperty['backgroundColor'];
     border: RequiredCSSProperty['border'];
@@ -89,11 +96,9 @@ export interface Theme {
     boxShadow: RequiredCSSProperty['boxShadow'];
     padding: Padding;
   };
-
-  walletConnectorButton: ButtonStyle & {
-    horizontalAlignment: RequiredCSSProperty['justifyContent'];
-  };
 }
+
+export type ThemedCSS = FlattenInterpolation<StyledThemeProps<Theme>>;
 
 export type ThemeProps = PropsWithChildren & {
   /**

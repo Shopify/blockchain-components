@@ -94,21 +94,17 @@ export const SignatureModal = ({
             </Text>
           </Center>
 
-          {signing ? <Spinner /> : null}
-
-          <ButtonContainer>
-            {/*
-             * Prevent the user from invoking multiple signature requests as it currently
-             * breaks the onMessageSigned callback flow.
-             */}
-            {signing ? null : (
+          {signing ? (
+            <Spinner />
+          ) : (
+            <ButtonContainer>
               <Button
+                aria-label={t('signature.title')}
                 label={t('signature.title')}
                 onClick={handleSignMessage}
-                primary
               />
-            )}
-          </ButtonContainer>
+            </ButtonContainer>
+          )}
         </SheetContent>
       </Sheet>
     </Wrapper>,

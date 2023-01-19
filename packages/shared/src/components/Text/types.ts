@@ -1,7 +1,4 @@
 import {PropsWithChildren} from 'react';
-import {FlattenInterpolation, ThemeProps} from 'styled-components';
-
-import {Theme} from '../../types/theme';
 
 export type Color = 'critical' | 'disabled' | 'primary' | 'secondary';
 
@@ -16,8 +13,6 @@ export type Element =
   | 'label'
   | 'p'
   | 'span';
-
-export type ThemedCSS = FlattenInterpolation<ThemeProps<Theme>>;
 
 export type Variant =
   | 'bodyLg'
