@@ -1,5 +1,13 @@
-import {useCallback, useState} from 'react';
-import {Button, CaretDown, device, formatWalletAddress, Text} from 'shared';
+import {useCallback, useEffect, useState} from 'react';
+import {
+  Button,
+  CaretDown,
+  device,
+  formatWalletAddress,
+  useKeyPress,
+  useOutsideClick,
+  Text,
+} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
@@ -18,38 +26,24 @@ export const ConnectButton = () => {
   const {width} = useWindowDimensions();
   const shouldUseMobileSizes = Boolean(width && width < device.sm);
 
+  const ref = useOutsideClick(() => setPopoverVisible(false));
+  const escPress = useKeyPress('Escape');
+
+  const togglePopover = useCallback(() => {
+    setPopoverVisible(!popoverVisible);
+  }, [popoverVisible]);
+
+  useEffect(() => {
+    if (escPress && popoverVisible) {
+      togglePopover();
+    }
+  }, [escPress, popoverVisible, togglePopover]);
+
   const handleClick = useCallback(() => {
     if (!connectedWallets.length) {
       openModal();
     }
   }, [connectedWallets.length, openModal]);
-
-  const handlePopover = useCallback(
-    (event: React.MouseEvent) => {
-      /**
-       * Without this, the popover will close when the button
-       * is unfocused, which will occur on any DOM element
-       * clicks after the button is pressed.
-       */
-      if (shouldUseMobileSizes) {
-        if (event.type === 'click') {
-          setPopoverVisible(true);
-        }
-
-        return;
-      }
-
-      if (event.type === 'mouseenter') {
-        setPopoverVisible(true);
-        return;
-      }
-
-      if (event.type === 'mouseleave') {
-        setPopoverVisible(false);
-      }
-    },
-    [shouldUseMobileSizes],
-  );
 
   if (!connectedWallets.length) {
     return (
@@ -60,12 +54,12 @@ export const ConnectButton = () => {
   const {address, connectorId} = connectedWallets[0];
 
   return (
-    <Wrapper
-      onMouseEnter={handlePopover}
-      onMouseLeave={handlePopover}
-      id="connectWalletConnectedButtonWrapper"
-    >
-      <ConnectedButton fullWidth onClickCapture={handlePopover}>
+    <Wrapper id="connectWalletConnectedButtonWrapper" ref={ref}>
+      <ConnectedButton
+        fullWidth
+        onClick={togglePopover}
+        $popoverOpen={popoverVisible}
+      >
         <ConnectorIcon id={connectorId} size="Xs" />
         <Text as="span" variant="bodyLg">
           {formatWalletAddress(address)}
