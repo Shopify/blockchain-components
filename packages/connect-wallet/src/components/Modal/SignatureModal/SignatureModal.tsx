@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useContext} from 'react';
 import {createPortal} from 'react-dom';
 import {Button, Cancel, IconButton, Spinner, Text} from 'shared';
 
@@ -7,6 +7,7 @@ import {useConnectWallet} from '../../../hooks/useConnectWallet';
 import {useIsMounted} from '../../../hooks/useIsMounted';
 import {useTranslation} from '../../../hooks/useTranslation';
 import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
+import {SignatureContext} from '../../../providers/SignatureProvider';
 import {clearSignatureState} from '../../../slices/walletSlice';
 import {
   Background,
@@ -29,7 +30,8 @@ export const SignatureModal = ({
 }) => {
   const dispatch = useAppDispatch();
   const {message} = useAppSelector((state) => state.wallet);
-  const {disconnect, signing, signMessage} = useConnectWallet();
+  const {signing, signMessage} = useContext(SignatureContext);
+  const {disconnect} = useConnectWallet();
   const isMounted = useIsMounted();
   const {t} = useTranslation('Modal');
   const {deleteKey} = useWalletConnectDeeplink();
