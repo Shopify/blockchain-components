@@ -1,29 +1,26 @@
 import {PropsWithChildren} from 'react';
-import {CSSProperties} from 'styled-components';
+import {
+  CSSProperties,
+  FlattenInterpolation,
+  ThemeProps as StyledThemeProps,
+} from 'styled-components';
 
 type RequiredCSSProperty = Required<CSSProperties>;
 
-export type Padding =
-  | RequiredCSSProperty['padding']
-  | {
-      top: RequiredCSSProperty['paddingTop'];
-      left: RequiredCSSProperty['paddingLeft'];
-      right: RequiredCSSProperty['paddingRight'];
-      bottom: RequiredCSSProperty['paddingBottom'];
-    };
+export interface ButtonSize {
+  borderRadius: RequiredCSSProperty['borderRadius'];
+  padding: RequiredCSSProperty['padding'];
+}
 
-export interface ButtonStyle {
+export interface ButtonVariant {
   background: RequiredCSSProperty['backgroundColor'];
   border: RequiredCSSProperty['border'];
-  borderRadius: RequiredCSSProperty['borderRadius'];
-  boxShadow: RequiredCSSProperty['boxShadow'];
-  padding: Padding;
   textColor: RequiredCSSProperty['color'];
 
   hover: {
     // The following are optional properties
     background?: CSSProperties['backgroundColor'];
-    outline?: CSSProperties['outline'];
+    boxShadow?: CSSProperties['boxShadow'];
   };
 }
 
@@ -51,22 +48,32 @@ export interface Theme {
     headingSm: FontStyle;
   };
 
-  connectButton: ButtonStyle;
+  buttons: {
+    sizes: {
+      small: ButtonSize;
+      medium: ButtonSize;
+      large: ButtonSize;
+    };
+
+    variants: {
+      primary: ButtonVariant;
+      secondary: ButtonVariant;
+      disabled: Omit<ButtonVariant, 'hover'>;
+    };
+  };
 
   modal: {
     background: RequiredCSSProperty['backgroundColor'];
     border: RequiredCSSProperty['border'];
     boxShadow: RequiredCSSProperty['boxShadow'];
     overlayBackground: RequiredCSSProperty['backgroundColor'];
-    padding: Padding;
+    padding: RequiredCSSProperty['padding'];
 
     borderRadius: {
       desktop: RequiredCSSProperty['borderRadius'];
       mobile: RequiredCSSProperty['borderRadius'];
     };
   };
-
-  disabledButton: Pick<ButtonStyle, 'background' | 'textColor'>;
 
   other: {
     iconColor: RequiredCSSProperty['color'];
@@ -80,20 +87,16 @@ export interface Theme {
     boxShadow: RequiredCSSProperty['boxShadow'];
   };
 
-  secondaryButton: ButtonStyle;
-
   tokengate: {
     background: RequiredCSSProperty['backgroundColor'];
     border: RequiredCSSProperty['border'];
     borderRadius: RequiredCSSProperty['borderRadius'];
     boxShadow: RequiredCSSProperty['boxShadow'];
-    padding: Padding;
-  };
-
-  walletConnectorButton: ButtonStyle & {
-    horizontalAlignment: RequiredCSSProperty['justifyContent'];
+    padding: RequiredCSSProperty['padding'];
   };
 }
+
+export type ThemedCSS = FlattenInterpolation<StyledThemeProps<Theme>>;
 
 export type ThemeProps = PropsWithChildren & {
   /**

@@ -47,7 +47,14 @@ export const ConnectButton = () => {
 
   if (!connectedWallets.length) {
     return (
-      <Button fullWidth primary label={t('buttonText')} onClick={handleClick} />
+      <Button
+        aria-label={t('buttonText')}
+        fullWidth
+        primary
+        label={t('buttonText')}
+        onClick={handleClick}
+        size="Lg"
+      />
     );
   }
 
@@ -59,6 +66,7 @@ export const ConnectButton = () => {
         fullWidth
         onClick={togglePopover}
         $popoverOpen={popoverVisible}
+        size="Lg"
       >
         <ConnectorIcon id={connectorId} size="Xs" />
         <Text as="span" variant="bodyLg">

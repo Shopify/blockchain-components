@@ -12,6 +12,8 @@ namespace DefaultColors {
     5: '#6D7175', // text, secondary
     6: '#5C5F62', // icon
     7: '#202223', // button & text, primary
+    8: '#F6F6F7', // Action secondary, hovered
+    9: '#44474A', // Action primary, hovered
   };
 
   export const Reds = {
@@ -42,6 +44,7 @@ export const Default: Theme = {
       fontSize: '14px',
       fontWeight: '400',
       lineHeight: '20px',
+      fontWeightBold: '500',
     },
 
     bodySm: {
@@ -77,22 +80,47 @@ export const Default: Theme = {
     },
   },
 
-  connectButton: {
-    background: DefaultColors.Grayscale['7'],
-    border: 'none',
-    borderRadius: '6px',
-    boxShadow: 'none',
-    padding: '12px 30px',
-    textColor: DefaultColors.Grayscale['0'],
-
-    hover: {
-      outline: `1.3px solid ${DefaultColors.Grayscale['7']}`,
+  buttons: {
+    sizes: {
+      small: {
+        borderRadius: '6px',
+        padding: '6px 12px',
+      },
+      medium: {
+        borderRadius: '6px',
+        padding: '10px 16px',
+      },
+      large: {
+        borderRadius: '6px',
+        padding: '14px 20px',
+      },
     },
-  },
 
-  disabledButton: {
-    background: DefaultColors.Grayscale['1'],
-    textColor: DefaultColors.Grayscale['4'],
+    variants: {
+      primary: {
+        background: DefaultColors.Grayscale['7'],
+        border: 'none',
+        textColor: DefaultColors.Grayscale['0'],
+
+        hover: {
+          background: DefaultColors.Grayscale['9'],
+        },
+      },
+      secondary: {
+        background: DefaultColors.Grayscale['0'],
+        border: `1px solid ${DefaultColors.Grayscale['3']}`,
+        textColor: DefaultColors.Grayscale['7'],
+
+        hover: {
+          background: DefaultColors.Grayscale['8'],
+        },
+      },
+      disabled: {
+        background: DefaultColors.Grayscale['1'],
+        border: 'none',
+        textColor: DefaultColors.Grayscale['4'],
+      },
+    },
   },
 
   modal: {
@@ -121,38 +149,11 @@ export const Default: Theme = {
     0px 8px 20px -4px rgba(23, 24, 24, 0.12)`,
   },
 
-  secondaryButton: {
-    background: DefaultColors.Grayscale['0'],
-    border: `1px solid ${DefaultColors.Grayscale['3']}`,
-    borderRadius: '6px',
-    boxShadow: 'none',
-    padding: '12px 30px',
-    textColor: DefaultColors.Grayscale['7'],
-
-    hover: {
-      outline: `1.3px solid ${DefaultColors.Grayscale['7']}`,
-    },
-  },
-
   tokengate: {
     background: DefaultColors.Grayscale['0'],
     border: `1px solid rgba(0, 0, 0, 0.12);`,
     borderRadius: '8px',
     boxShadow: 'none',
     padding: '16px',
-  },
-
-  walletConnectorButton: {
-    background: DefaultColors.Grayscale['0'],
-    border: `1px solid ${DefaultColors.Grayscale['3']}`,
-    borderRadius: '6px',
-    boxShadow: 'none',
-    padding: '12px 16px',
-    textColor: DefaultColors.Grayscale['7'],
-    horizontalAlignment: 'flex-start',
-
-    hover: {
-      outline: `0px 0px 0px 1px ${DefaultColors.Grayscale['7']}`,
-    },
   },
 };

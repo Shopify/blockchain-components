@@ -1,67 +1,98 @@
 import styled, {css} from 'styled-components';
 
-export const PrimaryButtonWrapper = css`
-  background: ${({theme}) => theme.connectButton.background};
-  border: ${({theme}) => theme.connectButton.border};
-  border-radius: ${({theme}) => theme.connectButton.borderRadius};
-  color: ${({theme}) => theme.connectButton.textColor};
-  padding: ${({theme}) => theme.connectButton.padding};
-  box-shadow: ${({theme}) => theme.connectButton.boxShadow};
+import {ThemedCSS} from '../../types/theme';
+
+import {Size} from './types';
+
+const PrimaryButtonWrapper = css`
+  background-color: ${({theme}) => theme.buttons.variants.primary.background};
+  border: ${({theme}) => theme.buttons.variants.primary.border};
+
+  label {
+    color: ${({theme}) => theme.buttons.variants.primary.textColor};
+  }
 
   &:hover {
-    outline: ${({theme}) => theme.connectButton.hover.outline};
+    background-color: ${({theme}) =>
+      theme.buttons.variants.primary.hover.background};
+    box-shadow: ${({theme}) => theme.buttons.variants.primary.hover.boxShadow};
   }
 `;
 
-export const SecondaryButtonWrapper = css`
-  background: ${({theme}) => theme.secondaryButton.background};
-  border: ${({theme}) => theme.secondaryButton.border};
-  border-radius: ${({theme}) => theme.secondaryButton.borderRadius};
-  color: ${({theme}) => theme.secondaryButton.textColor};
-  padding: ${({theme}) => theme.secondaryButton.padding};
-  box-shadow: ${({theme}) => theme.secondaryButton.boxShadow};
+const SecondaryButtonWrapper = css`
+  background-color: ${({theme}) => theme.buttons.variants.secondary.background};
+  border: ${({theme}) => theme.buttons.variants.secondary.border};
+
+  label {
+    color: ${({theme}) => theme.buttons.variants.secondary.textColor};
+  }
 
   &:hover {
-    outline: ${({theme}) => theme.secondaryButton.hover.outline};
+    background-color: ${({theme}) =>
+      theme.buttons.variants.secondary.hover.background};
+    box-shadow: ${({theme}) =>
+      theme.buttons.variants.secondary.hover.boxShadow};
   }
 `;
 
-export const DisabledButtonWrapper = css`
+const DisabledButtonWrapper = css`
   cursor: default;
-  background: ${({theme}) => theme.disabledButton.background};
-  border: ${({theme}) => theme.disabledButton.background};
-  color: ${({theme}) => theme.disabledButton.textColor};
+  background-color: ${({theme}) => theme.buttons.variants.disabled.background};
+  border: ${({theme}) => theme.buttons.variants.disabled.border};
+
+  label {
+    color: ${({theme}) => theme.buttons.variants.disabled.textColor};
+  }
 
   &:hover {
-    outline: none;
+    background-color: ${({theme}) =>
+      theme.buttons.variants.disabled.background};
+    box-shadow: unset;
   }
 `;
+
+const LargeButton = css`
+  border-radius: ${({theme}) => theme.buttons.sizes.large.borderRadius};
+  padding: ${({theme}) => theme.buttons.sizes.large.padding};
+`;
+
+const MediumButton = css`
+  border-radius: ${({theme}) => theme.buttons.sizes.medium.borderRadius};
+  padding: ${({theme}) => theme.buttons.sizes.medium.padding};
+`;
+
+const SmallButton = css`
+  border-radius: ${({theme}) => theme.buttons.sizes.small.borderRadius};
+  padding: ${({theme}) => theme.buttons.sizes.small.padding};
+`;
+
+const SizeMap: {[S in Size]: ThemedCSS} = {
+  Lg: LargeButton,
+  Md: MediumButton,
+  Sm: SmallButton,
+};
 
 export const ButtonWrapper = styled.button<{
   primary?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;
+  size: Size;
 }>`
-  font-family: ${({theme}) => theme.typography.bodyLg.fontFamily};
-  font-weight: ${({theme}) => theme.typography.bodyLg.fontWeight};
-  font-size: ${({theme}) => theme.typography.bodyLg.fontSize};
-  line-height: ${({theme}) => theme.typography.bodyLg.lineHeight};
-  width: ${({fullWidth}) => (fullWidth ? '100%' : 'auto')};
+  appearance: unset;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   margin: 0;
+  text-decoration: unset;
+  width: ${({fullWidth}) => (fullWidth ? '100%' : 'fit-content')};
   ${({primary}) => (primary ? PrimaryButtonWrapper : SecondaryButtonWrapper)}
   ${({disabled}) => disabled && DisabledButtonWrapper}
-`;
+  ${({size}) => SizeMap[size]}
 
-export const LinkButton = styled.a`
-  padding: 0px;
-  text-decoration: none;
-
-  button {
-    width: 100%;
+  label {
+    cursor: inherit;
   }
 `;

@@ -6,8 +6,8 @@ export const Circle = styled.circle`
 
 export const Container = styled.div`
   width: 100%;
-  border-radius: 5px;
-  border: ${({theme}) => theme.walletConnectorButton.border};
+  border-radius: 16px;
+  border: ${({theme}) => theme.buttons.variants.secondary.border};
   padding: 16px;
   position: relative;
   box-sizing: border-box;

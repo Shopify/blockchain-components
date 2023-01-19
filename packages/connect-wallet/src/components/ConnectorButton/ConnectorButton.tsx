@@ -17,7 +17,9 @@ export const ConnectorButton = ({id, name, onClick}: ConnectorButtonProps) => {
   return (
     <Button
       aria-label={t('accessibilityLabel', {name}) as string}
+      fullWidth
       onClick={onClick}
+      size="Lg"
     >
       <ConnectorIcon id={id} size="Sm" />
       <Text as="label" variant="bodyLg">

@@ -77,22 +77,46 @@ export const Dawn: Theme = {
     },
   },
 
-  connectButton: {
-    background: DawnColors.Grayscale['6'],
-    border: 'none',
-    borderRadius: '0',
-    boxShadow: 'none',
-    padding: '12px 30px',
-    textColor: DawnColors.Grayscale['0'],
-
-    hover: {
-      outline: `1.3px solid ${DawnColors.Grayscale['6']}`,
+  buttons: {
+    sizes: {
+      small: {
+        borderRadius: '0',
+        padding: '6px 12px',
+      },
+      medium: {
+        borderRadius: '0',
+        padding: '10px 16px',
+      },
+      large: {
+        borderRadius: '0',
+        padding: '14px 20px',
+      },
     },
-  },
+    variants: {
+      primary: {
+        background: DawnColors.Grayscale['6'],
+        border: 'none',
+        textColor: DawnColors.Grayscale['0'],
 
-  disabledButton: {
-    background: DawnColors.Grayscale['1'],
-    textColor: DawnColors.Grayscale['4'],
+        hover: {
+          boxShadow: `0px 0px 0px 1px ${DawnColors.Grayscale['6']}`,
+        },
+      },
+      secondary: {
+        background: DawnColors.Grayscale['0'],
+        border: `1px solid ${DawnColors.Grayscale['3']}`,
+        textColor: DawnColors.Grayscale['6'],
+
+        hover: {
+          boxShadow: `0px 0px 0px 1px ${DawnColors.Grayscale['6']}`,
+        },
+      },
+      disabled: {
+        background: DawnColors.Grayscale['1'],
+        border: 'none',
+        textColor: DawnColors.Grayscale['4'],
+      },
+    },
   },
 
   modal: {
@@ -121,38 +145,11 @@ export const Dawn: Theme = {
       '0px 3px 6px -3px rgba(23, 24, 24, 0.08), 0px 8px 20px -4px rgba(23, 24, 24, 0.12)',
   },
 
-  secondaryButton: {
-    background: DawnColors.Grayscale['0'],
-    border: `1px solid ${DawnColors.Grayscale['3']}`,
-    borderRadius: '0',
-    boxShadow: 'none',
-    padding: '8.5px 16px',
-    textColor: DawnColors.Grayscale['6'],
-
-    hover: {
-      outline: `1.3px solid ${DawnColors.Grayscale['6']}`,
-    },
-  },
-
   tokengate: {
     background: DawnColors.Grayscale['0'],
     border: '1px solid rgba(0, 0, 0, 0.12)',
     borderRadius: '0',
     boxShadow: 'none',
     padding: '16px',
-  },
-
-  walletConnectorButton: {
-    background: DawnColors.Grayscale['0'],
-    border: `1px solid ${DawnColors.Grayscale['3']}`,
-    borderRadius: '0',
-    boxShadow: 'none',
-    padding: '12.5px 16px',
-    textColor: DawnColors.Grayscale['6'],
-    horizontalAlignment: 'flex-start',
-
-    hover: {
-      outline: `1.3px solid ${DawnColors.Grayscale['6']}`,
-    },
   },
 };

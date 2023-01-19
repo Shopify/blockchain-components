@@ -12,8 +12,16 @@ export const Background = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   row-gap: 12px;
   margin-top: 16px;
+
+  @media ${breakpoints.smDown} {
+    a,
+    button {
+      width: 100%;
+    }
+  }
 `;
 
 export const Center = styled.div`

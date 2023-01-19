@@ -30,12 +30,15 @@ const AvailableSoonButton = ({availableDate}: AvailableSoonButtonProps) => {
 
   return (
     <Button
-      fullWidth
-      primary
+      aria-label={t('buttonText', {
+        date: convert(availableDate),
+      })}
       disabled
+      fullWidth
       label={t('buttonText', {
         date: convert(availableDate),
       })}
+      size="Lg"
     />
   );
 };

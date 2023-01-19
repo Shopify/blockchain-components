@@ -1,6 +1,8 @@
 import styled, {css} from 'styled-components';
 
-import {Color, ThemedCSS, Variant} from './types';
+import {ThemedCSS} from '../../types/theme';
+
+import {Color, Variant} from './types';
 
 const HeadingLg = css<{$bold?: boolean}>`
   font-family: ${({theme}) => theme.typography.headingLg.fontFamily};
