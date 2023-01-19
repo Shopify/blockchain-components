@@ -1,5 +1,5 @@
-export {Apps} from './Apps';
 export {ArrowLeft} from './ArrowLeft';
+export {Asset} from './Asset';
 export {Cancel} from './Cancel';
 export {CaretDown} from './CaretDown';
 export {CircleTick} from './CircleTick';
@@ -11,5 +11,4 @@ export {LedgerLive} from './LedgerLive';
 export {MetaMask} from './MetaMask';
 export {QuestionMark} from './QuestionMark';
 export {Rainbow} from './Rainbow';
-export {Wallet} from './Wallet';
 export {WalletConnect} from './WalletConnect';
