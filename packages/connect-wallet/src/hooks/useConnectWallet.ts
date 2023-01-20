@@ -7,6 +7,7 @@ import {SignatureResponse, UseWalletProps} from '../types/wallet';
 import {useAppSelector} from './useAppState';
 import {useWallet} from './useWallet';
 import {useOrderAttribution} from './useOrderAttribution';
+import {useDisconnect} from './useDisconnect';
 
 /**
  * Dictates how we will handle automatic order attribution. If
@@ -42,11 +43,12 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   const {chains} = connectWalletContext;
   const {signMessage, requireSignature, signing} = signatureContext;
 
-  const {connecting, disconnect} = useWallet({
+  const {connecting} = useWallet({
     onConnect: props?.onConnect,
     onDisconnect: props?.onDisconnect,
     requireSignature,
   });
+  const {disconnect} = useDisconnect();
 
   const {messageSignedOrderAttributionMode, onMessageSigned} = props || {};
   const handleMessageSigned = useMessageSignedCallback({

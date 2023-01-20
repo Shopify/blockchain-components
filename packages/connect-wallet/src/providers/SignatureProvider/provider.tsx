@@ -2,6 +2,7 @@ import {FC, PropsWithChildren, useCallback, useMemo, useState} from 'react';
 
 import {SignatureModal} from '../../components';
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
+import {useDisconnect} from '../../hooks/useDisconnect';
 import {useWallet} from '../../hooks/useWallet';
 import {
   clearSignatureState,
@@ -24,7 +25,8 @@ export const SignatureProvider: FC<
   const [error, setError] = useState();
   const dispatch = useAppDispatch();
   const {message, pendingWallet} = useAppSelector((state) => state.wallet);
-  const {disconnect, signing, signMessage} = useWallet({requireSignature});
+  const {signing, signMessage} = useWallet({requireSignature});
+  const {disconnect} = useDisconnect();
 
   const clearError = useCallback(() => {
     setError(undefined);
