@@ -19,7 +19,7 @@ export const LedgerLive = ({chains}: ConnectorProps): ConnectorInstance => {
     },
     icon: ledgerLiveIcon,
     id: 'ledger',
-    name: 'Ledger',
+    name: 'Ledger Live',
     qrCodeSupported: true,
   };
 };
