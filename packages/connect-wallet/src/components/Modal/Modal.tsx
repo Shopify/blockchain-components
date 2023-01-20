@@ -1,7 +1,14 @@
-import {useCallback, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {createPortal} from 'react-dom';
 import {useConnect} from 'wagmi';
-import {ArrowLeft, Cancel, IconButton, QuestionMark, Text} from 'shared';
+import {
+  Back,
+  Cancel,
+  IconButton,
+  QuestionMark,
+  useKeyPress,
+  Text,
+} from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {useAppSelector} from '../../hooks/useAppState';
@@ -28,6 +35,13 @@ export const Modal = () => {
   const [status, setStatus] = useState<ConnectionState>(
     ConnectionState.Connecting,
   );
+  const escPress = useKeyPress('Escape');
+
+  useEffect(() => {
+    if (escPress && active) {
+      closeModal();
+    }
+  }, [active, closeModal, escPress]);
 
   const handleBackdropPress = useCallback(() => {
     if (!active) return;
@@ -120,7 +134,7 @@ export const Modal = () => {
       return (
         <IconButton
           aria-label={t('icons.back') as string}
-          icon={ArrowLeft}
+          icon={Back}
           onClick={navigation.goBack}
         />
       );

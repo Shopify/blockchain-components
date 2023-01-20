@@ -1,5 +1,5 @@
-export {ArrowLeft} from './ArrowLeft';
 export {Asset} from './Asset';
+export {Back} from './Back';
 export {Cancel} from './Cancel';
 export {CaretDown} from './CaretDown';
 export {CircleTick} from './CircleTick';
