@@ -1,2 +1,2 @@
 export {Modal} from './Modal';
-export {SignatureModal} from './SignatureModal/SignatureModal';
+export {SignatureModal} from './SignatureModal';

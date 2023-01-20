@@ -2,7 +2,6 @@ import {FC, PropsWithChildren, useCallback, useMemo, useState} from 'react';
 
 import {SignatureModal} from '../../components';
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
-import {useDisconnect} from '../../hooks/useDisconnect';
 import {useWallet} from '../../hooks/useWallet';
 import {
   clearSignatureState,
@@ -26,7 +25,6 @@ export const SignatureProvider: FC<
   const dispatch = useAppDispatch();
   const {message, pendingWallet} = useAppSelector((state) => state.wallet);
   const {signing, signMessage} = useWallet({requireSignature});
-  const {disconnect} = useDisconnect();
 
   const clearError = useCallback(() => {
     setError(undefined);
@@ -58,45 +56,40 @@ export const SignatureProvider: FC<
         throw new Error('A message has not yet been provided.');
       }
 
-      try {
-        const verificationResponse = await signMessage({
-          address: pendingWallet.address,
-          message: messageToSign,
-        });
+      const verificationResponse = await signMessage({
+        address: pendingWallet.address,
+        message: messageToSign,
+      });
 
-        if (verificationResponse?.signature) {
-          try {
-            /**
-             * Note that at the moment we do not clearly communicate when
-             * the following fails. We do have a catch for errors that we
-             * throw from the reducer. However, we don't have a toast or
-             * any other form of communicating this failure to users.
-             */
-            dispatch(validatePendingWallet(verificationResponse.signature));
-          } catch (error) {
-            /**
-             * We need to disconnect the wallet that is connected in order
-             * to support subsequent connection attempts.
-             */
-            disconnect();
-            console.error(error);
-          } finally {
-            // Clear our verification state
-            dispatch(clearSignatureState());
-          }
+      if (verificationResponse?.signature) {
+        try {
+          /**
+           * Note: We will only move past the validatePendingWallet action
+           * when the signed message is decrypted to match the address
+           * matching the pending wallet.
+           *
+           * In the event that the following fails (throws an error due to
+           * mismatched addresses) we will set the error state for the
+           * signature modal and allow the user to try again.
+           */
+          dispatch(validatePendingWallet(verificationResponse.signature));
+
+          // Clear our verification state
+          dispatch(clearSignatureState());
+
+          // Return the verification response.
+          return verificationResponse;
+        } catch (error: any) {
+          /**
+           * Set the error in state, resulting in an updated UI state for
+           * the signature modal. The user can attempt to sign the message
+           * with the correct wallet again.
+           */
+          setError(error);
         }
-
-        return verificationResponse;
-      } catch (error: any) {
-        /**
-         * Cancel the verification process and disconnect the wallet.
-         * In the future we can consider adding a `try again` button instead
-         * which then allows the user to request another signature.
-         */
-        setError(error);
       }
     },
-    [disconnect, dispatch, message, pendingWallet, signMessage],
+    [dispatch, message, pendingWallet, signMessage],
   );
 
   const contextValue = useMemo(() => {

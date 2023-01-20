@@ -2,24 +2,25 @@ import {useCallback, useContext} from 'react';
 import {createPortal} from 'react-dom';
 import {Button, Cancel, IconButton, Spinner, Text} from 'shared';
 
-import {useAppDispatch, useAppSelector} from '../../../hooks/useAppState';
-import {useDisconnect} from '../../../hooks/useDisconnect';
-import {useIsMounted} from '../../../hooks/useIsMounted';
-import {useTranslation} from '../../../hooks/useTranslation';
-import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
-import {SignatureContext} from '../../../providers/SignatureProvider';
-import {clearSignatureState} from '../../../slices/walletSlice';
+import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
+import {useDisconnect} from '../../hooks/useDisconnect';
+import {useIsMounted} from '../../hooks/useIsMounted';
+import {useTranslation} from '../../hooks/useTranslation';
+import {useWalletConnectDeeplink} from '../../hooks/useWalletConnectDeeplink';
+import {SignatureContext} from '../../providers/SignatureProvider';
+import {clearSignatureState} from '../../slices/walletSlice';
+import {ConnectorIcon} from '../ConnectorIcon';
+
 import {
   Background,
   ButtonContainer,
   Center,
+  ConnectingWalletIcon,
   Header,
   Sheet,
   SheetContent,
   Wrapper,
-} from '../style';
-
-import {SignatureModalError} from './SignatureModalError';
+} from './style';
 
 export const SignatureModal = ({
   error,
@@ -29,7 +30,7 @@ export const SignatureModal = ({
   clearError: () => void;
 }) => {
   const dispatch = useAppDispatch();
-  const {message} = useAppSelector((state) => state.wallet);
+  const {message, pendingWallet} = useAppSelector((state) => state.wallet);
   const {signing, signMessage} = useContext(SignatureContext);
   const {disconnect} = useDisconnect();
   const isMounted = useIsMounted();
@@ -59,17 +60,23 @@ export const SignatureModal = ({
     signMessage();
   }, [clearError, signMessage]);
 
+  const content = {
+    subtitle: t('signature.content.subtitle.default', {
+      connectorName: pendingWallet?.connectorName || 'wallet app',
+    }),
+    title: t('signature.content.title.default'),
+  };
+
   if (error) {
-    return (
-      <SignatureModalError
-        error={error}
-        handleDismiss={handleDismiss}
-        handleTryAgain={handleSignMessage}
-      />
-    );
+    if (error.name === 'UserRejectedRequestError') {
+      content.title = t('signature.content.title.cancelled');
+    }
+
+    content.title = t('signature.content.title.error');
+    content.subtitle = t('signature.content.subtitle.error');
   }
 
-  if (!isMounted || !message) {
+  if (!isMounted || !message || !pendingWallet) {
     return null;
   }
 
@@ -79,7 +86,7 @@ export const SignatureModal = ({
       <Sheet>
         <Header $padded>
           <Text as="h2" variant="headingMd">
-            {t('signature.title')}
+            {t('signature.title', {connectorName: pendingWallet.connectorName})}
           </Text>
 
           <IconButton
@@ -90,9 +97,22 @@ export const SignatureModal = ({
           />
         </Header>
         <SheetContent>
+          <ConnectingWalletIcon>
+            <ConnectorIcon id={pendingWallet.connectorId} size="Xl" />
+          </ConnectingWalletIcon>
           <Center>
-            <Text as="p">
-              {signing ? t('signature.sentRequest') : t('signature.toSign')}
+            <Text as="h3" variant="headingLg">
+              {content.title}
+            </Text>
+            <Text
+              as="p"
+              color={
+                error && error.name !== 'UserRejectedRequestError'
+                  ? 'critical'
+                  : 'secondary'
+              }
+            >
+              {content.subtitle}
             </Text>
           </Center>
 
@@ -101,8 +121,8 @@ export const SignatureModal = ({
           ) : (
             <ButtonContainer>
               <Button
-                aria-label={t('signature.title')}
-                label={t('signature.title')}
+                aria-label={t('button.retry')}
+                label={t('button.retry')}
                 onClick={handleSignMessage}
               />
             </ButtonContainer>
