@@ -3,8 +3,7 @@ import {Fragment} from 'react';
 import {GetAConnectorButton} from '../../GetAConnectorButton';
 import {Divider, SheetContent} from '../style';
 
-// Will add Coinbase in a follow-up PR
-const CONNECTORS = ['metaMask', 'rainbow'];
+const CONNECTORS = ['metaMask', 'coinbase', 'rainbow', 'ledger'];
 
 const GetAWalletScreen = () => {
   return (
