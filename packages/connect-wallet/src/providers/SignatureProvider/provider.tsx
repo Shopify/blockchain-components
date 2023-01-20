@@ -24,7 +24,7 @@ export const SignatureProvider: FC<
   const [error, setError] = useState();
   const dispatch = useAppDispatch();
   const {message, pendingWallet} = useAppSelector((state) => state.wallet);
-  const {signing, signMessage} = useWallet({requireSignature});
+  const {signing, signMessage} = useWallet({});
 
   const clearError = useCallback(() => {
     setError(undefined);

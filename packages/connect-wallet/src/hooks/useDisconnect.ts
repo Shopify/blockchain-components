@@ -38,9 +38,6 @@ export const useDisconnect = () => {
 
       if (walletToDisconnect) {
         dispatch(removeWallet(walletToDisconnect));
-
-        // @TODO: we need to figure out how to get the callback in this hook
-        // onDisconnect?.(walletToDisconnect);
       }
 
       /**

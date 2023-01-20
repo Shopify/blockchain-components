@@ -1,11 +1,11 @@
 import {renderHook} from '@testing-library/react';
 import React, {PropsWithChildren, useMemo} from 'react';
 
-import {ConnectWalletContext} from '../providers/ConnectWalletProvider';
-import {SignatureContext} from '../providers/SignatureProvider';
+import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
+import {SignatureContext} from '../../providers/SignatureProvider';
+import {useOrderAttribution} from '../useOrderAttribution';
 
-import {useConnectWallet} from './useConnectWallet';
-import {useOrderAttribution} from './useOrderAttribution';
+import {useConnectWallet} from '.';
 
 jest.mock('@wagmi/core', () => {
   return {
@@ -13,44 +13,48 @@ jest.mock('@wagmi/core', () => {
   };
 });
 
-jest.mock('../providers/SignatureProvider', () => {
+jest.mock('../../providers/SignatureProvider', () => {
   return {
     SignatureContext: jest.requireActual(
-      '../providers/SignatureProvider/context',
+      '../../providers/SignatureProvider/context',
     ).SignatureContext,
   };
 });
 
-jest.mock('../providers/ConnectWalletProvider', () => {
+jest.mock('../../providers/ConnectWalletProvider', () => {
   const actual = jest.requireActual(
-    '../providers/ConnectWalletProvider/context',
+    '../../providers/ConnectWalletProvider/context',
   );
   return {
     ConnectWalletContext: actual.ConnectWalletContext,
   };
 });
 
-jest.mock('./useOrderAttribution', () => ({
+jest.mock('../useOrderAttribution', () => ({
   useOrderAttribution: jest.fn(),
 }));
 
-jest.mock('./useAppState', () => ({
+jest.mock('../useAppState', () => ({
   useAppSelector: jest.fn(() => ({
     connectedWallets: [],
     pendingConnector: null,
   })),
 }));
 
-jest.mock('./useWallet', () => ({
+jest.mock('../useWallet', () => ({
   useWallet: jest.fn(() => ({
     connection: false,
   })),
 }));
 
-jest.mock('./useDisconnect', () => ({
+jest.mock('../useDisconnect', () => ({
   useDisconnect: jest.fn(() => ({
     disconnect: jest.fn(),
   })),
+}));
+
+jest.mock('./useConnectWalletCallbacks', () => ({
+  useConnectWalletCallbacks: jest.fn(() => ({})),
 }));
 
 describe('useConnectWallet', () => {

@@ -1,36 +1,18 @@
 import {useCallback, useContext} from 'react';
 
-import {SignatureContext} from '../providers/SignatureProvider';
-import {ConnectWalletContext} from '../providers/ConnectWalletProvider';
-import {SignatureResponse, UseWalletProps} from '../types/wallet';
+import {SignatureContext} from '../../providers/SignatureProvider';
+import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
+import {SignatureResponse} from '../../types/wallet';
+import {useAppSelector} from '../useAppState';
+import {useWallet} from '../useWallet';
+import {useOrderAttribution} from '../useOrderAttribution';
+import {useDisconnect} from '../useDisconnect';
 
-import {useAppSelector} from './useAppState';
-import {useWallet} from './useWallet';
-import {useOrderAttribution} from './useOrderAttribution';
-import {useDisconnect} from './useDisconnect';
-
-/**
- * Dictates how we will handle automatic order attribution. If
- * set to `required`, any error that occurs with the attribution
- * will be thrown.
- *
- * If set to `ignoreErrors`, any error that occurs with the attribution
- * will be logged to the console and otherwise ignored.
- *
- * If set to `disabled`, no order attribution will be attempted.
- */
-type MessageSignedOrderAttributionMode =
-  | 'required'
-  | 'ignoreErrors'
-  | 'disabled';
-
-interface useConnectWalletProps
-  extends Omit<UseWalletProps, 'requireSignature'> {
-  /**
-   * Defaults to 'required'.
-   */
-  messageSignedOrderAttributionMode?: MessageSignedOrderAttributionMode;
-}
+import {
+  MessageSignedOrderAttributionMode,
+  useConnectWalletProps,
+} from './types';
+import {useConnectWalletCallbacks} from './useConnectWalletCallbacks';
 
 export function useConnectWallet(props?: useConnectWalletProps) {
   const {connectedWallets, pendingConnector} = useAppSelector(
@@ -43,11 +25,13 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   const {chains} = connectWalletContext;
   const {signMessage, requireSignature, signing} = signatureContext;
 
-  const {connecting} = useWallet({
-    onConnect: props?.onConnect,
-    onDisconnect: props?.onDisconnect,
+  const {isDisconnected, isConnected} = useConnectWalletCallbacks({
+    ...props,
     requireSignature,
   });
+
+  const {connecting} = useWallet({});
+
   const {disconnect} = useDisconnect();
 
   const {messageSignedOrderAttributionMode, onMessageSigned} = props || {};
@@ -68,6 +52,8 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   return {
     chains,
     connecting,
+    isConnected,
+    isDisconnected,
     disconnect,
     pendingConnector,
     signing,
