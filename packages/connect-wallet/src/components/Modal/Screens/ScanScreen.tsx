@@ -1,46 +1,26 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
-import {Button, Text} from 'shared';
+import {Button} from 'shared';
 
 import {useAppSelector} from '../../../hooks/useAppState';
 import {useConnectorData} from '../../../hooks/useConnectorData';
-import {useModalScreenContent} from '../../../hooks/useModalContent';
 import {useTranslation} from '../../../hooks/useTranslation';
 import {useModal} from '../../../providers/ModalProvider';
 import {QRCode} from '../../QRCode';
 import {ButtonContainer, SheetContent} from '../style';
 import {ConnectArgs} from '../../../types/connector';
-import {ConnectionState} from '../../../types/connectionState';
 
 interface ScanScreenProps {
   connect: (args?: Partial<ConnectArgs> | undefined) => void;
-  state: ConnectionState;
 }
 
-const ScanScreen = ({connect, state}: ScanScreenProps) => {
+const ScanScreen = ({connect}: ScanScreenProps) => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {connector, marketingSite, modalConnector, name} = useConnectorData({
     id: pendingConnector?.id,
   });
   const {closeModal} = useModal();
-  const {body} = useModalScreenContent(state);
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
   const {t} = useTranslation('Screens');
-
-  const bodyContent = useMemo(() => {
-    const isRelevantState = [
-      ConnectionState.AlreadyConnected,
-      ConnectionState.Connected,
-      ConnectionState.Failed,
-      ConnectionState.Rejected,
-      ConnectionState.Unavailable,
-    ];
-
-    if (isRelevantState.includes(state)) {
-      return <Text as="p">{body}</Text>;
-    }
-
-    return null;
-  }, [body, state]);
 
   const walletConnectModalCallback = useCallback(() => {
     if (!modalConnector) {
@@ -161,10 +141,8 @@ const ScanScreen = ({connect, state}: ScanScreenProps) => {
   }, []);
 
   return (
-    <SheetContent>
+    <SheetContent rowGap="16px">
       {qrCodeURI ? <QRCode uri={qrCodeURI} /> : null}
-
-      {bodyContent}
 
       {buttons}
     </SheetContent>

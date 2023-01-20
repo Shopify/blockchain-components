@@ -40,7 +40,9 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   }, [navigation]);
 
   const buttons = useMemo(() => {
-    if (!connector || !pendingConnector) {
+    const hasButtons = canTryAgain || (!mobilePlatform && qrCodeSupported);
+
+    if (!connector || !hasButtons || !pendingConnector) {
       return null;
     }
 
@@ -77,9 +79,11 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
   ]);
 
   const {body, title} = useModalScreenContent(state);
+  const isErrorState =
+    state === ConnectionState.Failed || state === ConnectionState.Unavailable;
 
   return (
-    <SheetContent>
+    <SheetContent rowGap="24px">
       <ConnectingWalletIcon>
         <ConnectorIcon id={pendingConnector?.id} size="Xl" />
       </ConnectingWalletIcon>
@@ -89,15 +93,17 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
           {title}
         </Text>
 
-        <Text as="p">{body}</Text>
+        <Text as="p" color={isErrorState ? 'critical' : 'secondary'}>
+          {body}
+        </Text>
       </Center>
 
       {state === ConnectionState.Connecting &&
       pendingConnector?.name !== 'WalletConnect' ? (
         <Spinner />
-      ) : null}
-
-      {buttons}
+      ) : (
+        buttons
+      )}
     </SheetContent>
   );
 };

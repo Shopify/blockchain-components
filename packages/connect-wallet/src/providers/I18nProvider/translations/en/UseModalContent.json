@@ -8,16 +8,16 @@
     "body": "Connected successfully"
   },
   "connecting": {
-    "title": "Confirm in {{connectorName}}",
-    "body": "Requesting connection"
+    "title": "Requesting connection",
+    "body": "Confirm connection in {{connectorName}}."
   },
   "failed": {
-    "title": "Error",
-    "body": "Failed to connect"
+    "title": "Couldn’t connect",
+    "body": "There was an issue connecting your wallet."
   },
   "rejected": {
-    "title": "Rejected",
-    "body": "Request rejected"
+    "title": "Request cancelled",
+    "body": "Confirm connection in {{connectorName}}."
   },
   "unavailable": {
     "title": "Unavailable",
