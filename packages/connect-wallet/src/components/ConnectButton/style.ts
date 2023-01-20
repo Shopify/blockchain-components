@@ -40,6 +40,7 @@ export const CaretIcon = styled.div`
 
 export const ConnectedButton = styled(ButtonWrapper)<{$popoverOpen: boolean}>`
   column-gap: 8px;
+  color: ${({theme}) => theme.typography.colorPrimary};
 
   ${CaretIcon} {
     transform: ${({$popoverOpen}) =>
