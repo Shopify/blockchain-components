@@ -26,7 +26,9 @@ export const ConnectButton = () => {
   const {width} = useWindowDimensions();
   const shouldUseMobileSizes = Boolean(width && width < device.sm);
 
-  const ref = useOutsideClick(() => setPopoverVisible(false));
+  const ref = useOutsideClick(
+    () => !shouldUseMobileSizes && setPopoverVisible(false),
+  );
   const escPress = useKeyPress('Escape');
 
   const togglePopover = useCallback(() => {
