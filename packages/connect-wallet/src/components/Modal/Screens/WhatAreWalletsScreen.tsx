@@ -21,7 +21,7 @@ const WhatAreWalletsScreen = () => {
   }, [navigation]);
 
   return (
-    <SheetContent>
+    <SheetContent rowGap="16px">
       <WalletList>
         <WalletListItem>
           <Icon>{Asset}</Icon>
@@ -31,7 +31,9 @@ const WhatAreWalletsScreen = () => {
               {t('WhatAreWallets.home.title')}
             </Text>
 
-            <Text as="p">{t('WhatAreWallets.home.content')}</Text>
+            <Text as="p" color="secondary">
+              {t('WhatAreWallets.home.content')}
+            </Text>
           </ListItemContent>
         </WalletListItem>
         <WalletListItem>
@@ -42,7 +44,9 @@ const WhatAreWalletsScreen = () => {
               {t('WhatAreWallets.login.title')}
             </Text>
 
-            <Text as="p">{t('WhatAreWallets.login.content')}</Text>
+            <Text as="p" color="secondary">
+              {t('WhatAreWallets.login.content')}
+            </Text>
           </ListItemContent>
         </WalletListItem>
         <WalletListItem>
@@ -53,7 +57,7 @@ const WhatAreWalletsScreen = () => {
               {t('WhatAreWallets.collaborativeCommerce.title')}
             </Text>
 
-            <Text as="p">
+            <Text as="p" color="secondary">
               {t('WhatAreWallets.collaborativeCommerce.content')}
             </Text>
           </ListItemContent>

@@ -21,17 +21,19 @@ export const useModalScreenContent = (
       title: t('connected.title'),
     },
     Connecting: {
-      body: t('connecting.body'),
-      title: t('connecting.title', {
-        connectorName: pendingConnector?.name || 'Unknown connector',
+      body: t('connecting.body', {
+        connectorName: pendingConnector?.name || 'wallet app',
       }),
+      title: t('connecting.title'),
     },
     Failed: {
       body: t('failed.body'),
       title: t('failed.title'),
     },
     Rejected: {
-      body: t('rejected.body'),
+      body: t('rejected.body', {
+        connectorName: pendingConnector?.name || 'wallet app',
+      }),
       title: t('rejected.title'),
     },
     Unavailable: {

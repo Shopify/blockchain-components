@@ -165,7 +165,7 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
   );
 
   return (
-    <SheetContent>
+    <SheetContent rowGap="12px">
       {connectors.map((providedConnector) => {
         const {connector, id, name} = providedConnector;
 

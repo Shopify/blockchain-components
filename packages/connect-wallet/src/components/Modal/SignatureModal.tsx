@@ -96,7 +96,7 @@ export const SignatureModal = ({
             onClick={handleDismiss}
           />
         </Header>
-        <SheetContent>
+        <SheetContent rowGap="24px">
           <ConnectingWalletIcon>
             <ConnectorIcon id={pendingWallet.connectorId} size="Xl" />
           </ConnectingWalletIcon>

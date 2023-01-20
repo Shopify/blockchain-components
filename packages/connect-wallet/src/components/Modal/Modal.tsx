@@ -119,7 +119,7 @@ export const Modal = () => {
         return <GetAWalletScreen />;
 
       case ModalRoute.Scan:
-        return <ScanScreen connect={connect} state={status} />;
+        return <ScanScreen connect={connect} />;
 
       case ModalRoute.WhatAreWallets:
         return <WhatAreWalletsScreen />;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {CSSProperties} from 'styled-components';
 import {breakpoints} from 'shared';
 
 export const Background = styled.div`
@@ -14,7 +14,6 @@ export const ButtonContainer = styled.div`
   flex-direction: column;
   align-items: center;
   row-gap: 12px;
-  margin-top: 16px;
 
   @media ${breakpoints.smDown} {
     a,
@@ -26,14 +25,18 @@ export const ButtonContainer = styled.div`
 
 export const Center = styled.div`
   text-align: center;
+
+  h3 {
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 0;
+  }
 `;
 
 export const ConnectingWalletIcon = styled.div`
-  margin: 24px auto;
-`;
-
-export const Divider = styled.hr`
-  margin: 12px 0px;
+  margin: 24px auto 0;
 `;
 
 export const GetAWalletContent = styled.div`
@@ -54,9 +57,7 @@ export const Header = styled.div<{$padded?: boolean}>`
   flex-direction: row;
   align-items: center;
   column-gap: 16px;
-  margin-bottom: 20px;
-  // This is a combination of IconButton width + column-gap
-  padding-left: ${({$padded}) => $padded && '36px'};
+  padding: ${({theme}) => theme.modal.padding};
 
   h2 {
     max-width: 100%;
@@ -67,6 +68,9 @@ export const Header = styled.div<{$padded?: boolean}>`
     overflow: hidden;
     white-space: nowrap;
     text-align: center;
+
+    // This is a combination of IconButton width + column-gap
+    padding-left: ${({$padded}) => $padded && '36px'};
   }
 `;
 
@@ -89,6 +93,7 @@ export const ListItemContent = styled.div`
   p {
     margin: 4px 0px 0px 0px;
   }
+
   h3 {
     margin-bottom: 4px;
   }
@@ -103,28 +108,29 @@ export const Sheet = styled.div`
   border: ${({theme}) => theme.modal.border};
   border-radius: ${({theme}) => theme.modal.borderRadius.desktop};
   box-shadow: ${({theme}) => theme.modal.boxShadow};
-  padding: ${({theme}) => theme.modal.padding};
 
   @media ${breakpoints.smDown} {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-radius: ${({theme}) => theme.modal.borderRadius.mobile};
     max-width: unset;
-    padding: 20px;
   }
 `;
 
-export const SheetContent = styled.div`
+export const SheetContent = styled.div<{rowGap?: CSSProperties['rowGap']}>`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: ${({theme}) => theme.modal.padding};
+  padding-top: 0;
+  row-gap: ${({rowGap}) => rowGap};
 `;
 
 export const WalletList = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 24px;
-  margin: 16px 0px;
+  padding: 12px 0;
 `;
 
 export const WalletListItem = styled.div`

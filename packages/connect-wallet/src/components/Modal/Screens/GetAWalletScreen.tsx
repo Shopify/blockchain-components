@@ -1,7 +1,5 @@
-import {Fragment} from 'react';
-
 import {GetAConnectorButton} from '../../GetAConnectorButton';
-import {Divider, SheetContent} from '../style';
+import {SheetContent} from '../style';
 
 // Will add Coinbase in a follow-up PR
 const CONNECTORS = ['metaMask', 'rainbow'];
@@ -9,14 +7,9 @@ const CONNECTORS = ['metaMask', 'rainbow'];
 const GetAWalletScreen = () => {
   return (
     <SheetContent>
-      {CONNECTORS.map((connectorId, index) => {
-        const shouldHaveDivider = index < CONNECTORS.length - 1;
-
+      {CONNECTORS.map((connectorId) => {
         return (
-          <Fragment key={connectorId}>
-            <GetAConnectorButton connectorId={connectorId} />
-            {shouldHaveDivider ? <Divider /> : null}
-          </Fragment>
+          <GetAConnectorButton connectorId={connectorId} key={connectorId} />
         );
       })}
     </SheetContent>
