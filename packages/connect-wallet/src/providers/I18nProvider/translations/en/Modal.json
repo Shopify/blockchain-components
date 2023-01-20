@@ -5,17 +5,16 @@
     "whatIsAWallet": "What is a wallet?"
   },
   "signature": {
-    "title": "Sign message",
-    "sentRequest": "Signature request sent. Please sign the message in your wallet.",
-    "toSign": "Signing a message proves ownership of a wallet address.",
-    "error": {
-      "requestCancelled": {
-        "title": "Request cancelled",
-        "subtitle": "Sign message in extension."
+    "title": "Sign with {{connectorName}}",
+    "content": {
+      "subtitle": {
+        "default": "Sign message in {{connectorName}}.",
+        "error": "There was an issue confirming your wallet."
       },
-      "generic": {
-        "title": "Couldn’t confirm",
-        "subtitle": "There was an issue confirming your wallet."
+      "title": {
+        "cancelled": "Request cancelled",
+        "error": "Couldn’t confirm",
+        "default": "Requesting signature"
       }
     }
   },
@@ -27,6 +26,6 @@
     "WhatAreWallets": "What is a wallet?"
   },
   "button": {
-    "tryAgain": "Try again"
+    "retry": "Retry"
   }
 }
