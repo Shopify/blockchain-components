@@ -3,6 +3,7 @@ import {UnlockingToken} from '@shopify/tokengate';
 export enum EventName {
   RequestWalletVerificationMessage = 'RequestWalletVerificationMessage',
   CheckIfWalletMeetsRequirements = 'CheckIfWalletMeetsRequirements',
+  DisconnectWallet = 'DisconnectWallet',
 }
 export interface EventBusEvent {
   event: EventName;
@@ -33,6 +34,17 @@ export interface CheckIfWalletMeetsRequirementsEvent extends EventBusEvent {
     address: string;
     message: string;
     signature: string;
+  };
+  response: {
+    isUnlocked: boolean;
+    unlockingTokens: UnlockingToken[];
+  };
+}
+
+export interface DisconnectWalletEvent extends EventBusEvent {
+  event: EventName.DisconnectWallet;
+  payload: {
+    address: string;
   };
   response: {
     isUnlocked: boolean;
