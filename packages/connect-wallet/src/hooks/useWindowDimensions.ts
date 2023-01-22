@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
-
-import {useIsMounted} from './useIsMounted';
+import {useIsMounted} from 'shared';
 
 interface UseWindowDimensionsReturn {
   height: number | undefined;

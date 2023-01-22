@@ -1,15 +1,30 @@
+import {
+  AnimatePresence,
+  domAnimation,
+  LazyMotion,
+  m,
+  useReducedMotion,
+} from 'framer-motion';
 import {useCallback} from 'react';
 import {createPortal} from 'react-dom';
-import {Button, CircleTick, Copy, formatWalletAddress, Text} from 'shared';
+import {
+  Button,
+  CircleTick,
+  Copy,
+  formatWalletAddress,
+  Text,
+  useIsMounted,
+  useMediaQuery,
+} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
 import {useDisconnect} from '../../hooks/useDisconnect';
 import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
 import {useTranslation} from '../../hooks/useTranslation';
-import {useIsMounted} from '../../hooks/useIsMounted';
 
 import {AddressChip, Background, Container, Frame} from './style';
+import {PopoverVariants} from './variants';
 
 interface PopoverProps {
   mobile?: boolean;
@@ -22,6 +37,8 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
   const {disconnect} = useDisconnect();
   const {copy, copied} = useCopyToClipboard();
   const isMounted = useIsMounted();
+  const isSmall = useMediaQuery('smDown');
+  const reducedMotion = useReducedMotion();
   const {t} = useTranslation('ConnectButton');
 
   const handleDisconnect = useCallback(() => {
@@ -33,7 +50,7 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
     onDismiss();
   }, [connectedWallets, disconnect, onDismiss]);
 
-  if (!connectedWallets.length || !isMounted || !visible) {
+  if (!connectedWallets.length || !isMounted) {
     return null;
   }
 
@@ -55,26 +72,49 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
    * connectWalletConnectedButtonWrapper.
    */
   return createPortal(
-    <Container id="shopify-connect-wallet-popover-container">
-      <Background onClick={onDismiss} />
-      <Frame>
-        <ConnectorIcon id={connectorId} size="Lg" />
+    <LazyMotion features={domAnimation}>
+      <AnimatePresence>
+        {visible ? (
+          <Container
+            as={m.div}
+            exit={{pointerEvents: 'none'}}
+            id="shopify-connect-wallet-popover-container"
+            initial={{pointerEvents: 'auto'}}
+          >
+            <Background
+              onClick={onDismiss}
+              animate={{opacity: 1}}
+              as={m.div}
+              exit={{opacity: 0}}
+              initial={{opacity: 0}}
+            />
+            <Frame
+              animate="show"
+              as={m.div}
+              exit="exit"
+              initial="exit"
+              variants={PopoverVariants({isSmall, reducedMotion})}
+            >
+              <ConnectorIcon id={connectorId} size="Lg" />
 
-        <AddressChip onClick={() => copy(address)}>
-          <Text as="span" variant="bodyLg">
-            {formatWalletAddress(address)}
-          </Text>
-          {copied ? CircleTick : Copy}
-        </AddressChip>
+              <AddressChip onClick={() => copy(address)}>
+                <Text as="span" variant="bodyLg">
+                  {formatWalletAddress(address)}
+                </Text>
+                {copied ? CircleTick : Copy}
+              </AddressChip>
 
-        <Button
-          aria-label={t('popover.disconnectButton')}
-          fullWidth
-          label={t('popover.disconnectButton')}
-          onClick={handleDisconnect}
-        />
-      </Frame>
-    </Container>,
+              <Button
+                aria-label={t('popover.disconnectButton')}
+                fullWidth
+                label={t('popover.disconnectButton')}
+                onClick={handleDisconnect}
+              />
+            </Frame>
+          </Container>
+        ) : null}
+      </AnimatePresence>
+    </LazyMotion>,
     portalElement,
   );
 };

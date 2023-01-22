@@ -34,10 +34,12 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "@shopify/gate-context-client": "*",
+    "framer-motion": "^8.5.0",
     "i18next": "^22.4.9",
     "qrcode": "^1.5.1",
     "react-i18next": "^12.1.4",
     "react-redux": "^8.0.5",
+    "react-use-measure": "^2.1.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.6",
