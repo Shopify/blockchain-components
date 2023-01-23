@@ -1,5 +1,5 @@
 import {useCallback, useContext} from 'react';
-import {useAccount} from 'wagmi';
+import {Connector, useAccount} from 'wagmi';
 
 import {SignatureContext} from '../../providers/SignatureProvider';
 import {addWallet, setPendingWallet} from '../../slices/walletSlice';
@@ -18,7 +18,15 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
   const {requireSignature} = signatureContext;
 
   const handleConnect = useCallback(
-    ({address, isReconnected}: {address?: string; isReconnected: boolean}) => {
+    ({
+      address,
+      connector,
+      isReconnected,
+    }: {
+      address?: string;
+      connector?: Connector;
+      isReconnected: boolean;
+    }) => {
       if (!address) {
         return;
       }
@@ -44,15 +52,18 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
        *
        * We require information from the pending connector to determine
        * where the connection originated (for UX purposes).
+       *
+       * The only exception here is if the connector is Coinbase because
+       * it automatically connects and injects itself on mobile.
        */
-      if (!pendingConnector) {
+      if (!pendingConnector && connector?.id !== 'coinbaseWallet') {
         return;
       }
 
       const wallet: Wallet = {
         address,
-        connectorId: pendingConnector.id,
-        connectorName: pendingConnector.name,
+        connectorId: pendingConnector?.id || 'coinbase',
+        connectorName: pendingConnector?.name || 'Coinbase Wallet',
         // If signatures are required set signed to false
         signed: requireSignature ? false : undefined,
       };
