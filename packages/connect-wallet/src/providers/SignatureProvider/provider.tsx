@@ -2,7 +2,7 @@ import {FC, PropsWithChildren, useCallback, useMemo, useState} from 'react';
 
 import {SignatureModal} from '../../components';
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
-import {useWallet} from '../../hooks/useWallet';
+import {useSyncSignMessage} from '../../hooks/useSyncSignMessage';
 import {
   clearSignatureState,
   setMessage,
@@ -24,7 +24,7 @@ export const SignatureProvider: FC<
   const [error, setError] = useState();
   const dispatch = useAppDispatch();
   const {message, pendingWallet} = useAppSelector((state) => state.wallet);
-  const {signing, signMessage} = useWallet();
+  const {signing, signMessage} = useSyncSignMessage();
 
   const clearError = useCallback(() => {
     setError(undefined);

@@ -4,12 +4,10 @@ import {useAccount, useSignMessage} from 'wagmi';
 import {
   SignMessageProps,
   SignatureResponse,
-  UseWalletProps,
   UseWalletResponse,
 } from '../types/wallet';
 
-export function useWallet(props?: UseWalletProps): UseWalletResponse {
-  const {onMessageSigned} = props || {};
+export function useSyncSignMessage(): UseWalletResponse {
   const {isConnecting} = useAccount();
   const {error, isLoading, signMessageAsync} = useSignMessage();
 
@@ -24,8 +22,6 @@ export function useWallet(props?: UseWalletProps): UseWalletResponse {
           signature,
         };
 
-        onMessageSigned?.(response);
-
         return response;
       } catch (caughtError) {
         // If the error was returned by the use sign message hook then return that.
@@ -35,7 +31,7 @@ export function useWallet(props?: UseWalletProps): UseWalletResponse {
         throw finalError;
       }
     },
-    [error, onMessageSigned, signMessageAsync],
+    [error, signMessageAsync],
   );
 
   return {
