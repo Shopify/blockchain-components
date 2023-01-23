@@ -5,7 +5,7 @@ import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
 import {SignatureContext} from '../../providers/SignatureProvider';
 import {useOrderAttribution} from '../useOrderAttribution';
 
-import {useConnectWallet} from '.';
+import {useConnectWallet} from './useConnectWallet';
 
 jest.mock('@wagmi/core', () => {
   return {
