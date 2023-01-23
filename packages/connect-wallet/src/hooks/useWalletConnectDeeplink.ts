@@ -13,18 +13,18 @@ interface ItemProps {
 // WalletConnect relies on this as the key for deeplinking.
 const STORAGE_KEY = 'WALLETCONNECT_DEEPLINK_CHOICE';
 
+const setKey = ({href, name}: ItemProps) => {
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({
+      href: href.split('?')[0],
+      name,
+    }),
+  );
+};
+
 export function useWalletConnectDeeplink() {
   const {browser, mobilePlatform} = getBrowserInfo();
-
-  const setKey = useCallback(({href, name}: ItemProps) => {
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({
-        href: href.split('?')[0],
-        name,
-      }),
-    );
-  }, []);
 
   const deleteKey = () => {
     localStorage.removeItem(STORAGE_KEY);
@@ -71,14 +71,15 @@ export function useWalletConnectDeeplink() {
 
           const provider = await wagmiConnector.getProvider();
           const {uri} = provider.connector;
-          const suffix = encodeURIComponent(uri);
+          const suffix =
+            mobilePlatform === 'Android' ? uri : encodeURIComponent(uri);
           const deeplinkUri = `${prefix}${suffix}`;
 
           if (mobilePlatform) {
             setKey({href: deeplinkUri, name});
 
             // This addresses an issue with hanging tabs for iOS.
-            if (uri.startsWith('http')) {
+            if (deeplinkUri.startsWith('http')) {
               const link = document.createElement('a');
               link.href = deeplinkUri;
               link.target = '_blank';
@@ -109,12 +110,11 @@ export function useWalletConnectDeeplink() {
         );
       }
     },
-    [browser, mobilePlatform, setKey],
+    [browser, mobilePlatform],
   );
 
   return {
     connectUsingWalletConnect,
     deleteKey,
-    setKey,
   };
 }
