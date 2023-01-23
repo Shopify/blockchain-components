@@ -8,6 +8,7 @@ import {useModal} from '../../../providers/ModalProvider';
 import {QRCode} from '../../QRCode';
 import {ButtonContainer, SheetContent} from '../style';
 import {ConnectArgs} from '../../../types/connector';
+import {cleanupConnection} from '../../../utils/cleanupConnection';
 
 interface ScanScreenProps {
   connect: (args?: Partial<ConnectArgs> | undefined) => void;
@@ -15,9 +16,10 @@ interface ScanScreenProps {
 
 const ScanScreen = ({connect}: ScanScreenProps) => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
-  const {connector, marketingSite, modalConnector, name} = useConnectorData({
-    id: pendingConnector?.id,
-  });
+  const {connector, marketingSite, modalConnector, name, qrCodeSupported} =
+    useConnectorData({
+      id: pendingConnector?.id,
+    });
   const {closeModal} = useModal();
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
   const {t} = useTranslation('Screens');
@@ -80,61 +82,70 @@ const ScanScreen = ({connect}: ScanScreenProps) => {
   ]);
 
   // eslint-disable-next-line @typescript-eslint/require-await
-  const scanToConnect = useCallback(async () => {
-    if (
-      !connector ||
-      !pendingConnector ||
-      qrCodeURI ||
-      !pendingConnector.qrCodeSupported
-    ) {
+  const retrieveURI = useCallback(async () => {
+    /**
+     * The logic in this function is quite similar to the logic seen
+     * in useWalletConnectDeeplink. However, it differs in that this
+     * doesn't open any urls, and instead utilizes the uri from the
+     * connector for the QR Code generation.
+     */
+    if (!connector || qrCodeURI || !qrCodeSupported) {
       return;
     }
 
+    /**
+     * Coinbase doesn't emit any messages unless we explicitly call the
+     * connect method here with the connector. I'm uncertain why since
+     * connect is called on the screen prior to getting to this one.
+     */
     if (connector.id === 'coinbaseWallet') {
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      connector.on('message', async () => {
-        const provider = await connector.getProvider();
-        setQRCodeURI(provider.qrUrl);
-      });
-
-      try {
-        connect({connector});
-      } catch (exception) {
-        console.error(exception);
-      }
+      connect({connector});
     }
 
-    if (connector.id === 'walletConnect') {
+    /**
+     * Guard numerous invocations to prevent from attaching numerous
+     * event listeners to the same connector.
+     */
+    let invoked = false;
+
+    try {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       connector.on('message', async () => {
-        try {
-          const provider = await connector.getProvider();
-
-          setQRCodeURI(provider.connector.uri);
-
-          // User rejected the request, regenerate the URI.
-          provider.connector.on('disconnect', () => {
-            connect({connector});
-          });
-        } catch (error) {
-          console.error(
-            'Caught exception while attempting to invoke the provider for given connector',
-          );
-          console.error(error);
+        if (invoked) {
+          return;
         }
-      });
 
-      try {
-        connect({connector});
-      } catch (exception) {
-        console.error(exception);
-      }
+        invoked = true;
+
+        const provider = await connector.getProvider();
+
+        setQRCodeURI(
+          connector.id === 'coinbaseWallet'
+            ? provider.qrUrl
+            : provider.connector.uri,
+        );
+
+        /**
+         * This will ensure that we create a new connection instance
+         * when the user disconnects / cancels a connection attempt.
+         */
+        provider.connector?.on('disconnect', () => {
+          connect({connector});
+        });
+
+        cleanupConnection(provider);
+      });
+    } catch (error) {
+      console.error(
+        `@shopify/connect-wallet: Error caught while attempting to generate QR URI.`,
+        error,
+      );
     }
-  }, [connect, connector, pendingConnector, qrCodeURI]);
+  }, [connect, connector, qrCodeSupported, qrCodeURI]);
 
   useEffect(() => {
     if (!qrCodeURI) {
-      scanToConnect();
+      retrieveURI();
     }
     // Run once on mount -- no deps
     // eslint-disable-next-line react-hooks/exhaustive-deps
