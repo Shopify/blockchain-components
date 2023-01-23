@@ -8,6 +8,7 @@ export default defineConfig({
   define: {
     global: 'globalThis',
   },
+  server: {host: true},
   build: {
     assetsDir: '',
     commonjsOptions: {
