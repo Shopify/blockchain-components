@@ -8,9 +8,8 @@ import {
   UseWalletResponse,
 } from '../types/wallet';
 
-export function useWallet({
-  onMessageSigned,
-}: UseWalletProps): UseWalletResponse {
+export function useWallet(props?: UseWalletProps): UseWalletResponse {
+  const {onMessageSigned} = props || {};
   const {isConnecting} = useAccount();
   const {error, isLoading, signMessageAsync} = useSignMessage();
 

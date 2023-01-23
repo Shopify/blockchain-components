@@ -29,7 +29,7 @@ export function useConnectWallet(props?: useConnectWalletProps) {
     ...props,
   });
 
-  const {connecting} = useWallet({});
+  const {connecting} = useWallet();
 
   const {disconnect} = useDisconnect();
 
