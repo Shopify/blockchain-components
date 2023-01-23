@@ -71,7 +71,7 @@ export default function ({serverArguments}: AppProps) {
     EventName.DisconnectWallet,
   );
 
-  const {signMessage, wallet} = useConnectWallet({
+  const {signMessage, wallet, isConnected} = useConnectWallet({
     messageSignedOrderAttributionMode: 'ignoreErrors',
     onConnect: (response) => {
       if (response?.address) {
@@ -116,8 +116,16 @@ export default function ({serverArguments}: AppProps) {
   }, [requestWalletVerificationResponse?.verification?.message]);
 
   useEffect(() => {
+    if (!isConnected) {
+      return setIsLocked(true);
+    }
+
     setIsLocked(!checkIfWalletMeetsRequirementsResponse?.isUnlocked);
-  }, [checkIfWalletMeetsRequirementsResponse?.isUnlocked]);
+  }, [
+    checkIfWalletMeetsRequirementsResponse?.isUnlocked,
+    setIsLocked,
+    isConnected,
+  ]);
 
   const _TokengateComponent = (
     <Tokengate
