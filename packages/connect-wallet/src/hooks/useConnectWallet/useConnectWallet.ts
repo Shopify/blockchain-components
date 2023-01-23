@@ -23,11 +23,10 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   const signatureContext = useContext(SignatureContext);
 
   const {chains} = connectWalletContext;
-  const {signMessage, requireSignature, signing} = signatureContext;
+  const {signMessage, signing} = signatureContext;
 
   const {isDisconnected, isConnected} = useConnectWalletCallbacks({
     ...props,
-    requireSignature,
   });
 
   const {connecting} = useWallet({});
