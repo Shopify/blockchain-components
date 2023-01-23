@@ -39,10 +39,7 @@ export interface ConnectorInstance {
    * Prefixes used for opening a WalletConnect deeplink
    * on Android and iOS devices.
    */
-  mobileAppPrefixes?: {
-    Android?: string;
-    iOS?: string;
-  };
+  mobileAppPrefixes?: Record<string, string | undefined>;
   /**
    * Experimental: if creating a connector that uses WalletConnect
    * you may want to implement a modalConnector for when users

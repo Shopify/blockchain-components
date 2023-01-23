@@ -1,3 +1,10 @@
+import {useCallback} from 'react';
+
+import {Browser} from '../types/browser';
+import {Connector} from '../types/connector';
+import {cleanupConnection} from '../utils/cleanupConnection';
+import {getBrowserInfo} from '../utils/getBrowser';
+
 interface ItemProps {
   href: string;
   name: string;
@@ -7,7 +14,9 @@ interface ItemProps {
 const STORAGE_KEY = 'WALLETCONNECT_DEEPLINK_CHOICE';
 
 export function useWalletConnectDeeplink() {
-  const setKey = ({href, name}: ItemProps) => {
+  const {browser, mobilePlatform} = getBrowserInfo();
+
+  const setKey = useCallback(({href, name}: ItemProps) => {
     localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify({
@@ -15,13 +24,96 @@ export function useWalletConnectDeeplink() {
         name,
       }),
     );
-  };
+  }, []);
 
   const deleteKey = () => {
     localStorage.removeItem(STORAGE_KEY);
   };
 
+  const connectUsingWalletConnect = useCallback(
+    (connector: Connector) => {
+      /**
+       * Since we're sharing the WalletConnect connectors we need to
+       * ensure that when calling this function it hasn't already
+       * attached event listeners.
+       */
+      let invoked = false;
+
+      const {
+        connector: wagmiConnector,
+        desktopAppLink,
+        mobileAppPrefixes,
+        name,
+      } = connector;
+
+      let prefix = '';
+
+      if (desktopAppLink && !mobilePlatform) {
+        prefix = desktopAppLink;
+      }
+
+      if (mobileAppPrefixes && mobilePlatform) {
+        // Check to see if the prefix exists for the given platform.
+        const locatedPrefix = mobileAppPrefixes[mobilePlatform];
+
+        if (locatedPrefix) prefix = locatedPrefix;
+      }
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        wagmiConnector.on('message', async () => {
+          if (invoked) {
+            return;
+          }
+
+          // Set invoked to true to prevent duplicat event listeners from being attached.
+          invoked = true;
+
+          const provider = await wagmiConnector.getProvider();
+          const {uri} = provider.connector;
+          const suffix = encodeURIComponent(uri);
+          const deeplinkUri = `${prefix}${suffix}`;
+
+          if (mobilePlatform) {
+            setKey({href: deeplinkUri, name});
+
+            // This addresses an issue with hanging tabs for iOS.
+            if (uri.startsWith('http')) {
+              const link = document.createElement('a');
+              link.href = deeplinkUri;
+              link.target = '_blank';
+              link.rel = 'noreferrer noopener';
+              link.click();
+            } else {
+              window.location.href = deeplinkUri;
+            }
+          } else {
+            /**
+             * There is a slight UX gap here where if the user is on desktop
+             * and doesn't have Ledger Live installed. What happens is the
+             * attempt to deeplink will fail and the user will be stuck on the
+             * connecting screen. Unfortunately, there is not a good way to detect
+             * custom app protocol support in the browser that isn't hacky.
+             */
+            window.open(
+              deeplinkUri,
+              browser === Browser.Safari ? '_blank' : '_self',
+            );
+          }
+
+          cleanupConnection(provider);
+        });
+      } catch (error) {
+        console.error(
+          'Caught exception while attempting to open WalletConnect URI',
+        );
+      }
+    },
+    [browser, mobilePlatform, setKey],
+  );
+
   return {
+    connectUsingWalletConnect,
     deleteKey,
     setKey,
   };

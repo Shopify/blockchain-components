@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import {useCallback} from 'react';
 
 import {SheetContent} from '../style';
@@ -19,13 +18,12 @@ interface ConnectScreenProps {
 const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
   const dispatch = useAppDispatch();
   const {closeModal, navigation} = useModal();
+  const {connectUsingWalletConnect} = useWalletConnectDeeplink();
 
   const {mobilePlatform} = getBrowserInfo();
-  const {setKey} = useWalletConnectDeeplink();
 
   const handleConnect = useCallback(
-    // eslint-disable-next-line @typescript-eslint/require-await
-    async (connector: Connector) => {
+    (connector: Connector) => {
       const {
         connector: wagmiConnector,
         desktopAppLink,
@@ -55,37 +53,9 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
 
       connect({connector: wagmiConnector});
 
-      const isLedgerConnector = connector.id === 'ledger';
-      const isLedgerUsingWalletConnect =
-        isLedgerConnector && wagmiConnector.id === 'walletConnect';
       const isWagmiWalletConnect = wagmiConnector.id === 'walletConnect';
       const isWalletConnect =
         connector.id === 'walletConnect' && isWagmiWalletConnect;
-
-      // This should only be entered if the user is using Ledger via WalletConnect.
-      if (isLedgerUsingWalletConnect) {
-        wagmiConnector.on('message', async () => {
-          try {
-            const {uri} = (await wagmiConnector.getProvider()).connector;
-
-            const deeplinkUri = `${desktopAppLink}${encodeURIComponent(uri)}`;
-
-            /**
-             * There is a slight UX gap here where if the user is on Desktop
-             * and doesn't have Ledger Live installed then the deeplink will fail
-             * to open. Unfortunately there is not a good way to detect custom
-             * app protocols in the browser that isn't a hack.
-             */
-            window.open(deeplinkUri, '_self');
-            navigation.navigate(ModalRoute.Connecting);
-            return;
-          } catch (exception) {
-            console.error(
-              'Caught exception while attempting to retrieve URI for WalletConnect connector',
-            );
-          }
-        });
-      }
 
       /**
        * We need to take the user to the scan screen under some rather specific
@@ -97,6 +67,7 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
         wagmiConnector.id === 'coinbaseWallet' && !isInstalled('Coinbase');
 
       const shouldUseScanScreen =
+        id !== 'ledger' &&
         (isWagmiWalletConnect || shouldUseCoinbaseScanScreen) &&
         !mobilePlatform;
 
@@ -117,51 +88,23 @@ const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
         return;
       }
 
-      // Check for a mobile URI prefix.
-      const prefix =
-        mobileAppPrefixes?.[mobilePlatform === 'Android' ? 'Android' : 'iOS'];
-
       /**
-       * Check if this connector is using WalletConnect under the hood and
-       * whether or not we have a prefix / mobile app available for the platform.
+       * Check if this connector is using WalletConnect under the hood
        */
-      if (
-        connector.id !== 'walletConnect' &&
-        isWagmiWalletConnect &&
-        mobilePlatform &&
-        prefix !== undefined
-      ) {
-        wagmiConnector.on('message', async () => {
-          try {
-            const {uri} = (await wagmiConnector.getProvider()).connector;
-
-            const encodedUri =
-              mobilePlatform === 'Android' ? uri : encodeURIComponent(uri);
-
-            const deeplinkUri = `${prefix}${encodedUri}`;
-
-            setKey({href: deeplinkUri, name: connector.name});
-
-            if (deeplinkUri.startsWith('http')) {
-              const link = document.createElement('a');
-              link.href = deeplinkUri;
-              link.target = '_blank';
-              link.rel = 'noreferrer noopener';
-              link.click();
-            } else {
-              window.location.href = deeplinkUri;
-            }
-          } catch (error) {
-            console.error(
-              'Caught exception while attempting to retrieve URI for mobile WC connector',
-            );
-          }
-        });
+      if (connector.id !== 'walletConnect' && isWagmiWalletConnect) {
+        connectUsingWalletConnect(connector);
       }
 
       navigation.navigate(ModalRoute.Connecting);
     },
-    [closeModal, connect, dispatch, mobilePlatform, navigation, setKey],
+    [
+      closeModal,
+      connect,
+      connectUsingWalletConnect,
+      dispatch,
+      mobilePlatform,
+      navigation,
+    ],
   );
 
   return (
