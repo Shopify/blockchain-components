@@ -61,6 +61,10 @@ const ThemeAppExtension = new window.gmShop.ThemeAppExtension({
         setTimeout(() => dispatch(responseData), 500);
       },
     );
+
+    listenToEvent('DisconnectWallet', (_variables: any, dispatch: any) => {
+      setTimeout(() => dispatch({}), 500);
+    });
   },
 });
 ThemeAppExtension.mount();
