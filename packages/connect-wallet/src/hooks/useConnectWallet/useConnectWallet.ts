@@ -1,10 +1,10 @@
 import {useCallback, useContext} from 'react';
+import {useAccount} from 'wagmi';
 
 import {SignatureContext} from '../../providers/SignatureProvider';
 import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
 import {SignatureResponse} from '../../types/wallet';
 import {useAppSelector} from '../useAppState';
-import {useWallet} from '../useWallet';
 import {useOrderAttribution} from '../useOrderAttribution';
 import {useDisconnect} from '../useDisconnect';
 
@@ -29,7 +29,7 @@ export function useConnectWallet(props?: useConnectWalletProps) {
     ...props,
   });
 
-  const {connecting} = useWallet();
+  const {isConnecting} = useAccount();
 
   const {disconnect} = useDisconnect();
 
@@ -50,7 +50,7 @@ export function useConnectWallet(props?: useConnectWalletProps) {
 
   return {
     chains,
-    connecting,
+    connecting: isConnecting,
     isConnected,
     isDisconnected,
     disconnect,
