@@ -1,7 +1,7 @@
 import {useCallback, useContext} from 'react';
 import {useAccount} from 'wagmi';
-import {SignatureContext} from '../../providers/SignatureProvider';
 
+import {SignatureContext} from '../../providers/SignatureProvider';
 import {addWallet, setPendingWallet} from '../../slices/walletSlice';
 import {Wallet} from '../../types/wallet';
 import {useAppDispatch, useAppSelector} from '../useAppState';
