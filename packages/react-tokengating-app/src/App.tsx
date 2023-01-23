@@ -8,6 +8,7 @@ import {
   EventName,
   RequestWalletVerificationMessageEvent,
   CheckIfWalletMeetsRequirementsEvent,
+  DisconnectWalletEvent,
 } from './types/events';
 import {useLazyEventBus} from './utils';
 
@@ -66,6 +67,10 @@ export default function ({serverArguments}: AppProps) {
     EventName.CheckIfWalletMeetsRequirements,
   );
 
+  const [disconnectWallet] = useLazyEventBus<DisconnectWalletEvent>(
+    EventName.DisconnectWallet,
+  );
+
   const {signMessage, wallet} = useConnectWallet({
     messageSignedOrderAttributionMode: 'ignoreErrors',
     onConnect: (response) => {
@@ -86,9 +91,8 @@ export default function ({serverArguments}: AppProps) {
         requestWalletVerification({address: response.address});
       }
     },
-    onDisconnect: (response) => {
-      // eslint-disable-next-line no-console
-      console.log('disconnected wallet with data', response);
+    onDisconnect: () => {
+      disconnectWallet({});
     },
     onMessageSigned: (response) => {
       if (!response) return;
