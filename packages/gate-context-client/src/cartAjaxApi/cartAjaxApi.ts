@@ -61,20 +61,21 @@ function getCartAjaxApiRoutePrefix() {
 async function getAttributes<TGateContext>(
   gateContextInput: GateContextInput,
   gateContextGenerator: ShopifyGateContextGenerator<TGateContext>,
-): Promise<CartAjaxAPICartAttributes<TGateContext>> {
-  const _shopify_gate_context = await gateContextGenerator(gateContextInput);
+): Promise<CartAjaxAPICartAttributes> {
+  const shopify_gate_context = await gateContextGenerator(gateContextInput);
 
   const defaultAttributes = {
     'Wallet Address': gateContextInput.walletAddress,
   };
 
-  if (typeof _shopify_gate_context !== 'undefined') {
+  if (typeof shopify_gate_context !== 'undefined') {
     // the shopify gate context is a special attribute that is not copied to the
     // order attributes. It's intended that this data contains everything needed
     // to evaluate the gate.
     return {
       ...defaultAttributes,
-      _shopify_gate_context,
+      // the shopify gate context must be stringified because we may not have nested attributes
+      _shopify_gate_context: JSON.stringify(shopify_gate_context),
     };
   }
 

@@ -45,7 +45,7 @@ describe('AjaxAPI', () => {
         JSON.stringify({
           attributes: {
             'Wallet Address': data.walletAddress,
-            _shopify_gate_context: data,
+            _shopify_gate_context: JSON.stringify(data),
           },
         }),
       );
