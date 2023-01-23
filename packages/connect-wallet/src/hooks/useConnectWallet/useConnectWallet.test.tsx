@@ -7,6 +7,14 @@ import {useOrderAttribution} from '../useOrderAttribution';
 
 import {useConnectWallet} from './useConnectWallet';
 
+jest.mock('wagmi', () => {
+  return {
+    useAccount: jest.fn(() => ({
+      isConnecting: true,
+    })),
+  };
+});
+
 jest.mock('@wagmi/core', () => {
   return {
     Chain: jest.fn(),
