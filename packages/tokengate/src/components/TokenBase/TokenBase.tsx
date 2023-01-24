@@ -31,11 +31,11 @@ const TokenBase = ({
     </TokenBaseIcon>
 
     <TokenBaseText>
-      <Text as="p" variant="bodyMd">
+      <Text as="p" variant="bodyLg">
         {title}
       </Text>
 
-      <Text as="p" variant="bodySm" color="secondary">
+      <Text as="p" variant="bodyMd" color="secondary">
         {subtitle}
       </Text>
     </TokenBaseText>
