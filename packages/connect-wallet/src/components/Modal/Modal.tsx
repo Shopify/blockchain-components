@@ -50,12 +50,6 @@ export const Modal = () => {
   }, [active, closeModal]);
 
   const {connect} = useConnect({
-    onError: (error) => {
-      setStatus(ConnectionState.Failed);
-      console.error(
-        `Caught error while attempting to connect with ${pendingConnector?.name} - ${error}`,
-      );
-    },
     onMutate: ({connector}) => {
       if (connector.ready) {
         setStatus(ConnectionState.Connecting);
@@ -72,6 +66,9 @@ export const Modal = () => {
 
         if (error.message !== 'Connector already connected') {
           setStatus(ConnectionState.Failed);
+          console.error(
+            `Caught error while attempting to connect with ${pendingConnector?.name} - ${error}`,
+          );
           return;
         }
       }
