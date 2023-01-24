@@ -16,7 +16,7 @@ const Card = ({title, subtitle, button, children}: CardProps) => {
         {title}
       </Text>
       <SubtitleWrapper>
-        <Text as="span" variant="bodyMd">
+        <Text as="span" variant="bodyMd" color="secondary">
           {subtitle}
         </Text>
       </SubtitleWrapper>
