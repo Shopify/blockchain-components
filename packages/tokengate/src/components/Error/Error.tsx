@@ -4,7 +4,7 @@ import {Wrapper} from './style';
 
 const Error = ({text}: {text?: string}) => (
   <Wrapper>
-    <Text as="p" variant="bodySm" color="critical">
+    <Text as="p" variant="bodyMd" color="critical">
       {text}
     </Text>
   </Wrapper>
