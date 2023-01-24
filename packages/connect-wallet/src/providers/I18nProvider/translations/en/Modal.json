@@ -4,25 +4,12 @@
     "close": "Close modal",
     "whatIsAWallet": "What is a wallet?"
   },
-  "signature": {
-    "title": "Sign with {{connectorName}}",
-    "content": {
-      "subtitle": {
-        "default": "Sign message in {{connectorName}}.",
-        "error": "There was an issue confirming your wallet."
-      },
-      "title": {
-        "cancelled": "Request cancelled",
-        "error": "Couldn’t confirm",
-        "default": "Requesting signature"
-      }
-    }
-  },
   "title": {
     "Connect": "Connect wallet",
-    "Connecting": "Connect with",
+    "Connecting": "Connect with {{connector}}",
     "GetAWallet": "Get a wallet",
-    "Scan": "Scan with",
+    "Scan": "Scan with {{connector}}",
+    "Signature": "Sign with {{connector}}",
     "WhatAreWallets": "What is a wallet?"
   },
   "button": {

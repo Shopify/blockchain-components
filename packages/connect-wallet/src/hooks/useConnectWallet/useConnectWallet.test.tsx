@@ -2,7 +2,8 @@ import {renderHook} from '@testing-library/react';
 import React, {PropsWithChildren, useMemo} from 'react';
 
 import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
-import {SignatureContext} from '../../providers/SignatureProvider';
+import {ModalContext, ModalRoute} from '../../providers/ModalProvider';
+import {ConnectionState} from '../../types/connectionState';
 import {useOrderAttribution} from '../useOrderAttribution';
 
 import {useConnectWallet} from './useConnectWallet';
@@ -21,11 +22,10 @@ jest.mock('@wagmi/core', () => {
   };
 });
 
-jest.mock('../../providers/SignatureProvider', () => {
+jest.mock('../../providers/ModalProvider', () => {
   return {
-    SignatureContext: jest.requireActual(
-      '../../providers/SignatureProvider/context',
-    ).SignatureContext,
+    ModalContext: jest.requireActual('../../providers/ModalProvider/context')
+      .ModalContext,
   };
 });
 
@@ -153,8 +153,18 @@ function renderUseConnectWallet(
 
 const TestProvider: React.FC<PropsWithChildren<object>> = ({children}) => {
   const connectWalletProviderValue = useMemo(() => ({chains: []}), []);
-  const signatureProviderValue = useMemo(
+  const modalProviderValue = useMemo(
     () => ({
+      active: false,
+      clearError: () => {},
+      closeModal: () => {},
+      connect: () => {},
+      connectionStatus: 'Connecting' as ConnectionState,
+      navigation: {
+        navigate: () => {},
+        route: 'Connect' as ModalRoute,
+      },
+      openModal: () => {},
       signing: false,
       signMessage: () =>
         Promise.resolve({address: '0x123', message: 'abc', signature: '0x123'}),
@@ -163,9 +173,9 @@ const TestProvider: React.FC<PropsWithChildren<object>> = ({children}) => {
   );
   return (
     <ConnectWalletContext.Provider value={connectWalletProviderValue}>
-      <SignatureContext.Provider value={signatureProviderValue}>
+      <ModalContext.Provider value={modalProviderValue}>
         {children}
-      </SignatureContext.Provider>
+      </ModalContext.Provider>
     </ConnectWalletContext.Provider>
   );
 };

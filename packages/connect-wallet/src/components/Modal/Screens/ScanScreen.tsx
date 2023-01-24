@@ -7,20 +7,15 @@ import {useTranslation} from '../../../hooks/useTranslation';
 import {useModal} from '../../../providers/ModalProvider';
 import {QRCode} from '../../QRCode';
 import {ButtonContainer, SheetContent} from '../style';
-import {ConnectArgs} from '../../../types/connector';
 import {cleanupConnection} from '../../../utils/cleanupConnection';
 
-interface ScanScreenProps {
-  connect: (args?: Partial<ConnectArgs> | undefined) => void;
-}
-
-const ScanScreen = ({connect}: ScanScreenProps) => {
+const ScanScreen = () => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {connector, marketingSite, modalConnector, name, qrCodeSupported} =
     useConnectorData({
       id: pendingConnector?.id,
     });
-  const {closeModal} = useModal();
+  const {closeModal, connect} = useModal();
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
   const {t} = useTranslation('Screens');
 

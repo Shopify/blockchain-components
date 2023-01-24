@@ -1,7 +1,7 @@
 import {useCallback, useContext} from 'react';
 import {Connector, useAccount} from 'wagmi';
 
-import {SignatureContext} from '../../providers/SignatureProvider';
+import {ModalContext} from '../../providers/ModalProvider';
 import {addWallet, setPendingWallet} from '../../slices/walletSlice';
 import {Wallet} from '../../types/wallet';
 import {useAppDispatch, useAppSelector} from '../useAppState';
@@ -10,12 +10,12 @@ import {useConnectWalletProps} from './types';
 
 export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
   const {onConnect, onDisconnect} = props || {};
-  const signatureContext = useContext(SignatureContext);
+  const modalContext = useContext(ModalContext);
   const dispatch = useAppDispatch();
   const {connectedWallets, pendingConnector} = useAppSelector(
     (state) => state.wallet,
   );
-  const {requireSignature} = signatureContext;
+  const {requireSignature} = modalContext;
 
   const handleConnect = useCallback(
     ({
