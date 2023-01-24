@@ -32,7 +32,7 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
   const [connectionStatus, setConnectionStatus] = useState<ConnectionState>(
     ConnectionState.Connecting,
   );
-  const [error, setError] = useState();
+  const [error, setError] = useState<Error>();
   const [route, setRoute] = useState(ModalRoute.Connect);
   const [history, setHistory] = useState<ModalRoute[]>([]);
 
@@ -92,40 +92,44 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
         setActive(true);
       }
 
-      const verificationResponse = await signMessage({
-        address: pendingWallet.address,
-        message: messageToSign,
-      });
+      try {
+        const verificationResponse = await signMessage({
+          address: pendingWallet.address,
+          message: messageToSign,
+        });
 
-      if (verificationResponse?.signature) {
-        try {
-          /**
-           * Note: We will only move past the validatePendingWallet action
-           * when the signed message is decrypted to match the address
-           * matching the pending wallet.
-           *
-           * In the event that the following fails (throws an error due to
-           * mismatched addresses) we will set the error state for the
-           * signature modal and allow the user to try again.
-           */
-          dispatch(validatePendingWallet(verificationResponse.signature));
+        if (verificationResponse?.signature) {
+          try {
+            /**
+             * Note: We will only move past the validatePendingWallet action
+             * when the signed message is decrypted to match the address
+             * matching the pending wallet.
+             *
+             * In the event that the following fails (throws an error due to
+             * mismatched addresses) we will set the error state for the
+             * signature modal and allow the user to try again.
+             */
+            dispatch(validatePendingWallet(verificationResponse.signature));
 
-          // Clear our verification state
-          dispatch(clearSignatureState());
+            // Clear our verification state
+            dispatch(clearSignatureState());
 
-          // Close the modal.
-          handleCloseModal();
+            // Close the modal.
+            handleCloseModal();
 
-          // Return the verification response.
-          return verificationResponse;
-        } catch (error: any) {
-          /**
-           * Set the error in state, resulting in an updated UI state for
-           * the signature modal. The user can attempt to sign the message
-           * with the correct wallet again.
-           */
-          setError(error);
+            // Return the verification response.
+            return verificationResponse;
+          } catch (error: any) {
+            /**
+             * Set the error in state, resulting in an updated UI state for
+             * the signature modal. The user can attempt to sign the message
+             * with the correct wallet again.
+             */
+            setError(error);
+          }
         }
+      } catch (error: any) {
+        setError(error);
       }
     },
     [active, dispatch, handleCloseModal, message, pendingWallet, signMessage],
