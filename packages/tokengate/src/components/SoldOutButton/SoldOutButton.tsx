@@ -17,7 +17,7 @@ const SoldOutButton = () => {
         size="Lg"
       />
 
-      <Text as="p" variant="bodyMd">
+      <Text as="p" variant="bodyMd" color="secondary">
         {t('description')}
       </Text>
     </Wrapper>

@@ -7,3 +7,7 @@ export const StyledCard = styled.div`
   box-shadow: ${({theme}) => theme.tokengate.boxShadow};
   padding: ${({theme}) => theme.tokengate.padding};
 `;
+
+export const SubtitleWrapper = styled.div`
+  padding-top: 4px;
+`;

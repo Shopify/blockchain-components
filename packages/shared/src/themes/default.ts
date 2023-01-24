@@ -154,6 +154,6 @@ export const Default: Theme = {
     border: `1px solid rgba(0, 0, 0, 0.12);`,
     borderRadius: '8px',
     boxShadow: 'none',
-    padding: '16px',
+    padding: '20px',
   },
 };
