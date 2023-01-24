@@ -1,7 +1,7 @@
 import {GetAConnectorButton} from '../../GetAConnectorButton';
 import {SheetContent} from '../style';
 
-const CONNECTORS = ['metaMask', 'coinbase', 'rainbow', 'ledger'];
+const CONNECTORS = ['metaMask', 'coinbaseWallet', 'rainbow', 'ledger'];
 
 const GetAWalletScreen = () => {
   return (

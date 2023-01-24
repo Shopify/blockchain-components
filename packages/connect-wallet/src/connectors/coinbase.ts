@@ -21,7 +21,7 @@ export const Coinbase = ({
     },
     marketingSite: 'https://www.coinbase.com/wallet',
     icon: CoinbaseWallet,
-    id: 'coinbase',
+    id: 'coinbaseWallet',
     name: 'Coinbase Wallet',
     qrCodeSupported: true,
   };

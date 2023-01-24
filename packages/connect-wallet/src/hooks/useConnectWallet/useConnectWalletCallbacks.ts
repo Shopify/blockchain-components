@@ -53,17 +53,18 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
        * We require information from the pending connector to determine
        * where the connection originated (for UX purposes).
        *
-       * The only exception here is if the connector is Coinbase because
-       * it automatically connects and injects itself on mobile.
+       * The only exception here is if the connector is an injected
+       * connector because they reconnect automatically. This should
+       * only affect Coinbase Wallet and MetaMask.
        */
-      if (!pendingConnector && connector?.id !== 'coinbaseWallet') {
+      if (!pendingConnector && !connector) {
         return;
       }
 
       const wallet: Wallet = {
         address,
-        connectorId: pendingConnector?.id || 'coinbase',
-        connectorName: pendingConnector?.name || 'Coinbase Wallet',
+        connectorId: pendingConnector?.id || connector?.id,
+        connectorName: pendingConnector?.name || connector?.name,
         // If signatures are required set signed to false
         signed: requireSignature ? false : undefined,
       };
