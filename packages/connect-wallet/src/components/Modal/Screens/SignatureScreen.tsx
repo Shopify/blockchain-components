@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
 import {Button, Spinner, Text} from 'shared';
 
 import {useAppSelector} from '../../../hooks/useAppState';
@@ -22,21 +22,33 @@ const SignatureScreen = () => {
     signMessage();
   }, [clearError, signMessage]);
 
-  const content = {
-    subtitle: t('Signature.subtitle.default', {
-      connectorName: pendingWallet?.connectorName || 'wallet app',
-    }),
-    title: t('Signature.heading.default'),
-  };
+  const isCriticalError =
+    error !== undefined && error.name !== 'UserRejectedRequestError';
 
-  if (error) {
-    if (error.name === 'UserRejectedRequestError') {
-      content.title = t('Signature.heading.cancelled');
+  const content = useMemo(() => {
+    if (error && !signing) {
+      if (isCriticalError) {
+        return {
+          subtitle: t('Signature.subtitle.error'),
+          title: t('Signature.heading.error'),
+        };
+      }
+
+      return {
+        subtitle: t('Signature.subtitle.default', {
+          connectorName: pendingWallet?.connectorName || 'wallet app',
+        }),
+        title: t('Signature.heading.cancelled'),
+      };
     }
 
-    content.title = t('Signature.heading.error');
-    content.subtitle = t('Signature.subtitle.error');
-  }
+    return {
+      subtitle: t('Signature.subtitle.default', {
+        connectorName: pendingWallet?.connectorName || 'wallet app',
+      }),
+      title: t('Signature.heading.default'),
+    };
+  }, [error, isCriticalError, pendingWallet?.connectorName, signing, t]);
 
   return (
     <SheetContent rowGap="24px">
@@ -47,14 +59,7 @@ const SignatureScreen = () => {
         <Text as="h3" variant="headingLg">
           {content.title}
         </Text>
-        <Text
-          as="p"
-          color={
-            error && error.name !== 'UserRejectedRequestError'
-              ? 'critical'
-              : 'secondary'
-          }
-        >
+        <Text as="p" color={isCriticalError ? 'critical' : 'secondary'}>
           {content.subtitle}
         </Text>
       </Center>

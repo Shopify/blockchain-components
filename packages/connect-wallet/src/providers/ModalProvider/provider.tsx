@@ -36,6 +36,18 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
   const [route, setRoute] = useState(ModalRoute.Connect);
   const [history, setHistory] = useState<ModalRoute[]>([]);
 
+  const clearError = useCallback(() => {
+    setError(undefined);
+  }, [setError]);
+
+  const cleanupSignatureState = useCallback(() => {
+    dispatch(clearSignatureState());
+    disconnect(pendingWallet?.address);
+    clearError();
+    setHistory([]);
+    setRoute(ModalRoute.Connect);
+  }, [clearError, disconnect, dispatch, pendingWallet?.address]);
+
   const handleNavigate = useCallback(
     (screenName: ModalRoute) => {
       setHistory([...history, screenName]);
@@ -45,6 +57,12 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
   );
 
   const handleCloseModal = useCallback(() => {
+    if (route === ModalRoute.Signature) {
+      setActive(false);
+      cleanupSignatureState();
+      return;
+    }
+
     // Clear the pending connector
     if (pendingConnector || pendingWallet) {
       dispatch(setPendingConnector(undefined));
@@ -54,11 +72,29 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
     setActive(false);
     setHistory([]);
     setRoute(ModalRoute.Connect);
-  }, [dispatch, pendingConnector, pendingWallet]);
+  }, [cleanupSignatureState, dispatch, pendingConnector, pendingWallet, route]);
 
-  const clearError = useCallback(() => {
-    setError(undefined);
-  }, [setError]);
+  const handleGoBack = useCallback(() => {
+    if (route === ModalRoute.Signature) {
+      return cleanupSignatureState();
+    }
+
+    if (history.length) {
+      const newHistory = history.slice(0, history.length - 1);
+
+      /**
+       * If the new history contains more than one entry, we can
+       * use the last entry in the history array as our new screen.
+       * Otherwise, we go back to the first screen,
+       */
+      const newScreen = newHistory.length
+        ? newHistory[newHistory.length - 1]
+        : ModalRoute.Connect;
+
+      setHistory(newHistory);
+      setRoute(newScreen);
+    }
+  }, [cleanupSignatureState, history, route]);
 
   /**
    * ## requestSignature
@@ -99,36 +135,32 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
         });
 
         if (verificationResponse?.signature) {
-          try {
-            /**
-             * Note: We will only move past the validatePendingWallet action
-             * when the signed message is decrypted to match the address
-             * matching the pending wallet.
-             *
-             * In the event that the following fails (throws an error due to
-             * mismatched addresses) we will set the error state for the
-             * signature modal and allow the user to try again.
-             */
-            dispatch(validatePendingWallet(verificationResponse.signature));
+          /**
+           * Note: We will only move past the validatePendingWallet action
+           * when the signed message is decrypted to match the address
+           * matching the pending wallet.
+           *
+           * In the event that the following fails (throws an error due to
+           * mismatched addresses) we will set the error state for the
+           * signature modal and allow the user to try again.
+           */
+          dispatch(validatePendingWallet(verificationResponse.signature));
 
-            // Clear our verification state
-            dispatch(clearSignatureState());
+          // Clear our verification state
+          dispatch(clearSignatureState());
 
-            // Close the modal.
-            handleCloseModal();
+          // Close the modal.
+          handleCloseModal();
 
-            // Return the verification response.
-            return verificationResponse;
-          } catch (error: any) {
-            /**
-             * Set the error in state, resulting in an updated UI state for
-             * the signature modal. The user can attempt to sign the message
-             * with the correct wallet again.
-             */
-            setError(error);
-          }
+          // Return the verification response.
+          return verificationResponse;
         }
       } catch (error: any) {
+        /**
+         * Set the error in state, resulting in an updated UI state for
+         * the signature modal. The user can attempt to sign the message
+         * with the correct wallet again.
+         */
         setError(error);
       }
     },
@@ -175,36 +207,6 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
       }, 500);
     },
   });
-
-  const handleGoBack = useCallback(() => {
-    if (route === ModalRoute.Signature) {
-      dispatch(clearSignatureState());
-      disconnect(pendingWallet?.address);
-      setConnectionStatus(ConnectionState.Connecting);
-      setHistory([]);
-      setRoute(ModalRoute.Connect);
-      return;
-    }
-
-    if (history.length) {
-      const newHistory = history.slice(0, history.length - 1);
-
-      /**
-       * If the new history contains more than one entry, we can
-       * use the last entry in the history array as our new screen.
-       * Otherwise, we go back to the first screen,
-       */
-      const newScreen = newHistory.length
-        ? newHistory[newHistory.length - 1]
-        : ModalRoute.Connect;
-
-      setHistory(newHistory);
-      setRoute(newScreen);
-      return;
-    }
-
-    return undefined;
-  }, [disconnect, dispatch, history, pendingWallet?.address, route]);
 
   const contextValue: ModalProviderValue = useMemo(() => {
     return {
