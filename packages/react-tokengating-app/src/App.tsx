@@ -113,7 +113,10 @@ export default function ({serverArguments}: AppProps) {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [requestWalletVerificationResponse?.verification?.message]);
+  }, [
+    requestWalletVerificationResponse?.verification?.message,
+    requestWalletVerificationResponse?.verification?.generatedAt,
+  ]);
 
   useEffect(() => {
     if (!isConnected) {
