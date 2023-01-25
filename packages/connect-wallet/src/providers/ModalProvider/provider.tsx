@@ -41,12 +41,14 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
   }, [setError]);
 
   const cleanupSignatureState = useCallback(() => {
+    if (route !== ModalRoute.Signature) {
+      return;
+    }
+
     dispatch(clearSignatureState());
     disconnect(pendingWallet?.address);
     clearError();
-    setHistory([]);
-    setRoute(ModalRoute.Connect);
-  }, [clearError, disconnect, dispatch, pendingWallet?.address]);
+  }, [clearError, disconnect, dispatch, pendingWallet?.address, route]);
 
   const handleNavigate = useCallback(
     (screenName: ModalRoute) => {
@@ -56,13 +58,11 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
     [history],
   );
 
-  const handleCloseModal = useCallback(() => {
-    if (route === ModalRoute.Signature) {
-      setActive(false);
-      cleanupSignatureState();
-      return;
-    }
-
+  /**
+   * Performs the basic close and reset functionality
+   * for the modal.
+   */
+  const resetModal = useCallback(() => {
     // Clear the pending connector
     if (pendingConnector || pendingWallet) {
       dispatch(setPendingConnector(undefined));
@@ -72,12 +72,23 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
     setActive(false);
     setHistory([]);
     setRoute(ModalRoute.Connect);
-  }, [cleanupSignatureState, dispatch, pendingConnector, pendingWallet, route]);
+  }, [dispatch, pendingConnector, pendingWallet]);
+
+  /**
+   * Runs the default close + reset functionality
+   * as well as the signature cleanup functionality.
+   *
+   * Signature cleanup should only be performed
+   * when the user dismisses the modal while signing or
+   * when pressing "Back" while signing.
+   */
+  const handleCloseModal = useCallback(() => {
+    resetModal();
+    cleanupSignatureState();
+  }, [cleanupSignatureState, resetModal]);
 
   const handleGoBack = useCallback(() => {
-    if (route === ModalRoute.Signature) {
-      return cleanupSignatureState();
-    }
+    cleanupSignatureState();
 
     if (history.length) {
       const newHistory = history.slice(0, history.length - 1);
@@ -94,7 +105,7 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
       setHistory(newHistory);
       setRoute(newScreen);
     }
-  }, [cleanupSignatureState, history, route]);
+  }, [cleanupSignatureState, history]);
 
   /**
    * ## requestSignature
@@ -150,7 +161,16 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
           dispatch(clearSignatureState());
 
           // Close the modal.
-          handleCloseModal();
+          /**
+           * Close the modal using `resetModal`.
+           *
+           * Signature cleanup should only be performed
+           * when the user dismisses the modal while signing or
+           * when pressing "Back" while signing, so we utilize
+           * resetModal here to ensure the wallet
+           * is not disconnected.
+           */
+          resetModal();
 
           // Return the verification response.
           return verificationResponse;
@@ -164,7 +184,7 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
         setError(error);
       }
     },
-    [active, dispatch, handleCloseModal, message, pendingWallet, signMessage],
+    [active, resetModal, dispatch, message, pendingWallet, signMessage],
   );
 
   const {connect} = useConnect({
