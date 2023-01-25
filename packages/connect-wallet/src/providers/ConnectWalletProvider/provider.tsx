@@ -4,7 +4,6 @@ import {RootProvider} from 'shared';
 
 import {I18nProvider} from '../I18nProvider';
 import {ModalProvider} from '../ModalProvider';
-import {SignatureProvider} from '../SignatureProvider';
 import store from '../../store/configureStore';
 import {ProviderProps} from '../../types/provider';
 
@@ -30,9 +29,9 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
       <I18nProvider>
         <RootProvider theme={theme}>
           <Provider store={store}>
-            <SignatureProvider requireSignature={requireSignature}>
-              <ModalProvider>{children}</ModalProvider>
-            </SignatureProvider>
+            <ModalProvider requireSignature={requireSignature}>
+              {children}
+            </ModalProvider>
           </Provider>
         </RootProvider>
       </I18nProvider>

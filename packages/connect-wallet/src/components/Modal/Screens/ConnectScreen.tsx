@@ -6,18 +6,17 @@ import {useAppDispatch} from '../../../hooks/useAppState';
 import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {setPendingConnector} from '../../../slices/walletSlice';
-import {ConnectArgs, Connector} from '../../../types/connector';
+import {Connector} from '../../../types/connector';
 import {getBrowserInfo} from '../../../utils/getBrowser';
 import {isInstalled} from '../../../utils/isInstalled';
 
 interface ConnectScreenProps {
-  connect: (args?: Partial<ConnectArgs>) => void;
   connectors: Connector[];
 }
 
-const ConnectScreen = ({connect, connectors}: ConnectScreenProps) => {
+const ConnectScreen = ({connectors}: ConnectScreenProps) => {
   const dispatch = useAppDispatch();
-  const {closeModal, navigation} = useModal();
+  const {closeModal, connect, navigation} = useModal();
   const {connectUsingWalletConnect} = useWalletConnectDeeplink();
 
   const {mobilePlatform} = getBrowserInfo();

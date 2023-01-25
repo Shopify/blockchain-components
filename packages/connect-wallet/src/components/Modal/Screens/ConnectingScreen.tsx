@@ -13,27 +13,24 @@ import {
   ConnectingWalletIcon,
   SheetContent,
 } from '../style';
-import {ConnectArgs} from '../../../types/connector';
 import {ConnectionState} from '../../../types/connectionState';
 import {getBrowserInfo} from '../../../utils/getBrowser';
 
-interface ConnectingScreenProps {
-  connect: (args?: Partial<ConnectArgs>) => void;
-  state: ConnectionState;
-}
-
-const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
+const ConnectingScreen = () => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {connector, qrCodeSupported} = useConnectorData({
     id: pendingConnector?.id,
   });
-  const {navigation} = useModal();
+  const {connect, connectionStatus, navigation} = useModal();
+  const {body, title} = useModalScreenContent(connectionStatus);
   const {t} = useTranslation('Screens');
 
-  const {mobilePlatform} = getBrowserInfo();
+  const errorStates = [ConnectionState.Failed, ConnectionState.Unavailable];
+  const tryAgainStates = [ConnectionState.Failed, ConnectionState.Rejected];
+  const isErrorState = errorStates.includes(connectionStatus);
+  const canTryAgain = tryAgainStates.includes(connectionStatus);
 
-  const canTryAgain =
-    state === ConnectionState.Failed || state === ConnectionState.Rejected;
+  const {mobilePlatform} = getBrowserInfo();
 
   const handleUseQRCode = useCallback(() => {
     navigation.navigate(ModalRoute.Scan);
@@ -50,8 +47,8 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
       <ButtonContainer>
         {canTryAgain ? (
           <Button
-            aria-label={t('Connecting.retry')}
-            label={t('Connecting.retry')}
+            aria-label={t('button.retry')}
+            label={t('button.retry')}
             onClick={() => connect({connector})}
           />
         ) : null}
@@ -78,10 +75,6 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
     t,
   ]);
 
-  const {body, title} = useModalScreenContent(state);
-  const isErrorState =
-    state === ConnectionState.Failed || state === ConnectionState.Unavailable;
-
   return (
     <SheetContent rowGap="24px">
       <ConnectingWalletIcon>
@@ -98,7 +91,7 @@ const ConnectingScreen = ({connect, state}: ConnectingScreenProps) => {
         </Text>
       </Center>
 
-      {state === ConnectionState.Connecting &&
+      {connectionStatus === ConnectionState.Connecting &&
       pendingConnector?.name !== 'WalletConnect' ? (
         <Spinner />
       ) : (

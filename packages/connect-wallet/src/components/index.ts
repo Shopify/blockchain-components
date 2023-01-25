@@ -1,1 +1,1 @@
-export {Modal, SignatureModal} from './Modal';
+export {Modal} from './Modal';

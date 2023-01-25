@@ -1,11 +1,21 @@
 {
   "Connecting": {
-    "qrCode": "Use QR Code",
-    "retry": "Retry"
+    "qrCode": "Use QR Code"
   },
   "Scan": {
     "getProduct": "Get {{connectorName}}",
     "wcButton": "Use WalletConnect modal"
+  },
+  "Signature": {
+    "heading": {
+      "cancelled": "Request cancelled",
+      "error": "Couldn’t confirm",
+      "default": "Requesting signature"
+    },
+    "subtitle": {
+      "default": "Sign message in {{connectorName}}.",
+      "error": "There was an issue confirming your wallet."
+    }
   },
   "WhatAreWallets": {
     "home": {
@@ -21,5 +31,8 @@
       "title": "Your key to web3 commerce"
     },
     "button": "Get a Wallet"
+  },
+  "button": {
+    "retry": "Retry"
   }
 }

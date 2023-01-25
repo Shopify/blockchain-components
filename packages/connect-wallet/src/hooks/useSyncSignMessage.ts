@@ -9,7 +9,7 @@ import {
 
 export function useSyncSignMessage(): UseWalletResponse {
   const {isConnecting} = useAccount();
-  const {error, isLoading, signMessageAsync} = useSignMessage();
+  const {isLoading, signMessageAsync} = useSignMessage();
 
   const signMessage = useCallback(
     async ({address, message}: SignMessageProps) => {
@@ -23,15 +23,13 @@ export function useSyncSignMessage(): UseWalletResponse {
         };
 
         return response;
-      } catch (caughtError) {
+      } catch (error) {
         // If the error was returned by the use sign message hook then return that.
         // We should probably add some more verbose error handling in here as well.
-        const finalError =
-          error || caughtError || new Error('Verification process failed.');
-        throw finalError;
+        throw error || new Error('Verification process failed.');
       }
     },
-    [error, signMessageAsync],
+    [signMessageAsync],
   );
 
   return {

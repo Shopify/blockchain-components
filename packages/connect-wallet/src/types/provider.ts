@@ -3,12 +3,12 @@ import {ThemeProps} from 'shared';
 
 import {Wallet} from './wallet';
 
-export interface SignatureProviderProps {
+export interface ModalProviderProps {
   requireSignature?: boolean;
 }
 
 export type ProviderProps = ThemeProps &
-  SignatureProviderProps & {
+  ModalProviderProps & {
     chains: Chain[];
     wallet?: Wallet;
   };
