@@ -110,6 +110,7 @@ export const Wrapper = styled.span<{
   variant: Variant;
   $bold?: boolean;
 }>`
+  letter-spacing: 0;
   ${({color}) => ColorMappedToCSS[color]};
   ${({variant}) => VariantMappedToCSS[variant]};
 `;
