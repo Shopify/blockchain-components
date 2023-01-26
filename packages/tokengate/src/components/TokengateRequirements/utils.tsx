@@ -1,3 +1,5 @@
+import {formatWalletAddress} from 'shared';
+
 import {TokenListProps} from '../TokenList';
 import {Requirements, Condition, UnlockingToken} from '../../types';
 
@@ -28,7 +30,9 @@ export const mapRequirementsToTokenListProps = ({
     }
 
     return {
-      title: condition.name,
+      title:
+        condition.name ??
+        `contract ${formatWalletAddress(condition.collectionAddress)}`,
       subtitle: t('conditionDescription.any'),
       imageUrl: condition.imageUrl,
       badge,

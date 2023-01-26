@@ -36,5 +36,6 @@ export const TokenBaseText = styled.div`
 
   p {
     margin: unset;
+    text-transform: capitalize;
   }
 `;
