@@ -1,0 +1,183 @@
+---
+id: tokengate
+title: Tokengate
+sidebar_position: 3
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+export const stories = [
+  'discount-locked--locked',
+  'discount-locked--sold-out',
+  'discount-locked--start-date',
+  'discount-locked--no-eligible-token',
+  'discount-unlocked--no-order-limit',
+  'discount-unlocked--order-limit',
+  'discount-unlocked--order-limit-reached',
+  'exclusive-locked--locked',
+  'exclusive-locked--sold-out',
+  'exclusive-locked--start-date',
+  'exclusive-locked--no-eligible-token',
+  'exclusive-unlocked--no-order-limit',
+  'exclusive-unlocked--order-limit',
+  'exclusive-unlocked--order-limit-reached',
+];
+
+export const getTabTitleFromStory = (story) => story.replaceAll('-', ' ');
+
+export const StorybookTabs = () => (
+  <Tabs>
+    {stories.map((story) => (
+      <TabItem value={story} label={getTabTitleFromStory(story)} default>
+        <iframe
+          title="locked-without-wallet"
+          src={`https://main--639b1f308693132693d9b82c.chromatic.com/iframe.html?path=/story/tokengate-${story}`}
+          width="400"
+          height="400"
+        />
+      </TabItem>
+    ))}
+  </Tabs>
+);
+
+## Description
+
+The `tokengate` component presents the gate requirements to unlock a reaction, and eligibility status based on the connected wallet.
+
+<StorybookTabs />
+
+[View in Storybook](https://main--639b1f308693132693d9b82c.chromatic.com/?path=/story/tokengate-discount-locked--locked)
+
+## Code example
+
+```typescript
+import {
+  Tokengate,
+  Requirements,
+  Reaction,
+  UnlockingToken,
+} from '@shopify/tokengate';
+
+function TokengateCardExample() {
+  return (
+    <Tokengate
+      isLocked
+      isConnected
+      connectButton={<button>Connect wallet</button>}
+      requirements={getMockRequirements()}
+      reaction={getMockReaction()}
+      unlockingTokens={getMockUnlockingTokens()}
+    />
+  );
+}
+
+const getMockRequirements = (): Requirements => ({
+  logic: 'ANY' as const,
+  conditions: [
+    {
+      name: 'CommerceTown',
+      collectionAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
+      imageUrl:
+        'https://i.seadn.io/gae/Ywa40DYuhA_QIsok7A8wOhHS8RXn_j0MVh_pqabfO_USbZzoViHh82ucJk35b2QlEqHRttU32F_0NvRZBxhaVzP4UgyUNEPzuEi2?auto=format&w=384',
+    },
+    {
+      name: 'Squaddy',
+      collectionAddress: '0x33023E456aF4C186A32c57f8ad61c34cB33f5cC1',
+      imageUrl:
+        'https://i.seadn.io/gae/QM_-oRsm9DoB2GQ9iuMbJtdWaVJjrOwIkEVEjdPHdsSWTilWIfNOPgKSD502tv9NMTOCSP9kQve8b8h_jQahzs3a4EVH11Ck0l9iKw?auto=format&w=384',
+    },
+  ],
+});
+
+const getMockReaction = (): Reaction => ({
+  type: 'exclusive_access' as const,
+});
+
+const getMockUnlockingTokens = (): UnlockingToken[] => [
+  {
+    token: {
+      contractAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
+      contractName: 'CommerceTown',
+      mediaUrl:
+        'https://i.seadn.io/gae/k9HIMmZMIpgCM0PpaJJo3Lp1rzLKHgYBqehzihsFJ1EgP_xZVDCrqjVQJJyfkX0_HaFxf0IQgO8Ws-5lkqlIhCnh_cBlzOqa1xeVww?auto=format&w=1000',
+      title: 'Townfolk #103',
+    },
+  },
+  {
+    token: {
+      contractAddress: '0x33023E456aF4C186A32c57f8ad61c34cB33f5cC1',
+      contractName: 'Squaddy',
+      mediaUrl:
+        'https://lh3.googleusercontent.com/ccbUlfwRAjrGj3OBdKI9mJL0sQqBc8kXloSrk-9dOuOmIbhGqMwCpAZp_kpqsFK-0s3SqOjb7qi-8Jo7kEhmxZ_gSub9MphvrHKwBA=w650',
+      title: 'Squaddy #24',
+    },
+  },
+];
+```
+
+## Props
+
+| Interface TokengateProps | Type                                   | Description                                                                                                                                                                  |
+| ------------------------ | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isConnected`            | `boolean`                              | Set if a wallet is connected.                                                                                                                                                |
+| `isLocked?`              | `boolean`                              | Set if connected wallet contains the required tokens. If `undefined`, logic is determined internally by comparing the contract addresses of conditions and unlocking tokens. |
+| `isLoading?`             | `boolean`                              | Display loading state.                                                                                                                                                       |
+| `isSoldOut?`             | `boolean`                              | Displays sold-out state and prompts users to check back later for stock updates.                                                                                             |
+| `connectButton`          | `React.ReactNode`                      | CTA when no wallet is connected. It should trigger the connect wallet flow.                                                                                                  |
+| `connectedButton?`       | `React.ReactNode`                      | CTA when the wallet is connected. If undefined, the `connectButton` is used.                                                                                                 |
+| `requirements?`          | [`Requirements`](#requirements)        | Requirements to unlock a reaction.                                                                                                                                           |
+| `reaction?`              | [`Reaction`](#reaction)                | Reaction applied when the requirements are met. The default reaction type is `exclusive`.                                                                                    |
+| `unlockingTokens?`       | [`UnlockingToken`](#unlocking-token)[] | Array of eligible tokens in the user's connected wallet.                                                                                                                     |
+| `active?`                | [`Active`](#active)                    | Period of time in which the gate is active.                                                                                                                                  |
+| `redemptionLimit?`       | [`RedemptionLimit`](#redemption-limit) | Information related to the redemption limit of the reaction.                                                                                                                 |
+| `exclusiveCustomTitles`  | [`CustomTitles`](#custom-titles)       | Custom titles applied to gate for exclusive reactions.                                                                                                                       |
+| `discountCustomTitles`   | [`CustomTitles`](#custom-titles)       | Custom titles applied to gate for discount access reactions.                                                                                                                 |
+
+### Requirements
+
+| Interface Requirements | Type                        | Description                                                      |
+| ---------------------- | --------------------------- | ---------------------------------------------------------------- |
+| `logic`                | `'ANY'` \| `'ALL'`          | Logic that is applied to the conditions.                         |
+| `conditions`           | [`Condition`](#condition)[] | Array of conditions that need to exist to meet the requirements. |
+
+### Condition
+
+| Interface Reaction  | Type     | Description                                                |
+| ------------------- | -------- | ---------------------------------------------------------- |
+| `type`              | `string` | Name that wants to be displayed for the condition.         |
+| `imageUrl?`         | `string` | URL of the image that will be displayed for the condition. |
+| `collectionAddress` | `string` | Address of the collection related to the condition.        |
+
+### Reaction
+
+| Interface Condition | Type                                               | Description                                         |
+| ------------------- | -------------------------------------------------- | --------------------------------------------------- |
+| `name?`             | `'exclusive_access'` \| `'discount'`               | Reaction type, defaults to `exclusive_access`       |
+| `discount?`         | `{type: 'percentage' \| 'amount'; value: number;}` | Additional information for the `discount` reaction. |
+
+### Unlocking Token
+
+| Interface UnlockingToken | Type     | Description                                                     |
+| ------------------------ | -------- | --------------------------------------------------------------- |
+| `name`                   | `string` | Name of the unlocking token.                                    |
+| `imageUrl`               | `string` | URL of the image of the unlocking token.                        |
+| `collectionName`         | `string` | Name of the collection that the unlocking token corresponds to. |
+| `collectionAddress`      | `string` | Address of the collection of the unlocking token.               |
+
+### Custom Titles
+
+| Interface CustomTitles                 | Type     | Description                                                                      |
+| -------------------------------------- | -------- | -------------------------------------------------------------------------------- |
+| `lockedTitle?`                         | `string` | Custom title for the locked state of the gate.                                   |
+| `lockedSubtitle?`                      | `string` | Custom subtitle for the locked state of the gate.                                |
+| `unlockedTitle?`                       | `string` | Custom title for the unlocked state of the gate.                                 |
+| `unlockedSubtitle?`                    | `string` | Custom subtitle for the unlocked state of the gate.                              |
+| `unlockedSubtitleWithRedemptionLimit?` | `string` | Custom subtitle for the unlocked state of the gate when redemption limits exist. |
+
+### Redemption limit
+
+| Interface RedemptionLimit | Type     | Description                                                                        |
+| ------------------------- | -------- | ---------------------------------------------------------------------------------- |
+| `total`                   | `number` | Total amount of reactions that can be redeemed with the existing unlocking tokens. |
+| `perToken`                | `number` | Redemption limit per token.                                                        |

@@ -9,25 +9,19 @@ export enum UnlockingTokenFixtureType {
 }
 
 const CommerceTownProps = {
-  token: {
-    contractAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
-    contractName: 'CommerceTown',
-    mediaUrl:
-      'https://i.seadn.io/gae/k9HIMmZMIpgCM0PpaJJo3Lp1rzLKHgYBqehzihsFJ1EgP_xZVDCrqjVQJJyfkX0_HaFxf0IQgO8Ws-5lkqlIhCnh_cBlzOqa1xeVww?auto=format&w=1000',
-    title: 'Townfolk #103',
-    tokenId: '103',
-  },
+  collectionAddress: '0x495f947276749Ce646f68AC8c248420045cb7b5e',
+  collectionName: 'CommerceTown',
+  imageUrl:
+    'https://i.seadn.io/gae/k9HIMmZMIpgCM0PpaJJo3Lp1rzLKHgYBqehzihsFJ1EgP_xZVDCrqjVQJJyfkX0_HaFxf0IQgO8Ws-5lkqlIhCnh_cBlzOqa1xeVww?auto=format&w=1000',
+  name: 'Townfolk #103',
 };
 
 const SquaddyProps = {
-  token: {
-    contractAddress: '0x33023E456aF4C186A32c57f8ad61c34cB33f5cC1',
-    contractName: 'Squad',
-    mediaUrl:
-      'https://lh3.googleusercontent.com/ccbUlfwRAjrGj3OBdKI9mJL0sQqBc8kXloSrk-9dOuOmIbhGqMwCpAZp_kpqsFK-0s3SqOjb7qi-8Jo7kEhmxZ_gSub9MphvrHKwBA=w650',
-    title: 'Squaddy #24',
-    tokenId: '24',
-  },
+  collectionAddress: '0x33023E456aF4C186A32c57f8ad61c34cB33f5cC1',
+  collectionName: 'Squad',
+  imageUrl:
+    'https://lh3.googleusercontent.com/ccbUlfwRAjrGj3OBdKI9mJL0sQqBc8kXloSrk-9dOuOmIbhGqMwCpAZp_kpqsFK-0s3SqOjb7qi-8Jo7kEhmxZ_gSub9MphvrHKwBA=w650',
+  name: 'Squaddy #24',
 };
 
 export const UnlockingTokenFixture = (
@@ -48,9 +42,7 @@ export const UnlockingTokenWithOrderLimitFixture = (
   UnlockingTokenFixture(
     deepMerge(
       {
-        token: {
-          consumedOrderLimit: 0,
-        },
+        consumedRedemptionLimit: 0,
       },
       customProps ?? {},
     ),
@@ -64,9 +56,7 @@ export const UnlockingTokenWithOrderLimitMetFixture = (
   UnlockingTokenFixture(
     deepMerge(
       {
-        token: {
-          consumedOrderLimit: 2,
-        },
+        consumedRedemptionLimit: 2,
       },
       customProps ?? {},
     ),
