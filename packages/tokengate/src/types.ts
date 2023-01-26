@@ -2,8 +2,8 @@ import {ReactNode} from 'react';
 import {ThemeProps} from 'shared';
 
 export interface Condition {
-  name: string;
-  imageUrl: string;
+  name?: string;
+  imageUrl?: string;
   collectionAddress: string;
 }
 
