@@ -17,5 +17,3 @@ const walletPersist = {
 export const rootReducer = combineReducers<AppState>({
   wallet: persistReducer(walletPersist, walletSlice.reducer),
 });
-
-export type RootState = ReturnType<typeof rootReducer>;
