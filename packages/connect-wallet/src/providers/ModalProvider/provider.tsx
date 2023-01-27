@@ -1,5 +1,5 @@
 import {PropsWithChildren, useCallback, useMemo, useState} from 'react';
-import {useConnect} from 'wagmi';
+import {useAccount, useConnect} from 'wagmi';
 
 import {Modal} from '../../components';
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
@@ -14,6 +14,7 @@ import {
 } from '../../slices/walletSlice';
 import {ConnectionState} from '../../types/connectionState';
 import {ModalProviderProps} from '../../types/provider';
+import {Wallet} from '../../types/wallet';
 
 import {ModalRoute, ModalContext, ModalProviderValue} from './context';
 
@@ -22,11 +23,54 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
   requireSignature,
 }) => {
   const dispatch = useAppDispatch();
-  const {message, pendingConnector, pendingWallet} = useAppSelector(
-    (state) => state.wallet,
-  );
+  const {connectedWallets, message, pendingConnector, pendingWallet} =
+    useAppSelector((state) => state.wallet);
   const {disconnect} = useDisconnect();
   const {signing, signMessage} = useSyncSignMessage();
+
+  useAccount({
+    onConnect: ({address, connector, isReconnected}) => {
+      if (!address) {
+        return;
+      }
+
+      /**
+       * Wagmi makes use of isReconnected to rehydrate the client.
+       * Check to see if this wallet needs to be verified
+       */
+      if (requireSignature) {
+        const reconnectedWallet = connectedWallets.find(
+          (wallet) => wallet.address === address && wallet.signed,
+        );
+
+        /**
+         * We should only continue forward if we are not reconnecting
+         * a wallet that has already completely connected via signing.
+         */
+        if (isReconnected && reconnectedWallet) {
+          return;
+        }
+
+        /**
+         * Check to ensure we have connector data before proceeding.
+         *
+         * We need connector here because of Coinbase Wallet and MetaMask.
+         */
+        if (!pendingConnector && !connector) {
+          return;
+        }
+
+        const wallet: Wallet = {
+          address,
+          connectorId: pendingConnector?.id || connector?.id,
+          connectorName: pendingConnector?.name || connector?.name,
+          signed: false,
+        };
+
+        dispatch(setPendingWallet(wallet));
+      }
+    },
+  });
 
   const [active, setActive] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<ConnectionState>(
