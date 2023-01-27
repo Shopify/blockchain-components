@@ -13,13 +13,11 @@ export interface Requirements {
 }
 
 export interface UnlockingToken {
-  token: {
-    title: string;
-    mediaUrl: string;
-    contractName: string;
-    contractAddress: string;
-    consumedOrderLimit?: number;
-  };
+  name: string;
+  imageUrl: string;
+  collectionName: string;
+  collectionAddress: string;
+  consumedRedemptionLimit?: number;
 }
 
 export interface CustomTitles {
@@ -27,7 +25,7 @@ export interface CustomTitles {
   lockedSubtitle?: string;
   unlockedTitle?: string;
   unlockedSubtitle?: string;
-  unlockedSubtitleWithOrderLimit?: string;
+  unlockedSubtitleWithRedemptionLimit?: string;
 }
 
 export interface RedemptionLimit {

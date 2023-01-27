@@ -37,7 +37,15 @@ export interface CheckIfWalletMeetsRequirementsEvent extends EventBusEvent {
   };
   response: {
     isUnlocked: boolean;
-    unlockingTokens: UnlockingToken[];
+    unlockingTokens: {
+      token: {
+        title: string;
+        mediaUrl: string;
+        contractName: string;
+        contractAddress: string;
+        consumedOrderLimit?: number;
+      };
+    }[];
   };
 }
 

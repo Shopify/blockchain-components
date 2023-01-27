@@ -1,5 +1,9 @@
 import {ConnectButton, Wallet, useConnectWallet} from '@shopify/connect-wallet';
-import {Tokengate, UnlockingToken, adaptRequirements} from '@shopify/tokengate';
+import {
+  Tokengate,
+  adaptRequirements,
+  adaptUnlockingTokens,
+} from '@shopify/tokengate';
 import {useEffect, useState} from 'react';
 
 import './DawnVariables.css';
@@ -25,7 +29,15 @@ interface AppProps {
           contractAddress: string;
         }[];
       };
-      unlockingTokens?: UnlockingToken[];
+      unlockingTokens?: {
+        token: {
+          title: string;
+          mediaUrl: string;
+          contractName: string;
+          contractAddress: string;
+          consumedOrderLimit?: number;
+        };
+      }[];
       wallet?: Wallet;
     };
     setupEventBus: (eventBus: any) => void;
@@ -144,7 +156,9 @@ export default function ({serverArguments}: AppProps) {
       requirements={adaptRequirements(
         serverArguments?.initialState.gateRequirement,
       )}
-      unlockingTokens={checkIfWalletMeetsRequirementsResponse?.unlockingTokens}
+      unlockingTokens={adaptUnlockingTokens(
+        checkIfWalletMeetsRequirementsResponse?.unlockingTokens,
+      )}
     />
   );
 

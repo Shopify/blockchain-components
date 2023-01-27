@@ -108,7 +108,7 @@ export const useTitleAndSubtitle = (props: TokengateProps) => {
     lockedSubtitle,
     unlockedTitle,
     unlockedSubtitle,
-    unlockedSubtitleWithOrderLimit,
+    unlockedSubtitleWithRedemptionLimit,
   } = customTitles ?? {};
 
   const customTitle = isLocked ? lockedTitle : unlockedTitle;
@@ -128,7 +128,7 @@ export const useTitleAndSubtitle = (props: TokengateProps) => {
 
   if (hasRedemption && !isLocked) {
     subtitle =
-      unlockedSubtitleWithOrderLimit ||
+      unlockedSubtitleWithRedemptionLimit ||
       translateTokengateI18n('subtitleWithOrderLimit', {
         orderLimit: redemptionLimit.total,
       });
@@ -144,9 +144,9 @@ const getCombinedConsumedOrderLimit = ({unlockingTokens}: TokengateProps) => {
   const initialValue = 0;
   const combinedConsumedOrderLimit = unlockingTokens?.reduce(
     (accumulator: number, unlockingToken: UnlockingToken) => {
-      if (!unlockingToken.token.consumedOrderLimit) return accumulator;
+      if (!unlockingToken.consumedRedemptionLimit) return accumulator;
 
-      return accumulator + unlockingToken.token.consumedOrderLimit;
+      return accumulator + unlockingToken.consumedRedemptionLimit;
     },
     initialValue,
   );

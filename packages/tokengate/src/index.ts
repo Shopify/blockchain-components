@@ -4,6 +4,7 @@ import {Dawn, Default, Theme} from 'shared';
  * Adaptors
  */
 export {adaptRequirements} from './utils/adapters/requirements';
+export {adaptUnlockingTokens} from './utils/adapters/unlockingTokens';
 
 /**
  * Providers
