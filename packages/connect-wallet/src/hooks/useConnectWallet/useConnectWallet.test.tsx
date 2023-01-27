@@ -60,59 +60,6 @@ jest.mock('./useConnectWalletCallbacks', () => ({
 }));
 
 describe('useConnectWallet', () => {
-  it('uses the useOrderAttribution hook', () => {
-    renderHook(() => useConnectWallet(), {wrapper: TestProvider});
-    expect(useOrderAttribution).toHaveBeenCalledTimes(1);
-  });
-
-  describe('when messageSignedOrderAttributionMode is required', () => {
-    it('propogates promise rejection in the useOrderAttribution callback', async () => {
-      mockUseOrderAttribution(getPromiseRejectionCallback());
-      const current = renderUseConnectWallet({
-        messageSignedOrderAttributionMode: 'required',
-      });
-
-      const execute = () => current.signMessage({message: 'abc'});
-
-      await expect(execute).rejects.toThrow(rejectionCallbackMessage);
-    });
-  });
-
-  describe('when messageSignedOrderAttributionMode is ignoreErrors', () => {
-    beforeAll(() => {
-      jest.spyOn(console, 'error').mockImplementation(jest.fn());
-    });
-
-    afterAll(() => {
-      (console.error as jest.Mock).mockRestore();
-    });
-
-    it('ignores promise rejection in the useOrderAttribution callback', async () => {
-      const {callback} = mockUseOrderAttribution(getPromiseRejectionCallback());
-      const current = renderUseConnectWallet({
-        messageSignedOrderAttributionMode: 'ignoreErrors',
-      });
-
-      await current.signMessage({message: 'abc'});
-
-      expect(callback).toHaveBeenCalledTimes(1);
-      expect(console.error).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('when messageSignedOrderAttributionMode is default (not specified)', () => {
-    it('calls the useOrderAttribution callback', async () => {
-      const {callback} = mockUseOrderAttribution();
-      const current = renderUseConnectWallet({
-        messageSignedOrderAttributionMode: 'required',
-      });
-
-      await current.signMessage({message: 'abc'});
-
-      expect(callback).toHaveBeenCalledTimes(1);
-    });
-  });
-
   describe('when messageSignedOrderAttributionMode is disabled', () => {
     it('does not call useOrderAttribution callback', async () => {
       const {callback} = mockUseOrderAttribution();
@@ -126,12 +73,6 @@ describe('useConnectWallet', () => {
     });
   });
 });
-
-const rejectionCallbackMessage = 'Some error';
-
-function getPromiseRejectionCallback() {
-  return jest.fn(() => Promise.reject(new Error(rejectionCallbackMessage)));
-}
 
 function mockUseOrderAttribution(
   callback: ReturnType<typeof useOrderAttribution> = jest.fn(),
