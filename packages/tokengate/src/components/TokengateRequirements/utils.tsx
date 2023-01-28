@@ -49,5 +49,5 @@ export const findUnlockingTokenForCondition = ({
 }) =>
   unlockingTokens?.find(
     (unlockingToken) =>
-      unlockingToken.token.contractAddress === condition.collectionAddress,
+      unlockingToken.collectionAddress === condition.collectionAddress,
   );

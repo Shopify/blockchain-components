@@ -11,14 +11,14 @@ export const mapUnlockingTokensToTokenListProps = ({
   redemptionLimit?: RedemptionLimit;
 }): TokenListProps['tokens'] =>
   unlockingTokens?.map((unlockingToken) => ({
-    title: unlockingToken.token.title,
-    subtitle: unlockingToken.token.contractName,
-    imageUrl: unlockingToken.token.mediaUrl,
-    consumedOrderLimit: unlockingToken.token.consumedOrderLimit,
+    title: unlockingToken.name,
+    subtitle: unlockingToken.collectionName,
+    imageUrl: unlockingToken.imageUrl,
+    consumedOrderLimit: unlockingToken.consumedRedemptionLimit,
     totalOrderLimit: redemptionLimit?.total,
     rightContent: (
       <OrderLimit
-        consumedOrderLimit={unlockingToken.token.consumedOrderLimit}
+        consumedOrderLimit={unlockingToken.consumedRedemptionLimit}
         limitPerToken={redemptionLimit?.perToken}
       />
     ),
