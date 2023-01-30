@@ -3,10 +3,8 @@
   "description": "A loosely related set of components for blockchain functionality on Shopify storefronts",
   "scripts": {
     "build": "turbo run build",
-    "build-docs": "yarn --cwd docusaurus build",
     "build-storybook": "build-storybook",
     "dev": "turbo run dev",
-    "docs": "yarn --cwd docusaurus start",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "typecheck": "turbo run typecheck",
@@ -25,7 +23,6 @@
   "homepage": "https://github.com/Shopify/blockchain-components#readme",
   "private": true,
   "workspaces": [
-    "docusaurus",
     "packages/*"
   ],
   "prettier": "@shopify/prettier-config",

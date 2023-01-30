@@ -18,7 +18,6 @@ dist
 
 # misc
 .DS_Store
-.docusaurus
 .cache-loader
 .env.local
 .env.development.local
