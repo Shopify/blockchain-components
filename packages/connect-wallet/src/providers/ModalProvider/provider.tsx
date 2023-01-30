@@ -1,6 +1,7 @@
 import {
   PropsWithChildren,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useState,
@@ -8,6 +9,7 @@ import {
 import {useAccount, useConnect} from 'wagmi';
 
 import {Modal} from '../../components';
+import {ConnectWalletContext} from '../ConnectWalletProvider';
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
 import {useDisconnect} from '../../hooks/useDisconnect';
 import {useSyncSignMessage} from '../../hooks/useSyncSignMessage';
@@ -19,20 +21,17 @@ import {
 } from '../../slices/walletSlice';
 import {addListener} from '../../store/listenerMiddleware';
 import {ConnectionState} from '../../types/connectionState';
-import {ModalProviderProps} from '../../types/provider';
 import {Wallet} from '../../types/wallet';
 import {ConnectWalletError} from '../../utils/error';
 
 import {ModalRoute, ModalContext, ModalProviderValue} from './context';
 
-export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
-  children,
-  requireSignature,
-}) => {
+export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
   const dispatch = useAppDispatch();
   const {connectedWallets, pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
+  const {requireSignature} = useContext(ConnectWalletContext);
   const {disconnect} = useDisconnect();
   const {signing, signMessage} = useSyncSignMessage();
 
@@ -302,7 +301,6 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
       },
       openModal: () => setActive(true),
       requestSignature,
-      requireSignature,
       signing,
     };
   }, [
@@ -315,7 +313,6 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
     handleGoBack,
     handleNavigate,
     requestSignature,
-    requireSignature,
     route,
     signing,
   ]);

@@ -164,6 +164,8 @@ export const walletSlice = createSlice({
       }
 
       const {message, signature} = action.meta.arg;
+      const siweMessage = new SiweMessage(JSON.parse(message));
+      const signedMessage = siweMessage.prepareMessage();
 
       /**
        * Make a copy of the pending wallet to ensure we maintain access to required
@@ -172,7 +174,7 @@ export const walletSlice = createSlice({
       const pendingWallet = {...state.pendingWallet};
       const newWallet: Wallet = {
         ...pendingWallet,
-        message,
+        message: signedMessage,
         signature,
         signedOn: new Date().toISOString(),
       };

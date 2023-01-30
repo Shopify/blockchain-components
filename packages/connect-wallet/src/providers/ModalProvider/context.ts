@@ -28,7 +28,6 @@ export interface ModalProviderValue {
   };
   openModal: () => void;
   requestSignature: (wallet: Wallet) => Promise<SignatureResponse>;
-  requireSignature?: boolean;
   signing?: boolean;
 }
 

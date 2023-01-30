@@ -40,6 +40,9 @@ window.gmShop = {
           <WagmiConfig client={client}>
             <ConnectWalletProvider
               chains={chains}
+              statementGenerator={({address}) =>
+                Promise.resolve(`Welcome to CommerceTown, ${address}`)
+              }
               wallet={this.arguments?.initialState?.wallet || undefined}
             >
               <App

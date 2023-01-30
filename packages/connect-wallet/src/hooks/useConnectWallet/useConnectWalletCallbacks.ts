@@ -1,7 +1,7 @@
 import {useCallback, useContext, useEffect} from 'react';
 import {useAccount} from 'wagmi';
 
-import {ModalContext} from '../../providers/ModalProvider';
+import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
 import {
   addWallet,
   removeWallet,
@@ -18,7 +18,7 @@ import {useConnectWalletProps} from './types';
 export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
   const {messageSignedOrderAttributionMode, onConnect, onDisconnect} =
     props || {};
-  const {requireSignature} = useContext(ModalContext);
+  const {requireSignature} = useContext(ConnectWalletContext);
   const dispatch = useAppDispatch();
   const attributeOrder = useOrderAttribution();
 

@@ -10,20 +10,20 @@ import {ProviderProps} from '../../types/provider';
 
 import {ConnectWalletContext, ConnectWalletProviderValue} from './context';
 
-export {ConnectWalletContext};
-export type {ConnectWalletProviderValue};
-
 export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,
   children,
-  theme,
   requireSignature = true,
+  statementGenerator,
+  theme,
 }: PropsWithChildren<ProviderProps>) => {
-  const contextValue = useMemo(() => {
+  const contextValue: ConnectWalletProviderValue = useMemo(() => {
     return {
       chains,
+      requireSignature,
+      statementGenerator,
     };
-  }, [chains]);
+  }, [chains, requireSignature, statementGenerator]);
 
   return (
     <ConnectWalletContext.Provider value={contextValue}>
@@ -31,9 +31,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
         <RootProvider theme={theme}>
           <MotionConfig reducedMotion="user">
             <Provider store={store}>
-              <ModalProvider requireSignature={requireSignature}>
-                {children}
-              </ModalProvider>
+              <ModalProvider>{children}</ModalProvider>
             </Provider>
           </MotionConfig>
         </RootProvider>
