@@ -1,3 +1,5 @@
+import {SiweMessage} from 'siwe';
+
 import {SerializedConnector} from '../types/connector';
 import {Wallet} from '../types/wallet';
 
@@ -17,7 +19,7 @@ const {
 const {getInitialState, reducer} = walletSlice;
 
 const DEFAULT_WALLET: Wallet = {
-  address: '0x14791697260E4c9A71f18484C9f997B308e59325',
+  address: '0xc223594946c60217Ed53096eEC6C179964e536EB',
   connectorId: 'metaMask',
   connectorName: 'MetaMask',
   signed: false,
@@ -64,7 +66,7 @@ describe('walletSlice', () => {
       const existingState = {
         ...initialState,
         message:
-          'Verification message for 0x14791697260E4c9A71f18484C9f997B308e59325',
+          'Verification message for 0xc223594946c60217Ed53096eEC6C179964e536EB',
         pendingConnector: DEFAULT_SERIALIZED_CONNECTOR,
         pendingWallet: {...DEFAULT_WALLET, signed: false},
       };
@@ -103,13 +105,13 @@ describe('walletSlice', () => {
         reducer(
           initialState,
           setMessage(
-            'Verification message for 0x14791697260E4c9A71f18484C9f997B308e59325',
+            'Verification message for 0xc223594946c60217Ed53096eEC6C179964e536EB',
           ),
         ),
       ).toStrictEqual({
         ...initialState,
         message:
-          'Verification message for 0x14791697260E4c9A71f18484C9f997B308e59325',
+          'Verification message for 0xc223594946c60217Ed53096eEC6C179964e536EB',
       });
     });
 
@@ -117,7 +119,7 @@ describe('walletSlice', () => {
       const existingState = {
         ...initialState,
         message:
-          'Verification message for 0x14791697260E4c9A71f18484C9f997B308e59325',
+          'Verification message for 0xc223594946c60217Ed53096eEC6C179964e536EB',
       };
 
       expect(reducer(existingState, setMessage())).toStrictEqual(initialState);
@@ -250,41 +252,48 @@ describe('walletSlice', () => {
   });
 
   describe('validatePendingWallet', () => {
-    it('does not manipulate state when state.message is undefined', () => {
-      const existingState = {
-        ...initialState,
-        pendingWallet: DEFAULT_WALLET,
-      };
+    const mockMessage = {
+      address: '0xc223594946c60217Ed53096eEC6C179964e536EB',
+      chainId: 1,
+      domain: 'localhost',
+      nonce: 'NAghkPB8sUBqz6s6W',
+      uri: 'http://localhost:5173',
+      version: '1',
+      issuedAt: '2023-01-30T16:24:40.222Z',
+    };
 
-      expect(
-        reducer(existingState, validatePendingWallet('signedMessage')),
-      ).toStrictEqual(existingState);
-    });
+    const message = new SiweMessage(mockMessage);
+    const validSignature =
+      '0x9ad835c2b18011cfb08798e856ab39b5d4595273c950fbc4f3b7703bbe7f7d026b556c0bff38829e686d9c495274aa2bde80bc06cfa97521b58f9ff9437d95b91b';
 
     it('does not manipulate state when state.pendingWallet is undefined', () => {
-      const existingState = {
-        ...initialState,
-        message: 'sign this!',
-      };
-
-      expect(
-        reducer(existingState, validatePendingWallet('signedMessage')),
-      ).toStrictEqual(existingState);
+      expect(() =>
+        reducer(
+          initialState,
+          validatePendingWallet({
+            ...DEFAULT_WALLET,
+            message: JSON.stringify(message),
+            signature: validSignature,
+          }),
+        ),
+      ).toThrow('Incomplete payload during signature validation');
     });
 
     it('does not manipulate state and throws an error when the address is not verified via ethers verifyMessage util', () => {
       const existingState = {
         ...initialState,
-        message: 'hello world',
         pendingWallet: DEFAULT_WALLET,
       };
 
       expect(() =>
         reducer(
           existingState,
-          validatePendingWallet(
-            '0x0aa04781e381e84b1494d00245b5232ed9106377f541256bb504b75a04a9d2be2e895e4aab9cae3af41344e43ae7d5885202b66b2fa29d4c4443871cfaa575671c',
-          ),
+          validatePendingWallet({
+            ...DEFAULT_WALLET,
+            message: JSON.stringify(message),
+            signature:
+              '0x0aa04781e381e84b1494d00245b5232ed9106377f541256bb504b75a04a9d2be2e895e4aab9cae3af41344e43ae7d5885202b66b2fa29d4c4443871cfaa575671c',
+          }),
         ),
       ).toThrow('Invalid signature');
     });
@@ -292,7 +301,6 @@ describe('walletSlice', () => {
     it('manipulates state when the address from verifyMessage matches the pendingWallet address', () => {
       const existingState = {
         ...initialState,
-        message: 'hello world',
         pendingWallet: DEFAULT_WALLET,
       };
 
@@ -300,12 +308,13 @@ describe('walletSlice', () => {
        * Dispatch the action to our state and grab connectedWallets
        * and pendingWallet.
        */
-      //
       const {connectedWallets} = reducer(
         existingState,
-        validatePendingWallet(
-          '0xddd0a7290af9526056b4e35a077b9a11b513aa0028ec6c9880948544508f3c63265e99e47ad31bb2cab9646c504576b3abc6939a1710afc08cbf3034d73214b81c',
-        ),
+        validatePendingWallet({
+          ...DEFAULT_WALLET,
+          message: JSON.stringify(message),
+          signature: validSignature,
+        }),
       );
 
       /**

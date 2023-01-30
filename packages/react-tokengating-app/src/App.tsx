@@ -10,7 +10,6 @@ import './DawnVariables.css';
 import {Preview} from './style';
 import {
   EventName,
-  RequestWalletVerificationMessageEvent,
   CheckIfWalletMeetsRequirementsEvent,
   DisconnectWalletEvent,
 } from './types/events';
@@ -57,16 +56,6 @@ export default function ({serverArguments}: AppProps) {
   const isDev = import.meta.env.DEV;
 
   const [
-    requestWalletVerification,
-    {
-      data: requestWalletVerificationResponse,
-      // status: requestWalletVerificationStatus,
-    },
-  ] = useLazyEventBus<RequestWalletVerificationMessageEvent>(
-    EventName.RequestWalletVerificationMessage,
-  );
-
-  const [
     checkIfWalletMeetsRequirements,
     {
       data: checkIfWalletMeetsRequirementsResponse,
@@ -80,52 +69,34 @@ export default function ({serverArguments}: AppProps) {
     EventName.DisconnectWallet,
   );
 
-  const {signMessage, isConnected} = useConnectWallet({
+  const {wallet, isConnected} = useConnectWallet({
     messageSignedOrderAttributionMode: 'ignoreErrors',
     onConnect: (response) => {
-      if (response?.address) {
-        /**
-         * If the wallet has already signed a message then check if the
-         * wallet satisfies the gate requirements.
-         */
-        if (response.signed) {
-          checkIfWalletMeetsRequirements({
-            address: response.address,
-            message: response.message,
-            signature: response.signature,
-          });
-          return;
-        }
-
-        requestWalletVerification({address: response.address});
-      }
+      // This is a good place to utilize toasts and inform the user
+      // that their connection was established as expected.
+      // eslint-disable-next-line no-console
+      console.info('Connected wallet', response?.address);
     },
     onDisconnect: () => {
       disconnectWallet({});
     },
     onMessageSigned: (response) => {
-      if (!response) return;
-
-      const {address, message, signature} = response;
-      checkIfWalletMeetsRequirements({
-        address,
-        message,
-        signature,
-      });
+      // This is a good place to utilize toasts and inform the user
+      // that their connection was established as expected.
+      // eslint-disable-next-line no-console
+      console.info('Signed with hash', response?.signature);
     },
   });
 
   useEffect(() => {
-    if (requestWalletVerificationResponse?.verification?.message) {
-      signMessage({
-        message: requestWalletVerificationResponse.verification.message,
+    if (wallet) {
+      checkIfWalletMeetsRequirements({
+        address: wallet.address,
+        message: wallet.message,
+        signature: wallet.signature,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    requestWalletVerificationResponse?.verification?.message,
-    requestWalletVerificationResponse?.verification?.generatedAt,
-  ]);
+  }, [checkIfWalletMeetsRequirements, wallet]);
 
   const _TokengateComponent = (
     <Tokengate

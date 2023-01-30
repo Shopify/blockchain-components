@@ -1,8 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {verifyMessage} from 'ethers/lib/utils';
+import {SiweMessage} from 'siwe';
 
 import {SerializedConnector} from '../types/connector';
-import {Wallet} from '../types/wallet';
+import {SignatureResponse, Wallet} from '../types/wallet';
+import {ConnectWalletError} from '../utils/error';
 
 export interface WalletSliceType {
   connectedWallets: Wallet[];
@@ -87,21 +89,31 @@ export const walletSlice = createSlice({
      * That is handled by clearSignatureState and should be dispatched as a
      * separate action.
      */
-    validatePendingWallet: (state, action: PayloadAction<string>) => {
+    validatePendingWallet: (
+      state,
+      action: PayloadAction<SignatureResponse>,
+    ) => {
       // Ensure that we have a message and a pending wallet in state.
-      if (!state.message || !state.pendingWallet) {
-        return;
+      if (!action.payload || !state.pendingWallet) {
+        throw new ConnectWalletError(
+          'Incomplete payload during signature validation',
+        );
       }
 
+      const {message, signature} = action.payload;
+      const validatorMessage = new SiweMessage(JSON.parse(message));
+
       // Make copies of everything we are utilizing.
-      const message = state.message;
       const pendingWallet = {...state.pendingWallet};
 
       /**
        * Utilize `verifyMessage` from ethers to recover the signer address
        * from the signature.
        */
-      const signerAddress = verifyMessage(message, action.payload);
+      const signerAddress = verifyMessage(
+        validatorMessage.prepareMessage(),
+        signature,
+      );
 
       /**
        * If the addresses are not the same, then we should return an
@@ -109,7 +121,7 @@ export const walletSlice = createSlice({
        */
 
       if (state.pendingWallet.address !== signerAddress) {
-        throw new Error('Invalid signature');
+        throw new ConnectWalletError('Invalid signature');
       }
 
       /**
@@ -130,7 +142,7 @@ export const walletSlice = createSlice({
           return {
             ...wallet,
             message,
-            signature: action.payload,
+            signature,
             signed: true,
             signedOn: new Date().toISOString(),
           };
@@ -139,7 +151,7 @@ export const walletSlice = createSlice({
         state.connectedWallets.push({
           ...pendingWallet,
           message,
-          signature: action.payload,
+          signature,
           signed: true,
           signedOn: new Date().toISOString(),
         });

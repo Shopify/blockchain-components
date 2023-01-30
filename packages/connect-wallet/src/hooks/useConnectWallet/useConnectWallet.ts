@@ -18,7 +18,7 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   const modalContext = useContext(ModalContext);
 
   const {chains} = connectWalletContext;
-  const {signMessage, signing} = modalContext;
+  const {signing} = modalContext;
 
   const {isDisconnected, isConnected} = useConnectWalletCallbacks({
     ...props,
@@ -36,7 +36,6 @@ export function useConnectWallet(props?: useConnectWalletProps) {
     disconnect,
     pendingConnector,
     signing,
-    signMessage,
     wallet: connectedWallets.length ? connectedWallets[0] : undefined,
   };
 }

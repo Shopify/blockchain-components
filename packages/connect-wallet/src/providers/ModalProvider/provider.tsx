@@ -1,4 +1,10 @@
-import {PropsWithChildren, useCallback, useMemo, useState} from 'react';
+import {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import {useAccount, useConnect} from 'wagmi';
 
 import {Modal} from '../../components';
@@ -7,14 +13,15 @@ import {useDisconnect} from '../../hooks/useDisconnect';
 import {useSyncSignMessage} from '../../hooks/useSyncSignMessage';
 import {
   clearSignatureState,
-  setMessage,
   setPendingConnector,
   setPendingWallet,
   validatePendingWallet,
 } from '../../slices/walletSlice';
+import {addListener} from '../../store/listenerMiddleware';
 import {ConnectionState} from '../../types/connectionState';
 import {ModalProviderProps} from '../../types/provider';
 import {Wallet} from '../../types/wallet';
+import {ConnectWalletError} from '../../utils/error';
 
 import {ModalRoute, ModalContext, ModalProviderValue} from './context';
 
@@ -23,8 +30,9 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
   requireSignature,
 }) => {
   const dispatch = useAppDispatch();
-  const {connectedWallets, message, pendingConnector, pendingWallet} =
-    useAppSelector((state) => state.wallet);
+  const {connectedWallets, pendingConnector, pendingWallet} = useAppSelector(
+    (state) => state.wallet,
+  );
   const {disconnect} = useDisconnect();
   const {signing, signMessage} = useSyncSignMessage();
 
@@ -161,20 +169,17 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
    * the signature request will fail.
    */
   const requestSignature = useCallback(
-    async (props?: {message?: string}) => {
-      if (!pendingWallet) {
-        throw new Error('There are no connected wallets.');
+    async (wallet?: Wallet) => {
+      if (!requireSignature) {
+        throw new ConnectWalletError(
+          'Signatures can only be requested on connect when requireSignature is true',
+        );
       }
 
-      let messageToSign = message;
-
-      if (props?.message) {
-        dispatch(setMessage(props.message));
-        messageToSign = props.message;
-      }
-
-      if (!messageToSign) {
-        throw new Error('A message has not yet been provided.');
+      if (!wallet) {
+        throw new ConnectWalletError(
+          'No wallet provided to requestSignature function',
+        );
       }
 
       // If the modal is not present, ensure that we open it.
@@ -184,41 +189,32 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
       }
 
       try {
-        const verificationResponse = await signMessage({
-          address: pendingWallet.address,
-          message: messageToSign,
-        });
+        const signedMessage = await signMessage(wallet);
+        /**
+         * Note: We will only move past the validatePendingWallet action
+         * when the signed message is decrypted to match the address
+         * matching the pending wallet and the nonces match.
+         *
+         * In the event that the following fails (throws an error due to
+         * mismatched addresses) we will set the error state for the
+         * signature modal and allow the user to try again.
+         */
+        dispatch(validatePendingWallet(signedMessage));
 
-        if (verificationResponse?.signature) {
-          /**
-           * Note: We will only move past the validatePendingWallet action
-           * when the signed message is decrypted to match the address
-           * matching the pending wallet.
-           *
-           * In the event that the following fails (throws an error due to
-           * mismatched addresses) we will set the error state for the
-           * signature modal and allow the user to try again.
-           */
-          dispatch(validatePendingWallet(verificationResponse.signature));
+        // Close the modal.
+        /**
+         * Close the modal using `resetModal`.
+         *
+         * Signature cleanup should only be performed
+         * when the user dismisses the modal while signing or
+         * when pressing "Back" while signing, so we utilize
+         * resetModal here to ensure the wallet
+         * is not disconnected.
+         */
+        resetModal();
 
-          // Clear our verification state
-          dispatch(clearSignatureState());
-
-          // Close the modal.
-          /**
-           * Close the modal using `resetModal`.
-           *
-           * Signature cleanup should only be performed
-           * when the user dismisses the modal while signing or
-           * when pressing "Back" while signing, so we utilize
-           * resetModal here to ensure the wallet
-           * is not disconnected.
-           */
-          resetModal();
-
-          // Return the verification response.
-          return verificationResponse;
-        }
+        // Return the verification response.
+        return signedMessage;
       } catch (error: any) {
         /**
          * Set the error in state, resulting in an updated UI state for
@@ -228,7 +224,7 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
         setError(error);
       }
     },
-    [active, resetModal, dispatch, message, pendingWallet, signMessage],
+    [requireSignature, active, signMessage, dispatch, resetModal],
   );
 
   const {connect} = useConnect({
@@ -272,6 +268,27 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
     },
   });
 
+  useEffect(() => {
+    if (requireSignature) {
+      const unsubscribeSetPendingWallet = dispatch(
+        addListener({
+          actionCreator: setPendingWallet,
+          effect: (action, _) => {
+            const wallet = action.payload;
+
+            if (!wallet) {
+              return;
+            }
+
+            requestSignature(wallet);
+          },
+        }),
+      );
+
+      return unsubscribeSetPendingWallet;
+    }
+  }, [dispatch, requestSignature, requireSignature]);
+
   const contextValue: ModalProviderValue = useMemo(() => {
     return {
       active,
@@ -286,9 +303,9 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
         route,
       },
       openModal: () => setActive(true),
+      requestSignature,
       requireSignature,
       signing,
-      signMessage: requestSignature,
     };
   }, [
     active,
@@ -299,10 +316,10 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
     handleCloseModal,
     handleGoBack,
     handleNavigate,
+    requestSignature,
     requireSignature,
     route,
     signing,
-    requestSignature,
   ]);
 
   return (

@@ -92,20 +92,12 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
         addListener({
           actionCreator: validatePendingWallet,
           effect: (action, state) => {
-            // pendingWallet does not
-            const {pendingWallet} = state.getState().wallet;
-            const signature = action.payload;
-
-            /**
-             * pendingWallet _should_ be defined here since it does not
-             * get reset during the validatePendingWallet action. However,
-             *  we can exit in the event that it is undefined.
-             */
-            if (!pendingWallet) {
+            if (!action.payload) {
               return;
             }
 
-            const {address, message} = pendingWallet;
+            const {address, message, signature} = action.payload;
+            const {connectedWallets} = state.getState().wallet;
 
             const response: SignatureResponse = {
               address,
@@ -113,7 +105,19 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
               signature,
             };
 
+            // Run the onConnect callback
+            const walletConnected = connectedWallets.find(
+              (wallet) => wallet.address === address,
+            );
+
+            if (walletConnected) {
+              onConnect?.(walletConnected);
+            }
+
+            // Run the onMessageSigned callback
             onMessageSigned?.(response);
+
+            // Perform attribution handling
             handleAttribution(response);
           },
         }),
@@ -121,7 +125,13 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
 
       return unsubscribeToMessageSigned;
     }
-  }, [dispatch, handleAttribution, onMessageSigned, requireSignature]);
+  }, [
+    dispatch,
+    handleAttribution,
+    onConnect,
+    onMessageSigned,
+    requireSignature,
+  ]);
 
   const {isConnected, isDisconnected} = useAccount();
 
