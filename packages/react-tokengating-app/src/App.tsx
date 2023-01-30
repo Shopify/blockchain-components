@@ -4,7 +4,7 @@ import {
   adaptRequirements,
   adaptUnlockingTokens,
 } from '@shopify/tokengate';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 
 import './DawnVariables.css';
 import {Preview} from './style';
@@ -55,9 +55,6 @@ interface AppProps {
 // eslint-disable-next-line import/no-anonymous-default-export, react/display-name
 export default function ({serverArguments}: AppProps) {
   const isDev = import.meta.env.DEV;
-  const [isLocked, setIsLocked] = useState(
-    serverArguments?.initialState.locked ?? true,
-  );
 
   const [
     requestWalletVerification,
@@ -83,7 +80,7 @@ export default function ({serverArguments}: AppProps) {
     EventName.DisconnectWallet,
   );
 
-  const {signMessage, wallet, isConnected} = useConnectWallet({
+  const {signMessage, isConnected} = useConnectWallet({
     messageSignedOrderAttributionMode: 'ignoreErrors',
     onConnect: (response) => {
       if (response?.address) {
@@ -130,26 +127,11 @@ export default function ({serverArguments}: AppProps) {
     requestWalletVerificationResponse?.verification?.generatedAt,
   ]);
 
-  useEffect(() => {
-    if (!isConnected) {
-      return setIsLocked(true);
-    }
-
-    setIsLocked(!checkIfWalletMeetsRequirementsResponse?.isUnlocked);
-  }, [
-    checkIfWalletMeetsRequirementsResponse?.isUnlocked,
-    setIsLocked,
-    isConnected,
-  ]);
-
   const _TokengateComponent = (
     <Tokengate
       connectButton={<ConnectButton />}
       isLoading={serverArguments?.initialState.isLoading}
-      isLocked={isLocked}
-      isSoldOut={false}
-      isConnected={Boolean(wallet?.signed)}
-      active={{start: '08 September 2022 09:00 UTC'}}
+      isConnected={isConnected}
       reaction={{
         type: 'exclusive_access',
       }}

@@ -1,13 +1,17 @@
 import {
   UnlockingTokenWithOrderLimitFixture,
+  UnlockingTokenFixture,
   UnlockingTokenFixtureType,
   ReactionFixture,
   DiscountReactionFixture,
+  TokengatePropsFixture,
+  RequirementsFixture,
+  ConditionFixture,
 } from '../../fixtures';
 import {renderHook} from '../../tests/test-utils';
 import {TokengateProps} from '../../types';
 
-import {useTitleAndSubtitle, getSections} from './utils';
+import {useTitleAndSubtitle, getSections, calculatedIsLocked} from './utils';
 
 const defaultTokengateProps: TokengateProps = {
   connectButton: null,
@@ -250,6 +254,290 @@ describe('Tokengate - utils', () => {
       });
 
       expect(sections).toStrictEqual(['TokengateRequirement', 'AvailableSoon']);
+    });
+  });
+
+  describe('calculatedIsLocked', () => {
+    it('returns true when prop provided', () => {
+      const isLocked = calculatedIsLocked(
+        TokengatePropsFixture({isLocked: true}),
+      );
+      expect(isLocked).toBe(true);
+    });
+
+    it('returns false when prop provided', () => {
+      const isLocked = calculatedIsLocked(
+        TokengatePropsFixture({isLocked: false}),
+      );
+      expect(isLocked).toBe(false);
+    });
+
+    it('returns locked when no wallet connected', () => {
+      const isLocked = calculatedIsLocked(
+        TokengatePropsFixture({
+          isConnected: false,
+        }),
+      );
+      expect(isLocked).toBe(true);
+    });
+
+    describe('ANY logic', () => {
+      const propsForAnyLogic = {
+        isConnected: true,
+        isLocked: undefined,
+      };
+
+      it('returns locked when no unlocking tokens provided', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAnyLogic,
+            requirements: RequirementsFixture({
+              logic: 'ANY',
+            }),
+            unlockingTokens: [],
+          }),
+        );
+        expect(isLocked).toBe(true);
+      });
+
+      it('returns locked when the unlocking tokens do not correspond to the requirements', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAnyLogic,
+            requirements: RequirementsFixture({
+              logic: 'ANY',
+              conditions: [
+                ConditionFixture({
+                  collectionAddress: '0xabc',
+                }),
+              ],
+            }),
+            unlockingTokens: [
+              UnlockingTokenFixture({
+                collectionAddress: '0x123',
+              }),
+            ],
+          }),
+        );
+        expect(isLocked).toBe(true);
+      });
+
+      it('returns unlocked when the unlocking token corresponds to the requirements', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAnyLogic,
+            requirements: RequirementsFixture({
+              logic: 'ANY',
+              conditions: [
+                ConditionFixture({
+                  collectionAddress: '0xabc',
+                }),
+              ],
+            }),
+            unlockingTokens: [
+              UnlockingTokenFixture({
+                collectionAddress: '0xabc',
+              }),
+            ],
+          }),
+        );
+        expect(isLocked).toBe(false);
+      });
+
+      it('returns unlocked when the unlocking tokens corresponds to the requirements', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAnyLogic,
+            requirements: RequirementsFixture({
+              logic: 'ANY',
+              conditions: [
+                ConditionFixture({
+                  collectionAddress: '0xabc',
+                }),
+                ConditionFixture({
+                  collectionAddress: '0xefg',
+                }),
+              ],
+            }),
+            unlockingTokens: [
+              UnlockingTokenFixture({
+                collectionAddress: '0xefg',
+              }),
+            ],
+          }),
+        );
+        expect(isLocked).toBe(false);
+      });
+
+      it('returns locked when the unlocking tokens does not correspond to the requirements', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAnyLogic,
+            requirements: RequirementsFixture({
+              logic: 'ANY',
+              conditions: [
+                ConditionFixture({
+                  collectionAddress: '0xabc',
+                }),
+                ConditionFixture({
+                  collectionAddress: '0xefg',
+                }),
+              ],
+            }),
+            unlockingTokens: [
+              UnlockingTokenFixture({
+                collectionAddress: '0x123',
+              }),
+            ],
+          }),
+        );
+        expect(isLocked).toBe(true);
+      });
+    });
+
+    describe('ALL logic', () => {
+      const propsForAllLogic = {
+        isConnected: true,
+        isLocked: undefined,
+      };
+
+      it('returns locked when no unlocking tokens provided', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAllLogic,
+            requirements: RequirementsFixture({
+              logic: 'ALL',
+            }),
+            unlockingTokens: [],
+          }),
+        );
+        expect(isLocked).toBe(true);
+      });
+
+      it('returns locked when the unlocking tokens do not correspond to the requirements', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAllLogic,
+            requirements: RequirementsFixture({
+              logic: 'ALL',
+              conditions: [
+                ConditionFixture({
+                  collectionAddress: '0xabc',
+                }),
+              ],
+            }),
+            unlockingTokens: [
+              UnlockingTokenFixture({
+                collectionAddress: '0x123',
+              }),
+            ],
+          }),
+        );
+        expect(isLocked).toBe(true);
+      });
+
+      it('returns unlocked when the unlocking token corresponds to the requirements', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAllLogic,
+            requirements: RequirementsFixture({
+              logic: 'ALL',
+              conditions: [
+                ConditionFixture({
+                  collectionAddress: '0xabc',
+                }),
+              ],
+            }),
+            unlockingTokens: [
+              UnlockingTokenFixture({
+                collectionAddress: '0xabc',
+              }),
+            ],
+          }),
+        );
+        expect(isLocked).toBe(false);
+      });
+
+      it('returns locked when not all conditions met', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAllLogic,
+            requirements: RequirementsFixture({
+              logic: 'ALL',
+              conditions: [
+                ConditionFixture({
+                  collectionAddress: '0xabc',
+                }),
+                ConditionFixture({
+                  collectionAddress: '0xefg',
+                }),
+              ],
+            }),
+            unlockingTokens: [
+              UnlockingTokenFixture({
+                collectionAddress: '0xefg',
+              }),
+            ],
+          }),
+        );
+        expect(isLocked).toBe(true);
+      });
+
+      it('returns unlocked when the unlocking tokens corresponds to the requirements', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAllLogic,
+            requirements: RequirementsFixture({
+              logic: 'ALL',
+              conditions: [
+                ConditionFixture({
+                  collectionAddress: '0xabc',
+                }),
+                ConditionFixture({
+                  collectionAddress: '0xefg',
+                }),
+              ],
+            }),
+            unlockingTokens: [
+              UnlockingTokenFixture({
+                collectionAddress: '0xabc',
+              }),
+              UnlockingTokenFixture({
+                collectionAddress: '0xefg',
+              }),
+            ],
+          }),
+        );
+        expect(isLocked).toBe(false);
+      });
+
+      it('returns locked when the unlocking tokens does not correspond to the requirements', () => {
+        const isLocked = calculatedIsLocked(
+          TokengatePropsFixture({
+            ...propsForAllLogic,
+            requirements: RequirementsFixture({
+              logic: 'ALL',
+              conditions: [
+                ConditionFixture({
+                  collectionAddress: '0xabc',
+                }),
+                ConditionFixture({
+                  collectionAddress: '0xefg',
+                }),
+              ],
+            }),
+            unlockingTokens: [
+              UnlockingTokenFixture({
+                collectionAddress: '0x123',
+              }),
+              ConditionFixture({
+                collectionAddress: '0xefg',
+              }),
+            ],
+          }),
+        );
+        expect(isLocked).toBe(true);
+      });
     });
   });
 });
