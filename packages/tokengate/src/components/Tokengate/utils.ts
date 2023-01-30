@@ -173,34 +173,20 @@ export const calculatedIsLocked = (props: TokengateProps) => {
   // Default to isLocked when provided
   if (isLocked !== undefined) return isLocked;
 
-  if (!isConnected) return true;
+  if (!isConnected || !unlockingTokens || unlockingTokens.length === 0)
+    return true;
 
-  // ALL logic
-  if (requirements?.logic === 'ALL') {
-    const hasTokenForAllConditions = requirements.conditions.reduce(
-      (acc, condition) => {
-        const hasUnlockingToken = unlockingTokens?.find(
+  const arrayLogicFunction = requirements?.logic === 'ALL' ? 'every' : 'some';
+
+  const hasTokenForAllConditions = requirements?.conditions[arrayLogicFunction](
+    (condition) =>
+      Boolean(
+        unlockingTokens.find(
           (unlockingToken) =>
             unlockingToken.collectionAddress === condition.collectionAddress,
-        );
-        return acc && Boolean(hasUnlockingToken);
-      },
-      true,
-    );
-
-    return !hasTokenForAllConditions;
-  }
-
-  // ANY logic
-  const hasTokenForAnyCondition = requirements?.conditions.reduce(
-    (acc, condition) => {
-      const hasUnlockingToken = unlockingTokens?.find(
-        (unlockingToken) =>
-          unlockingToken.collectionAddress === condition.collectionAddress,
-      );
-      return acc || Boolean(hasUnlockingToken);
-    },
-    false,
+        ),
+      ),
   );
-  return !hasTokenForAnyCondition;
+
+  return !hasTokenForAllConditions;
 };
