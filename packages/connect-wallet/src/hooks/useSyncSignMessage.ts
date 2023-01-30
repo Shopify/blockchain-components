@@ -52,6 +52,7 @@ export function useSyncSignMessage() {
         const response: SignatureResponse = {
           address,
           message: JSON.stringify(message),
+          nonce,
           signature,
         };
 

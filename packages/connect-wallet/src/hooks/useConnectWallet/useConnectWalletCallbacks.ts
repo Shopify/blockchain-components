@@ -16,12 +16,8 @@ import {useOrderAttribution} from '../useOrderAttribution';
 import {useConnectWalletProps} from './types';
 
 export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
-  const {
-    messageSignedOrderAttributionMode,
-    onConnect,
-    onDisconnect,
-    onMessageSigned,
-  } = props || {};
+  const {messageSignedOrderAttributionMode, onConnect, onDisconnect} =
+    props || {};
   const {requireSignature} = useContext(ModalContext);
   const dispatch = useAppDispatch();
   const attributeOrder = useOrderAttribution();
@@ -59,6 +55,46 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
 
   // Add the onConnect callback listeners.
   useEffect(() => {
+    if (requireSignature) {
+      const unsubscribeToConnectedWalletListener = dispatch(
+        addListener({
+          actionCreator: validatePendingWallet.fulfilled,
+          effect: (action, state) => {
+            if (!action.meta.arg) {
+              return;
+            }
+
+            const {address, message, nonce, signature} = action.meta.arg;
+            const {connectedWallets} = state.getState().wallet;
+
+            const response: SignatureResponse = {
+              address,
+              message,
+              nonce,
+              signature,
+            };
+
+            // Run the onConnect callback
+            const walletConnected = connectedWallets.find(
+              (wallet) =>
+                wallet.address === address &&
+                wallet.message === message &&
+                wallet.signature === signature,
+            );
+
+            if (walletConnected) {
+              onConnect?.(walletConnected);
+            }
+
+            // Perform attribution handling
+            handleAttribution(response);
+          },
+        }),
+      );
+
+      return unsubscribeToConnectedWalletListener;
+    }
+
     const unsubscribeToAddWalletListener = dispatch(
       addListener({
         actionCreator: addWallet,
@@ -69,7 +105,7 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
     );
 
     return unsubscribeToAddWalletListener;
-  }, [dispatch, onConnect]);
+  }, [dispatch, handleAttribution, onConnect, requireSignature]);
 
   // Add the onDisconnect callback listeners.
   useEffect(() => {
@@ -84,54 +120,6 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
 
     return unsubscribeToRemoveWalletListener;
   }, [dispatch, onDisconnect]);
-
-  // Add the onMessageSigned callback listeners.
-  useEffect(() => {
-    if (requireSignature) {
-      const unsubscribeToMessageSigned = dispatch(
-        addListener({
-          actionCreator: validatePendingWallet,
-          effect: (action, state) => {
-            if (!action.payload) {
-              return;
-            }
-
-            const {address, message, signature} = action.payload;
-            const {connectedWallets} = state.getState().wallet;
-
-            const response: SignatureResponse = {
-              address,
-              message,
-              signature,
-            };
-
-            // Run the onConnect callback
-            const walletConnected = connectedWallets.find(
-              (wallet) => wallet.address === address,
-            );
-
-            if (walletConnected) {
-              onConnect?.(walletConnected);
-            }
-
-            // Run the onMessageSigned callback
-            onMessageSigned?.(response);
-
-            // Perform attribution handling
-            handleAttribution(response);
-          },
-        }),
-      );
-
-      return unsubscribeToMessageSigned;
-    }
-  }, [
-    dispatch,
-    handleAttribution,
-    onConnect,
-    onMessageSigned,
-    requireSignature,
-  ]);
 
   const {isConnected, isDisconnected} = useAccount();
 

@@ -2,8 +2,9 @@ import {SiweMessage} from 'siwe';
 
 import {SerializedConnector} from '../types/connector';
 import {Wallet} from '../types/wallet';
+import {ConnectWalletError} from '../utils/error';
 
-import {initialState, walletSlice} from './walletSlice';
+import {initialState, validatePendingWallet, walletSlice} from './walletSlice';
 
 const {
   addWallet,
@@ -13,7 +14,6 @@ const {
   setPendingWallet,
   removeWallet,
   updateWallet,
-  validatePendingWallet,
 } = walletSlice.actions;
 
 const {getInitialState, reducer} = walletSlice;
@@ -22,7 +22,6 @@ const DEFAULT_WALLET: Wallet = {
   address: '0xc223594946c60217Ed53096eEC6C179964e536EB',
   connectorId: 'metaMask',
   connectorName: 'MetaMask',
-  signed: false,
 };
 
 const ALTERNATE_WALLET: Wallet = {
@@ -267,16 +266,16 @@ describe('walletSlice', () => {
       '0x9ad835c2b18011cfb08798e856ab39b5d4595273c950fbc4f3b7703bbe7f7d026b556c0bff38829e686d9c495274aa2bde80bc06cfa97521b58f9ff9437d95b91b';
 
     it('does not manipulate state when state.pendingWallet is undefined', () => {
-      expect(() =>
-        reducer(
-          initialState,
-          validatePendingWallet({
-            ...DEFAULT_WALLET,
-            message: JSON.stringify(message),
-            signature: validSignature,
-          }),
-        ),
-      ).toThrow('Incomplete payload during signature validation');
+      const action = validatePendingWallet.fulfilled({valid: true}, '', {
+        ...DEFAULT_WALLET,
+        message: JSON.stringify(message),
+        nonce: mockMessage.nonce,
+        signature: validSignature,
+      });
+
+      expect(() => reducer(initialState, action)).toThrow(
+        new ConnectWalletError('There is not a wallet pending validation'),
+      );
     });
 
     it('does not manipulate state and throws an error when the address is not verified via ethers verifyMessage util', () => {
@@ -285,17 +284,23 @@ describe('walletSlice', () => {
         pendingWallet: DEFAULT_WALLET,
       };
 
-      expect(() =>
-        reducer(
-          existingState,
-          validatePendingWallet({
-            ...DEFAULT_WALLET,
-            message: JSON.stringify(message),
-            signature:
-              '0x0aa04781e381e84b1494d00245b5232ed9106377f541256bb504b75a04a9d2be2e895e4aab9cae3af41344e43ae7d5885202b66b2fa29d4c4443871cfaa575671c',
-          }),
+      const action = validatePendingWallet.rejected(
+        'Address that signed message does not match the connected address' as any,
+        '',
+        {
+          ...DEFAULT_WALLET,
+          message: JSON.stringify(message),
+          nonce: mockMessage.nonce,
+          signature:
+            '0x0aa04781e381e84b1494d00245b5232ed9106377f541256bb504b75a04a9d2be2e895e4aab9cae3af41344e43ae7d5885202b66b2fa29d4c4443871cfaa575671c',
+        },
+      );
+
+      expect(() => reducer(existingState, action)).toThrow(
+        new ConnectWalletError(
+          'Address that signed message does not match the connected address',
         ),
-      ).toThrow('Invalid signature');
+      );
     });
 
     it('manipulates state when the address from verifyMessage matches the pendingWallet address', () => {
@@ -304,27 +309,25 @@ describe('walletSlice', () => {
         pendingWallet: DEFAULT_WALLET,
       };
 
+      const action = validatePendingWallet.fulfilled({valid: true}, '', {
+        ...DEFAULT_WALLET,
+        message: JSON.stringify(message),
+        nonce: mockMessage.nonce,
+        signature: validSignature,
+      });
+
       /**
        * Dispatch the action to our state and grab connectedWallets
        * and pendingWallet.
        */
-      const {connectedWallets} = reducer(
-        existingState,
-        validatePendingWallet({
-          ...DEFAULT_WALLET,
-          message: JSON.stringify(message),
-          signature: validSignature,
-        }),
-      );
+      const {connectedWallets} = reducer(existingState, action);
 
       /**
        * We have to use objectContaining here because the dateSigned
        * is propogated inside of the action that is dispatched.
        */
       expect(connectedWallets).toStrictEqual(
-        expect.arrayContaining([
-          expect.objectContaining({...DEFAULT_WALLET, signed: true}),
-        ]),
+        expect.arrayContaining([expect.objectContaining({...DEFAULT_WALLET})]),
       );
     });
   });

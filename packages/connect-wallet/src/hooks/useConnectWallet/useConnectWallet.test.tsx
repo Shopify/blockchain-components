@@ -105,7 +105,12 @@ const TestProvider: React.FC<PropsWithChildren<object>> = ({children}) => {
       },
       openModal: () => {},
       requestSignature: () =>
-        Promise.resolve({address: '0x123', message: 'abc', signature: '0x123'}),
+        Promise.resolve({
+          address: '0x123',
+          message: 'abc',
+          nonce: '123',
+          signature: '0x123',
+        }),
       signing: false,
     }),
     [],

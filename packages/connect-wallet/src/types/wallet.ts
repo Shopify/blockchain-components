@@ -24,6 +24,7 @@ export type SignatureResponse =
   | {
       address: string;
       message: string;
+      nonce: string;
       signature: string;
     }
   | undefined;
@@ -39,10 +40,6 @@ export interface Wallet extends ConnectedWallet {
    * undefined in the event that the wallet has not yet signed the message.
    */
   signature?: string;
-  /**
-   * Whether the wallet has completed verification.
-   */
-  signed?: boolean;
   /**
    * ISO datetime string in which the wallet was verified.
    */

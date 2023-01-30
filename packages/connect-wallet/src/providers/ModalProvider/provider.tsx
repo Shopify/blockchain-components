@@ -48,7 +48,7 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
        */
       if (requireSignature) {
         const reconnectedWallet = connectedWallets.find(
-          (wallet) => wallet.address === address && wallet.signed,
+          (wallet) => wallet.address === address && wallet.signature,
         );
 
         /**
@@ -72,7 +72,6 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
           address,
           connectorId: pendingConnector?.id || connector?.id,
           connectorName: pendingConnector?.name || connector?.name,
-          signed: false,
         };
 
         dispatch(setPendingWallet(wallet));
@@ -199,9 +198,8 @@ export const ModalProvider: React.FC<PropsWithChildren<ModalProviderProps>> = ({
          * mismatched addresses) we will set the error state for the
          * signature modal and allow the user to try again.
          */
-        dispatch(validatePendingWallet(signedMessage));
+        await dispatch(validatePendingWallet(signedMessage));
 
-        // Close the modal.
         /**
          * Close the modal using `resetModal`.
          *

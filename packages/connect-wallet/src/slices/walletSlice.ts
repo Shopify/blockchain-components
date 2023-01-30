@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {verifyMessage} from 'ethers/lib/utils';
 import {SiweMessage} from 'siwe';
 
@@ -21,6 +21,57 @@ export const initialState: WalletSliceType = {
   pendingWallet: undefined,
   _persist: '',
 };
+
+/**
+ * Begins the validation process after a signature is provided.
+ *
+ * Utilizes SiweMessage.validate to confirm nonces match and
+ * ethers verifyMessage to ensure the recovered address matches
+ * the address provided via the signature payload.
+ *
+ * There are follow up state actions that run after this which
+ * are responsible for updating connectedWallets in the event
+ * of a succesful signature or error handling in the event
+ * that there is a mismatch in the provided message.
+ *
+ * **NOTE:** This does not handle cleanup of the signature state.
+ * That is handled by clearSignatureState and should be dispatched as a
+ * separate action.
+ */
+export const validatePendingWallet = createAsyncThunk(
+  'wallet/validatePendingWallet',
+  async (response: SignatureResponse, thunkApi) => {
+    if (!response) {
+      return thunkApi.rejectWithValue(
+        'Missing payload during signature validation',
+      );
+    }
+
+    const {address, message, nonce, signature} = response;
+    const siweMessage = new SiweMessage(JSON.parse(message));
+
+    // Validate nonce via Siwe
+    const fields = await siweMessage.validate(signature);
+
+    /**
+     * Utilize `verifyMessage` from ethers to recover the signer address
+     * from the signature.
+     */
+    const recoveredAddress = verifyMessage(fields.toMessage(), signature);
+
+    if (address !== recoveredAddress) {
+      return thunkApi.rejectWithValue(
+        'Address that signed message does not match the connected address',
+      );
+    }
+
+    if (fields.nonce !== nonce) {
+      return thunkApi.rejectWithValue('Signature nonce mismatch');
+    }
+
+    return thunkApi.fulfillWithValue({valid: true});
+  },
+);
 
 export const walletSlice = createSlice({
   name: 'wallet',
@@ -78,60 +129,62 @@ export const walletSlice = createSlice({
         };
       });
     },
-    /**
-     * Validates whether the signature provided is valid proof of ownership
-     * given the current `message` value.
-     *
-     * If the signature is valid, the wallet is moved from `pendingWallet` to
-     * `connectedWallets`.
-     *
-     * **NOTE:** This does not handle cleanup of the signature state.
-     * That is handled by clearSignatureState and should be dispatched as a
-     * separate action.
-     */
-    validatePendingWallet: (
-      state,
-      action: PayloadAction<SignatureResponse>,
-    ) => {
-      // Ensure that we have a message and a pending wallet in state.
-      if (!action.payload || !state.pendingWallet) {
+  },
+  extraReducers: (builder) => {
+    builder.addCase(validatePendingWallet.fulfilled, (state, action) => {
+      /**
+       * This is not likely to occur since the asyncThunk function for this
+       * only fulfills when an error is not caught. All other cases are
+       * funneled through the rejection method.
+       */
+      if (!action.payload.valid) {
         throw new ConnectWalletError(
-          'Incomplete payload during signature validation',
+          'An error was raised during wallet validation',
         );
       }
 
-      const {message, signature} = action.payload;
-      const validatorMessage = new SiweMessage(JSON.parse(message));
-
-      // Make copies of everything we are utilizing.
-      const pendingWallet = {...state.pendingWallet};
-
       /**
-       * Utilize `verifyMessage` from ethers to recover the signer address
-       * from the signature.
+       * Ensure that we have a pending wallet in state in which we can gather
+       * connector information from.
        */
-      const signerAddress = verifyMessage(
-        validatorMessage.prepareMessage(),
-        signature,
-      );
-
-      /**
-       * If the addresses are not the same, then we should return an
-       * error indicating that failure so we can properly inform the user.
-       */
-
-      if (state.pendingWallet.address !== signerAddress) {
-        throw new ConnectWalletError('Invalid signature');
+      if (!state.pendingWallet) {
+        throw new ConnectWalletError(
+          'There is not a wallet pending validation',
+        );
       }
 
       /**
-       * We need to know now whether we are adding or updating a wallet.
-       * At the moment I'm unsure that the signMessage will function without
-       * having requireSignature defined as true. Perhaps something to look into.
+       * Ensure that we have access to the argument provided to validatePendingWallet
+       * as we need to store record of the message and signature.
+       */
+      if (!action.meta.arg) {
+        throw new ConnectWalletError(
+          'Missing payload during signature validation',
+        );
+      }
+
+      const {message, signature} = action.meta.arg;
+
+      /**
+       * Make a copy of the pending wallet to ensure we maintain access to required
+       * information (this is an effect of an async thunk)
+       */
+      const pendingWallet = {...state.pendingWallet};
+      const newWallet: Wallet = {
+        ...pendingWallet,
+        message,
+        signature,
+        signedOn: new Date().toISOString(),
+      };
+
+      /**
+       * The following should update a wallet if it exists in state
+       * already, which shouldn't occur, but is a fallback here.
+       * is dispatched and the wallet exists in our store already.
        */
       if (
         state.connectedWallets.some(
-          (wallet) => wallet.address === pendingWallet.address,
+          (wallet) => wallet.address === newWallet.address,
         )
       ) {
         state.connectedWallets.map((wallet) => {
@@ -141,22 +194,26 @@ export const walletSlice = createSlice({
 
           return {
             ...wallet,
-            message,
-            signature,
-            signed: true,
-            signedOn: new Date().toISOString(),
+            ...newWallet,
           };
         });
       } else {
-        state.connectedWallets.push({
-          ...pendingWallet,
-          message,
-          signature,
-          signed: true,
-          signedOn: new Date().toISOString(),
-        });
+        state.connectedWallets.push(newWallet);
       }
-    },
+    });
+    builder.addCase(validatePendingWallet.rejected, (_, action) => {
+      let errorMessage = 'An error was raised during wallet validation';
+
+      if (action.error.message) {
+        errorMessage = action.error.message;
+      }
+
+      if (action.meta.rejectedWithValue && typeof action.payload === 'string') {
+        errorMessage = action.payload;
+      }
+
+      throw new ConnectWalletError(errorMessage);
+    });
   },
 });
 
@@ -168,5 +225,4 @@ export const {
   setPendingWallet,
   removeWallet,
   updateWallet,
-  validatePendingWallet,
 } = walletSlice.actions;

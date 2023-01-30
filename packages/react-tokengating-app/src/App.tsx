@@ -80,12 +80,6 @@ export default function ({serverArguments}: AppProps) {
     onDisconnect: () => {
       disconnectWallet({});
     },
-    onMessageSigned: (response) => {
-      // This is a good place to utilize toasts and inform the user
-      // that their connection was established as expected.
-      // eslint-disable-next-line no-console
-      console.info('Signed with hash', response?.signature);
-    },
   });
 
   useEffect(() => {
