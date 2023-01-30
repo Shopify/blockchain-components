@@ -22,7 +22,8 @@ export const useTokengateCardState = (tokengateProps: TokengateProps) => {
 };
 
 export const getSections = (tokengateProps: TokengateProps) => {
-  const {active, isLocked, isSoldOut, isConnected, unlockingTokens, isLoading} =
+  const isLocked = calculatedIsLocked(tokengateProps);
+  const {active, isSoldOut, isConnected, unlockingTokens, isLoading} =
     tokengateProps;
 
   if (isLoading) {
@@ -79,7 +80,7 @@ export const getSections = (tokengateProps: TokengateProps) => {
 };
 
 const useTokengateI18n = (props: TokengateProps) => {
-  const {isLocked} = props;
+  const isLocked = calculatedIsLocked(props);
 
   const {t} = useTranslation('Tokengate');
   const i18nKeyFirstLevel = isDiscountGate(props) ? 'discount' : 'exclusive';
@@ -91,12 +92,12 @@ const useTokengateI18n = (props: TokengateProps) => {
 export const useTitleAndSubtitle = (props: TokengateProps) => {
   const translateTokengateI18n = useTokengateI18n(props);
   const {
-    isLocked,
     exclusiveCustomTitles,
     discountCustomTitles,
     redemptionLimit,
     reaction,
   } = props;
+  const isLocked = calculatedIsLocked(props);
   const hasRedemption = redemptionLimit && redemptionLimit.total > 0;
 
   const customTitles = isDiscountGate(props)
@@ -164,4 +165,28 @@ const hasReachedOrderLimit = (props: TokengateProps) => {
 
 const isDiscountGate = (props: TokengateProps) => {
   return props.reaction?.type === 'discount' && props.reaction.discount;
+};
+
+export const calculatedIsLocked = (props: TokengateProps) => {
+  const {unlockingTokens, requirements, isConnected, isLocked} = props;
+
+  // Default to isLocked when provided
+  if (isLocked !== undefined) return isLocked;
+
+  if (!isConnected || !unlockingTokens || unlockingTokens.length === 0)
+    return true;
+
+  const arrayLogicFunction = requirements?.logic === 'ALL' ? 'every' : 'some';
+
+  const hasTokenForAllConditions = requirements?.conditions[arrayLogicFunction](
+    (condition) =>
+      Boolean(
+        unlockingTokens.find(
+          (unlockingToken) =>
+            unlockingToken.collectionAddress === condition.collectionAddress,
+        ),
+      ),
+  );
+
+  return !hasTokenForAllConditions;
 };

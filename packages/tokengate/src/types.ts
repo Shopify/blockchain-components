@@ -45,7 +45,7 @@ export type TokengateProps = ThemeProps & {
   connectButton: ReactNode;
   connectedButton?: ReactNode;
   isLoading?: boolean;
-  isLocked: boolean;
+  isLocked?: boolean;
   isSoldOut?: boolean;
   isConnected: boolean;
   requirements?: Requirements;

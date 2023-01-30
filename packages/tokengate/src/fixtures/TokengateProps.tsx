@@ -38,7 +38,6 @@ export const TokengatePropsFixture = (
 ) =>
   deepMerge(
     {
-      isLocked: true,
       requirements: {
         id: 'requirements-id',
         conditions,

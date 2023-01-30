@@ -14,6 +14,11 @@ export {ConditionFixture, ConditionArrayFixture} from './Condition';
 export {ReactionFixture, DiscountReactionFixture} from './Reaction';
 
 /**
+ * Requirements
+ */
+export {RequirementsFixture} from './Requirements';
+
+/**
  * UnlockingTokens
  */
 export {
