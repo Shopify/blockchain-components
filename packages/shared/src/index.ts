@@ -11,7 +11,9 @@ export {Text} from './components/Text';
 /**
  * Hooks
  */
+export {useIsMounted} from './hooks/useIsMounted';
 export {useKeyPress} from './hooks/useKeyPress';
+export {useMediaQuery} from './hooks/useMediaQuery';
 export {useOutsideClick} from './hooks/useOutsideClick';
 
 /**

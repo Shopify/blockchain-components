@@ -108,6 +108,7 @@ export const Sheet = styled.div`
   border: ${({theme}) => theme.modal.border};
   border-radius: ${({theme}) => theme.modal.borderRadius.desktop};
   box-shadow: ${({theme}) => theme.modal.boxShadow};
+  overflow: hidden;
 
   @media ${breakpoints.smDown} {
     border-bottom-left-radius: 0;

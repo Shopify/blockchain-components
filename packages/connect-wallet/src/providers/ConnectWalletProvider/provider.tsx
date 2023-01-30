@@ -1,3 +1,4 @@
+import {MotionConfig} from 'framer-motion';
 import {FC, PropsWithChildren, useMemo} from 'react';
 import {Provider} from 'react-redux';
 import {RootProvider} from 'shared';
@@ -28,11 +29,13 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
     <ConnectWalletContext.Provider value={contextValue}>
       <I18nProvider>
         <RootProvider theme={theme}>
-          <Provider store={store}>
-            <ModalProvider requireSignature={requireSignature}>
-              {children}
-            </ModalProvider>
-          </Provider>
+          <MotionConfig reducedMotion="user">
+            <Provider store={store}>
+              <ModalProvider requireSignature={requireSignature}>
+                {children}
+              </ModalProvider>
+            </Provider>
+          </MotionConfig>
         </RootProvider>
       </I18nProvider>
     </ConnectWalletContext.Provider>

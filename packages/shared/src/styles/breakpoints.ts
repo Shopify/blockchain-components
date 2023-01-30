@@ -1,3 +1,6 @@
+// Can address the following violation in another PR.
+/* eslint-disable @shopify/typescript/prefer-pascal-case-enums */
+
 /**
  * Sizes are based on Bootstrap breakpoints.
  * https://getbootstrap.com/docs/5.0/layout/breakpoints/#available-breakpoints
@@ -10,6 +13,21 @@ export const device = {
   xxl: 1400,
 };
 
+enum AvailableBreakpoint {
+  smDown = 'smDown',
+  smUp = 'smUp',
+  mdDown = 'mdDown',
+  mdUp = 'mdUp',
+  lgDown = 'lgDown',
+  lgUp = 'lgUp',
+  xlDown = 'xlDown',
+  xlUp = 'xlUp',
+  xxlDown = 'xxlDown',
+  xxlUp = 'xxlUp',
+}
+
+export type Breakpoint = keyof typeof AvailableBreakpoint;
+
 /**
  * @example
  *
@@ -19,7 +37,7 @@ export const device = {
  * }
  * ```
  */
-export const breakpoints = {
+export const breakpoints: Record<Breakpoint, string> = {
   smDown: `(max-width: ${device.sm}px)`,
   smUp: `(min-width: ${device.sm}px)`,
   mdDown: `(max-width: ${device.md}px)`,

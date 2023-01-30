@@ -1,3 +1,4 @@
+import {AnimatePresence, domAnimation, LazyMotion} from 'framer-motion';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button} from 'shared';
 
@@ -5,7 +6,7 @@ import {useAppSelector} from '../../../hooks/useAppState';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useTranslation} from '../../../hooks/useTranslation';
 import {useModal} from '../../../providers/ModalProvider';
-import {QRCode} from '../../QRCode';
+import {QRCode, QRCodeSkeleton} from '../../QRCode';
 import {ButtonContainer, SheetContent} from '../style';
 import {cleanupConnection} from '../../../utils/cleanupConnection';
 
@@ -148,7 +149,11 @@ const ScanScreen = () => {
 
   return (
     <SheetContent rowGap="16px">
-      {qrCodeURI ? <QRCode uri={qrCodeURI} /> : null}
+      <LazyMotion features={domAnimation}>
+        <AnimatePresence>
+          {qrCodeURI ? <QRCode uri={qrCodeURI} /> : <QRCodeSkeleton />}
+        </AnimatePresence>
+      </LazyMotion>
 
       {buttons}
     </SheetContent>

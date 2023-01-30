@@ -1,11 +1,14 @@
-import styled from 'styled-components';
+import styled, {CSSProperties} from 'styled-components';
 
 export const Circle = styled.circle`
   fill: ${({theme}) => theme.typography.colorPrimary};
 `;
 
-export const Container = styled.div`
+export const Container = styled.div<{
+  $aspectRatio?: CSSProperties['aspectRatio'];
+}>`
   width: 100%;
+  aspect-ratio: ${({$aspectRatio}) => $aspectRatio};
   border-radius: 16px;
   border: ${({theme}) => theme.buttons.variants.secondary.border};
   padding: 16px;

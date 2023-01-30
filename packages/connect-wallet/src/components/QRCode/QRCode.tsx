@@ -1,3 +1,4 @@
+import {m} from 'framer-motion';
 import {create, QRCode as QRCodeType} from 'qrcode';
 import {ReactElement, useMemo} from 'react';
 
@@ -103,7 +104,7 @@ export function QRCode({uri}: Props) {
   }, [length, matrix]);
 
   return (
-    <Container>
+    <Container as={m.div} initial={{opacity: 0}} animate={{opacity: 1}}>
       <svg
         height="100%"
         width="100%"
