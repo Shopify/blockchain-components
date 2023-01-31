@@ -14,7 +14,8 @@ import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
 import {useDisconnect} from '../../hooks/useDisconnect';
 import {useSyncSignMessage} from '../../hooks/useSyncSignMessage';
 import {
-  clearSignatureState,
+  addWallet,
+  setActiveWallet,
   setPendingConnector,
   setPendingWallet,
   validatePendingWallet,
@@ -41,27 +42,23 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
         return;
       }
 
-      /**
-       * Wagmi makes use of isReconnected to rehydrate the client.
-       * Check to see if this wallet needs to be verified
-       */
-      if (requireSignature) {
-        const reconnectedWallet = connectedWallets.find(
-          (wallet) => wallet.address === address && wallet.signature,
-        );
+      const reconnectedWallet: Wallet | undefined = connectedWallets.find(
+        (wallet) => wallet.address === address,
+      );
 
+      if (requireSignature) {
         /**
-         * We should only continue forward if we are not reconnecting
-         * a wallet that has already completely connected via signing.
+         * Check if the wallet has already signed. If so, we can set
+         * the active wallet and not require a new signature.
          */
-        if (isReconnected && reconnectedWallet) {
-          return;
+        if (isReconnected && reconnectedWallet?.signature) {
+          return dispatch(setActiveWallet(reconnectedWallet));
         }
 
         /**
-         * Check to ensure we have connector data before proceeding.
-         *
-         * We need connector here because of Coinbase Wallet and MetaMask.
+         * Check to ensure we have connector data before proceeding. We
+         * need connector for injected connectors such as Coinbase Wallet
+         * and MetaMask. Otherwise, utilize pendingConnector value.
          */
         if (!pendingConnector && !connector) {
           return;
@@ -73,8 +70,30 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
           connectorName: pendingConnector?.name || connector?.name,
         };
 
-        dispatch(setPendingWallet(wallet));
+        return dispatch(setPendingWallet(wallet));
       }
+
+      /**
+       * If we don't require a signature and we have a reconnected
+       * wallet then we can set the active wallet.
+       */
+      if (reconnectedWallet) {
+        return dispatch(setActiveWallet(reconnectedWallet));
+      }
+
+      // Exit if we don't have pendingConnector information.
+      if (!pendingConnector) {
+        return;
+      }
+
+      // This means that the user just connected their wallet.
+      dispatch(
+        addWallet({
+          address,
+          connectorId: pendingConnector.id,
+          connectorName: pendingConnector.name,
+        }),
+      );
     },
   });
 
@@ -95,10 +114,9 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
       return;
     }
 
-    dispatch(clearSignatureState());
     disconnect(pendingWallet?.address);
     clearError();
-  }, [clearError, disconnect, dispatch, pendingWallet?.address, route]);
+  }, [clearError, disconnect, pendingWallet?.address, route]);
 
   const handleNavigate = useCallback(
     (screenName: ModalRoute) => {
@@ -113,16 +131,13 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
    * for the modal.
    */
   const resetModal = useCallback(() => {
-    // Clear the pending connector
-    if (pendingConnector || pendingWallet) {
-      dispatch(setPendingConnector(undefined));
-      dispatch(setPendingWallet(undefined));
-    }
-
+    // Clear the pendingConnector + pendingWallet
+    dispatch(setPendingConnector(undefined));
+    dispatch(setPendingWallet(undefined));
     setActive(false);
     setHistory([]);
     setRoute(ModalRoute.Connect);
-  }, [dispatch, pendingConnector, pendingWallet]);
+  }, [dispatch]);
 
   /**
    * Runs the default close + reset functionality

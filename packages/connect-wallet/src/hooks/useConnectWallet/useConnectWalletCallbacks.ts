@@ -1,14 +1,15 @@
+import {isAnyOf} from '@reduxjs/toolkit';
 import {useCallback, useContext, useEffect} from 'react';
-import {useAccount} from 'wagmi';
 
 import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
 import {
   addWallet,
   removeWallet,
+  setActiveWallet,
   validatePendingWallet,
 } from '../../slices/walletSlice';
 import {addListener} from '../../store/listenerMiddleware';
-import {SignatureResponse} from '../../types/wallet';
+import {SignatureResponse, Wallet} from '../../types/wallet';
 import {useAppDispatch} from '../useAppState';
 import {useOrderAttribution} from '../useOrderAttribution';
 
@@ -47,46 +48,37 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
 
   // Add the onConnect callback listeners.
   useEffect(() => {
-    if (requireSignature) {
-      const unsubscribeToConnectedWalletListener = dispatch(
-        addListener({
-          actionCreator: validatePendingWallet.fulfilled,
-          effect: (action, state) => {
-            const signatureResponse = action.meta.arg;
-            const {address, message, signature} = signatureResponse;
-            const {connectedWallets} = state.getState().wallet;
-
-            // Run the onConnect callback
-            const walletConnected = connectedWallets.find(
-              (wallet) =>
-                wallet.address === address &&
-                wallet.message === message &&
-                wallet.signature === signature,
-            );
-
-            if (walletConnected) {
-              onConnect?.(walletConnected);
-            }
-
-            // Perform attribution handling
-            handleAttribution(signatureResponse);
-          },
-        }),
-      );
-
-      return unsubscribeToConnectedWalletListener;
-    }
-
-    const unsubscribeToAddWalletListener = dispatch(
+    const unsubscribeToOnConnectListener = dispatch(
       addListener({
-        actionCreator: addWallet,
-        effect: (action) => {
-          onConnect?.(action.payload);
+        matcher: isAnyOf(
+          addWallet,
+          validatePendingWallet.fulfilled,
+          setActiveWallet,
+        ),
+        effect: (action, state) => {
+          let walletToDispatch: Wallet | undefined;
+
+          if (action.type === 'wallet/validatePendingWallet/fulfilled') {
+            const signatureResponse = action.meta.arg;
+            const {address, signature} = signatureResponse;
+
+            const {connectedWallets} = state.getState().wallet;
+            walletToDispatch = connectedWallets.find(
+              (wallet) =>
+                wallet.address === address && wallet.signature === signature,
+            );
+          } else {
+            walletToDispatch = action.payload;
+          }
+
+          if (walletToDispatch) {
+            onConnect?.(walletToDispatch);
+          }
         },
       }),
     );
 
-    return unsubscribeToAddWalletListener;
+    return unsubscribeToOnConnectListener;
   }, [dispatch, handleAttribution, onConnect, requireSignature]);
 
   // Add the onDisconnect callback listeners.
@@ -102,11 +94,4 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
 
     return unsubscribeToRemoveWalletListener;
   }, [dispatch, onDisconnect]);
-
-  const {isConnected, isDisconnected} = useAccount();
-
-  return {
-    isConnected,
-    isDisconnected,
-  };
 };

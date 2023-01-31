@@ -16,7 +16,7 @@ export type MessageSignedOrderAttributionMode =
   | 'disabled';
 
 export interface useConnectWalletProps {
-  onConnect?: (wallet?: Wallet) => void;
+  onConnect?: (wallet: Wallet) => void;
   onDisconnect?: (wallet?: Wallet) => void;
   /**
    * Defaults to 'required'.

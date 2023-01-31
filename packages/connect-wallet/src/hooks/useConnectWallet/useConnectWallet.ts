@@ -10,7 +10,7 @@ import {useConnectWalletProps} from './types';
 import {useConnectWalletCallbacks} from './useConnectWalletCallbacks';
 
 export function useConnectWallet(props?: useConnectWalletProps) {
-  const {connectedWallets, pendingConnector} = useAppSelector(
+  const {activeWallet, connectedWallets, pendingConnector} = useAppSelector(
     (state) => state.wallet,
   );
 
@@ -20,7 +20,7 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   const {chains} = connectWalletContext;
   const {signing} = modalContext;
 
-  const {isDisconnected, isConnected} = useConnectWalletCallbacks({
+  useConnectWalletCallbacks({
     ...props,
   });
 
@@ -31,11 +31,10 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   return {
     chains,
     connecting: isConnecting,
-    isConnected,
-    isDisconnected,
+    connectedWallets,
     disconnect,
     pendingConnector,
     signing,
-    wallet: connectedWallets.length ? connectedWallets[0] : undefined,
+    wallet: activeWallet,
   };
 }
