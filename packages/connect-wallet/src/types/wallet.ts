@@ -20,14 +20,12 @@ export interface ConnectedWallet {
   connectorName?: string;
 }
 
-export type SignatureResponse =
-  | {
-      address: string;
-      message: string;
-      nonce: string;
-      signature: string;
-    }
-  | undefined;
+export interface SignatureResponse {
+  address: string;
+  message: string;
+  nonce: string;
+  signature: string;
+}
 
 export interface Wallet extends ConnectedWallet {
   /**

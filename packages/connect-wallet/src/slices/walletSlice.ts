@@ -41,12 +41,6 @@ export const initialState: WalletSliceType = {
 export const validatePendingWallet = createAsyncThunk(
   'wallet/validatePendingWallet',
   async (response: SignatureResponse, thunkApi) => {
-    if (!response) {
-      return thunkApi.rejectWithValue(
-        'Missing payload during signature validation',
-      );
-    }
-
     const {address, message, nonce, signature} = response;
     const siweMessage = new SiweMessage(JSON.parse(message));
 
@@ -150,16 +144,6 @@ export const walletSlice = createSlice({
       if (!state.pendingWallet) {
         throw new ConnectWalletError(
           'There is not a wallet pending validation',
-        );
-      }
-
-      /**
-       * Ensure that we have access to the argument provided to validatePendingWallet
-       * as we need to store record of the message and signature.
-       */
-      if (!action.meta.arg) {
-        throw new ConnectWalletError(
-          'Missing payload during signature validation',
         );
       }
 

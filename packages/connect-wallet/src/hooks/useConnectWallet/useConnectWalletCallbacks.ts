@@ -9,7 +9,6 @@ import {
 } from '../../slices/walletSlice';
 import {addListener} from '../../store/listenerMiddleware';
 import {SignatureResponse} from '../../types/wallet';
-import {ConnectWalletError} from '../../utils/error';
 import {useAppDispatch} from '../useAppState';
 import {useOrderAttribution} from '../useOrderAttribution';
 
@@ -27,8 +26,6 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
       if (messageSignedOrderAttributionMode === 'disabled') return;
 
       if (messageSignedOrderAttributionMode === 'ignoreErrors') {
-        if (!response?.address) return;
-
         // when `messageSignedOrderAttributionMode` is set to `ignoreErrors`,
         // we don't want to block the caller from continuing, so we
         // just console log the error to fail silently. Note this is a non-awaited
@@ -40,11 +37,6 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
           );
         });
         return;
-      }
-
-      // by default we require attribution
-      if (!response?.address) {
-        throw new ConnectWalletError('No address found in signature response');
       }
 
       // since the attribution mode is `required`, we want to propagate any errors that occur here.
@@ -60,19 +52,9 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
         addListener({
           actionCreator: validatePendingWallet.fulfilled,
           effect: (action, state) => {
-            if (!action.meta.arg) {
-              return;
-            }
-
-            const {address, message, nonce, signature} = action.meta.arg;
+            const signatureResponse = action.meta.arg;
+            const {address, message, signature} = signatureResponse;
             const {connectedWallets} = state.getState().wallet;
-
-            const response: SignatureResponse = {
-              address,
-              message,
-              nonce,
-              signature,
-            };
 
             // Run the onConnect callback
             const walletConnected = connectedWallets.find(
@@ -87,7 +69,7 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
             }
 
             // Perform attribution handling
-            handleAttribution(response);
+            handleAttribution(signatureResponse);
           },
         }),
       );

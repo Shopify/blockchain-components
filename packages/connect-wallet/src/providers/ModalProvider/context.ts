@@ -27,7 +27,7 @@ export interface ModalProviderValue {
     route: ModalRoute;
   };
   openModal: () => void;
-  requestSignature: (wallet: Wallet) => Promise<SignatureResponse>;
+  requestSignature: (wallet: Wallet) => Promise<SignatureResponse | undefined>;
   signing?: boolean;
 }
 

@@ -57,7 +57,7 @@ export function useSyncSignMessage() {
   );
 
   const signMessage = useCallback(
-    async (wallet: Wallet) => {
+    async (wallet: Wallet): Promise<SignatureResponse> => {
       const {address} = wallet;
       const nonce = generateNonce();
 
@@ -68,14 +68,12 @@ export function useSyncSignMessage() {
           message: message.prepareMessage(),
         });
 
-        const response: SignatureResponse = {
+        return {
           address,
           message: JSON.stringify(message),
           nonce,
           signature,
         };
-
-        return response;
       } catch (error) {
         // If the error was returned by the use sign message hook then return that.
         // We should probably add some more verbose error handling in here as well.
