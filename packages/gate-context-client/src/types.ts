@@ -16,6 +16,7 @@ export interface GateContextClient {
   write: <TRawResponse>(
     data: GateContextInput,
   ) => Promise<GateContextWriteResponse<TRawResponse>>;
+  read: () => Promise<unknown>;
 }
 
 export type ShopifyGateContextGenerator<TGateContext> = (

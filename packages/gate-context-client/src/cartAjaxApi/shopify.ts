@@ -1,6 +1,6 @@
 import {ShopifyObject} from './types';
 
-function isShopifyStore(
+export function isShopifyStore(
   win?: Window,
 ): win is Window & {Shopify: ShopifyObject} {
   return win && (win as any).Shopify;
