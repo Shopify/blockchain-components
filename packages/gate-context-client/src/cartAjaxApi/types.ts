@@ -12,6 +12,6 @@ export interface ShopifyObject {
 }
 
 export interface CartAjaxApiResponse {
-  attributes: Record<string, string>;
+  attributes: Record<string, string | undefined>;
   token: string;
 }

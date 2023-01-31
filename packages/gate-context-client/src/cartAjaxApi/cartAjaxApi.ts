@@ -11,10 +11,36 @@ import {
   ShopifyGateContextGenerator,
 } from '../types';
 
-import {getShopifyRootRoute} from './shopify';
-import {CartAjaxAPICartAttributes} from './types';
+import {CartAjaxApiError, CartAjaxApiNotSupportedError} from './errors';
+import {getShopifyRootRoute, isShopifyStore} from './shopify';
+import {CartAjaxAPICartAttributes, CartAjaxApiResponse} from './types';
 
 const AJAX_API_UPDATE_URL = getUpdateUrl();
+
+async function read(): Promise<unknown> {
+  if (!isCartAjaxApiSupported()) {
+    return Promise.reject(new CartAjaxApiNotSupportedError());
+  }
+  const response = await fetch(`${getCartAjaxApiRoutePrefix()}cart.js`);
+  const json = await response.json();
+  if (!isCartAjaxResponse(json)) {
+    return Promise.reject(new CartAjaxApiError('invalid cart ajax response'));
+  }
+
+  const {_shopify_gate_context: gateContextJson} = json.attributes;
+  if (gateContextJson === undefined) return gateContextJson;
+
+  return JSON.parse(gateContextJson);
+}
+
+function isCartAjaxResponse(response?: any): response is CartAjaxApiResponse {
+  if (!response) return false;
+  if (!response.attributes) return false;
+  if (!response.token) return false;
+  if (typeof response.attributes !== 'object') return false;
+
+  return true;
+}
 
 /**
  * Writes the wallet address and related information (if given) in the
@@ -28,6 +54,10 @@ async function write<TGateContext, TRawResponse>(
     data,
     options.shopifyGateContextGenerator,
   );
+  if (!isCartAjaxApiSupported()) {
+    return Promise.reject(new CartAjaxApiNotSupportedError());
+  }
+
   const response = await fetch(AJAX_API_UPDATE_URL, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -51,6 +81,10 @@ function getUpdateUrl() {
 
 function getCartAjaxApiRoutePrefix() {
   return getShopifyRootRoute();
+}
+
+function isCartAjaxApiSupported() {
+  return isShopifyStore(window);
 }
 
 /**
@@ -88,5 +122,6 @@ export function getGateContextCartAjaxClient<TGateContext>(
   return {
     write: <TCartAjaxApiResponse>(data: GateContextInput) =>
       write<TGateContext, TCartAjaxApiResponse>(data, options),
+    read,
   };
 }
