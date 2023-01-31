@@ -9,10 +9,11 @@ import {initialState, validatePendingWallet, walletSlice} from './walletSlice';
 const {
   addWallet,
   clearSignatureState,
+  removeWallet,
+  setActiveWallet,
   setMessage,
   setPendingConnector,
   setPendingWallet,
-  removeWallet,
   updateWallet,
 } = walletSlice.actions;
 
@@ -38,13 +39,14 @@ const DEFAULT_SERIALIZED_CONNECTOR: SerializedConnector = {
 
 describe('walletSlice', () => {
   describe('addWallet', () => {
-    it('adds a wallet to the list of connected wallets', () => {
+    it('adds a wallet to the list of connected wallets and updates the active wallet', () => {
       // Ensure we're working with a clean state.
       expect(getInitialState().connectedWallets).toHaveLength(0);
 
       expect(reducer(initialState, addWallet(DEFAULT_WALLET))).toStrictEqual({
         ...initialState,
         connectedWallets: [DEFAULT_WALLET],
+        activeWallet: DEFAULT_WALLET,
       });
     });
 
@@ -76,23 +78,75 @@ describe('walletSlice', () => {
     });
   });
 
-  describe('setPendingWallet', () => {
-    it('sets pendingWallet to provided wallet', () => {
+  describe('removeWallet', () => {
+    it('removes the wallet when it exists', () => {
+      const existingState = {
+        ...initialState,
+        connectedWallets: [DEFAULT_WALLET],
+      };
+
       expect(
-        reducer(initialState, setPendingWallet(DEFAULT_WALLET)),
+        reducer(existingState, removeWallet(DEFAULT_WALLET)),
+      ).toStrictEqual(initialState);
+    });
+
+    it('does not remove a wallet if the wallet to remove is not found', () => {
+      const existingState = {
+        ...initialState,
+        connectedWallets: [DEFAULT_WALLET],
+      };
+
+      expect(
+        reducer(existingState, removeWallet(ALTERNATE_WALLET)),
+      ).toStrictEqual(existingState);
+    });
+
+    it('sets the activeWallet to undefined if the address matches', () => {
+      const existingState = {
+        ...initialState,
+        activeWallet: DEFAULT_WALLET,
+        connectedWallets: [DEFAULT_WALLET],
+      };
+
+      expect(
+        reducer(existingState, removeWallet(DEFAULT_WALLET)),
+      ).toStrictEqual(initialState);
+    });
+
+    it('does not set the active wallet to undefined if the disconnected address is different', () => {
+      const existingState = {
+        ...initialState,
+        activeWallet: ALTERNATE_WALLET,
+        connectedWallets: [DEFAULT_WALLET, ALTERNATE_WALLET],
+      };
+
+      expect(
+        reducer(existingState, removeWallet(DEFAULT_WALLET)),
       ).toStrictEqual({
         ...initialState,
-        pendingWallet: DEFAULT_WALLET,
+        activeWallet: ALTERNATE_WALLET,
+        connectedWallets: [ALTERNATE_WALLET],
+      });
+    });
+  });
+
+  describe('setActiveWallet', () => {
+    it('sets activeWallet to provided wallet', () => {
+      expect(
+        reducer(initialState, setActiveWallet(DEFAULT_WALLET)),
+      ).toStrictEqual({
+        ...initialState,
+        activeWallet: DEFAULT_WALLET,
       });
     });
 
-    it('sets pending wallet to undefined when passed undefined', () => {
+    it('sets activeWallet to undefined when passed undefined', () => {
       const existingState = {
         ...initialState,
-        pendingWallet: DEFAULT_WALLET,
+        activeWallet: DEFAULT_WALLET,
       };
 
-      expect(reducer(existingState, setPendingWallet(undefined))).toStrictEqual(
+      expect(reducer(existingState, setActiveWallet(undefined))).toStrictEqual(
         initialState,
       );
     });
@@ -150,27 +204,25 @@ describe('walletSlice', () => {
     });
   });
 
-  describe('removeWallet', () => {
-    it('removes the wallet when it exists', () => {
-      const existingState = {
-        ...initialState,
-        connectedWallets: [DEFAULT_WALLET],
-      };
-
+  describe('setPendingWallet', () => {
+    it('sets pendingWallet to provided wallet', () => {
       expect(
-        reducer(existingState, removeWallet(DEFAULT_WALLET)),
-      ).toStrictEqual(initialState);
+        reducer(initialState, setPendingWallet(DEFAULT_WALLET)),
+      ).toStrictEqual({
+        ...initialState,
+        pendingWallet: DEFAULT_WALLET,
+      });
     });
 
-    it('does not remove a wallet if the wallet to remove is not found', () => {
+    it('sets pending wallet to undefined when passed undefined', () => {
       const existingState = {
         ...initialState,
-        connectedWallets: [DEFAULT_WALLET],
+        pendingWallet: DEFAULT_WALLET,
       };
 
-      expect(
-        reducer(existingState, removeWallet(ALTERNATE_WALLET)),
-      ).toStrictEqual(existingState);
+      expect(reducer(existingState, setPendingWallet(undefined))).toStrictEqual(
+        initialState,
+      );
     });
   });
 

@@ -7,6 +7,7 @@ import {SignatureResponse, Wallet} from '../types/wallet';
 import {ConnectWalletError} from '../utils/error';
 
 export interface WalletSliceType {
+  activeWallet?: Wallet;
   connectedWallets: Wallet[];
   message?: string;
   pendingConnector: SerializedConnector | undefined;
@@ -15,6 +16,7 @@ export interface WalletSliceType {
 }
 
 export const initialState: WalletSliceType = {
+  activeWallet: undefined,
   connectedWallets: [],
   message: undefined,
   pendingConnector: undefined,
@@ -84,6 +86,9 @@ export const walletSlice = createSlice({
       }
 
       state.connectedWallets.push(action.payload);
+
+      // Set the activeWallet to the newly connected wallet.
+      state.activeWallet = action.payload;
     },
     clearSignatureState: (state) => {
       /**
@@ -93,6 +98,9 @@ export const walletSlice = createSlice({
       state.message = initialState.message;
       state.pendingConnector = initialState.pendingConnector;
       state.pendingWallet = initialState.pendingWallet;
+    },
+    setActiveWallet: (state, action: PayloadAction<Wallet | undefined>) => {
+      state.activeWallet = action.payload;
     },
     setMessage: (state, action: PayloadAction<string | undefined>) => {
       state.message = action.payload;
@@ -110,6 +118,11 @@ export const walletSlice = createSlice({
       state.connectedWallets = state.connectedWallets.filter(
         (wallet) => wallet.address !== action.payload.address,
       );
+
+      // If we are disconnecting the activeWallet then we should reset activeWallet
+      if (state.activeWallet?.address === action.payload.address) {
+        state.activeWallet = undefined;
+      }
     },
     updateWallet: (state, action: PayloadAction<Wallet>) => {
       state.connectedWallets = state.connectedWallets.map((wallet) => {
@@ -173,7 +186,7 @@ export const walletSlice = createSlice({
           (wallet) => wallet.address === newWallet.address,
         )
       ) {
-        state.connectedWallets.map((wallet) => {
+        state.connectedWallets = state.connectedWallets.map((wallet) => {
           if (wallet.address !== pendingWallet.address) {
             return wallet;
           }
@@ -186,6 +199,8 @@ export const walletSlice = createSlice({
       } else {
         state.connectedWallets.push(newWallet);
       }
+
+      state.activeWallet = newWallet;
     });
     builder.addCase(validatePendingWallet.rejected, (_, action) => {
       let errorMessage = 'An error was raised during wallet validation';
@@ -206,6 +221,7 @@ export const walletSlice = createSlice({
 export const {
   addWallet,
   clearSignatureState,
+  setActiveWallet,
   setMessage,
   setPendingConnector,
   setPendingWallet,

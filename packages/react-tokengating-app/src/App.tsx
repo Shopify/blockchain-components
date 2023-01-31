@@ -4,7 +4,6 @@ import {
   adaptRequirements,
   adaptUnlockingTokens,
 } from '@shopify/tokengate';
-import {useEffect} from 'react';
 
 import './DawnVariables.css';
 import {Preview} from './style';
@@ -69,34 +68,28 @@ export default function ({serverArguments}: AppProps) {
     EventName.DisconnectWallet,
   );
 
-  const {wallet, isConnected} = useConnectWallet({
+  const {wallet} = useConnectWallet({
     messageSignedOrderAttributionMode: 'ignoreErrors',
     onConnect: (response) => {
       // This is a good place to utilize toasts and inform the user
-      // that their connection was established as expected.
-      // eslint-disable-next-line no-console
-      console.info('Connected wallet', response?.address);
+      // that their connection was established as expected or run
+      // gate check logic.
+      checkIfWalletMeetsRequirements({
+        address: response.address,
+        message: response.message,
+        signature: response.signature,
+      });
     },
     onDisconnect: () => {
       disconnectWallet({});
     },
   });
 
-  useEffect(() => {
-    if (wallet) {
-      checkIfWalletMeetsRequirements({
-        address: wallet.address,
-        message: wallet.message,
-        signature: wallet.signature,
-      });
-    }
-  }, [checkIfWalletMeetsRequirements, wallet]);
-
   const _TokengateComponent = (
     <Tokengate
       connectButton={<ConnectButton />}
       isLoading={serverArguments?.initialState.isLoading}
-      isConnected={isConnected}
+      isConnected={Boolean(wallet)}
       reaction={{
         type: 'exclusive_access',
       }}

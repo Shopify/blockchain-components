@@ -10,7 +10,7 @@ export interface AppState {
 
 const walletPersist = {
   key: 'wallet',
-  blacklist: ['message', 'pendingConnector', 'pendingWallet'],
+  blacklist: ['activeWallet', 'message', 'pendingConnector', 'pendingWallet'],
   storage,
 };
 
