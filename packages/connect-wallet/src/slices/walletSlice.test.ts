@@ -8,10 +8,8 @@ import {initialState, validatePendingWallet, walletSlice} from './walletSlice';
 
 const {
   addWallet,
-  clearSignatureState,
   removeWallet,
   setActiveWallet,
-  setMessage,
   setPendingConnector,
   setPendingWallet,
   updateWallet,
@@ -58,22 +56,6 @@ describe('walletSlice', () => {
 
       expect(reducer(existingState, addWallet(DEFAULT_WALLET))).toStrictEqual(
         existingState,
-      );
-    });
-  });
-
-  describe('clearSignatureState', () => {
-    it('clears message, pendingConnector, and pendingWallet state values', () => {
-      const existingState = {
-        ...initialState,
-        message:
-          'Verification message for 0xc223594946c60217Ed53096eEC6C179964e536EB',
-        pendingConnector: DEFAULT_SERIALIZED_CONNECTOR,
-        pendingWallet: {...DEFAULT_WALLET, signed: false},
-      };
-
-      expect(reducer(existingState, clearSignatureState())).toStrictEqual(
-        initialState,
       );
     });
   });
@@ -149,33 +131,6 @@ describe('walletSlice', () => {
       expect(reducer(existingState, setActiveWallet(undefined))).toStrictEqual(
         initialState,
       );
-    });
-  });
-
-  describe('setMessage', () => {
-    it('sets message to given value', () => {
-      expect(
-        reducer(
-          initialState,
-          setMessage(
-            'Verification message for 0xc223594946c60217Ed53096eEC6C179964e536EB',
-          ),
-        ),
-      ).toStrictEqual({
-        ...initialState,
-        message:
-          'Verification message for 0xc223594946c60217Ed53096eEC6C179964e536EB',
-      });
-    });
-
-    it('sets message to undefined', () => {
-      const existingState = {
-        ...initialState,
-        message:
-          'Verification message for 0xc223594946c60217Ed53096eEC6C179964e536EB',
-      };
-
-      expect(reducer(existingState, setMessage())).toStrictEqual(initialState);
     });
   });
 

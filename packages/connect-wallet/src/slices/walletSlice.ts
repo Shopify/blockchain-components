@@ -37,8 +37,7 @@ export const initialState: WalletSliceType = {
  * that there is a mismatch in the provided message.
  *
  * **NOTE:** This does not handle cleanup of the signature state.
- * That is handled by clearSignatureState and should be dispatched as a
- * separate action.
+ * That is handled by the actions which follow validatePendingWallet.
  */
 export const validatePendingWallet = createAsyncThunk(
   'wallet/validatePendingWallet',
@@ -90,20 +89,8 @@ export const walletSlice = createSlice({
       // Set the activeWallet to the newly connected wallet.
       state.activeWallet = action.payload;
     },
-    clearSignatureState: (state) => {
-      /**
-       * In this action, we're clearing all state keys that are related
-       * to the signature/signing action.
-       */
-      state.message = initialState.message;
-      state.pendingConnector = initialState.pendingConnector;
-      state.pendingWallet = initialState.pendingWallet;
-    },
     setActiveWallet: (state, action: PayloadAction<Wallet | undefined>) => {
       state.activeWallet = action.payload;
-    },
-    setMessage: (state, action: PayloadAction<string | undefined>) => {
-      state.message = action.payload;
     },
     setPendingConnector: (
       state,
@@ -220,9 +207,7 @@ export const walletSlice = createSlice({
 
 export const {
   addWallet,
-  clearSignatureState,
   setActiveWallet,
-  setMessage,
   setPendingConnector,
   setPendingWallet,
   removeWallet,
