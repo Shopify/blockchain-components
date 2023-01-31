@@ -1,6 +1,6 @@
 {
   "name": "@shopify/connect-wallet",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "description": "Crypto wallet connection library for Shopify storefronts",
   "author": "Shopify Inc.",
