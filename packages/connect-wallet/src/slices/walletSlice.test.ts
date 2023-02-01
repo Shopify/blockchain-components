@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import {SiweMessage} from 'siwe';
 
 import {SerializedConnector} from '../types/connector';
@@ -273,7 +276,7 @@ describe('walletSlice', () => {
       '0x9ad835c2b18011cfb08798e856ab39b5d4595273c950fbc4f3b7703bbe7f7d026b556c0bff38829e686d9c495274aa2bde80bc06cfa97521b58f9ff9437d95b91b';
 
     it('does not manipulate state when state.pendingWallet is undefined', () => {
-      const action = validatePendingWallet.fulfilled({valid: true}, '', {
+      const action = validatePendingWallet.fulfilled({success: true}, '', {
         ...DEFAULT_WALLET,
         message: JSON.stringify(message),
         nonce: mockMessage.nonce,
@@ -316,7 +319,7 @@ describe('walletSlice', () => {
         pendingWallet: DEFAULT_WALLET,
       };
 
-      const action = validatePendingWallet.fulfilled({valid: true}, '', {
+      const action = validatePendingWallet.fulfilled({success: true}, '', {
         ...DEFAULT_WALLET,
         message: JSON.stringify(message),
         nonce: mockMessage.nonce,

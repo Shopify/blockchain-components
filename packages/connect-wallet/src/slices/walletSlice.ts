@@ -1,5 +1,4 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {verifyMessage} from 'ethers/lib/utils';
 import {SiweMessage} from 'siwe';
 
 import {SerializedConnector} from '../types/connector';
@@ -27,9 +26,8 @@ export const initialState: WalletSliceType = {
 /**
  * Begins the validation process after a signature is provided.
  *
- * Utilizes SiweMessage.validate to confirm nonces match and
- * ethers verifyMessage to ensure the recovered address matches
- * the address provided via the signature payload.
+ * Utilizes SiweMessage.validate to validate that the signature
+ * is a valid signature for the provided message.
  *
  * There are follow up state actions that run after this which
  * are responsible for updating connectedWallets in the event
@@ -42,29 +40,17 @@ export const initialState: WalletSliceType = {
 export const validatePendingWallet = createAsyncThunk(
   'wallet/validatePendingWallet',
   async (response: SignatureResponse, thunkApi) => {
-    const {address, message, nonce, signature} = response;
+    const {message, nonce, signature} = response;
     const siweMessage = new SiweMessage(JSON.parse(message));
 
     // Validate nonce via Siwe
-    const fields = await siweMessage.validate(signature);
+    const {error, success} = await siweMessage.verify({nonce, signature});
 
-    /**
-     * Utilize `verifyMessage` from ethers to recover the signer address
-     * from the signature.
-     */
-    const recoveredAddress = verifyMessage(fields.toMessage(), signature);
-
-    if (address !== recoveredAddress) {
-      return thunkApi.rejectWithValue(
-        'Address that signed message does not match the connected address',
-      );
+    if (error) {
+      return thunkApi.rejectWithValue(error);
     }
 
-    if (fields.nonce !== nonce) {
-      return thunkApi.rejectWithValue('Signature nonce mismatch');
-    }
-
-    return thunkApi.fulfillWithValue({valid: true});
+    return thunkApi.fulfillWithValue({success});
   },
 );
 
@@ -131,7 +117,7 @@ export const walletSlice = createSlice({
        * only fulfills when an error is not caught. All other cases are
        * funneled through the rejection method.
        */
-      if (!action.payload.valid) {
+      if (!action.payload.success) {
         throw new ConnectWalletError(
           'An error was raised during wallet validation',
         );
