@@ -12,11 +12,21 @@ This repository is managed as a monorepo. Each package has its own `README.md` a
 
 ### Package Index
 
-| Package | Version | Description |
-| ------- | ------- | ----------- |
-| [@shopify/connect-wallet](packages/connect-wallet) | 0.0.0 | Crypto wallet connection library for Shopify storefronts |
-| [@shopify/gate-context-client](packages/gate-context-client) | 0.0.0 | Gate unlocking context client for Shopify storefronts |
-| [@shopify/tokengate](packages/tokengate) | 0.0.0 | Tokengating component for Shopify storefronts |
+| Package                                                      | Description                                              |
+| ------------------------------------------------------------ | -------------------------------------------------------- |
+| [@shopify/connect-wallet](packages/connect-wallet)           | Crypto wallet connection library for Shopify storefronts |
+| [@shopify/gate-context-client](packages/gate-context-client) | Gate unlocking context client for Shopify storefronts    |
+| [@shopify/tokengate](packages/tokengate)                     | Tokengating component for Shopify storefronts            |
+
+### Run a command
+
+**All workspaces**
+
+Run commands across all workspaces. This uses [`turbo run <command>`](https://turborepo.org/docs/reference/command-line-reference#turbo-run-task).
+
+| Command          | Runs                                                                                                                                |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `yarn changeset` | Adds a new [changelog entry](https://github.com/Shopify/blockchain-components/blob/main/.github/contributing.md#adding-a-changeset) |
 
 ## Want to contribute?
 

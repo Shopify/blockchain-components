@@ -13,6 +13,9 @@
     },
     "dev": {
       "cache": false
+    },
+    "preversion": {
+      "cache": false
     }
   }
 }
