@@ -1,101 +1,97 @@
-import {useCallback, useContext} from 'react';
-import {Connector, useAccount} from 'wagmi';
+import {isAnyOf} from '@reduxjs/toolkit';
+import {useCallback, useContext, useEffect} from 'react';
 
-import {ModalContext} from '../../providers/ModalProvider';
-import {addWallet, setPendingWallet} from '../../slices/walletSlice';
-import {Wallet} from '../../types/wallet';
-import {useAppDispatch, useAppSelector} from '../useAppState';
+import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
+import {
+  addWallet,
+  removeWallet,
+  setActiveWallet,
+  validatePendingWallet,
+} from '../../slices/walletSlice';
+import {addListener} from '../../store/listenerMiddleware';
+import {SignatureResponse, Wallet} from '../../types/wallet';
+import {useAppDispatch} from '../useAppState';
+import {useOrderAttribution} from '../useOrderAttribution';
 
 import {useConnectWalletProps} from './types';
 
 export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
-  const {onConnect, onDisconnect} = props || {};
-  const modalContext = useContext(ModalContext);
+  const {messageSignedOrderAttributionMode, onConnect, onDisconnect} =
+    props || {};
+  const {requireSignature} = useContext(ConnectWalletContext);
   const dispatch = useAppDispatch();
-  const {connectedWallets, pendingConnector} = useAppSelector(
-    (state) => state.wallet,
-  );
-  const {requireSignature} = modalContext;
+  const attributeOrder = useOrderAttribution();
 
-  const handleConnect = useCallback(
-    ({
-      address,
-      connector,
-      isReconnected,
-    }: {
-      address?: string;
-      connector?: Connector;
-      isReconnected: boolean;
-    }) => {
-      if (!address) {
+  const handleAttribution = useCallback(
+    async (response: SignatureResponse) => {
+      if (messageSignedOrderAttributionMode === 'disabled') return;
+
+      if (messageSignedOrderAttributionMode === 'ignoreErrors') {
+        // when `messageSignedOrderAttributionMode` is set to `ignoreErrors`,
+        // we don't want to block the caller from continuing, so we
+        // just console log the error to fail silently. Note this is a non-awaited
+        // promise.
+        attributeOrder({address: response.address}).catch((error) => {
+          console.error(
+            'Error attributing order--ignoring due to orderAttributionMode=ignoreErrors',
+            error,
+          );
+        });
         return;
       }
 
-      /**
-       * Wagmi makes use of isReconnected to rehydrate the client.
-       * We need to make sure that we can re-dispatch the onConnect
-       * callback for token validation.
-       */
-      if (isReconnected) {
-        const reconnectedWallet = connectedWallets.find(
-          (wallet) => wallet.address === address,
-        );
-
-        if (reconnectedWallet) {
-          onConnect?.(reconnectedWallet);
-          return;
-        }
-      }
-
-      /**
-       * Check to ensure we have a pending connector before proceeding.
-       *
-       * We require information from the pending connector to determine
-       * where the connection originated (for UX purposes).
-       *
-       * The only exception here is if the connector is an injected
-       * connector because they reconnect automatically. This should
-       * only affect Coinbase Wallet and MetaMask.
-       */
-      if (!pendingConnector && !connector) {
-        return;
-      }
-
-      const wallet: Wallet = {
-        address,
-        connectorId: pendingConnector?.id || connector?.id,
-        connectorName: pendingConnector?.name || connector?.name,
-        // If signatures are required set signed to false
-        signed: requireSignature ? false : undefined,
-      };
-
-      /**
-       * Ensure that the wallet is added to the correct slice of our store
-       * if we are utilizing requireSignature.
-       *
-       * Note: We do not consider a wallet connected until it has signed a
-       * message to verify ownership when `requireSignature` is true.
-       */
-      if (requireSignature) {
-        dispatch(setPendingWallet(wallet));
-      } else {
-        // Otherwise, add the wallet to connectedWallets.
-        dispatch(addWallet(wallet));
-      }
-
-      // Call the onConnect callback provided via props
-      onConnect?.(wallet);
+      // since the attribution mode is `required`, we want to propagate any errors that occur here.
+      await attributeOrder({address: response.address});
     },
-    [connectedWallets, dispatch, onConnect, pendingConnector, requireSignature],
+    [messageSignedOrderAttributionMode, attributeOrder],
   );
 
-  const {isDisconnected, isConnected} = useAccount({
-    onDisconnect,
-    onConnect: handleConnect,
-  });
+  // Add the onConnect callback listeners.
+  useEffect(() => {
+    const unsubscribeToOnConnectListener = dispatch(
+      addListener({
+        matcher: isAnyOf(
+          addWallet,
+          validatePendingWallet.fulfilled,
+          setActiveWallet,
+        ),
+        effect: (action, state) => {
+          let walletToDispatch: Wallet | undefined;
 
-  return {
-    isConnected,
-    isDisconnected,
-  };
+          if (action.type === 'wallet/validatePendingWallet/fulfilled') {
+            const signatureResponse = action.meta.arg;
+            const {address, signature} = signatureResponse;
+
+            const {connectedWallets} = state.getState().wallet;
+            walletToDispatch = connectedWallets.find(
+              (wallet) =>
+                wallet.address === address && wallet.signature === signature,
+            );
+          } else {
+            walletToDispatch = action.payload;
+          }
+
+          if (walletToDispatch) {
+            onConnect?.(walletToDispatch);
+          }
+        },
+      }),
+    );
+
+    return unsubscribeToOnConnectListener;
+  }, [dispatch, handleAttribution, onConnect, requireSignature]);
+
+  // Add the onDisconnect callback listeners.
+  useEffect(() => {
+    const unsubscribeToRemoveWalletListener = dispatch(
+      addListener({
+        actionCreator: removeWallet,
+        effect: (action) => {
+          onDisconnect?.(action.payload);
+        },
+      }),
+    );
+
+    return unsubscribeToRemoveWalletListener;
+  }, [dispatch, onDisconnect]);
 };

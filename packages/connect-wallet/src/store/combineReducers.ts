@@ -10,12 +10,10 @@ export interface AppState {
 
 const walletPersist = {
   key: 'wallet',
-  blacklist: ['message', 'pendingConnector', 'pendingWallet'],
+  blacklist: ['activeWallet', 'message', 'pendingConnector', 'pendingWallet'],
   storage,
 };
 
 export const rootReducer = combineReducers<AppState>({
   wallet: persistReducer(walletPersist, walletSlice.reducer),
 });
-
-export type RootState = ReturnType<typeof rootReducer>;

@@ -1,4 +1,4 @@
-import {Wallet, SignatureResponse} from '../../types/wallet';
+import {Wallet} from '../../types/wallet';
 
 /**
  * Dictates how we will handle automatic order attribution. If
@@ -16,9 +16,8 @@ export type MessageSignedOrderAttributionMode =
   | 'disabled';
 
 export interface useConnectWalletProps {
-  onConnect?: (wallet?: Wallet) => void;
+  onConnect?: (wallet: Wallet) => void;
   onDisconnect?: (wallet?: Wallet) => void;
-  onMessageSigned?: (response: SignatureResponse) => void;
   /**
    * Defaults to 'required'.
    */

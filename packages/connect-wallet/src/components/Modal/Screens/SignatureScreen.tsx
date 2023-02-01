@@ -14,13 +14,18 @@ import {
 
 const SignatureScreen = () => {
   const {pendingWallet} = useAppSelector((state) => state.wallet);
-  const {clearError, error, signing, signMessage} = useModal();
+  const {clearError, closeModal, error, signing, requestSignature} = useModal();
   const {t} = useTranslation('Screens');
 
   const handleSignMessage = useCallback(() => {
+    if (!pendingWallet) {
+      closeModal();
+      return;
+    }
+
     clearError();
-    signMessage();
-  }, [clearError, signMessage]);
+    requestSignature(pendingWallet);
+  }, [clearError, closeModal, pendingWallet, requestSignature]);
 
   const isCriticalError =
     error !== undefined && error.name !== 'UserRejectedRequestError';

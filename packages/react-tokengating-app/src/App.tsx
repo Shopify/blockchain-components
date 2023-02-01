@@ -4,13 +4,11 @@ import {
   adaptRequirements,
   adaptUnlockingTokens,
 } from '@shopify/tokengate';
-import {useEffect} from 'react';
 
 import './DawnVariables.css';
 import {Preview} from './style';
 import {
   EventName,
-  RequestWalletVerificationMessageEvent,
   CheckIfWalletMeetsRequirementsEvent,
   DisconnectWalletEvent,
 } from './types/events';
@@ -57,16 +55,6 @@ export default function ({serverArguments}: AppProps) {
   const isDev = import.meta.env.DEV;
 
   const [
-    requestWalletVerification,
-    {
-      data: requestWalletVerificationResponse,
-      // status: requestWalletVerificationStatus,
-    },
-  ] = useLazyEventBus<RequestWalletVerificationMessageEvent>(
-    EventName.RequestWalletVerificationMessage,
-  );
-
-  const [
     checkIfWalletMeetsRequirements,
     {
       data: checkIfWalletMeetsRequirementsResponse,
@@ -80,58 +68,28 @@ export default function ({serverArguments}: AppProps) {
     EventName.DisconnectWallet,
   );
 
-  const {signMessage, isConnected} = useConnectWallet({
+  const {wallet} = useConnectWallet({
     messageSignedOrderAttributionMode: 'ignoreErrors',
     onConnect: (response) => {
-      if (response?.address) {
-        /**
-         * If the wallet has already signed a message then check if the
-         * wallet satisfies the gate requirements.
-         */
-        if (response.signed) {
-          checkIfWalletMeetsRequirements({
-            address: response.address,
-            message: response.message,
-            signature: response.signature,
-          });
-          return;
-        }
-
-        requestWalletVerification({address: response.address});
-      }
+      // This is a good place to utilize toasts and inform the user
+      // that their connection was established as expected or run
+      // gate check logic.
+      checkIfWalletMeetsRequirements({
+        address: response.address,
+        message: response.message,
+        signature: response.signature,
+      });
     },
     onDisconnect: () => {
       disconnectWallet({});
     },
-    onMessageSigned: (response) => {
-      if (!response) return;
-
-      const {address, message, signature} = response;
-      checkIfWalletMeetsRequirements({
-        address,
-        message,
-        signature,
-      });
-    },
   });
-
-  useEffect(() => {
-    if (requestWalletVerificationResponse?.verification?.message) {
-      signMessage({
-        message: requestWalletVerificationResponse.verification.message,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    requestWalletVerificationResponse?.verification?.message,
-    requestWalletVerificationResponse?.verification?.generatedAt,
-  ]);
 
   const _TokengateComponent = (
     <Tokengate
       connectButton={<ConnectButton />}
       isLoading={serverArguments?.initialState.isLoading}
-      isConnected={isConnected}
+      isConnected={Boolean(wallet)}
       reaction={{
         type: 'exclusive_access',
       }}

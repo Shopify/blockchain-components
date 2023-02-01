@@ -20,18 +20,12 @@ export interface ConnectedWallet {
   connectorName?: string;
 }
 
-export interface SignMessageProps {
+export interface SignatureResponse {
   address: string;
   message: string;
+  nonce: string;
+  signature: string;
 }
-
-export type SignatureResponse =
-  | {
-      address?: string;
-      message?: string;
-      signature?: string;
-    }
-  | undefined;
 
 export interface Wallet extends ConnectedWallet {
   /**
@@ -45,21 +39,7 @@ export interface Wallet extends ConnectedWallet {
    */
   signature?: string;
   /**
-   * Whether the wallet has completed verification.
-   */
-  signed?: boolean;
-  /**
    * ISO datetime string in which the wallet was verified.
    */
   signedOn?: string;
-}
-
-export interface UseWalletProps {
-  onMessageSigned?: (response: SignatureResponse) => void;
-}
-
-export interface UseWalletResponse {
-  connecting: boolean;
-  signing?: boolean;
-  signMessage: (args: SignMessageProps) => Promise<SignatureResponse>;
 }
