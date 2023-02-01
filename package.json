@@ -4,12 +4,16 @@
   "scripts": {
     "build": "turbo run build",
     "build-storybook": "build-storybook",
+    "changeset": "changeset",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "preversion": "echo \"Error: use @changsets/cli to version packages\" && exit 1",
+    "preversion-packages": "node scripts/preversion.js",
     "typecheck": "turbo run typecheck",
     "storybook": "start-storybook -p 6006",
-    "test": "jest"
+    "test": "jest",
+    "version-packages": "yarn preversion-packages && changeset version"
   },
   "repository": {
     "type": "git",
@@ -35,6 +39,9 @@
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "@babel/node": "^7.20.5",
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.0",
+    "@changesets/get-release-plan": "^3.0.16",
     "@react-theming/storybook-addon": "^1.1.10",
     "@shopify/babel-preset": "^24.1.5",
     "@shopify/eslint-plugin": "^42.0.2",
