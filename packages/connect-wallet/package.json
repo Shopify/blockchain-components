@@ -1,0 +1,72 @@
+{
+  "name": "@shopify/connect-wallet",
+  "version": "0.1.0",
+  "private": false,
+  "license": "MIT",
+  "description": "Crypto wallet connection library for Shopify storefronts",
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/blockchain-components.git",
+    "directory": "packages/connect-wallet"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/blockchain-components/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "homepage": "https://github.com/Shopify/blockchain-components/blob/main/packages/connect-wallet/README.md",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "DEV=true tsup --watch",
+    "lint": "eslint '**/*.ts*'",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
+    "@shopify/gate-context-client": "*",
+    "framer-motion": "^8.5.0",
+    "i18next": "^22.4.9",
+    "qrcode": "^1.5.1",
+    "react-i18next": "^12.1.4",
+    "react-redux": "^8.0.5",
+    "react-use-measure": "^2.1.1",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "siwe": "^1.1.6",
+    "styled-components": "^5.3.6",
+    "ua-parser-js": "^1.0.32"
+  },
+  "peerDependencies": {
+    "ethers": "^5.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "wagmi": "^0.10.4"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.4.0",
+    "@types/qrcode": "^1.5.0",
+    "@types/redux-logger": "^3.0.9",
+    "@types/styled-components": "^5.1.26",
+    "@types/ua-parser-js": "^0.7.36",
+    "@wagmi/core": "0.8.10",
+    "shared": "*",
+    "tsconfig": "*",
+    "tsup": "^6.5.0"
+  }
+}

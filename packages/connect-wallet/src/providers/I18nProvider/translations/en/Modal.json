@@ -1,0 +1,18 @@
+{
+  "icons": {
+    "back": "Go back",
+    "close": "Close modal",
+    "whatIsAWallet": "What is a wallet?"
+  },
+  "title": {
+    "Connect": "Connect wallet",
+    "Connecting": "Connect with {{connector}}",
+    "GetAWallet": "Get a wallet",
+    "Scan": "Scan with {{connector}}",
+    "Signature": "Sign with {{connector}}",
+    "WhatAreWallets": "What is a wallet?"
+  },
+  "button": {
+    "retry": "Retry"
+  }
+}

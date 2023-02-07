@@ -1,0 +1,43 @@
+{
+  "name": "playground",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Local playground for testing package changes.",
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/blockchain-components.git",
+    "directory": "apps/playground"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/blockchain-components/issues"
+  },
+  "homepage": "https://github.com/Shopify/blockchain-components/blob/main/apps/playground/README.md",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && tsc",
+    "lint": "eslint '**/*.ts*'",
+    "typecheck": "tsc",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@shopify/gate-context-client": "*",
+    "@shopify/connect-wallet": "*",
+    "@shopify/tokengate": "*",
+    "ethers": "^5.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.3.6",
+    "wagmi": "^0.10.4"
+  },
+  "devDependencies": {
+    "shared": "*",
+    "tsconfig": "*"
+  }
+}

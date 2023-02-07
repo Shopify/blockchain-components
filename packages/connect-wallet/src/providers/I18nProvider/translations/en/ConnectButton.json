@@ -1,0 +1,6 @@
+{
+  "buttonText": "Connect wallet",
+  "popover": {
+    "disconnectButton": "Disconnect"
+  }
+}

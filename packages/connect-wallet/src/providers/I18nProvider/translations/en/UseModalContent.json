@@ -1,0 +1,26 @@
+{
+  "alreadyConnected": {
+    "title": "Error",
+    "body": "This connector is already connected"
+  },
+  "connected": {
+    "title": "Success!",
+    "body": "Connected successfully"
+  },
+  "connecting": {
+    "title": "Requesting connection",
+    "body": "Confirm connection in {{connectorName}}."
+  },
+  "failed": {
+    "title": "Couldn’t connect",
+    "body": "There was an issue connecting your wallet."
+  },
+  "rejected": {
+    "title": "Request cancelled",
+    "body": "Confirm connection in {{connectorName}}."
+  },
+  "unavailable": {
+    "title": "Unavailable",
+    "body": "Unable to access connector"
+  }
+}

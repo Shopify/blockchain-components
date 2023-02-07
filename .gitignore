@@ -1,0 +1,34 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# build / output
+build
+lib
+dist
+storybook-static/*
+
+# turbo
+.turbo
+
+# misc
+.DS_Store
+.cache-loader
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Shopify
+.dev
+.shadowenv.d
