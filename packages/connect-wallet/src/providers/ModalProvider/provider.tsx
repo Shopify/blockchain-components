@@ -8,6 +8,7 @@ import {
 } from 'react';
 import {useAccount, useConnect} from 'wagmi';
 import {isAnyOf} from '@reduxjs/toolkit';
+import {DelegateCash} from 'delegatecash';
 
 import {Modal} from '../../components';
 import {ConnectWalletContext} from '../ConnectWalletProvider';
@@ -20,12 +21,14 @@ import {
   setActiveWallet,
   setPendingConnector,
   setPendingWallet,
+  updatePendingWallet,
   validatePendingWallet,
 } from '../../slices/walletSlice';
 import {addListener} from '../../store/listenerMiddleware';
 import {ConnectionState} from '../../types/connectionState';
 import {Wallet} from '../../types/wallet';
 import {ConnectWalletError} from '../../utils/error';
+import {lookupDelegatedWalletAddresses} from '../../utils/delegateCash';
 
 import {ModalRoute, ModalContext, ModalProviderValue} from './context';
 
@@ -250,7 +253,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
         setConnectionStatus(ConnectionState.Unavailable);
       }
     },
-    onSettled: (_, error) => {
+    onSettled: async (data, error) => {
       if (error) {
         if (error.message === 'User rejected request') {
           setConnectionStatus(ConnectionState.Rejected);
@@ -267,6 +270,21 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
       }
 
       setConnectionStatus(ConnectionState.Connected);
+
+      const walletAddress = data?.account;
+      if (walletAddress) {
+        const delegatedWalletAddresses = await lookupDelegatedWalletAddresses(
+          walletAddress,
+        );
+        if (delegatedWalletAddresses.length) {
+          dispatch(
+            updatePendingWallet({
+              address: walletAddress,
+              delegatedWalletAddresses,
+            }),
+          );
+        }
+      }
 
       /**
        * We should close the modal if we're not utilizing requireSignature,

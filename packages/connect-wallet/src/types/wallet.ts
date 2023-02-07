@@ -18,6 +18,12 @@ export interface ConnectedWallet {
    * The connector name associated with how this address was connected.
    */
   connectorName?: string;
+  /**
+   * A list of "vault"  proxy wallet addresses that have delegated ownership to this wallet.
+   * You can treat these addresses as being controlled by the same entity as this wallet once
+   * signature verification has been completed.
+   */
+  delegatedWalletAddresses?: string[];
 }
 
 export interface SignatureResponse {

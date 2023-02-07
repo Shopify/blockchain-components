@@ -105,6 +105,12 @@ export const walletSlice = createSlice({
     setPendingWallet: (state, action: PayloadAction<Wallet | undefined>) => {
       state.pendingWallet = action.payload;
     },
+    updatePendingWallet: (state, action: PayloadAction<Wallet>) => {
+      state.pendingWallet = {
+        ...state.pendingWallet,
+        ...action.payload,
+      };
+    },
     removeWallet: (state, action: PayloadAction<Wallet>) => {
       state.connectedWallets = state.connectedWallets.filter(
         (wallet) => wallet.address !== action.payload.address,
@@ -215,5 +221,6 @@ export const {
   setPendingConnector,
   setPendingWallet,
   removeWallet,
+  updatePendingWallet,
   updateWallet,
 } = walletSlice.actions;

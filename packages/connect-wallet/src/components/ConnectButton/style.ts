@@ -1,24 +1,6 @@
 import {breakpoints, ButtonWrapper} from 'shared';
 import styled from 'styled-components';
 
-export const AddressChip = styled.button`
-  appearance: none;
-  outline: unset;
-  border: unset;
-  display: flex;
-  align-items: center;
-  background-color: #fafbfb;
-  padding: 8px 12px;
-  border-radius: 32px;
-  column-gap: 12px;
-  cursor: pointer;
-  color: #202223;
-
-  &:hover {
-    background-color: #f6f6f7;
-  }
-`;
-
 export const Background = styled.div`
   display: none;
 
@@ -53,7 +35,7 @@ export const Container = styled.div`
   top: 100%;
   right: 0;
   padding: 4px 0;
-  min-width: 280px;
+  min-width: 380px;
   /**
     * Required to appear over any badges, callouts, or notices
     * on some themes. This is the largest int supported, so it

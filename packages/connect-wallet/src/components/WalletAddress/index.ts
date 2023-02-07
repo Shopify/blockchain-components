@@ -1,0 +1,1 @@
+export {WalletAddress} from './WalletAddress';
