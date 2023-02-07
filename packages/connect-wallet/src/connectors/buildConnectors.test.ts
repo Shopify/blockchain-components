@@ -19,6 +19,7 @@ describe('buildConnectors', () => {
       const {connectors, wagmiConnectors} = buildConnectors({
         chains: CHAINS,
         includeDefaults: true,
+        projectId: '',
       });
 
       const connectorIds = extractConnectorIds(connectors);
@@ -39,6 +40,7 @@ describe('buildConnectors', () => {
         chains: CHAINS,
         excludedConnectors: ['metaMask'],
         includeDefaults: true,
+        projectId: '',
       });
 
       const connectorIds = extractConnectorIds(connectors);
@@ -58,6 +60,7 @@ describe('buildConnectors', () => {
         chains: CHAINS,
         customConnectors: [CUSTOM_CONNECTOR],
         includeDefaults: true,
+        projectId: '',
       });
 
       const connectorIds = extractConnectorIds(connectors);
@@ -81,6 +84,7 @@ describe('buildConnectors', () => {
         chains: CHAINS,
         customConnectors: [CUSTOM_CONNECTOR],
         includeDefaults: false,
+        projectId: '',
       });
 
       const connectorIds = extractConnectorIds(connectors);

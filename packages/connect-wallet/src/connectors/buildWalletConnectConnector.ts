@@ -1,15 +1,14 @@
-import {WalletConnectLegacyConnector} from 'wagmi/connectors/walletConnectLegacy';
+import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 
-const mappedConnectors = new Map<string, WalletConnectLegacyConnector>();
+const mappedConnectors = new Map<string, WalletConnectConnector>();
 
 // Reused type creation from wagmi/connectors/walletConnect
 type WalletConnectConnectorProps = ConstructorParameters<
-  typeof WalletConnectLegacyConnector
+  typeof WalletConnectConnector
 >[0];
 
 type BuildConnectorProps = Pick<WalletConnectConnectorProps, 'chains'> & {
-  desktopLinks?: string[];
-  mobileLinks?: string[];
+  projectId: string;
   qrcode?: boolean;
 };
 
@@ -18,18 +17,14 @@ type BuildConnectorProps = Pick<WalletConnectConnectorProps, 'chains'> & {
  */
 export const buildWalletConnectConnector = ({
   chains,
-  desktopLinks,
-  mobileLinks,
+  projectId,
   qrcode = false,
-}: BuildConnectorProps): WalletConnectLegacyConnector => {
+}: BuildConnectorProps): WalletConnectConnector => {
   const options: WalletConnectConnectorProps = {
     chains,
     options: {
-      qrcodeModalOptions: {
-        desktopLinks,
-        mobileLinks,
-      },
-      qrcode,
+      projectId,
+      showQrModal: qrcode,
     },
   };
 
@@ -45,7 +40,7 @@ export const buildWalletConnectConnector = ({
   }
 
   // A connector didn't exist in our map, so we can create on here.
-  const connector = new WalletConnectLegacyConnector(options);
+  const connector = new WalletConnectConnector(options);
 
   // Add the newly created connector to our map for use later.
   mappedConnectors.set(stringifiedOptions, connector);

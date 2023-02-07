@@ -11,7 +11,6 @@ import {ConnectWalletContext, ConnectWalletProviderValue} from './context';
 import {ProviderProps} from './types';
 
 import {Modal} from '~/components';
-import {buildConnectors} from '~/connectors/buildConnectors';
 
 export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,
@@ -19,26 +18,17 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   children,
   customTitles,
   enableDelegateCash = true,
-  requireSignature = true,
   orderAttributionMode = 'required',
+  requireSignature = true,
   statementGenerator,
 }: PropsWithChildren<ProviderProps>) => {
   useComponentRenderedTracking(eventNames.CONNECT_WALLET_PROVIDER_RENDERED);
 
   const contextValue: ConnectWalletProviderValue = useMemo(() => {
-    let contextualConnectors = connectors;
-
-    if (!contextualConnectors.length) {
-      const {connectors: defaultConnectors} = buildConnectors({
-        chains,
-      });
-      contextualConnectors = defaultConnectors;
-    }
-
     return {
       enableDelegateCash,
       chains,
-      connectors: contextualConnectors,
+      connectors,
       customTitles,
       requireSignature,
       statementGenerator,

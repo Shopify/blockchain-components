@@ -48,6 +48,7 @@ window.playground = {
               connectors={connectors}
               enableDelegateCash
               orderAttributionMode="ignoreErrors"
+              projectId="myProjectId"
             >
               <App
                 serverArguments={{

@@ -31,10 +31,7 @@ const ScanScreen = () => {
   }, [closeModal, connect, modalConnector]);
 
   const buttons = useMemo(() => {
-    const isWalletConnect =
-      connector?.id === 'walletConnect' ||
-      connector?.id === 'walletConnectLegacy';
-
+    const isWalletConnect = connector?.id === 'walletConnect';
     const hasGetProductButton = Boolean(marketingSite);
     const hasWalletConnectButton = Boolean(isWalletConnect && modalConnector);
     const hasButtons = hasGetProductButton || hasWalletConnectButton;
@@ -125,9 +122,7 @@ const ScanScreen = () => {
         const provider = await connector.getProvider();
 
         setQRCodeURI(
-          connector.id === 'coinbaseWallet'
-            ? provider.qrUrl
-            : provider.connector.uri,
+          connector.id === 'coinbaseWallet' ? provider.qrUrl : provider.uri,
         );
 
         /**
