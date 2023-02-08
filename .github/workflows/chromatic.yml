@@ -9,7 +9,7 @@ on: push
 # List of jobs
 jobs:
   chromatic-deployment:
-    runs-on: shopify-ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
 
