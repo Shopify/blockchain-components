@@ -19,7 +19,9 @@ import {Popover} from './Popover';
 import {CaretIcon, ConnectedButton, Wrapper} from './style';
 
 export const ConnectButton = () => {
-  const {connectedWallets} = useAppSelector((state) => state.wallet);
+  const {activeWallet, connectedWallets} = useAppSelector(
+    (state) => state.wallet,
+  );
   const {openModal} = useModal();
   const [popoverVisible, setPopoverVisible] = useState(false);
   const {t} = useTranslation('ConnectButton');
@@ -42,12 +44,12 @@ export const ConnectButton = () => {
   }, [escPress, popoverVisible, togglePopover]);
 
   const handleClick = useCallback(() => {
-    if (!connectedWallets.length) {
+    if (!connectedWallets.length || !activeWallet) {
       openModal();
     }
-  }, [connectedWallets.length, openModal]);
+  }, [activeWallet, connectedWallets.length, openModal]);
 
-  if (!connectedWallets.length) {
+  if (!activeWallet) {
     return (
       <Button
         aria-label={t('buttonText')}
@@ -60,7 +62,7 @@ export const ConnectButton = () => {
     );
   }
 
-  const {address, connectorId} = connectedWallets[0];
+  const {address, connectorId, displayName} = activeWallet;
 
   return (
     <Wrapper id="connectWalletConnectedButtonWrapper" ref={ref}>
@@ -72,7 +74,7 @@ export const ConnectButton = () => {
       >
         <ConnectorIcon id={connectorId} size="Xs" />
         <Text as="span" variant="bodyLg">
-          {formatWalletAddress(address)}
+          {displayName || formatWalletAddress(address)}
         </Text>
         <CaretIcon>{CaretDown}</CaretIcon>
       </ConnectedButton>

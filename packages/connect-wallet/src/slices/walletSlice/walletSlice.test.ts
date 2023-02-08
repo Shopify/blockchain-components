@@ -166,9 +166,10 @@ describe('walletSlice', () => {
   });
 
   describe('updateWallet', () => {
-    it('updates a wallet when it exists', () => {
+    it('updates a wallet when it exists and updates the active wallet when the address matches', () => {
       const existingState = {
         ...initialState,
+        activeWallet: DEFAULT_WALLET,
         connectedWallets: [DEFAULT_WALLET],
       };
 
@@ -176,12 +177,37 @@ describe('walletSlice', () => {
         ...DEFAULT_WALLET,
         connectorId: 'rainbow',
         connectorName: 'Rainbow',
+        displayName: 'connect-wallet-test.eth',
       };
 
       expect(reducer(existingState, updateWallet(updatedWallet))).toStrictEqual(
         {
           ...initialState,
+          activeWallet: updatedWallet,
           connectedWallets: [updatedWallet],
+        },
+      );
+    });
+
+    it('updates a wallet when it exists and does not update the active wallet if the address does not match', () => {
+      const existingState = {
+        ...initialState,
+        activeWallet: ALTERNATE_WALLET,
+        connectedWallets: [DEFAULT_WALLET, ALTERNATE_WALLET],
+      };
+
+      const updatedWallet = {
+        ...DEFAULT_WALLET,
+        connectorId: 'rainbow',
+        connectorName: 'Rainbow',
+        displayName: 'connect-wallet-test.eth',
+      };
+
+      expect(reducer(existingState, updateWallet(updatedWallet))).toStrictEqual(
+        {
+          ...initialState,
+          activeWallet: ALTERNATE_WALLET,
+          connectedWallets: [updatedWallet, ALTERNATE_WALLET],
         },
       );
     });

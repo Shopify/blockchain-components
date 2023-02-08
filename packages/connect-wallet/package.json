@@ -37,6 +37,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ethersproject/providers": "^5.7.2",
     "@reduxjs/toolkit": "^1.9.1",
     "@shopify/gate-context-client": "*",
     "@storybook/react": "^6.5.13",

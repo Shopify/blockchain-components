@@ -1,8 +1,10 @@
+import {Address} from 'wagmi';
+
 export interface ConnectedWallet {
   /**
    * The public address of the connected wallet.
    */
-  address: string;
+  address: Address;
   /**
    * ISO datetime string in which this address was connected.
    */
@@ -18,10 +20,16 @@ export interface ConnectedWallet {
    * The connector name associated with how this address was connected.
    */
   connectorName?: string;
+  /**
+   * The ENS name for the associated address.
+   *
+   * This will only be filled when an Alchemy or Infura provider are present.
+   */
+  displayName?: string;
 }
 
 export interface SignatureResponse {
-  address: string;
+  address: Address;
   message: string;
   nonce: string;
   signature: string;
