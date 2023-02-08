@@ -7,17 +7,17 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/blockchain-kit.git",
+    "url": "git+https://github.com/Shopify/blockchain-components.git",
     "directory": "packages/gate-context-client"
   },
   "bugs": {
-    "url": "https://github.com/Shopify/blockchain-kit/issues"
+    "url": "https://github.com/Shopify/blockchain-components/issues"
   },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
   },
-  "homepage": "https://github.com/Shopify/blockchain-kit/blob/main/packages/gate-context-client/README.md",
+  "homepage": "https://github.com/Shopify/blockchain-components/blob/main/packages/gate-context-client/README.md",
   "type": "module",
   "files": [
     "dist"
