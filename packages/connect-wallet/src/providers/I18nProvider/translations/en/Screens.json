@@ -34,5 +34,21 @@
   },
   "button": {
     "retry": "Retry"
+  },
+  "WhatAreDelegates": {
+    "intro": "Delegate wallets let you prove ownership of a wallet that you don’t want to connect.",
+    "works": "How it works",
+    "home": {
+      "content": "Link your main wallet to a delegate using {{link}} – includes a transaction fee.",
+      "title": "A home for digital assets"
+    },
+    "login": {
+      "content": "Come back and connect your delegated wallet.",
+      "title": "A new way to login"
+    },
+    "collaborativeCommerce": {
+      "content": "Get all the perks of your vaulted wallet while it stays unconnected. ",
+      "title": "Your key to web3 commerce"
+    }
   }
 }

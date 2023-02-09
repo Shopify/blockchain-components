@@ -1,11 +1,9 @@
-import {useCallback, useState} from 'react';
-import {CaretDown, Text, DelegateCash as delegateCashIcon} from 'shared';
+import {Text, DelegateCash as delegateCashIcon} from 'shared';
 
 import {useTranslation} from '../../hooks/useTranslation';
-import {WalletAddress} from '../WalletAddress';
+import {WalletAddressRow} from '../WalletAddressRow';
 
 import {
-  CaretIcon,
   DelegatedWalletsButtonWrapper,
   Divider,
   Icon,
@@ -20,40 +18,28 @@ interface Props {
 }
 
 export const DelegatedWalletsButton = ({addresses}: Props) => {
-  const [addressDetailsVisible, setAddressDetailsVisible] = useState(false);
   const {t} = useTranslation('DelegatedWalletsButton');
-
-  const toggleAddressDetails = useCallback(() => {
-    setAddressDetailsVisible(!addressDetailsVisible);
-  }, [addressDetailsVisible]);
 
   return (
     <Wrapper>
-      <DelegatedWalletsButtonWrapper
-        fullWidth
-        onClick={toggleAddressDetails}
-        $addressDetailsVisible={addressDetailsVisible}
-        size="Lg"
-      >
+      <DelegatedWalletsButtonWrapper>
         <Icon>{delegateCashIcon}</Icon>
-        <Text as="span" variant="bodyLg">
-          {t('buttonText', {amount: addresses.length})}
+        <Text variant="bodyMd" bold as="span">
+          {t( addresses.length > 1 ? ('buttonText') : ('buttonTextOneDelegate'), {amount: addresses.length})}
         </Text>
-        <CaretIcon>{CaretDown}</CaretIcon>
       </DelegatedWalletsButtonWrapper>
-
-      {addressDetailsVisible ? (
-        <List>
-          {addresses.map((address, index) => (
-            <ListItem key={address}>
-              <WalletAddress address={address} />
-              {index < addresses.length - 1 ? (
-                <Divider key={`${address}-divider`} />
-              ) : null}
-            </ListItem>
-          ))}
-        </List>
-      ) : null}
+      <List>
+        {addresses.map((address, index) => (
+          <ListItem key={address}>
+            <WalletAddressRow address={address} />
+            {index < addresses.length - 1 ? (
+              <Divider key={`${address}-divider`} />
+            ) : null}
+          </ListItem>
+        ))}
+      </List>
+      <div>
+      </div>
       {/* <Popover
         mobile={shouldUseMobileSizes}
         onDismiss={() => setAddressDetailsVisible(false)}

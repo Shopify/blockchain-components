@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
-
-import {SheetContent} from '../style';
+import {Text, DelegateCash as delegateCashIcon} from 'shared';
+import {SheetContent, DelegateCash, DelegateIcon} from '../style';
 import {ConnectorButton} from '../../ConnectorButton';
 import {useAppDispatch} from '../../../hooks/useAppState';
 import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';

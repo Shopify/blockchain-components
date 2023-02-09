@@ -17,6 +17,7 @@ import {
   useIsMounted,
   useKeyPress,
   useMediaQuery,
+  DelegateCash as delegateCashIcon,
 } from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
@@ -24,7 +25,8 @@ import {useAppSelector} from '../../hooks/useAppState';
 import {useTranslation} from '../../hooks/useTranslation';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
 
-import {Background, Header, Sheet, Wrapper} from './style';
+import {Background, Header, Sheet, Wrapper, SheetContent, DelegateCash, DelegateIcon} from './style';
+
 import {
   ConnectScreen,
   ConnectingScreen,
@@ -32,6 +34,7 @@ import {
   ScanScreen,
   SignatureScreen,
   WhatAreWalletsScreen,
+  WhatAreDelegatesScreen,
 } from './Screens';
 import {ModalVariants} from './variants';
 
@@ -76,17 +79,28 @@ export const Modal = () => {
     />
   );
 
+  const whatAreDelegatesText = (
+    <DelegateCash
+      onClick={() => navigation.navigate(ModalRoute.WhatAreDelegates)}
+    >
+      <DelegateIcon>{delegateCashIcon}</DelegateIcon>
+      <Text><u>Delegate wallets</u> supported</Text>
+    </DelegateCash>
+  );
+
   const mappedScreenData: {
     [R in ModalRoute]: {
       leftButton: JSX.Element;
       screenComponent: JSX.Element;
       title: string;
+      bottom?: JSX.Element;
     };
   } = {
     Connect: {
       leftButton: whatAreWalletsButton,
       screenComponent: <ConnectScreen connectors={connectors} />,
       title: t('title.Connect'),
+      bottom: whatAreDelegatesText,
     },
     Connecting: {
       leftButton: backButton,
@@ -113,9 +127,14 @@ export const Modal = () => {
       screenComponent: <WhatAreWalletsScreen />,
       title: t('title.WhatAreWallets'),
     },
+    WhatAreDelegates: {
+      leftButton: backButton,
+      screenComponent: <WhatAreDelegatesScreen />,
+      title: t('title.WhatAreDelegates'),
+    },
   };
 
-  const {leftButton, screenComponent, title} =
+  const {leftButton, screenComponent, title, bottom} =
     mappedScreenData[navigation.route];
 
   if (!isMounted) {
@@ -164,8 +183,8 @@ export const Modal = () => {
                     onClick={closeModal}
                   />
                 </Header>
-
                 {screenComponent}
+                {bottom}
               </div>
             </Sheet>
           </Wrapper>

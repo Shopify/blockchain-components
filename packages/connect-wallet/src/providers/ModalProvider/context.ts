@@ -12,6 +12,7 @@ export enum ModalRoute {
   Scan = 'Scan',
   Signature = 'Signature',
   WhatAreWallets = 'WhatAreWallets',
+  WhatAreDelegates = 'WhatAreDelegates'
 }
 
 export interface ModalProviderValue {

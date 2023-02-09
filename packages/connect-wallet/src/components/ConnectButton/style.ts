@@ -56,6 +56,21 @@ export const Container = styled.div`
   }
 `;
 
+export const Icon = styled.div`
+  height: 12px;
+  width: 12px;
+`;
+
+export const DelegateCounter = styled.div`
+  background-color: #fafbfb;
+  border-radius: 2px;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  align-items: center;
+`;
+
+
 export const Frame = styled.div`
   background: ${({theme}) => theme.popovers.background};
   border: ${({theme}) => theme.popovers.border};

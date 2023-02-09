@@ -7,7 +7,9 @@ import {
   useKeyPress,
   useOutsideClick,
   Text,
-} from 'shared';
+  DelegateCash as delegateCashIcon,
+  }
+from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
@@ -16,7 +18,7 @@ import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {useModal} from '../../providers/ModalProvider';
 
 import {Popover} from './Popover';
-import {CaretIcon, ConnectedButton, Wrapper} from './style';
+import {CaretIcon, ConnectedButton, Wrapper, Icon, DelegateCounter} from './style';
 
 export const ConnectButton = () => {
   const {connectedWallets} = useAppSelector((state) => state.wallet);
@@ -60,7 +62,7 @@ export const ConnectButton = () => {
     );
   }
 
-  const {address, connectorId} = connectedWallets[0];
+  const {address, connectorId, delegatedWalletAddresses} = connectedWallets[0];
 
   return (
     <Wrapper id="connectWalletConnectedButtonWrapper" ref={ref}>
@@ -74,6 +76,12 @@ export const ConnectButton = () => {
         <Text as="span" variant="bodyLg">
           {formatWalletAddress(address)}
         </Text>
+        {delegatedWalletAddresses ? (
+          <DelegateCounter>
+            <Icon>{delegateCashIcon}</Icon>
+            <Text variant="bodySm" bold>{delegatedWalletAddresses.length}</Text>
+          </DelegateCounter>
+        ) : null}
         <CaretIcon>{CaretDown}</CaretIcon>
       </ConnectedButton>
 

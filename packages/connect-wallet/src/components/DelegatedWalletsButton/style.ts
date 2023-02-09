@@ -1,4 +1,3 @@
-import {ButtonWrapper} from 'shared';
 import styled from 'styled-components';
 
 export const CaretIcon = styled.div`
@@ -7,32 +6,35 @@ export const CaretIcon = styled.div`
   width: 20px;
 `;
 
-export const DelegatedWalletsButtonWrapper = styled(ButtonWrapper)<{
-  $addressDetailsVisible: boolean;
-}>`
-  column-gap: 8px;
-  color: ${({theme}) => theme.typography.colorPrimary};
-  border: 0;
-  background-color: #fafbfb;
-  ${CaretIcon} {
-    transform: ${({$addressDetailsVisible}) =>
-      $addressDetailsVisible ? 'rotate(180deg)' : 'none'};
-  }
+export const DelegatedWalletsButtonWrapper = styled.div`
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+margin: 0;
+width: 100%;
+gap: 8px;
+padding: 16px 16px 0px 16px;
 `;
 
 export const Wrapper = styled.div`
   position: relative;
   background-color: #fafbfb;
+  width: 100%;
+  border-radius: 8px;
+  margin: 0px;
 `;
 
 export const Icon = styled.div`
-  height: 20px;
-  width: 20px;
+  height: 16px;
+  width: 16px;
 `;
 
 export const List = styled.ul`
   padding: 8px 0;
   list-style: none;
+  margin: 0;
+
 `;
 
 export const ListItem = styled.li`
@@ -41,4 +43,5 @@ export const ListItem = styled.li`
 
 export const Divider = styled.div`
   border-top: 1px solid ${({theme}) => theme.other.dividerColor};
+  margin: 0px 16px;
 `;

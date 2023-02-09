@@ -1,3 +1,4 @@
 {
-  "buttonText": "Delegate for {{amount}} wallets"
+  "buttonText": "Delegate for {{amount}} wallets",
+  "buttonTextOneDelegate": "Delegate for {{amount}} wallet"
 }

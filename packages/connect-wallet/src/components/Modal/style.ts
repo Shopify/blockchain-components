@@ -1,5 +1,5 @@
 import styled, {CSSProperties} from 'styled-components';
-import {breakpoints} from 'shared';
+import {breakpoints, Text} from 'shared';
 
 export const Background = styled.div`
   position: absolute;
@@ -132,6 +132,25 @@ export const WalletList = styled.div`
   flex-direction: column;
   row-gap: 24px;
   padding: 12px 0;
+`;
+
+export const DelegateCash = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+  gap: 8px;
+  cursor: pointer;
+`;
+
+export const DelegateIcon = styled.div`
+  height: 16px;
+  width: 16px;
+`;
+
+export const DelegateIntro = styled(Text)`
+  padding-bottom: 0px;
 `;
 
 export const WalletListItem = styled.div`

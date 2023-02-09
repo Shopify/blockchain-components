@@ -7,6 +7,7 @@ export {CoinbaseWallet} from './CoinbaseWallet';
 export {Copy} from './Copy';
 export {DelegateCash} from './DelegateCash';
 export {Gift} from './Gift';
+export {Link} from './Link';
 export {Key} from './Key';
 export {LedgerLive} from './LedgerLive';
 export {MetaMask} from './MetaMask';
