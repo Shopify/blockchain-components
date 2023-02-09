@@ -5,7 +5,7 @@ import {
   m,
   useReducedMotion,
 } from 'framer-motion';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useContext, useEffect} from 'react';
 import {createPortal} from 'react-dom';
 import useMeasure from 'react-use-measure';
 import {
@@ -23,6 +23,7 @@ import {
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {useAppSelector} from '../../hooks/useAppState';
 import {useTranslation} from '../../hooks/useTranslation';
+import { ConnectWalletContext } from '../../providers/ConnectWalletProvider';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
 
 import {Background, Header, Sheet, Wrapper, SheetContent, DelegateCash, DelegateIcon} from './style';
@@ -38,10 +39,15 @@ import {
 } from './Screens';
 import {ModalVariants} from './variants';
 
-export const Modal = () => {
+interface ModalScreenProps {
+  disableDelegates: boolean;
+}
+
+export const Modal = ({disableDelegates}: ModalScreenProps) => {
   const {pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
+  const {disableDelegates} = useContext(ConnectWalletContext);
   const {connectors} = useDefaultConnectors();
   const isMounted = useIsMounted();
   const escPress = useKeyPress('Escape');
@@ -79,7 +85,7 @@ export const Modal = () => {
     />
   );
 
-  const whatAreDelegatesText = (
+  const whatAreDelegatesText = disableDelegates ? null : (
     <DelegateCash
       onClick={() => navigation.navigate(ModalRoute.WhatAreDelegates)}
     >
@@ -93,7 +99,7 @@ export const Modal = () => {
       leftButton: JSX.Element;
       screenComponent: JSX.Element;
       title: string;
-      bottom?: JSX.Element;
+      bottom?: JSX.Element | null;
     };
   } = {
     Connect: {

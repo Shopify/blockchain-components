@@ -57,8 +57,13 @@ interface OrderAttributionModeProps {
   orderAttributionMode?: OrderAttributionMode;
 }
 
+interface AllowDelegateProps {
+  disableDelegates: false;
+}
+
 export type ProviderProps = (
   | SignatureRequiredProps
   | SignatureNotRequiredProps
 ) &
-  OrderAttributionModeProps;
+  OrderAttributionModeProps &
+  AllowDelegateProps;

@@ -6,6 +6,7 @@ import {StatementGenerator} from '../../types/provider';
 
 export interface ConnectWalletProviderValue {
   chains: Chain[];
+  disableDelegates?: boolean;
   requireSignature?: boolean;
   statementGenerator?: StatementGenerator;
   orderAttributionMode: OrderAttributionMode;
@@ -13,6 +14,7 @@ export interface ConnectWalletProviderValue {
 
 const defaultContextValue: ConnectWalletProviderValue = {
   chains: [],
+  disableDelegates: false,
   requireSignature: true,
   orderAttributionMode: 'required',
 };

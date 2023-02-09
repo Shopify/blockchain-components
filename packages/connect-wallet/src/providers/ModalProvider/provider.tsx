@@ -8,7 +8,6 @@ import {
 } from 'react';
 import {useAccount, useConnect} from 'wagmi';
 import {isAnyOf} from '@reduxjs/toolkit';
-import {DelegateCash} from 'delegatecash';
 
 import {Modal} from '../../components';
 import {ConnectWalletContext} from '../ConnectWalletProvider';
@@ -32,12 +31,16 @@ import {lookupDelegatedWalletAddresses} from '../../utils/delegateCash';
 
 import {ModalRoute, ModalContext, ModalProviderValue} from './context';
 
+export interface ModalProviderProps extends PropsWithChildren {
+  disableDelegates: boolean;
+}
+
 export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
   const dispatch = useAppDispatch();
   const {connectedWallets, pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
-  const {requireSignature, orderAttributionMode} =
+  const {disableDelegates, requireSignature, orderAttributionMode} =
     useContext(ConnectWalletContext);
   const {disconnect} = useDisconnect();
   const {signing, signMessage} = useSyncSignMessage();
@@ -271,18 +274,20 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
 
       setConnectionStatus(ConnectionState.Connected);
 
-      const walletAddress = data?.account;
-      if (walletAddress) {
-        const delegatedWalletAddresses = await lookupDelegatedWalletAddresses(
-          walletAddress,
-        );
-        if (delegatedWalletAddresses.length) {
-          dispatch(
-            updatePendingWallet({
-              address: walletAddress,
-              delegatedWalletAddresses,
-            }),
+      if (!disableDelegates) {
+        const walletAddress = data?.account;
+        if (walletAddress) {
+          const delegatedWalletAddresses = await lookupDelegatedWalletAddresses(
+            walletAddress,
           );
+          if (delegatedWalletAddresses.length) {
+            dispatch(
+              updatePendingWallet({
+                address: walletAddress,
+                delegatedWalletAddresses,
+              }),
+            );
+          }
         }
       }
 
