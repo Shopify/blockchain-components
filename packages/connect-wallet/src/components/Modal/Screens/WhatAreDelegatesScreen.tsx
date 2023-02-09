@@ -1,4 +1,3 @@
-
 import {Asset, Gift, Key, Text} from 'shared';
 
 import {useTranslation} from '../../../hooks/useTranslation';
@@ -16,18 +15,21 @@ const WhatAreDelegatesScreen = () => {
 
   return (
     <SheetContent rowGap="16px">
-        <DelegateIntro variant="bodyMd" color="secondary">
-              {t('WhatAreDelegates.intro')}
-        </DelegateIntro>
+      <DelegateIntro variant="bodyMd" color="secondary">
+        {t('WhatAreDelegates.intro')}
+      </DelegateIntro>
       <WalletList>
         <Text variant="bodyLg" bold>
-              {t('WhatAreDelegates.works')}
+          {t('WhatAreDelegates.works')}
         </Text>
         <WalletListItem>
           <Icon>{Asset}</Icon>
           <ListItemContent>
             <Text as="p" color="secondary">
-              {t('WhatAreDelegates.home.content')}
+              {t('WhatAreDelegates.home.linkYourWallet')}
+              <a href='https://delegate.cash' target="_blank">delegate.cash</a>
+              &nbsp;&ndash;&nbsp;
+              {t('WhatAreDelegates.home.includesTransactionFee')}
             </Text>
           </ListItemContent>
         </WalletListItem>

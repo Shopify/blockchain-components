@@ -39,7 +39,8 @@
     "intro": "Delegate wallets let you prove ownership of a wallet that you don’t want to connect.",
     "works": "How it works",
     "home": {
-      "content": "Link your main wallet to a delegate using {{link}} – includes a transaction fee.",
+      "linkYourWallet": "Link your main wallet to a delegate using",
+      "includesTransactionFee": "includes a transaction fee.",
       "title": "A home for digital assets"
     },
     "login": {
