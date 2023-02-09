@@ -7,14 +7,14 @@ export const CaretIcon = styled.div`
 `;
 
 export const DelegatedWalletsButtonWrapper = styled.div`
-box-sizing: border-box;
-display: flex;
-flex-direction: row;
-align-items: center;
-margin: 0;
-width: 100%;
-gap: 8px;
-padding: 16px 16px 0px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+  gap: 8px;
+  padding: 16px 16px 0px 16px;
 `;
 
 export const Wrapper = styled.div`
@@ -34,7 +34,6 @@ export const List = styled.ul`
   padding: 8px 0;
   list-style: none;
   margin: 0;
-
 `;
 
 export const ListItem = styled.li`

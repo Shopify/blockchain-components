@@ -12,7 +12,6 @@ import {
   Wrapper,
 } from './style';
 
-
 interface Props {
   addresses: string[];
 }
@@ -25,7 +24,9 @@ export const DelegatedWalletsButton = ({addresses}: Props) => {
       <DelegatedWalletsButtonWrapper>
         <Icon>{delegateCashIcon}</Icon>
         <Text variant="bodyMd" bold as="span">
-          {t( addresses.length > 1 ? ('buttonText') : ('buttonTextOneDelegate'), {amount: addresses.length})}
+          {t(addresses.length > 1 ? 'buttonText' : 'buttonTextOneDelegate', {
+            amount: addresses.length,
+          })}
         </Text>
       </DelegatedWalletsButtonWrapper>
       <List>
@@ -38,13 +39,6 @@ export const DelegatedWalletsButton = ({addresses}: Props) => {
           </ListItem>
         ))}
       </List>
-      <div>
-      </div>
-      {/* <Popover
-        mobile={shouldUseMobileSizes}
-        onDismiss={() => setAddressDetailsVisible(false)}
-        visible={addressDetailsVisible}
-      /> */}
     </Wrapper>
   );
 };

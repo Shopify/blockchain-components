@@ -7,20 +7,11 @@ import {
 } from 'framer-motion';
 import {useCallback} from 'react';
 import {createPortal} from 'react-dom';
-import {
-  Button,
-  CircleTick,
-  Copy,
-  formatWalletAddress,
-  Text,
-  useIsMounted,
-  useMediaQuery,
-} from 'shared';
+import {Button, useIsMounted, useMediaQuery} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
 import {useDisconnect} from '../../hooks/useDisconnect';
-import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
 import {useTranslation} from '../../hooks/useTranslation';
 import {DelegatedWalletsButton} from '../DelegatedWalletsButton';
 import {WalletAddress} from '../WalletAddress';

@@ -15,5 +15,9 @@
   },
   "button": {
     "retry": "Retry"
+  },
+  "delegation": {
+    "delegateWallets": "Delegate wallets",
+    "supported": "supported"
   }
 }

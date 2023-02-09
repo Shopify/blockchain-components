@@ -23,11 +23,17 @@ import {
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {useAppSelector} from '../../hooks/useAppState';
 import {useTranslation} from '../../hooks/useTranslation';
-import { ConnectWalletContext } from '../../providers/ConnectWalletProvider';
+import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
 
-import {Background, Header, Sheet, Wrapper, SheetContent, DelegateCash, DelegateIcon} from './style';
-
+import {
+  Background,
+  Header,
+  Sheet,
+  Wrapper,
+  DelegateCash,
+  DelegateIcon,
+} from './style';
 import {
   ConnectScreen,
   ConnectingScreen,
@@ -86,7 +92,9 @@ export const Modal = () => {
       onClick={() => navigation.navigate(ModalRoute.WhatAreDelegates)}
     >
       <DelegateIcon>{delegateCashIcon}</DelegateIcon>
-      <Text><u>Delegate wallets</u> supported</Text>
+      <Text>
+        <u>{t('delegation.delegateWallets')}</u> {t('delegation.supported')}
+      </Text>
     </DelegateCash>
   );
 
