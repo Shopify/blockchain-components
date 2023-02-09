@@ -39,11 +39,7 @@ import {
 } from './Screens';
 import {ModalVariants} from './variants';
 
-interface ModalScreenProps {
-  disableDelegates: boolean;
-}
-
-export const Modal = ({disableDelegates}: ModalScreenProps) => {
+export const Modal = () => {
   const {pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
