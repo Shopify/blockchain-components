@@ -6,6 +6,8 @@ import {SerializedConnector} from '../../types/connector';
 import {SignatureResponse, Wallet} from '../../types/wallet';
 import {ConnectWalletError} from '../../utils/error';
 
+import {fetchDelegates} from './delegateCash';
+
 export interface WalletSliceType {
   activeWallet?: Wallet;
   connectedWallets: Wallet[];
@@ -137,6 +139,34 @@ export const walletSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchDelegates.fulfilled, (state, action) => {
+      if (action.payload) {
+        const {address, delegatedWalletAddresses} = action.payload;
+
+        let updatedWallet: Wallet | undefined;
+
+        if (
+          state.connectedWallets.some((wallet) => wallet.address === address)
+        ) {
+          state.connectedWallets = state.connectedWallets.map((wallet) => {
+            if (wallet.address !== address) {
+              return wallet;
+            }
+
+            updatedWallet = {
+              ...wallet,
+              delegatedWalletAddresses,
+            };
+
+            return updatedWallet;
+          });
+        }
+
+        if (state.activeWallet?.address === address && updatedWallet) {
+          state.activeWallet = updatedWallet;
+        }
+      }
+    });
     builder.addCase(validatePendingWallet.fulfilled, (state, action) => {
       /**
        * This is not likely to occur since the asyncThunk function for this

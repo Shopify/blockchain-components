@@ -15,18 +15,17 @@ import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
 import {useDisconnect} from '../../hooks/useDisconnect';
 import {useSyncSignMessage} from '../../hooks/useSyncSignMessage';
 import {
-  attributeOrder,
   addWallet,
+  attributeOrder,
+  fetchDelegates,
   setActiveWallet,
   setPendingConnector,
   setPendingWallet,
-  updatePendingWallet,
   validatePendingWallet,
 } from '../../slices/walletSlice';
 import {addListener} from '../../store/listenerMiddleware';
 import {ConnectionState} from '../../types/connectionState';
 import {Wallet} from '../../types/wallet';
-import {lookupDelegatedWalletAddresses} from '../../utils/delegateCash';
 import {ConnectWalletError} from '../../utils/error';
 
 import {ModalRoute, ModalContext, ModalProviderValue} from './context';
@@ -36,7 +35,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
   const {connectedWallets, pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
-  const {disableDelegates, requireSignature, orderAttributionMode} =
+  const {allowDelegates, requireSignature, orderAttributionMode} =
     useContext(ConnectWalletContext);
   const {disconnect} = useDisconnect();
   const {signing, signMessage} = useSyncSignMessage();
@@ -252,7 +251,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
         setConnectionStatus(ConnectionState.Unavailable);
       }
     },
-    onSettled: async (data, error) => {
+    onSettled: (_, error) => {
       if (error) {
         if (error.message === 'User rejected request') {
           setConnectionStatus(ConnectionState.Rejected);
@@ -269,25 +268,6 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
       }
 
       setConnectionStatus(ConnectionState.Connected);
-
-      // Leaving a note on this for now, will problem solve on this later w/ Dennis.
-      // But, this won't work when requireSignature is false.
-      if (!disableDelegates) {
-        const walletAddress = data?.account;
-        if (walletAddress) {
-          const delegatedWalletAddresses = await lookupDelegatedWalletAddresses(
-            walletAddress,
-          );
-          if (delegatedWalletAddresses.length) {
-            dispatch(
-              updatePendingWallet({
-                address: walletAddress,
-                delegatedWalletAddresses,
-              }),
-            );
-          }
-        }
-      }
 
       /**
        * We should close the modal if we're not utilizing requireSignature,
@@ -349,6 +329,30 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
       }),
     );
   }, [dispatch, orderAttributionMode]);
+
+  // when a wallet is connected for the first time, fetch the delegates (if enabled)
+  useEffect(() => {
+    if (allowDelegates) {
+      return dispatch(
+        addListener({
+          matcher: isAnyOf(addWallet, validatePendingWallet.fulfilled),
+          effect: (action, state) => {
+            let addressToDispatch: string;
+
+            // This is validatePendingWallet.fulfilled
+            if (action.type === 'wallet/validatePendingWallet/fulfilled') {
+              const {address} = action.meta.arg;
+              addressToDispatch = address;
+            } else {
+              addressToDispatch = action.payload.address;
+            }
+
+            state.dispatch(fetchDelegates(addressToDispatch));
+          },
+        }),
+      );
+    }
+  }, [allowDelegates, dispatch]);
 
   useEffect(() => {
     if (requireSignature) {

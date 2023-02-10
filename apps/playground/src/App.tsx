@@ -69,14 +69,14 @@ export default function ({serverArguments}: AppProps) {
   );
 
   const {wallet} = useConnectWallet({
-    onConnect: (response) => {
+    onConnect: (wallet) => {
       // This is a good place to utilize toasts and inform the user
       // that their connection was established as expected or run
       // gate check logic.
       checkIfWalletMeetsRequirements({
-        address: response.address,
-        message: response.message,
-        signature: response.signature,
+        address: wallet.address,
+        message: wallet.message,
+        signature: wallet.signature,
       });
     },
     onDisconnect: () => {

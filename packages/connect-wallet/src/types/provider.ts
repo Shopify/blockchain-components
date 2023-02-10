@@ -58,7 +58,7 @@ interface OrderAttributionModeProps {
 }
 
 interface DelegateProps {
-  disableDelegates?: boolean;
+  allowDelegates?: boolean;
 }
 
 export type ProviderProps = (

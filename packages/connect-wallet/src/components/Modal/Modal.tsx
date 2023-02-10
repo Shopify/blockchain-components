@@ -51,7 +51,7 @@ export const Modal = () => {
   const {pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
-  const {disableDelegates} = useContext(ConnectWalletContext);
+  const {allowDelegates} = useContext(ConnectWalletContext);
   const {connectors} = useDefaultConnectors();
   const isMounted = useIsMounted();
   const escPress = useKeyPress('Escape');
@@ -89,7 +89,7 @@ export const Modal = () => {
     />
   );
 
-  const whatAreDelegatesText = disableDelegates ? null : (
+  const whatAreDelegatesText = allowDelegates ? (
     <DelegateCash>
       <DelegateIcon>{delegateCashIcon}</DelegateIcon>
       <DelegateText>
@@ -104,7 +104,7 @@ export const Modal = () => {
         <Text color="secondary">{t('delegation.supported')}</Text>
       </DelegateText>
     </DelegateCash>
-  );
+  ) : null;
 
   const mappedScreenData: {
     [R in ModalRoute]: {
