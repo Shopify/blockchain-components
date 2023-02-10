@@ -1,0 +1,1 @@
+export {WalletAddressRow} from './WalletAddressRow';

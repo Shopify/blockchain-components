@@ -7,6 +7,7 @@ import {
   useKeyPress,
   useOutsideClick,
   Text,
+  DelegateCash as DelegateCashIcon,
 } from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
@@ -16,10 +17,16 @@ import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {useModal} from '../../providers/ModalProvider';
 
 import {Popover} from './Popover';
-import {CaretIcon, ConnectedButton, Wrapper} from './style';
+import {
+  CaretIcon,
+  ConnectedButton,
+  DelegateCounter,
+  Icon,
+  Wrapper,
+} from './style';
 
 export const ConnectButton = () => {
-  const {connectedWallets} = useAppSelector((state) => state.wallet);
+  const {activeWallet} = useAppSelector((state) => state.wallet);
   const {openModal} = useModal();
   const [popoverVisible, setPopoverVisible] = useState(false);
   const {t} = useTranslation('ConnectButton');
@@ -42,12 +49,12 @@ export const ConnectButton = () => {
   }, [escPress, popoverVisible, togglePopover]);
 
   const handleClick = useCallback(() => {
-    if (!connectedWallets.length) {
+    if (!activeWallet) {
       openModal();
     }
-  }, [connectedWallets.length, openModal]);
+  }, [activeWallet, openModal]);
 
-  if (!connectedWallets.length) {
+  if (!activeWallet) {
     return (
       <Button
         aria-label={t('buttonText')}
@@ -60,7 +67,7 @@ export const ConnectButton = () => {
     );
   }
 
-  const {address, connectorId} = connectedWallets[0];
+  const {address, connectorId, delegatedWalletAddresses} = activeWallet;
 
   return (
     <Wrapper id="connectWalletConnectedButtonWrapper" ref={ref}>
@@ -74,6 +81,15 @@ export const ConnectButton = () => {
         <Text as="span" variant="bodyLg">
           {formatWalletAddress(address)}
         </Text>
+
+        {delegatedWalletAddresses ? (
+          <DelegateCounter>
+            <Icon>{DelegateCashIcon}</Icon>
+            <Text variant="bodySm" bold>
+              {delegatedWalletAddresses.length}
+            </Text>
+          </DelegateCounter>
+        ) : null}
         <CaretIcon>{CaretDown}</CaretIcon>
       </ConnectedButton>
 

@@ -10,9 +10,14 @@
     "GetAWallet": "Get a wallet",
     "Scan": "Scan with {{connector}}",
     "Signature": "Sign with {{connector}}",
-    "WhatAreWallets": "What is a wallet?"
+    "WhatAreWallets": "What is a wallet?",
+    "WhatAreDelegates": "What are delegate wallets?"
   },
   "button": {
     "retry": "Retry"
+  },
+  "delegation": {
+    "delegateWallets": "Delegate wallets",
+    "supported": "supported"
   }
 }

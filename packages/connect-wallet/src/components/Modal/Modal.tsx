@@ -5,7 +5,7 @@ import {
   m,
   useReducedMotion,
 } from 'framer-motion';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useContext, useEffect} from 'react';
 import {createPortal} from 'react-dom';
 import useMeasure from 'react-use-measure';
 import {
@@ -17,14 +17,25 @@ import {
   useIsMounted,
   useKeyPress,
   useMediaQuery,
+  DelegateCash as delegateCashIcon,
 } from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {useAppSelector} from '../../hooks/useAppState';
 import {useTranslation} from '../../hooks/useTranslation';
+import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
 
-import {Background, Header, Sheet, Wrapper} from './style';
+import {
+  Background,
+  DelegateCash,
+  DelegateIcon,
+  DelegateText,
+  Header,
+  Link,
+  Sheet,
+  Wrapper,
+} from './style';
 import {
   ConnectScreen,
   ConnectingScreen,
@@ -32,6 +43,7 @@ import {
   ScanScreen,
   SignatureScreen,
   WhatAreWalletsScreen,
+  WhatAreDelegatesScreen,
 } from './Screens';
 import {ModalVariants} from './variants';
 
@@ -39,6 +51,7 @@ export const Modal = () => {
   const {pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
+  const {allowDelegates} = useContext(ConnectWalletContext);
   const {connectors} = useDefaultConnectors();
   const isMounted = useIsMounted();
   const escPress = useKeyPress('Escape');
@@ -76,14 +89,33 @@ export const Modal = () => {
     />
   );
 
+  const whatAreDelegatesText = allowDelegates ? (
+    <DelegateCash>
+      <DelegateIcon>{delegateCashIcon}</DelegateIcon>
+      <DelegateText>
+        <Link
+          color="secondary"
+          onClick={() => navigation.navigate(ModalRoute.WhatAreDelegates)}
+          role="button"
+          variant="bodyMd"
+        >
+          {t('delegation.delegateWallets')}
+        </Link>
+        <Text color="secondary">{t('delegation.supported')}</Text>
+      </DelegateText>
+    </DelegateCash>
+  ) : null;
+
   const mappedScreenData: {
     [R in ModalRoute]: {
       leftButton: JSX.Element;
       screenComponent: JSX.Element;
       title: string;
+      bottom?: JSX.Element | null;
     };
   } = {
     Connect: {
+      bottom: whatAreDelegatesText,
       leftButton: whatAreWalletsButton,
       screenComponent: <ConnectScreen connectors={connectors} />,
       title: t('title.Connect'),
@@ -113,9 +145,14 @@ export const Modal = () => {
       screenComponent: <WhatAreWalletsScreen />,
       title: t('title.WhatAreWallets'),
     },
+    WhatAreDelegates: {
+      leftButton: backButton,
+      screenComponent: <WhatAreDelegatesScreen />,
+      title: t('title.WhatAreDelegates'),
+    },
   };
 
-  const {leftButton, screenComponent, title} =
+  const {leftButton, screenComponent, title, bottom} =
     mappedScreenData[navigation.route];
 
   if (!isMounted) {
@@ -164,8 +201,8 @@ export const Modal = () => {
                     onClick={closeModal}
                   />
                 </Header>
-
                 {screenComponent}
+                {bottom}
               </div>
             </Sheet>
           </Wrapper>

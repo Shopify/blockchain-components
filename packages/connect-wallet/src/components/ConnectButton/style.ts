@@ -1,24 +1,6 @@
 import {breakpoints, ButtonWrapper} from 'shared';
 import styled from 'styled-components';
 
-export const AddressChip = styled.button`
-  appearance: none;
-  outline: unset;
-  border: unset;
-  display: flex;
-  align-items: center;
-  background-color: #fafbfb;
-  padding: 8px 12px;
-  border-radius: 32px;
-  column-gap: 12px;
-  cursor: pointer;
-  color: #202223;
-
-  &:hover {
-    background-color: #f6f6f7;
-  }
-`;
-
 export const Background = styled.div`
   display: none;
 
@@ -72,6 +54,20 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: flex-end;
   }
+`;
+
+export const Icon = styled.div`
+  height: 12px;
+  width: 12px;
+`;
+
+export const DelegateCounter = styled.div`
+  background-color: #fafbfb;
+  border-radius: 2px;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  align-items: center;
 `;
 
 export const Frame = styled.div`

@@ -7,23 +7,16 @@ import {
 } from 'framer-motion';
 import {useCallback} from 'react';
 import {createPortal} from 'react-dom';
-import {
-  Button,
-  CircleTick,
-  Copy,
-  formatWalletAddress,
-  Text,
-  useIsMounted,
-  useMediaQuery,
-} from 'shared';
+import {Button, useIsMounted, useMediaQuery} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
 import {useDisconnect} from '../../hooks/useDisconnect';
-import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
 import {useTranslation} from '../../hooks/useTranslation';
+import {DelegatedWalletsDetail} from '../DelegatedWalletsDetail';
+import {WalletAddress} from '../WalletAddress';
 
-import {AddressChip, Background, Container, Frame} from './style';
+import {Background, Container, Frame} from './style';
 import {PopoverVariants} from './variants';
 
 interface PopoverProps {
@@ -35,7 +28,6 @@ interface PopoverProps {
 export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
   const {connectedWallets} = useAppSelector((state) => state.wallet);
   const {disconnect} = useDisconnect();
-  const {copy, copied} = useCopyToClipboard();
   const isMounted = useIsMounted();
   const isSmall = useMediaQuery('smDown');
   const reducedMotion = useReducedMotion();
@@ -58,7 +50,7 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
     ? document.body
     : document.getElementById('connectWalletConnectedButtonWrapper');
 
-  const {address, connectorId} = connectedWallets[0];
+  const {address, connectorId, delegatedWalletAddresses} = connectedWallets[0];
 
   if (!portalElement) {
     return null;
@@ -97,13 +89,11 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
             >
               <ConnectorIcon id={connectorId} size="Lg" />
 
-              <AddressChip onClick={() => copy(address)}>
-                <Text as="span" variant="bodyLg">
-                  {formatWalletAddress(address)}
-                </Text>
-                {copied ? CircleTick : Copy}
-              </AddressChip>
+              <WalletAddress address={address} />
 
+              {delegatedWalletAddresses?.length ? (
+                <DelegatedWalletsDetail addresses={delegatedWalletAddresses} />
+              ) : null}
               <Button
                 aria-label={t('popover.disconnectButton')}
                 fullWidth

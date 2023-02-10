@@ -11,6 +11,7 @@ export enum ModalRoute {
   GetAWallet = 'GetAWallet',
   Scan = 'Scan',
   Signature = 'Signature',
+  WhatAreDelegates = 'WhatAreDelegates',
   WhatAreWallets = 'WhatAreWallets',
 }
 
