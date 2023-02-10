@@ -1,5 +1,5 @@
-import styled, {CSSProperties} from 'styled-components';
-import {breakpoints, Text} from 'shared';
+import styled, {css, CSSProperties} from 'styled-components';
+import {breakpoints, TextStyle} from 'shared';
 
 export const Background = styled.div`
   position: absolute;
@@ -37,6 +37,33 @@ export const Center = styled.div`
 
 export const ConnectingWalletIcon = styled.div`
   margin: 24px auto 0;
+`;
+
+export const DelegateCash = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+  gap: 8px;
+  width: fit-content;
+  margin: 0 auto;
+`;
+
+export const DelegateIcon = styled.div`
+  height: 16px;
+  width: 16px;
+`;
+
+export const DelegateIntro = styled(TextStyle)`
+  padding-bottom: 0px;
+`;
+
+export const DelegateText = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  cursor: default;
 `;
 
 export const GetAWalletContent = styled.div`
@@ -89,7 +116,38 @@ export const Icon = styled.div`
   }
 `;
 
+const LinkCSS = css`
+  cursor: pointer;
+  position: relative;
+  transition: opacity ease-in-out 0.2s;
+  will-change: opacity;
+
+  &:after {
+    content: '';
+    height: 1px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    background-color: ${({theme}) => theme.typography.colorSecondary};
+  }
+
+  &:hover {
+    opacity: 0.5;
+  }
+`;
+
+export const Link = styled(TextStyle)`
+  ${LinkCSS};
+`;
+
 export const ListItemContent = styled.div`
+  a {
+    ${LinkCSS};
+    color: ${({theme}) => theme.typography.colorSecondary};
+    text-decoration: unset;
+  }
+
   p {
     margin: 4px 0px 0px 0px;
   }
@@ -132,25 +190,6 @@ export const WalletList = styled.div`
   flex-direction: column;
   row-gap: 24px;
   padding: 12px 0;
-`;
-
-export const DelegateCash = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 20px;
-  gap: 8px;
-  cursor: pointer;
-`;
-
-export const DelegateIcon = styled.div`
-  height: 16px;
-  width: 16px;
-`;
-
-export const DelegateIntro = styled(Text)`
-  padding-bottom: 0px;
 `;
 
 export const WalletListItem = styled.div`

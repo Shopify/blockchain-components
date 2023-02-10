@@ -13,7 +13,7 @@ import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
 import {useDisconnect} from '../../hooks/useDisconnect';
 import {useTranslation} from '../../hooks/useTranslation';
-import {DelegatedWalletsButton} from '../DelegatedWalletsButton';
+import {DelegatedWalletsDetail} from '../DelegatedWalletsDetail';
 import {WalletAddress} from '../WalletAddress';
 
 import {Background, Container, Frame} from './style';
@@ -88,10 +88,11 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
               variants={PopoverVariants({isSmall, reducedMotion})}
             >
               <ConnectorIcon id={connectorId} size="Lg" />
+
               <WalletAddress address={address} />
 
               {delegatedWalletAddresses?.length ? (
-                <DelegatedWalletsButton addresses={delegatedWalletAddresses} />
+                <DelegatedWalletsDetail addresses={delegatedWalletAddresses} />
               ) : null}
               <Button
                 aria-label={t('popover.disconnectButton')}

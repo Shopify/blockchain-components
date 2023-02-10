@@ -1,3 +1,4 @@
+import {Trans} from 'react-i18next';
 import {Asset, Gift, Key, Text} from 'shared';
 
 import {useTranslation} from '../../../hooks/useTranslation';
@@ -9,6 +10,8 @@ import {
   WalletList,
   WalletListItem,
 } from '../style';
+
+const DELEGATE_LINK_TEXT = 'delegate.cash';
 
 const WhatAreDelegatesScreen = () => {
   const {t} = useTranslation('Screens');
@@ -26,11 +29,15 @@ const WhatAreDelegatesScreen = () => {
           <Icon>{Asset}</Icon>
           <ListItemContent>
             <Text as="p" color="secondary">
-              {t('WhatAreDelegates.home.linkYourWallet')}
-              &nbsp;
-              <a href='https://delegate.cash' target="_blank">delegate.cash</a>
-              &nbsp;&ndash;&nbsp;
-              {t('WhatAreDelegates.home.includesTransactionFee')}
+              <Trans i18nKey="WhatAreDelegates.home.content" t={t}>
+                <a
+                  href="https://delegate.cash"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  {DELEGATE_LINK_TEXT}
+                </a>
+              </Trans>
             </Text>
           </ListItemContent>
         </WalletListItem>
