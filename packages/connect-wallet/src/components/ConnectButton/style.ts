@@ -35,7 +35,7 @@ export const Container = styled.div`
   top: 100%;
   right: 0;
   padding: 4px 0;
-  min-width: 380px;
+  min-width: 280px;
   /**
     * Required to appear over any badges, callouts, or notices
     * on some themes. This is the largest int supported, so it

@@ -27,6 +27,7 @@ const WhatAreDelegatesScreen = () => {
           <ListItemContent>
             <Text as="p" color="secondary">
               {t('WhatAreDelegates.home.linkYourWallet')}
+              &nbsp;
               <a href='https://delegate.cash' target="_blank">delegate.cash</a>
               &nbsp;&ndash;&nbsp;
               {t('WhatAreDelegates.home.includesTransactionFee')}
