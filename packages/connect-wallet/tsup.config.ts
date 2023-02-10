@@ -3,7 +3,14 @@ import {defineConfig, Options} from 'tsup';
 
 const BASE_CONFIG: Options = {
   entry: ['./src/index.ts'],
-  external: ['ethers', 'react', 'styled-components', 'wagmi'],
+  external: [
+    'ethers',
+    'framer-motion',
+    'react',
+    'react-dom',
+    'styled-components',
+    'wagmi',
+  ],
   format: ['esm'],
   platform: 'browser',
   target: 'esnext',
