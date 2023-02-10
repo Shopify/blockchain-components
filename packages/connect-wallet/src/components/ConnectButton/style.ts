@@ -70,7 +70,6 @@ export const DelegateCounter = styled.div`
   align-items: center;
 `;
 
-
 export const Frame = styled.div`
   background: ${({theme}) => theme.popovers.background};
   border: ${({theme}) => theme.popovers.border};

@@ -28,11 +28,13 @@ import {ModalRoute, useModal} from '../../providers/ModalProvider';
 
 import {
   Background,
-  Header,
-  Sheet,
-  Wrapper,
   DelegateCash,
   DelegateIcon,
+  DelegateText,
+  Header,
+  Link,
+  Sheet,
+  Wrapper,
 } from './style';
 import {
   ConnectScreen,
@@ -88,13 +90,19 @@ export const Modal = () => {
   );
 
   const whatAreDelegatesText = disableDelegates ? null : (
-    <DelegateCash
-      onClick={() => navigation.navigate(ModalRoute.WhatAreDelegates)}
-    >
+    <DelegateCash>
       <DelegateIcon>{delegateCashIcon}</DelegateIcon>
-      <Text>
-        <u>{t('delegation.delegateWallets')}</u> {t('delegation.supported')}
-      </Text>
+      <DelegateText>
+        <Link
+          color="secondary"
+          onClick={() => navigation.navigate(ModalRoute.WhatAreDelegates)}
+          role="button"
+          variant="bodyMd"
+        >
+          {t('delegation.delegateWallets')}
+        </Link>
+        <Text color="secondary">{t('delegation.supported')}</Text>
+      </DelegateText>
     </DelegateCash>
   );
 
@@ -107,10 +115,10 @@ export const Modal = () => {
     };
   } = {
     Connect: {
+      bottom: whatAreDelegatesText,
       leftButton: whatAreWalletsButton,
       screenComponent: <ConnectScreen connectors={connectors} />,
       title: t('title.Connect'),
-      bottom: whatAreDelegatesText,
     },
     Connecting: {
       leftButton: backButton,

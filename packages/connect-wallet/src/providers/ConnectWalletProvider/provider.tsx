@@ -13,11 +13,11 @@ import {ConnectWalletContext, ConnectWalletProviderValue} from './context';
 export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,
   children,
+  disableDelegates = false,
   requireSignature = true,
   orderAttributionMode = 'required',
   statementGenerator,
   theme,
-  disableDelegates,
 }: PropsWithChildren<ProviderProps>) => {
   const contextValue: ConnectWalletProviderValue = useMemo(() => {
     return {

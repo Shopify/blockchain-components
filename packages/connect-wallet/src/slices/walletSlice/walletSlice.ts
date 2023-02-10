@@ -105,6 +105,8 @@ export const walletSlice = createSlice({
     setPendingWallet: (state, action: PayloadAction<Wallet | undefined>) => {
       state.pendingWallet = action.payload;
     },
+    // Leaving a note on this because this logic might change when we resolve the
+    // problem with requireSignature=false.
     updatePendingWallet: (state, action: PayloadAction<Wallet>) => {
       state.pendingWallet = {
         ...state.pendingWallet,

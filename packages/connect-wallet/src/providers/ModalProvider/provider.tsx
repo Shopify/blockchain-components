@@ -26,14 +26,10 @@ import {
 import {addListener} from '../../store/listenerMiddleware';
 import {ConnectionState} from '../../types/connectionState';
 import {Wallet} from '../../types/wallet';
-import {ConnectWalletError} from '../../utils/error';
 import {lookupDelegatedWalletAddresses} from '../../utils/delegateCash';
+import {ConnectWalletError} from '../../utils/error';
 
 import {ModalRoute, ModalContext, ModalProviderValue} from './context';
-
-export interface ModalProviderProps extends PropsWithChildren {
-  disableDelegates: boolean;
-}
 
 export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
   const dispatch = useAppDispatch();
@@ -274,6 +270,8 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
 
       setConnectionStatus(ConnectionState.Connected);
 
+      // Leaving a note on this for now, will problem solve on this later w/ Dennis.
+      // But, this won't work when requireSignature is false.
       if (!disableDelegates) {
         const walletAddress = data?.account;
         if (walletAddress) {
