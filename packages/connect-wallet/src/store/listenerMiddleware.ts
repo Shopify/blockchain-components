@@ -23,3 +23,5 @@ export const addListener = addRTKListener as RTKTypedAddListener<
   RootState,
   AppDispatch
 >;
+
+export type AddListenerOptions = Parameters<typeof addListener>[0];
