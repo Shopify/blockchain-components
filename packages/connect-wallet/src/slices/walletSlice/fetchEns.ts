@@ -1,22 +1,13 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {Address, Chain} from '@wagmi/core';
-import {providers} from 'ethers';
 
-type ProviderType =
-  | providers.AlchemyProvider
-  | providers.BaseProvider
-  | providers.FallbackProvider
-  | providers.InfuraProvider
-  | providers.JsonRpcProvider
-  | providers.Provider;
+import {EthereumProviderType} from '../../types/provider';
+import {isDefaultProvider} from '../../utils/provider';
 
-interface ProviderCheckProps {
-  chain: Chain;
-  provider: ProviderType;
-}
-
-interface FetchEnsProps extends ProviderCheckProps {
+interface FetchEnsProps {
   address: Address;
+  chain: Chain;
+  provider: EthereumProviderType;
 }
 
 interface FetchEnsPayload {
@@ -24,63 +15,36 @@ interface FetchEnsPayload {
   ensName: string | undefined;
 }
 
-// Detects if the provider is a fallback provider. This is needed because
-// fallback provider is a complex provider construct that is composed of
-// many providers, requiring us to loop through provider constructs to
-// detect if a provider is using only the public provider.
-const isFallbackProviderType = (
-  provider: ProviderType,
-): provider is providers.FallbackProvider => {
-  return 'providerConfigs' in provider;
-};
-
-// Detects if a given provider is utilizing the public provider url.
-const providerIsUsingPublicUrl = ({chain, provider}: ProviderCheckProps) => {
-  const defaultUrl = chain.rpcUrls.default.http[0];
-
-  return 'connection' in provider && provider.connection.url === defaultUrl;
-};
-
-// Runs a check against the provider, outputting a warning if the provider
-// present is using only the public provider.
-const checkProviderType = ({chain, provider}: ProviderCheckProps) => {
-  // If the ENS lookup was run using only a public provider dispatch
-  // information the console informing the user that the lookup could
-  // fail and that the provider might hit a rate limit.
-  const isFallbackProvider = isFallbackProviderType(provider);
-
-  let isPublicOnly = false;
-
-  if (isFallbackProvider) {
-    isPublicOnly = provider.providerConfigs.every(
-      ({provider: currentProvider}) =>
-        providerIsUsingPublicUrl({chain, provider: currentProvider}),
-    );
-  } else {
-    isPublicOnly = providerIsUsingPublicUrl({chain, provider});
-  }
-
-  if (isPublicOnly) {
-    console.warn(
-      `@shopify/connect-wallet -- \`fetchEns\` dispatched with only a public provider present.`,
-    );
-  }
-};
-
 export const fetchEns = createAsyncThunk(
   'wallet/fetchEns',
   async ({address, chain, provider}: FetchEnsProps, thunkApi) => {
-    checkProviderType({chain, provider});
+    // Check if the package initialization is using only the default provider.
+    const isDefault = isDefaultProvider({chain, provider});
+    if (isDefault) {
+      console.warn(
+        `@shopify/connect-wallet -- fetchEns dispatched with only a public provider present.`,
+      );
+    }
 
+    // Define the payload we will return when the thunk resolves.
     const payload: FetchEnsPayload = {address, ensName: undefined};
+
+    // Lookup the ENS name for the provided address.
     const ensName = await provider.lookupAddress(address);
 
+    // If we don't get an ENS name back we can exit here and avoid making another
+    // request against the provider.
     if (ensName === null) {
       return thunkApi.fulfillWithValue(payload);
     }
 
+    // Unlikely, but per the suggestion of the ENS documentation we should double check
+    // that the resolved ENS name for an address matches resolves back to the original
+    // address which we looked up the ENS name for.
     const resolvedAddress = await provider.resolveName(ensName);
 
+    // Pending there is no mismatch, we set the payload.ensName to the ensName we
+    // resolved from provider.lookupAddress.
     if (resolvedAddress === address) {
       payload.ensName = ensName;
     }
