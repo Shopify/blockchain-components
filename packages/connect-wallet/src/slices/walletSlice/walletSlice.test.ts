@@ -1,7 +1,9 @@
-import {SiweMessage} from 'siwe';
-
-import {SerializedConnector} from '../../types/connector';
-import {Wallet} from '../../types/wallet';
+import {DEFAULT_SERIALIZED_CONNECTOR} from '../../test/fixtures/connector';
+import {
+  INVALID_SIGNATURE_RESPONSE,
+  VALID_SIGNATURE_RESPONSE,
+} from '../../test/fixtures/signature';
+import {ALTERNATE_WALLET, DEFAULT_WALLET} from '../../test/fixtures/wallet';
 import {ConnectWalletError} from '../../utils/error';
 
 import {initialState, validatePendingWallet, walletSlice} from './walletSlice';
@@ -16,24 +18,6 @@ const {
 } = walletSlice.actions;
 
 const {getInitialState, reducer} = walletSlice;
-
-const DEFAULT_WALLET: Wallet = {
-  address: '0xc223594946c60217Ed53096eEC6C179964e536EB',
-  connectorId: 'metaMask',
-  connectorName: 'MetaMask',
-};
-
-const ALTERNATE_WALLET: Wallet = {
-  address: '0x5ea9681C3Ab9B5739810F8b91aE65EC47de62119',
-  connectorId: 'rainbow',
-  connectorName: 'Rainbow',
-};
-
-const DEFAULT_SERIALIZED_CONNECTOR: SerializedConnector = {
-  id: 'MetaMask',
-  name: 'MetaMask',
-  qrCodeSupported: false,
-};
 
 describe('walletSlice', () => {
   describe('addWallet', () => {
@@ -258,26 +242,10 @@ describe('walletSlice', () => {
   });
 
   describe('validatePendingWallet', () => {
-    const mockMessage = {
-      address: '0xc223594946c60217Ed53096eEC6C179964e536EB',
-      chainId: 1,
-      domain: 'localhost',
-      nonce: 'NAghkPB8sUBqz6s6W',
-      uri: 'http://localhost:5173',
-      version: '1',
-      issuedAt: '2023-01-30T16:24:40.222Z',
-    };
-
-    const message = new SiweMessage(mockMessage);
-    const validSignature =
-      '0x9ad835c2b18011cfb08798e856ab39b5d4595273c950fbc4f3b7703bbe7f7d026b556c0bff38829e686d9c495274aa2bde80bc06cfa97521b58f9ff9437d95b91b';
-
     it('does not manipulate state when state.pendingWallet is undefined', () => {
       const action = validatePendingWallet.fulfilled({valid: true}, '', {
         ...DEFAULT_WALLET,
-        message: JSON.stringify(message),
-        nonce: mockMessage.nonce,
-        signature: validSignature,
+        ...VALID_SIGNATURE_RESPONSE,
       });
 
       expect(() => reducer(initialState, action)).toThrow(
@@ -296,10 +264,7 @@ describe('walletSlice', () => {
         '',
         {
           ...DEFAULT_WALLET,
-          message: JSON.stringify(message),
-          nonce: mockMessage.nonce,
-          signature:
-            '0x0aa04781e381e84b1494d00245b5232ed9106377f541256bb504b75a04a9d2be2e895e4aab9cae3af41344e43ae7d5885202b66b2fa29d4c4443871cfaa575671c',
+          ...INVALID_SIGNATURE_RESPONSE,
         },
       );
 
@@ -318,9 +283,7 @@ describe('walletSlice', () => {
 
       const action = validatePendingWallet.fulfilled({valid: true}, '', {
         ...DEFAULT_WALLET,
-        message: JSON.stringify(message),
-        nonce: mockMessage.nonce,
-        signature: validSignature,
+        ...VALID_SIGNATURE_RESPONSE,
       });
 
       /**
