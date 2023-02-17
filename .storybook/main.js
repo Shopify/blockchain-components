@@ -1,3 +1,4 @@
+const nodePolyfills = require('vite-plugin-node-stdlib-browser');
 const react = require('@vitejs/plugin-react');
 
 module.exports = {
@@ -16,7 +17,7 @@ module.exports = {
     builder: '@storybook/builder-vite',
   },
   async viteFinal(config) {
-    config.plugins = mergePlugins(config.plugins, react());
+    config.plugins = mergePlugins(config.plugins, nodePolyfills(), react());
     return config;
   },
 };
