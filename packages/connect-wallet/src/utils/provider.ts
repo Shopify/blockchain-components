@@ -20,17 +20,17 @@ export const isFallbackProviderType = (
 
 // Detects if a given provider is utilizing only the default provider
 export const isDefaultProvider = ({chain, provider}: ProviderCheckProps) => {
+  const defaultUrl = chain.rpcUrls.default.http[0];
   const isFallbackProvider = isFallbackProviderType(provider);
 
-  const defaultUrl = chain.rpcUrls.default.http[0];
+  const isUsingDefaultUrl = (provider_: EthereumProviderType) =>
+    'connection' in provider_ && provider_.connection.url === defaultUrl;
 
   if (isFallbackProvider) {
-    return provider.providerConfigs.every(
-      ({provider: currentProvider}: {provider: EthereumProviderType}) =>
-        'connection' in currentProvider &&
-        currentProvider.connection.url === defaultUrl,
+    return provider.providerConfigs.every(({provider: currentProvider}) =>
+      isUsingDefaultUrl(currentProvider),
     );
-  } else {
-    return 'connection' in provider && provider.connection.url === defaultUrl;
   }
+
+  return isUsingDefaultUrl(provider);
 };

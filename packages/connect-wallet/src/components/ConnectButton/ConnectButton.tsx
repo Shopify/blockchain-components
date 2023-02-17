@@ -19,9 +19,7 @@ import {Popover} from './Popover';
 import {CaretIcon, ConnectedButton, Wrapper} from './style';
 
 export const ConnectButton = () => {
-  const {activeWallet, connectedWallets} = useAppSelector(
-    (state) => state.wallet,
-  );
+  const {activeWallet} = useAppSelector((state) => state.wallet);
   const {openModal} = useModal();
   const [popoverVisible, setPopoverVisible] = useState(false);
   const {t} = useTranslation('ConnectButton');
@@ -44,10 +42,10 @@ export const ConnectButton = () => {
   }, [escPress, popoverVisible, togglePopover]);
 
   const handleClick = useCallback(() => {
-    if (!connectedWallets.length || !activeWallet) {
+    if (!activeWallet) {
       openModal();
     }
-  }, [activeWallet, connectedWallets.length, openModal]);
+  }, [activeWallet, openModal]);
 
   if (!activeWallet) {
     return (
