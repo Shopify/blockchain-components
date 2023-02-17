@@ -13,19 +13,27 @@ import {ConnectWalletContext, ConnectWalletProviderValue} from './context';
 export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,
   children,
-  requireSignature = true,
+  projectId,
   orderAttributionMode = 'required',
+  requireSignature = true,
   statementGenerator,
   theme,
 }: PropsWithChildren<ProviderProps>) => {
   const contextValue: ConnectWalletProviderValue = useMemo(() => {
     return {
       chains,
+      projectId,
       requireSignature,
       statementGenerator,
       orderAttributionMode,
     };
-  }, [chains, requireSignature, statementGenerator, orderAttributionMode]);
+  }, [
+    chains,
+    projectId,
+    requireSignature,
+    statementGenerator,
+    orderAttributionMode,
+  ]);
 
   return (
     <ConnectWalletContext.Provider value={contextValue}>

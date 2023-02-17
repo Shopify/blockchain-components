@@ -8,8 +8,7 @@ type WalletConnectConnectorProps = ConstructorParameters<
 >[0];
 
 type BuildConnectorProps = Pick<WalletConnectConnectorProps, 'chains'> & {
-  desktopLinks?: string[];
-  mobileLinks?: string[];
+  projectId: string;
   qrcode?: boolean;
 };
 
@@ -18,18 +17,15 @@ type BuildConnectorProps = Pick<WalletConnectConnectorProps, 'chains'> & {
  */
 export const buildWalletConnectConnector = ({
   chains,
-  desktopLinks,
-  mobileLinks,
+  projectId,
   qrcode = false,
 }: BuildConnectorProps): WalletConnectConnector => {
   const options: WalletConnectConnectorProps = {
     chains,
     options: {
-      qrcodeModalOptions: {
-        desktopLinks,
-        mobileLinks,
-      },
+      projectId,
       qrcode,
+      version: '2',
     },
   };
 

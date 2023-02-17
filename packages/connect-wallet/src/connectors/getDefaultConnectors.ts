@@ -13,17 +13,16 @@ interface GetDefaultConnectorsSignature {
   connectors: Connector[];
 }
 
-export const getDefaultConnectors = ({
-  appName,
-  chains,
-}: ConnectorProps): GetDefaultConnectorsSignature => {
+export const getDefaultConnectors = (
+  props: ConnectorProps,
+): GetDefaultConnectorsSignature => {
   const connectors: Connector[] = [];
   const availableConnectors = [
-    MetaMask({chains}),
-    Coinbase({appName, chains}),
-    Rainbow({chains}),
-    LedgerLive({chains}),
-    WalletConnect({chains}),
+    MetaMask(props),
+    Coinbase(props),
+    Rainbow(props),
+    LedgerLive(props),
+    WalletConnect(props),
   ];
 
   availableConnectors.forEach(({createConnector}: ConnectorInstance) => {

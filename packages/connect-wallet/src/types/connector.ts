@@ -12,6 +12,13 @@ export interface ConnectArgs {
 export interface ConnectorProps {
   appName?: string;
   chains: Chain[];
+  /**
+   * @required
+   * `projectId` for WalletConnect Cloud.
+   *
+   * Get your projectId [here](https://cloud.walletconnect.com/sign-in).
+   */
+  projectId: string;
 }
 
 export interface ConnectorInstance {

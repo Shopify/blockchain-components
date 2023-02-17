@@ -116,9 +116,7 @@ const ScanScreen = () => {
         const provider = await connector.getProvider();
 
         setQRCodeURI(
-          connector.id === 'coinbaseWallet'
-            ? provider.qrUrl
-            : provider.connector.uri,
+          connector.id === 'coinbaseWallet' ? provider.qrUrl : provider.uri,
         );
 
         /**

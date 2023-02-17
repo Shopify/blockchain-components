@@ -47,7 +47,11 @@ const {chains, provider, webSocketProvider} = configureChains(
   ],
 );
 
-const {connectors} = getDefaultConnectors({chains});
+const {connectors} = getDefaultConnectors({
+  chains,
+  // IMPORTANT - You must provide a WalletConnect projectID.
+  projectId: 'yourWalletConnectProjectIdHere',
+});
 
 const client = createClient({
   autoConnect: true,
@@ -72,7 +76,10 @@ import {chains, client} from './connect-wallet-config'
 export function Index() {
   return (
     <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains}>
+      <ConnectWalletProvider
+        chains={chains}
+        projectId="yourWalletConnectProjectIdHere"
+      >
         /* {...your app content here} */
       </ConnectWalletProvider>
     </WagmiConfig>

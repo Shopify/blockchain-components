@@ -13,19 +13,12 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   const {activeWallet, connectedWallets, pendingConnector} = useAppSelector(
     (state) => state.wallet,
   );
+  const {chains} = useContext(ConnectWalletContext);
+  const {signing} = useContext(ModalContext);
 
-  const connectWalletContext = useContext(ConnectWalletContext);
-  const modalContext = useContext(ModalContext);
-
-  const {chains} = connectWalletContext;
-  const {signing} = modalContext;
-
-  useConnectWalletCallbacks({
-    ...props,
-  });
+  useConnectWalletCallbacks(props);
 
   const {isConnecting} = useAccount();
-
   const {disconnect} = useDisconnect();
 
   return {

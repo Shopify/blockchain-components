@@ -12,7 +12,7 @@ const {chains, provider, webSocketProvider} = configureChains(
   ],
 );
 
-const {connectors} = getDefaultConnectors({chains});
+const {connectors} = getDefaultConnectors({chains, projectId: 'myProjectId'});
 
 const client = createClient({
   autoConnect: true,

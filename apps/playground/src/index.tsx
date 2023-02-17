@@ -41,6 +41,7 @@ window.playground = {
             <ConnectWalletProvider
               chains={chains}
               orderAttributionMode="ignoreErrors"
+              projectId="myProjectId"
             >
               <App
                 serverArguments={{

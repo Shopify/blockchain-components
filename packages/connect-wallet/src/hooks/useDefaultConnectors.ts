@@ -5,8 +5,8 @@ import {ConnectWalletContext} from '../providers/ConnectWalletProvider';
 import {Connector, ConnectorInstance} from '../types/connector';
 
 export function useDefaultConnectors() {
-  const {chains} = useContext(ConnectWalletContext);
-  const {availableConnectors} = getDefaultConnectors({chains});
+  const {chains, projectId} = useContext(ConnectWalletContext);
+  const {availableConnectors} = getDefaultConnectors({chains, projectId});
 
   const connectors: Connector[] = [];
 

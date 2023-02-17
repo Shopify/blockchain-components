@@ -18,6 +18,13 @@ export type StatementGenerator =
 
 interface ProviderBaseProps extends ThemeProps {
   chains: Chain[];
+  /**
+   * @required
+   * `projectId` for WalletConnect Cloud.
+   *
+   * Get your projectId [here](https://cloud.walletconnect.com/sign-in).
+   */
+  projectId: string;
 }
 
 interface SignatureRequiredProps extends ProviderBaseProps {

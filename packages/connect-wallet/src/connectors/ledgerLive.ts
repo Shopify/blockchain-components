@@ -4,10 +4,13 @@ import {ConnectorInstance, ConnectorProps} from '../types/connector';
 
 import {buildWalletConnectConnector} from './buildWalletConnectConnector';
 
-export const LedgerLive = ({chains}: ConnectorProps): ConnectorInstance => {
+export const LedgerLive = ({
+  chains,
+  projectId,
+}: ConnectorProps): ConnectorInstance => {
   return {
     createConnector: () => {
-      const connector = buildWalletConnectConnector({chains});
+      const connector = buildWalletConnectConnector({chains, projectId});
 
       return connector;
     },
