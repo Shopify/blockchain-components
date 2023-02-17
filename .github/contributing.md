@@ -93,7 +93,6 @@ A possible approach would be to utilize [CodeSandbox](https://codesandbox.io) to
 
 ![SCR-20230216-e6e](https://user-images.githubusercontent.com/4250423/219425072-f860af9d-d195-4515-b62f-59d6fbaa4df7.png)
 
-
 ## Semantic versioning
 
 Blockchain-components packages follow semantic versioning. We release [patch versions for bug fixes](https://github.com/Shopify/blockchain-components/blob/.github/contributing.md#patch), [minor versions for new features](https://github.com/Shopify/blockchain-components/blob/.github/contributing.md#minor), and [major versions for breaking changes](https://github.com/Shopify/blockchain-components/blob/.github/contributing.md#major). When we make breaking changes, we introduce deprecation warnings in a minor version along with the upgrade path so that our users learn about the upcoming changes and migrate their code in advance.
@@ -158,6 +157,33 @@ Generally, changes related to these topics can be omitted:
 
 - Dev dependencies upgrades
 - Chores (infrastructure, release process…)
+
+### Task List Checker
+
+The Task List Checker counts how many tasks `- [ ]` have been checked off `- [x]`. If any are unchecked, including in nested tasks, it will mark the PR as 🟡 pending and block merge.
+
+**Tasks in the *PR description* count toward the total. Tasks in *PR comments* do not**. Move tasks into the description if they're important; this will also make it easier for humans to find them and check them off.
+
+Any edits to the description will trigger a recalculation, whether that's checking or unchecking boxes with a mouse, adding or removing an x in edit mode, or even adding or removing whole checkboxes.
+
+#### Excluding tasks
+
+If a checkbox is irrelevant for a specific PR, it can be excluded by
+
+1. Striking it out and marking it `N/A`
+    - [ ] ~~task that is not relevant to this PR~~ N/A
+1. marking it **POST-MERGE**:
+    - [ ] **POST-MERGE:** task that will be completed after merging
+1. putting it inside a code block so it's not evaluated as markdown
+
+    ```- [ ] task that's quoted from some other checklist```
+
+#### Custom tasks
+
+You are able to add any custom tasks that you would like to your PR by adding additional checkboxes to the PR description. For example, you could add the following:
+
+**Test flow:**
+- [ ] Tested the flow of wallet connection across multiple chains
 
 ### Contributor License Agreement (CLA)
 

@@ -41,7 +41,15 @@
 ...
 
 ## ✅ Checklist
-<!-- If any of the following are not relevant you may strike them out using the ~ character before and after the checklist item's label. -->
+<!--
+Tip: if any of these tasks are not relevant to this PR, mark them like this:
+  - [x] ~Irrelevant task~ N/A, because <why it's not relevant to this PR>
+
+If you add a custom task that will be completed after merging, mark it like this:
+  - [ ] POST-MERGE: follow-up work
+
+"N/A" and "POST-MERGE:" are special strings that tell task-list-checker to skip that task.
+-->
 
 - [ ] Tested on mobile
 - [ ] Tested on multiple browsers
