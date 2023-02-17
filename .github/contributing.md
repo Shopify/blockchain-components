@@ -83,6 +83,17 @@ When you're sending a pull request, please abide by the following:
 - Follow the pull request template when opening a pull request.
 - If your PR is a new feature and not a bug fix, consider opening an issue describing your idea. This ensures you get feedback from the maintainers and don't write code that might not be used.
 
+### Testing pull requests
+
+You can leverage `/snapit` to generate snapshot versions of packages. The command will detect the changes in the PR and build the appropriate packages for you to install in your test project.
+
+A possible approach would be to utilize [CodeSandbox](https://codesandbox.io) to implement the snapshot package version.
+
+- For the `connect-wallet` package you can fork this [CodeSandbox Template](https://codesandbox.io/p/sandbox/shopify-connect-wallet-pr-template-fxj3fg) which is set up to use Vite with React and has the package set up and ready to use.
+
+![SCR-20230216-e6e](https://user-images.githubusercontent.com/4250423/219425072-f860af9d-d195-4515-b62f-59d6fbaa4df7.png)
+
+
 ## Semantic versioning
 
 Blockchain-components packages follow semantic versioning. We release [patch versions for bug fixes](https://github.com/Shopify/blockchain-components/blob/.github/contributing.md#patch), [minor versions for new features](https://github.com/Shopify/blockchain-components/blob/.github/contributing.md#minor), and [major versions for breaking changes](https://github.com/Shopify/blockchain-components/blob/.github/contributing.md#major). When we make breaking changes, we introduce deprecation warnings in a minor version along with the upgrade path so that our users learn about the upcoming changes and migrate their code in advance.
