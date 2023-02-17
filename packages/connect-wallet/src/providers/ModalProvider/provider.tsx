@@ -2,27 +2,22 @@ import {
   PropsWithChildren,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
-import {useAccount, useConnect} from 'wagmi';
-import {isAnyOf} from '@reduxjs/toolkit';
+import {useConnect} from 'wagmi';
 
 import {Modal} from '../../components';
 import {ConnectWalletContext} from '../ConnectWalletProvider';
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
 import {useDisconnect} from '../../hooks/useDisconnect';
+import {useMiddleware} from '../../hooks/useMiddleware';
 import {useSyncSignMessage} from '../../hooks/useSyncSignMessage';
 import {
-  attributeOrder,
-  addWallet,
-  setActiveWallet,
   setPendingConnector,
   setPendingWallet,
   validatePendingWallet,
 } from '../../slices/walletSlice';
-import {addListener} from '../../store/listenerMiddleware';
 import {ConnectionState} from '../../types/connectionState';
 import {Wallet} from '../../types/wallet';
 import {ConnectWalletError} from '../../utils/error';
@@ -31,74 +26,13 @@ import {ModalRoute, ModalContext, ModalProviderValue} from './context';
 
 export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
   const dispatch = useAppDispatch();
-  const {connectedWallets, pendingConnector, pendingWallet} = useAppSelector(
+  const {pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
   const {requireSignature, orderAttributionMode} =
     useContext(ConnectWalletContext);
   const {disconnect} = useDisconnect();
   const {signing, signMessage} = useSyncSignMessage();
-
-  useAccount({
-    onConnect: ({address, connector, isReconnected}) => {
-      if (!address) {
-        return;
-      }
-
-      const reconnectedWallet: Wallet | undefined = connectedWallets.find(
-        (wallet) => wallet.address === address,
-      );
-
-      if (requireSignature) {
-        /**
-         * Check if the wallet has already signed. If so, we can set
-         * the active wallet and not require a new signature.
-         */
-        if (isReconnected && reconnectedWallet?.signature) {
-          return dispatch(setActiveWallet(reconnectedWallet));
-        }
-
-        /**
-         * Check to ensure we have connector data before proceeding. We
-         * need connector for injected connectors such as Coinbase Wallet
-         * and MetaMask. Otherwise, utilize pendingConnector value.
-         */
-        if (!pendingConnector && !connector) {
-          return;
-        }
-
-        const wallet: Wallet = {
-          address,
-          connectorId: pendingConnector?.id || connector?.id,
-          connectorName: pendingConnector?.name || connector?.name,
-        };
-
-        return dispatch(setPendingWallet(wallet));
-      }
-
-      /**
-       * If we don't require a signature and we have a reconnected
-       * wallet then we can set the active wallet.
-       */
-      if (reconnectedWallet) {
-        return dispatch(setActiveWallet(reconnectedWallet));
-      }
-
-      // Exit if we don't have pendingConnector information.
-      if (!pendingConnector) {
-        return;
-      }
-
-      // This means that the user just connected their wallet.
-      dispatch(
-        addWallet({
-          address,
-          connectorId: pendingConnector.id,
-          connectorName: pendingConnector.name,
-        }),
-      );
-    },
-  });
 
   const [active, setActive] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<ConnectionState>(
@@ -176,13 +110,8 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
   }, [cleanupSignatureState, history]);
 
   /**
-   * ## requestSignature
-   *
-   * Uses an optional message parameter. If no message is passed as a param, then
-   * the function will utilize the message stored in state (if present).
-   *
-   * If a stored message is not present and a message is not provided,
-   * the signature request will fail.
+   * Requests that the pending wallet sign a SIWE message to verify
+   * ownership of the wallet.
    */
   const requestSignature = useCallback(
     async (wallet?: Wallet) => {
@@ -283,72 +212,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
     },
   });
 
-  // when a wallet gets connected, then attribute the wallet address
-  // to the order.
-  useEffect(() => {
-    return dispatch(
-      addListener({
-        actionCreator: validatePendingWallet.fulfilled,
-        effect: (action, listenerApi) => {
-          listenerApi.dispatch(
-            attributeOrder({
-              orderAttributionMode,
-              wallet: action.meta.arg,
-            }),
-          );
-        },
-      }),
-    );
-  }, [dispatch, orderAttributionMode]);
-
-  // when a wallet gets connected, then attribute the wallet address
-  // to the order.
-  useEffect(() => {
-    return dispatch(
-      addListener({
-        matcher: isAnyOf(addWallet, setActiveWallet),
-        effect: (action, listenerApi) => {
-          const payload = (action as any)?.payload || {};
-          if (!hasAddress(payload)) return;
-
-          listenerApi.dispatch(
-            attributeOrder({
-              orderAttributionMode,
-              wallet: payload,
-            }),
-          );
-
-          function hasAddress(payload: any): payload is {address: string} {
-            if (!payload) return false;
-            if (!payload.address) return false;
-
-            return true;
-          }
-        },
-      }),
-    );
-  }, [dispatch, orderAttributionMode]);
-
-  useEffect(() => {
-    if (requireSignature) {
-      const unsubscribeSetPendingWallet = dispatch(
-        addListener({
-          actionCreator: setPendingWallet,
-          effect: (action, _) => {
-            const wallet = action.payload;
-
-            if (!wallet) {
-              return;
-            }
-
-            requestSignature(wallet);
-          },
-        }),
-      );
-
-      return unsubscribeSetPendingWallet;
-    }
-  }, [dispatch, requestSignature, requireSignature]);
+  useMiddleware({orderAttributionMode, requestSignature, requireSignature});
 
   const contextValue: ModalProviderValue = useMemo(() => {
     return {
