@@ -6,12 +6,12 @@
 -->
 ⚠️ Fixes: <!-- Paste a link to the relevant issue here (if one exists) -->
 
-## What is the context for these changes?
-<!-- Share what you're adding, and if necessary, the path you chose and why. -->
+## ℹ️ What is the context for these changes?
+<!-- Share what you're changing, and if necessary, the path you chose and why. -->
 
 ...
 
-## Demonstration
+## 🕹️ Demonstration
 
 <!--
   Showcase what you've created!
@@ -30,19 +30,21 @@
 
 <!-- ℹ️ Delete the following for small / trivial changes -->
 
-## How can this be tophatted?
+## 🎩 How can this be tophatted?
 <!--
-  Give as much information as needed to test the changes introduced in this PR.
+  1. Give as much information as needed to test the changes introduced in this PR.
+  2. For changes that might require additional user testing, we recommend using CodeSandbox in conjunction with the `/snapit` command.
+    - `/snapit` will create a snapshot version of the package which can be installed in a CodeSandbox environment that folks can use to test the changes introduced.
+    - You can find out more information about `/snapit` and CodeSandbox usage in the Contributing guide.
 -->
 
 ...
 
-## 🎩 Checklist
-<!--
-  If any of the following are not relevant you may strike them out using the ~ character before and after the checklist item's label.
--->
+## ✅ Checklist
+<!-- If any of the following are not relevant you may strike them out using the ~ character before and after the checklist item's label. -->
 
 - [ ] Tested on mobile
 - [ ] Tested on multiple browsers
 - [ ] Tested for accessibility
+- [ ] Includes unit tests
 - [ ] Updated relevant documentation for the changes (if necessary)
