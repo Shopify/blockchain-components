@@ -16,7 +16,7 @@
       "subtitle": "To unlock this discount, you need:"
     },
     "unlocked": {
-      "title": "Discount unlocked",
+      "title": "{{discount}} discount unlocked",
       "subtitle": "Your token got you access to this discount!",
       "subtitleWithOrderLimit": "You can use this discount up to {{orderLimit}} times with your tokens."
     }
