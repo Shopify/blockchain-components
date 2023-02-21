@@ -19,6 +19,10 @@
     },
     "test": {
       "dependsOn": ["^build"]
+    },
+    "test:watch": {
+      "cache": false,
+      "dependsOn": ["^build"]
     }
   }
 }

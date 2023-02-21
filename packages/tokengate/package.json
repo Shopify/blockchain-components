@@ -36,6 +36,7 @@
     "dev": "DEV=true tsup --watch",
     "lint": "eslint '**/*.ts*'",
     "test": "jest",
+    "test:watch": "jest --watch",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

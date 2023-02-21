@@ -14,6 +14,7 @@
     "typecheck": "turbo run typecheck",
     "storybook": "start-storybook -p 6006",
     "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
     "version-packages": "yarn preversion-packages && changeset version"
   },
   "repository": {
