@@ -6,6 +6,10 @@ name: 'Chromatic'
 # Event for the workflow
 on: push
 
+env:
+  # 7 GiB by default on GitHub, setting this to 16 GiB
+  NODE_OPTIONS: --max-old-space-size=16384
+
 # List of jobs
 jobs:
   chromatic-deployment:
@@ -14,7 +18,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install && yarn build
 
       - name: Publish to Chromatic
         run: npx chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }}
