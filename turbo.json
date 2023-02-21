@@ -16,6 +16,9 @@
     },
     "preversion": {
       "cache": false
+    },
+    "test": {
+      "dependsOn": ["^build"]
     }
   }
 }
