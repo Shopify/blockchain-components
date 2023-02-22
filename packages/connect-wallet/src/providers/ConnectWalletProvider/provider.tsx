@@ -6,9 +6,9 @@ import {RootProvider} from 'shared';
 import {I18nProvider} from '../I18nProvider';
 import {ModalProvider} from '../ModalProvider';
 import store from '../../store/configureStore';
-import {ProviderProps} from '../../types/provider';
 
 import {ConnectWalletContext, ConnectWalletProviderValue} from './context';
+import {ProviderProps} from './types';
 
 export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,

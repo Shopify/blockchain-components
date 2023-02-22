@@ -2,7 +2,8 @@ import {Chain} from '@wagmi/core';
 import {createContext} from 'react';
 
 import {OrderAttributionMode} from '../../types/orderAttribution';
-import {StatementGenerator} from '../../types/provider';
+
+import {StatementGenerator} from './types';
 
 export interface ConnectWalletProviderValue {
   chains: Chain[];

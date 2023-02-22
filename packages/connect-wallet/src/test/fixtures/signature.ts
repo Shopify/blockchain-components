@@ -1,4 +1,5 @@
 import {SiweMessage} from 'siwe';
+import {Address} from 'wagmi';
 
 import {SignatureResponse} from '../../types/wallet';
 
@@ -15,7 +16,7 @@ export const MOCK_MESSAGE_DATA = {
 export const MOCK_MESSAGE = new SiweMessage(MOCK_MESSAGE_DATA);
 
 export const VALID_SIGNATURE_RESPONSE: SignatureResponse = {
-  address: MOCK_MESSAGE.address,
+  address: MOCK_MESSAGE.address as Address,
   message: JSON.stringify(MOCK_MESSAGE),
   nonce: MOCK_MESSAGE_DATA.nonce,
   signature:
@@ -23,7 +24,7 @@ export const VALID_SIGNATURE_RESPONSE: SignatureResponse = {
 };
 
 export const INVALID_SIGNATURE_RESPONSE: SignatureResponse = {
-  address: MOCK_MESSAGE.address,
+  address: MOCK_MESSAGE.address as Address,
   message: JSON.stringify(MOCK_MESSAGE),
   nonce: MOCK_MESSAGE_DATA.nonce,
   signature:

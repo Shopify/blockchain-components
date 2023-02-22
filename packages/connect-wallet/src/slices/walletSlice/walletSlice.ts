@@ -6,6 +6,8 @@ import {SerializedConnector} from '../../types/connector';
 import {SignatureResponse, Wallet} from '../../types/wallet';
 import {ConnectWalletError} from '../../utils/error';
 
+import {fetchEns} from './fetchEns';
+
 export interface WalletSliceType {
   activeWallet?: Wallet;
   connectedWallets: Wallet[];
@@ -126,9 +128,34 @@ export const walletSlice = createSlice({
           ...action.payload,
         };
       });
+
+      if (state.activeWallet?.address === action.payload.address) {
+        state.activeWallet = {
+          ...state.activeWallet,
+          ...action.payload,
+        };
+      }
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchEns.fulfilled, (state, action) => {
+      const {address, ensName} = action.payload;
+
+      state.connectedWallets = state.connectedWallets.map((wallet) => {
+        if (wallet.address !== address) {
+          return wallet;
+        }
+
+        return {
+          ...wallet,
+          displayName: ensName,
+        };
+      });
+
+      if (state.activeWallet?.address === address) {
+        state.activeWallet.displayName = ensName;
+      }
+    });
     builder.addCase(validatePendingWallet.fulfilled, (state, action) => {
       /**
        * This is not likely to occur since the asyncThunk function for this
