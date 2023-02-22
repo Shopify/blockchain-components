@@ -43,6 +43,8 @@
     "jestconfig": "*",
     "jest-fetch-mock": "^3.0.3",
     "tsconfig": "*",
-    "tsup": "^6.5.0"
+    "tsup": "^6.5.0",
+    "vitest": "^0.28.5",
+    "vitest-fetch-mock": "^0.2.1"
   }
 }
