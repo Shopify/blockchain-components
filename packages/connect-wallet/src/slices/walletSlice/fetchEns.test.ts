@@ -1,17 +1,13 @@
+import {mainnet} from 'wagmi';
 import {vi} from 'vitest';
 
 import {store} from '../../test/configureStore';
 import {DEFAULT_WALLET} from '../../test/fixtures/wallet';
-import {mainnet, mainnetPublicProvider} from '../../test/providers';
+import {mainnetPublicProvider} from '../../test/providers';
 import {Wallet} from '../../types/wallet';
 
 import {fetchEns} from './fetchEns';
 import {addWallet} from './walletSlice';
-
-type Chain = Parameters<typeof fetchEns>[0]['chain'];
-// This can be addressed when we're able to utilize ESM modules in
-// the test environment.
-const chain = mainnet as Chain;
 
 const defaultAddress = DEFAULT_WALLET.address;
 
@@ -65,7 +61,7 @@ describe('fetchEns', () => {
     await store.dispatch(
       fetchEns({
         address: defaultAddress,
-        chain,
+        chain: mainnet,
         provider: mainnetPublicProvider,
       }),
     );
@@ -86,7 +82,7 @@ describe('fetchEns', () => {
     const response = await store.dispatch(
       fetchEns({
         address: '0x486D582eed105cEf4e4Aa270C93b1e03Fe5B04F3',
-        chain,
+        chain: mainnet,
         provider: mainnetPublicProvider,
       }),
     );
