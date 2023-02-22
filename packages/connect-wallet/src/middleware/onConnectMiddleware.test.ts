@@ -1,3 +1,5 @@
+import {vi} from 'vitest';
+
 import {
   addWallet,
   setActiveWallet,
@@ -15,7 +17,7 @@ import {ConnectWalletError} from '../utils/error';
 import {buildOnConnectMiddleware} from './onConnectMiddleware';
 
 describe('onConnectMiddleware', () => {
-  const effectFn = jest.fn();
+  const effectFn = vi.fn();
 
   beforeEach(() => {
     const listener = buildOnConnectMiddleware(({wallet}) => effectFn(wallet));
@@ -23,7 +25,9 @@ describe('onConnectMiddleware', () => {
     store.dispatch(listener);
   });
 
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
   describe('addWallet', () => {
     it('runs the effect when addWallet is dispatched', () => {

@@ -68,8 +68,10 @@
     "@types/styled-components": "^5.1.26",
     "@types/ua-parser-js": "^0.7.36",
     "@wagmi/core": "0.8.10",
+    "happy-dom": "^8.7.1",
     "jestconfig": "*",
     "tsconfig": "*",
-    "tsup": "^6.5.0"
+    "tsup": "^6.5.0",
+    "vitest": "^0.28.5"
   }
 }

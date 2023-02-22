@@ -1,3 +1,5 @@
+import {vi} from 'vitest';
+
 import {store} from '../../test/configureStore';
 import {DEFAULT_WALLET} from '../../test/fixtures/wallet';
 import {mainnet, mainnetPublicProvider} from '../../test/providers';
@@ -13,10 +15,10 @@ const chain = mainnet as Chain;
 
 const defaultAddress = DEFAULT_WALLET.address;
 
-jest.mock('ethers', () => {
-  const ethers = jest.requireActual('ethers');
+vi.mock('ethers', async () => {
+  const ethers = (await vi.importActual('ethers')) as any;
 
-  const lookupAddress = jest.fn((address: string) => {
+  const lookupAddress = vi.fn((address: string) => {
     if (address === '0x486D582eed105cEf4e4Aa270C93b1e03Fe5B04F3') {
       return 'tobi.eth';
     }
@@ -25,7 +27,7 @@ jest.mock('ethers', () => {
     return null;
   });
 
-  const resolveName = jest.fn((ensName: string) => {
+  const resolveName = vi.fn((ensName: string) => {
     if (ensName === 'tobi.eth') {
       return '0x486D582eed105cEf4e4Aa270C93b1e03Fe5B04F3';
     }
@@ -43,16 +45,16 @@ jest.mock('ethers', () => {
     ...ethers,
     providers: {
       ...ethers.providers,
-      AlchemyProvider: jest.fn(() => providerOverrides),
-      FallbackProvider: jest.fn(() => providerOverrides),
-      StaticJsonRpcProvider: jest.fn(() => providerOverrides),
+      AlchemyProvider: vi.fn(() => providerOverrides),
+      FallbackProvider: vi.fn(() => providerOverrides),
+      StaticJsonRpcProvider: vi.fn(() => providerOverrides),
     },
   };
 });
 
 describe('fetchEns', () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('does not update the active wallet with a displayName value when an ensName is not resolved', async () => {

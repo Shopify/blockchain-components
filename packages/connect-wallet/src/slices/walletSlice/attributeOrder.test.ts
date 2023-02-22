@@ -1,21 +1,21 @@
+import {vi} from 'vitest';
+import type {Mock} from 'vitest';
+
 import {OrderAttributionMode} from '../../types/orderAttribution';
 
 import {attributeOrder} from './attributeOrder';
 import {gateContextClient} from './gateContextClient';
 
-jest.mock('./gateContextClient', () => {
-  return {
-    gateContextClient: {
-      write: jest.fn(() => Promise.resolve({})),
-    },
-  };
-});
-
 describe('attributeOrder', () => {
   // Removes the orderAttribution console.error from the test output.
-  beforeAll(() => jest.spyOn(console, 'error').mockImplementation(() => {}));
+  beforeAll(() => {
+    vi.spyOn(gateContextClient, 'write');
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
 
-  afterAll(() => jest.clearAllMocks());
+  afterAll(() => {
+    vi.clearAllMocks();
+  });
 
   describe('when orderAttributionMode is required', () => {
     it('calls gateContextClient.write', async () => {
@@ -87,13 +87,14 @@ function defaultAttributeOrder({
 function executeThunk(
   thunk: ReturnType<typeof defaultAttributeOrder> = defaultAttributeOrder(),
 ) {
-  return thunk(jest.fn(), jest.fn(), {});
+  return thunk(vi.fn(), vi.fn(), {});
 }
 
 function mockWrite(
   internalWrite: (...args: any) => unknown = () => Promise.resolve({}),
 ) {
-  const write = jest.fn(internalWrite);
-  (gateContextClient.write as jest.Mock).mockImplementation(write);
+  const write = vi.fn(internalWrite);
+  (gateContextClient.write as Mock).mockImplementation(write);
+  // spy.mockImplementation(write);
   return write;
 }
