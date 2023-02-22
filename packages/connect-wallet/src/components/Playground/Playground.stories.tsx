@@ -1,25 +1,21 @@
+import type {Meta, StoryObj} from '@storybook/react';
+import type {ThemeProps} from 'shared';
 import {WagmiConfig, configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 import {publicProvider} from 'wagmi/providers/public';
 
-import {ConnectWalletProvider} from '../../providers/ConnectWalletProvider';
 import {getDefaultConnectors} from '../../connectors/getDefaultConnectors';
+import {ConnectWalletProvider} from '../../providers/ConnectWalletProvider';
 import {ConnectButton} from '..';
 
-const PlaygroundStory = {
-  title: 'Connect Wallet',
-  component: WagmiConfig,
-  argTypes: {
-    wallets: {
-      control: {type: 'select'},
-      options: ['Ethereum'],
-    },
-  },
-};
+type ProviderThemeType = ThemeProps['theme'];
 
-export default PlaygroundStory;
+interface TemplateProps {
+  theme: ProviderThemeType;
+  wallets: 'Ethereum' | 'Solana';
+}
 
-const Template = ({wallets}: {wallets: 'Ethereum' | 'Solana'}) => {
+const Component = ({theme, wallets}: TemplateProps) => {
   const chains = wallets === 'Ethereum' ? [mainnet] : [];
   const {provider, webSocketProvider} = configureChains(chains, [
     publicProvider(),
@@ -36,13 +32,33 @@ const Template = ({wallets}: {wallets: 'Ethereum' | 'Solana'}) => {
 
   return (
     <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains}>
+      <ConnectWalletProvider chains={chains} theme={theme}>
         <ConnectButton />
       </ConnectWalletProvider>
     </WagmiConfig>
   );
 };
 
-export const Playground = Template.bind({
-  wallets: 'Ethereum',
-});
+const PlaygroundStory: Meta<TemplateProps> = {
+  title: 'Connect Wallet',
+  component: Component,
+};
+
+type Story = StoryObj<TemplateProps>;
+
+export const Playground: Story = {
+  args: {
+    wallets: 'Ethereum',
+  },
+  argTypes: {
+    wallets: {
+      control: 'select',
+      options: ['Ethereum'],
+    },
+  },
+  render: (args, {globals: {theme}}) => {
+    return <Component {...args} theme={theme} />;
+  },
+};
+
+export default PlaygroundStory;

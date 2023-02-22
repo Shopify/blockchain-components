@@ -36,7 +36,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "2.0.0-alpha.2",
     "@shopify/gate-context-client": "*",
-    "@storybook/react": "^6.5.13",
+    "@storybook/react": "^7.0.0-beta.52",
     "framer-motion": "^8.5.0",
     "i18next": "^22.4.9",
     "qrcode": "^1.5.1",

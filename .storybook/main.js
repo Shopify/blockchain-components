@@ -2,18 +2,17 @@ const react = require('@vitejs/plugin-react');
 
 module.exports = {
   stories: [
-    '../packages/**/*.stories.mdx',
+    '../packages/**/*.mdx',
     '../packages/**/*.stories.@(js|jsx|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-    '@react-theming/storybook-addon',
   ],
-  framework: '@storybook/react',
-  core: {
-    builder: '@storybook/builder-vite',
+  framework: {
+    name: '@storybook/react-vite',
+    options: {},
   },
   async viteFinal(config) {
     config.plugins = mergePlugins(config.plugins, react());

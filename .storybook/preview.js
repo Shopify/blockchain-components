@@ -11,3 +11,17 @@ export const parameters = {
 };
 
 export const decorators = [withThemeProvider];
+
+export const globalTypes = {
+  theme: {
+    name: 'Theme',
+    description: 'Components theme',
+    defaultValue: 'Default',
+    toolbar: {
+      icon: 'paintbrush',
+      items: ['Dawn', 'Default'],
+      showName: true,
+      dynamicTitle: true,
+    },
+  },
+};

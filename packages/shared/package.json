@@ -11,7 +11,7 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "devDependencies": {
-    "@storybook/react": "^6.5.13",
+    "@storybook/react": "^7.0.0-beta.52",
     "@types/styled-components": "^5.1.26",
     "tsconfig": "*",
     "vitest": "^0.28.5"
