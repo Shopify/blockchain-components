@@ -1,3 +1,5 @@
+import {vi} from 'vitest';
+
 import {
   UnlockingTokenWithOrderLimitFixture,
   UnlockingTokenFixture,
@@ -246,7 +248,7 @@ describe('Tokengate - utils', () => {
     });
 
     it('shows requirement and available soon for future availability date state', () => {
-      jest.useFakeTimers().setSystemTime(new Date('2000-01-01'));
+      vi.useFakeTimers().setSystemTime(new Date('2000-01-01'));
 
       const sections = getSections({
         ...defaultTokengateProps,
