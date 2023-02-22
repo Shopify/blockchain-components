@@ -1,5 +1,9 @@
-import createFetchMock from 'vitest-fetch-mock';
+import matchers from '@testing-library/jest-dom';
 import {vi} from 'vitest';
+import createFetchMock from 'vitest-fetch-mock';
+
+// Adds the jest-dom matchers from testing library
+expect.extend(matchers);
 
 const fetchMock = createFetchMock(vi);
 
