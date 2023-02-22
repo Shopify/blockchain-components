@@ -145,7 +145,7 @@ describe('Tokengate - utils', () => {
               isLocked: false,
             }),
           );
-          expect(result.current.title).toBe('Discount unlocked');
+          expect(result.current.title).toBe('$10 discount unlocked');
           expect(result.current.subtitle).toBe(
             'Your token got you access to this discount!',
           );
@@ -183,7 +183,7 @@ describe('Tokengate - utils', () => {
               ],
             }),
           );
-          expect(result.current.title).toBe('Discount unlocked');
+          expect(result.current.title).toBe('$10 discount unlocked');
           expect(result.current.subtitle).toBe(
             'You can use this discount up to 4 times with your tokens.',
           );
