@@ -12,6 +12,11 @@ jest.mock('./gateContextClient', () => {
 });
 
 describe('attributeOrder', () => {
+  // Removes the orderAttribution console.error from the test output.
+  beforeAll(() => jest.spyOn(console, 'error').mockImplementation(() => {}));
+
+  afterAll(() => jest.clearAllMocks());
+
   describe('when orderAttributionMode is required', () => {
     it('calls gateContextClient.write', async () => {
       const write = mockWrite();

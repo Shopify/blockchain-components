@@ -1,10 +1,11 @@
 import {useEffect} from 'react';
-import {useAccount} from 'wagmi';
+import {useAccount, useNetwork, useProvider} from 'wagmi';
 
 import {buildOnConnectMiddleware} from '../middleware/onConnectMiddleware';
 import {
   addWallet,
   attributeOrder,
+  fetchEns,
   setActiveWallet,
   setPendingWallet,
 } from '../slices/walletSlice';
@@ -29,6 +30,8 @@ export const useMiddleware = ({
   const {connectedWallets, pendingConnector} = useAppSelector(
     (state) => state.wallet,
   );
+  const {chain} = useNetwork();
+  const provider = useProvider();
 
   useAccount({
     onConnect: ({address, connector, isReconnected}) => {
@@ -128,8 +131,19 @@ export const useMiddleware = ({
           wallet,
         }),
       );
+
+      // This will re-run the query for ENS names every time that
+      // the page reloads as well. Which might be desired if a user
+      // buys an ENS in between connecting their wallet. However, it
+      // could lead to excessive calls to the chain.
+      if (chain) {
+        const {unsupported, ...rest} = chain;
+        state.dispatch(
+          fetchEns({address: wallet.address, chain: {...rest}, provider}),
+        );
+      }
     });
 
     return dispatch(listener);
-  }, [dispatch, orderAttributionMode]);
+  }, [chain, dispatch, orderAttributionMode, provider]);
 };
