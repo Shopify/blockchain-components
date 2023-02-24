@@ -38,8 +38,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@storybook/react": "^6.5.13",
-    "@types/styled-components": "^5.1.26",
     "i18next": "^22.4.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -47,8 +45,9 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
+    "@storybook/react": "^6.5.13",
     "@testing-library/react": "^13.4.0",
-    "shared": "*",
+    "@types/styled-components": "^5.1.26",
     "tsconfig": "*",
     "tsup": "^6.5.0"
   }

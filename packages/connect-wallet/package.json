@@ -24,12 +24,6 @@
   ],
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
-  },
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup --watch",
@@ -66,7 +60,6 @@
     "@types/styled-components": "^5.1.26",
     "@types/ua-parser-js": "^0.7.36",
     "@wagmi/core": "0.8.10",
-    "shared": "*",
     "tsconfig": "*",
     "tsup": "^6.5.0"
   }

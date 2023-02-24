@@ -1,5 +1,4 @@
-import {deepMerge} from 'shared/src/utils/deepMerge';
-import {DeepPartial} from 'shared/src/types/deepPartial';
+import {deepMerge, DeepPartial} from 'shared';
 
 import {Requirements} from '../types';
 
