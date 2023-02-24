@@ -1,5 +1,5 @@
-import styled, {CSSProperties} from 'styled-components';
-import {breakpoints} from 'shared';
+import {CSSProperties} from 'react';
+import {breakpoints, styled} from 'shared';
 
 export const Background = styled.div`
   position: absolute;
@@ -118,7 +118,9 @@ export const Sheet = styled.div`
   }
 `;
 
-export const SheetContent = styled.div<{rowGap?: CSSProperties['rowGap']}>`
+export const SheetContent = styled.div<{
+  rowGap?: CSSProperties['rowGap'];
+}>`
   display: flex;
   flex-direction: column;
   justify-content: center;

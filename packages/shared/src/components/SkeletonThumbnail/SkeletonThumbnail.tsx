@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import {styled} from 'shared';
 
 export const SkeletonThumbnail = styled.div<{size?: number}>`
   background-color: #e4e5e7;

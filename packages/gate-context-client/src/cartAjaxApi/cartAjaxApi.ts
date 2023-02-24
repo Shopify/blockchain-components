@@ -15,8 +15,6 @@ import {CartAjaxApiError, CartAjaxApiNotSupportedError} from './errors';
 import {getShopifyRootRoute, isShopifyStore} from './shopify';
 import {CartAjaxAPICartAttributes, CartAjaxApiResponse} from './types';
 
-const AJAX_API_UPDATE_URL = getUpdateUrl();
-
 async function read(): Promise<unknown> {
   if (!isCartAjaxApiSupported()) {
     return Promise.reject(new CartAjaxApiNotSupportedError());
@@ -50,6 +48,8 @@ async function write<TGateContext, TRawResponse>(
   data: GateContextInput,
   options: GateContextClientOptions<TGateContext>,
 ): Promise<GateContextWriteResponse<TRawResponse>> {
+  const ajaxApiUpdateURL = getUpdateUrl();
+
   const attributes = await getAttributes<TGateContext>(
     data,
     options.shopifyGateContextGenerator,
@@ -58,7 +58,7 @@ async function write<TGateContext, TRawResponse>(
     return Promise.reject(new CartAjaxApiNotSupportedError());
   }
 
-  const response = await fetch(AJAX_API_UPDATE_URL, {
+  const response = await fetch(ajaxApiUpdateURL, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
