@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^13.4.0",
+    "jestconfig": "*",
     "shared": "*",
     "tsconfig": "*",
     "tsup": "^6.5.0"

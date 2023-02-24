@@ -3,7 +3,6 @@ module.exports = {
     '^tests/(.*)': '<rootDir>/tests/$1',
   },
   setupFiles: [`${__dirname}/setupTests.js`],
-  testEnvironment: 'jsdom',
   transform: {
     '\\.(js|tsx?)$': [
       'babel-jest',

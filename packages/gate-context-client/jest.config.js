@@ -1,1 +1,1 @@
-export {default} from '../jest/jest.config.js';
+export {default} from 'jestconfig/jsdom.jest.config.js';
