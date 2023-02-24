@@ -1,5 +1,5 @@
-import {Chain} from '@wagmi/core';
 import {createContext} from 'react';
+import {Chain} from 'wagmi';
 
 import {OrderAttributionMode} from '../../types/orderAttribution';
 

@@ -1,5 +1,5 @@
-import {Chain} from '@wagmi/core';
 import {ThemeProps} from 'shared';
+import {Chain} from 'wagmi';
 
 import {OrderAttributionMode} from '../../types/orderAttribution';
 

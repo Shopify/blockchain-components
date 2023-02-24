@@ -1,5 +1,5 @@
-import {Chain} from '@wagmi/core';
 import {providers} from 'ethers';
+import {Chain} from 'wagmi';
 
 import {EthereumProviderType} from '../types/provider';
 

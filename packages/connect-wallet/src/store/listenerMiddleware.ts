@@ -12,7 +12,7 @@ import type {RootState, AppDispatch} from './configureStore';
 export const listenerMiddleware = createListenerMiddleware();
 
 export type TypedStartListening = RTKTypedStartListening<
-  RootState,
+  Record<string, never> & RootState,
   AppDispatch
 >;
 

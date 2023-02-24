@@ -59,7 +59,6 @@
     "@types/redux-logger": "^3.0.9",
     "@types/styled-components": "^5.1.26",
     "@types/ua-parser-js": "^0.7.36",
-    "@wagmi/core": "0.8.10",
     "tsconfig": "*",
     "tsup": "^6.5.0"
   }
