@@ -35,6 +35,8 @@
     "build": "tsup",
     "dev": "DEV=true tsup --watch",
     "lint": "eslint '**/*.ts*'",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -48,6 +50,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^13.4.0",
+    "jestconfig": "*",
     "shared": "*",
     "tsconfig": "*",
     "tsup": "^6.5.0"

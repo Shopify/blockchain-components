@@ -2,8 +2,7 @@ module.exports = {
   moduleNameMapper: {
     '^tests/(.*)': '<rootDir>/tests/$1',
   },
-  setupFiles: ['./setupTests.js'],
-  testEnvironment: 'jsdom',
+  setupFiles: [`${__dirname}/setupTests.js`],
   transform: {
     '\\.(js|tsx?)$': [
       'babel-jest',

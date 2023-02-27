@@ -47,7 +47,7 @@ yarn test
 If you would prefer to run the tests as your test files change, you can run the following:
 
 ```sh
-yarn test --watch
+yarn test:watch
 ```
 
 ### Testing on mobile device

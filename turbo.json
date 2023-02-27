@@ -16,6 +16,13 @@
     },
     "preversion": {
       "cache": false
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "test:watch": {
+      "cache": false,
+      "dependsOn": ["^build"]
     }
   }
 }
