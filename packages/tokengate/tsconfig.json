@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "shared": ["../shared/src/index.ts"]
+    }
   },
   "include": ["./src", "./styled.d.ts"],
   "exclude": ["./dist", "node_modules"],

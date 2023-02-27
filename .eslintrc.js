@@ -32,6 +32,17 @@ module.exports = {
         prefix: ['T', 'U'],
       },
     ],
+    'import/order': [
+      'error',
+      {
+        pathGroups: [
+          {
+            pattern: 'shared',
+            group: 'external',
+          },
+        ],
+      },
+    ],
     'no-catch-shadow': 'off',
     'no-console': [
       'error',
@@ -63,6 +74,9 @@ module.exports = {
         ],
       },
     ],
+  },
+  settings: {
+    'import/internal-regex': 'shared',
   },
   overrides: [
     {
