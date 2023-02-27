@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {verifyMessage} from 'ethers/lib/utils';
+import {utils} from 'ethers';
 import {SiweMessage} from 'siwe';
 
 import {SerializedConnector} from '../../types/connector';
@@ -52,7 +52,7 @@ export const validatePendingWallet = createAsyncThunk(
      * Utilize `verifyMessage` from ethers to recover the signer address
      * from the signature.
      */
-    const recoveredAddress = verifyMessage(
+    const recoveredAddress = utils.verifyMessage(
       siweMessage.prepareMessage(),
       signature,
     );
