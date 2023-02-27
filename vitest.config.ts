@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference, spaced-comment
 /// <reference types="vitest" />
 
+import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig({
@@ -9,6 +10,6 @@ export default defineConfig({
     exclude: ['**/dist', 'node_modules'],
     globals: true,
     include: ['**/*.(test|spec).(js|jsx|ts|tsx)'],
-    setupFiles: ['./vitestSetup.ts'],
+    setupFiles: [path.resolve(__dirname, './vitestSetup.ts')],
   },
 });

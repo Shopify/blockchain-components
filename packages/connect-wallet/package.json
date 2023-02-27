@@ -34,8 +34,8 @@
     "build": "tsup",
     "dev": "DEV=true tsup --watch",
     "lint": "eslint '**/*.ts*'",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -69,7 +69,7 @@
     "@types/ua-parser-js": "^0.7.36",
     "@wagmi/core": "0.8.10",
     "happy-dom": "^8.7.1",
-    "jestconfig": "*",
+    "shared": "*",
     "tsconfig": "*",
     "tsup": "^6.5.0",
     "vitest": "^0.28.5"
