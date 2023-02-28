@@ -34,7 +34,7 @@ Run commands across all workspaces. This uses [`turbo run <command>`](https://tu
 
 ## Want to contribute?
 
-Check out our [Contributing Guide](./.github/CONTRIBUTING.md)
+Check out our [Contributing Guide](./.github/contributing.md)
 
 ## Questions?
 
