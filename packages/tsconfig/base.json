@@ -19,6 +19,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "types": ["jest", "node", "vite/client"]
+    "types": ["node", "vite/client", "vitest/globals"]
   }
 }

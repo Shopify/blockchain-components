@@ -1,4 +1,5 @@
-import fetchMock from 'jest-fetch-mock';
+import {vi} from 'vitest';
+import createFetchMock from 'vitest-fetch-mock';
 
 import {undefinedGateContextGenerator} from '../index';
 
@@ -14,8 +15,13 @@ const mockShopifyValue = {
 // This is a global that is available on Online store pages.
 (window as any).Shopify = mockShopifyValue;
 
+const fetchMock = createFetchMock(vi);
+
 describe('AjaxAPI', () => {
-  beforeEach(() => fetchMock.resetMocks());
+  beforeEach(() => {
+    fetchMock.resetMocks();
+    fetchMock.enableMocks();
+  });
 
   const gateContextAjaxClient = getGateContextCartAjaxClient({
     backingStore: 'ajaxApi',
