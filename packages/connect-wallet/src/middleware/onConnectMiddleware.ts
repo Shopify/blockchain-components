@@ -1,4 +1,5 @@
-import {isAnyOf, ListenerEffect} from '@reduxjs/toolkit';
+import {isAnyOf} from '@reduxjs/toolkit';
+import type {ListenerEffect} from '@reduxjs/toolkit';
 
 import {
   addWallet,
