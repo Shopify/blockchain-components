@@ -7,7 +7,6 @@ module.exports = {
     'plugin:@shopify/typescript',
     'plugin:@shopify/typescript-type-checking',
     'plugin:@shopify/react',
-    'plugin:@shopify/jest',
     'plugin:@shopify/prettier',
     'plugin:react/jsx-runtime',
   ],

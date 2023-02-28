@@ -1,5 +1,6 @@
+import {mainnet} from 'wagmi/chains';
+
 import {
-  mainnet,
   mainnetAlchemyProvider,
   mainnetMixedFallbackProvider,
   mainnetPublicFallbackProvider,
@@ -7,11 +8,6 @@ import {
 } from '../test/providers';
 
 import {isDefaultProvider, isFallbackProviderType} from './provider';
-
-type Chain = Parameters<typeof isDefaultProvider>[0]['chain'];
-// This can be addressed when we're able to utilize ESM modules in
-// the test environment.
-const chain = mainnet as Chain;
 
 describe('isFallbackProviderType', () => {
   it('returns true when the provider type is a fallback provider', () => {
@@ -27,26 +23,26 @@ describe('isFallbackProviderType', () => {
 
 describe('isDefaultProvider', () => {
   it('returns true when given a public only provider', () => {
-    expect(isDefaultProvider({chain, provider: mainnetPublicProvider})).toBe(
-      true,
-    );
+    expect(
+      isDefaultProvider({chain: mainnet, provider: mainnetPublicProvider}),
+    ).toBe(true);
 
     expect(
       isDefaultProvider({
-        chain,
+        chain: mainnet,
         provider: mainnetPublicFallbackProvider,
       }),
     ).toBe(true);
   });
 
   it('returns false when given a provider that has at least one provider that is not a public provider', () => {
-    expect(isDefaultProvider({chain, provider: mainnetAlchemyProvider})).toBe(
-      false,
-    );
+    expect(
+      isDefaultProvider({chain: mainnet, provider: mainnetAlchemyProvider}),
+    ).toBe(false);
 
     expect(
       isDefaultProvider({
-        chain,
+        chain: mainnet,
         provider: mainnetMixedFallbackProvider,
       }),
     ).toBe(false);
