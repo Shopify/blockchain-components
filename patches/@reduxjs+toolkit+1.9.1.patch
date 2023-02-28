@@ -1,0 +1,17 @@
+diff --git a/node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js b/node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js
+index 97d9f90..72bd421 100644
+--- a/node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js
++++ b/node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js
+@@ -420,10 +420,10 @@ function getDefaultMiddleware(options) {
+     var middlewareArray = new MiddlewareArray();
+     if (thunk) {
+         if (isBoolean(thunk)) {
+-            middlewareArray.push(thunkMiddleware);
++            middlewareArray.push(thunkMiddleware.default || thunkMiddleware);
+         }
+         else {
+-            middlewareArray.push(thunkMiddleware.withExtraArgument(thunk.extraArgument));
++            middlewareArray.push((thunkMiddleware.default || thunkMiddleware).withExtraArgument(thunk.extraArgument));
+         }
+     }
+     if (process.env.NODE_ENV !== "production") {
