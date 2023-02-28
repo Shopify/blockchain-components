@@ -1,8 +1,9 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 import {walletSlice, WalletSliceType} from '../slices/walletSlice';
+
+import storage from './storage';
 
 export interface AppState {
   wallet: WalletSliceType;
