@@ -95,6 +95,5 @@ function mockWrite(
 ) {
   const write = vi.fn(internalWrite);
   (gateContextClient.write as Mock).mockImplementation(write);
-  // spy.mockImplementation(write);
   return write;
 }
