@@ -1,6 +1,7 @@
 import {Chain} from '@wagmi/core';
 import {ThemeProps} from 'shared';
 
+import {Connector} from '../../types/connector';
 import {OrderAttributionMode} from '../../types/orderAttribution';
 
 interface StatementGeneratorProps {
@@ -18,6 +19,7 @@ export type StatementGenerator =
 
 interface ProviderBaseProps extends ThemeProps {
   chains: Chain[];
+  connectors: Connector[];
 }
 
 interface SignatureRequiredProps extends ProviderBaseProps {

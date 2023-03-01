@@ -7,7 +7,7 @@ import {AnalyticsListener} from './components/AnalyticsListener';
 import App from './App';
 import './index.css';
 import {eventBus} from './utils/eventBus/eventBus';
-import {chains, client} from './wagmi';
+import {chains, connectors, client} from './wagmi';
 
 window.playground = {
   ThemeAppExtension: class ThemeAppExtension {
@@ -41,6 +41,7 @@ window.playground = {
           <WagmiConfig client={client}>
             <ConnectWalletProvider
               chains={chains}
+              connectors={connectors}
               orderAttributionMode="ignoreErrors"
             >
               <App

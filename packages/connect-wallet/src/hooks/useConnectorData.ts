@@ -1,9 +1,8 @@
-import {useMemo} from 'react';
+import {useContext, useMemo} from 'react';
 import {Connector} from 'wagmi';
 
+import {ConnectWalletContext} from '../providers/ConnectWalletProvider';
 import {ConnectorInstance} from '../types/connector';
-
-import {useDefaultConnectors} from './useDefaultConnectors';
 
 type UseConnectorDataResponse = Omit<ConnectorInstance, 'createConnector'> & {
   connector?: Connector;
@@ -18,8 +17,7 @@ export function useConnectorData({
 }: {
   id?: string;
 }): UseConnectorDataResponse {
-  const {connectors} = useDefaultConnectors();
-
+  const {connectors} = useContext(ConnectWalletContext);
   const connectorData = useMemo(() => {
     // Search our collection of connectors for a matching id (e.g. `rainbowWallet` or `metaMask`).
     const data = connectors.find((item) => item.id === id);

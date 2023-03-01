@@ -3,8 +3,7 @@ import type {ThemeProps} from 'shared';
 import {WagmiConfig, configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 import {publicProvider} from 'wagmi/providers/public';
-
-import {getDefaultConnectors} from '../../connectors/getDefaultConnectors';
+import {buildConnectors} from '../../connectors/buildConnectors';
 import {ConnectWalletProvider} from '../../providers/ConnectWalletProvider';
 import {ConnectButton} from '..';
 
@@ -21,18 +20,22 @@ const Component = ({theme, wallets}: TemplateProps) => {
     publicProvider(),
   ]);
 
-  const {connectors} = getDefaultConnectors({chains});
+  const {connectors, wagmiConnectors} = buildConnectors({chains});
 
   const client = createClient({
     autoConnect: true,
-    connectors,
+    connectors: wagmiConnectors,
     provider,
     webSocketProvider,
   });
 
   return (
     <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains} theme={theme}>
+      <ConnectWalletProvider
+        chains={chains}
+        connectors={connectors}
+        theme={theme}
+      >
         <ConnectButton />
       </ConnectWalletProvider>
     </WagmiConfig>
