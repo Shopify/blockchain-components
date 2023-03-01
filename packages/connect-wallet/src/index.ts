@@ -10,6 +10,7 @@ export {ConnectorIcon} from './components/ConnectorIcon/ConnectorIcon';
  * Constants
  */
 export {getDefaultConnectors} from './connectors/getDefaultConnectors';
+export {buildConnectors} from './connectors/buildConnectors';
 
 /**
  * Hooks
