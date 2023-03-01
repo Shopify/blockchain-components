@@ -21,3 +21,8 @@ export {Dawn, Default};
  */
 export type {Theme};
 export * from './types';
+
+/**
+ * ClientAnalytics
+ */
+export {ClientAnalytics} from 'shared';
