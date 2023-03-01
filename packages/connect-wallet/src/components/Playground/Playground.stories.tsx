@@ -1,7 +1,7 @@
 import {WagmiConfig, configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 import {publicProvider} from 'wagmi/providers/public';
-import {buildConnectors} from 'src/connectors/buildConnectors';
+import {buildConnectors} from '../../connectors/buildConnectors';
 import {ConnectWalletProvider} from '../../providers/ConnectWalletProvider';
 import {ConnectButton} from '..';
 
