@@ -1,4 +1,5 @@
-import {getDefaultConnectors} from '@shopify/connect-wallet';
+import {buildConnectors} from '@shopify/connect-wallet';
+
 import {configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 // import {alchemyProvider} from 'wagmi/providers/alchemy';
@@ -12,13 +13,13 @@ const {chains, provider, webSocketProvider} = configureChains(
   ],
 );
 
-const {connectors} = getDefaultConnectors({chains});
+const {connectors, wagmiConnectors} = buildConnectors({chains});
 
 const client = createClient({
   autoConnect: true,
-  connectors,
+  connectors: wagmiConnectors,
   provider,
   webSocketProvider,
 });
 
-export {chains, client};
+export {chains, client, connectors};

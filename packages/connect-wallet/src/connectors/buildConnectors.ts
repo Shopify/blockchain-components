@@ -1,11 +1,10 @@
 import type {Connector as WagmiConnector} from 'wagmi';
-import {InjectedConnector} from 'wagmi/connectors/injected';
-import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 
 import type {
   Connector,
   ConnectorInstance,
   ConnectorProps,
+  CustomConnector,
 } from '../types/connector';
 import {ConnectWalletError} from '../utils/error';
 
@@ -15,14 +14,10 @@ import {MetaMask} from './metaMask';
 import {Rainbow} from './rainbow';
 import {WalletConnect} from './walletConnect';
 
-type CustomConnector = Omit<ConnectorInstance, 'createConnector'> & {
-  connector: InjectedConnector | WalletConnectConnector;
-};
-
 interface BuildConnectorsWithDefaults extends ConnectorProps {
   customConnectors?: CustomConnector[];
   excludedConnectors?: string[];
-  includeDefaults?: true | undefined;
+  includeDefaults?: true;
 }
 
 interface BuildConnectorsWithoutDefaults extends ConnectorProps {
@@ -49,7 +44,7 @@ export const buildConnectors = ({
   chains,
   customConnectors,
   excludedConnectors,
-  includeDefaults,
+  includeDefaults = true,
 }: BuildConnectorsProps): BuildConnectorsSignature => {
   const connectors: Connector[] = customConnectors || [];
 
