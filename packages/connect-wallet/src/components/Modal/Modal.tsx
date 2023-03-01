@@ -5,7 +5,7 @@ import {
   m,
   useReducedMotion,
 } from 'framer-motion';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useContext} from 'react';
 import {createPortal} from 'react-dom';
 import useMeasure from 'react-use-measure';
 import {
@@ -19,9 +19,9 @@ import {
   useMediaQuery,
 } from 'shared';
 
-import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {useAppSelector} from '../../hooks/useAppState';
 import {useTranslation} from '../../hooks/useTranslation';
+import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
 
 import {Background, Header, Sheet, Wrapper} from './style';
@@ -39,7 +39,7 @@ export const Modal = () => {
   const {pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
-  const {connectors} = useDefaultConnectors();
+  const {connectors} = useContext(ConnectWalletContext);
   const isMounted = useIsMounted();
   const escPress = useKeyPress('Escape');
   const [ref, {height}] = useMeasure();
