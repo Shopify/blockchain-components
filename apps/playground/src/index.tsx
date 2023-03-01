@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {WagmiConfig} from 'wagmi';
 
+import {AnalyticsListener} from './components/AnalyticsListener';
 import App from './App';
 import './index.css';
 import {eventBus} from './utils/eventBus/eventBus';
@@ -51,6 +52,7 @@ window.playground = {
                   },
                 }}
               />
+              <AnalyticsListener />
             </ConnectWalletProvider>
           </WagmiConfig>
         </React.StrictMode>
