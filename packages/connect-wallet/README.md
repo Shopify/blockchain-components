@@ -8,10 +8,16 @@ The `@shopify/connect-wallet` package provides a standard way of connecting wall
 
 To get started with using `@shopify/connect-wallet` you need to follow these steps
 
-1. [Installation](#installation)
-1. [Client configuration](#client-configuration)
-1. [App provider setup](#app-provider-setup)
-1. [Adding the `ConnectButton` component to your app](#adding-the-connectbutton-component-to-your-app)
+- [`@shopify/connect-wallet`](#shopifyconnect-wallet)
+  - [Get started](#get-started)
+    - [Installation](#installation)
+    - [Client configuration](#client-configuration)
+    - [App provider setup](#app-provider-setup)
+    - [Adding the `ConnectButton` component to your app](#adding-the-connectbutton-component-to-your-app)
+  - [Additional setup](#additional-setup)
+    - [Polyfills](#polyfills)
+  - [Contributing](#contributing)
+  - [Licenses](#licenses)
 
 ### Installation
 
@@ -28,7 +34,7 @@ We recommend creating a new file at the root of your app.
 Create a file in your project titled `connect-wallet-config.ts` at the root of your app with the following code. For more information, refer to [wagmi documentation](https://wagmi.sh).
 
 ```ts
-import {getDefaultConnectors} from '@shopify/connect-wallet';
+import {buildConnectors} from '@shopify/connect-wallet';
 import {configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 /**
@@ -47,16 +53,16 @@ const {chains, provider, webSocketProvider} = configureChains(
   ],
 );
 
-const {connectors} = getDefaultConnectors({chains});
+const {connectors, wagmiConnectors} = buildConnectors({appName: '', chains});
 
 const client = createClient({
   autoConnect: true,
-  connectors,
+  connectors: wagmiConnectors,
   provider,
   webSocketProvider,
 });
 
-export {chains, client};
+export {chains, client, connectors};
 ```
 
 ### App provider setup
