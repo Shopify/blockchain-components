@@ -80,8 +80,6 @@ export const buildConnectors = ({
 
   defaultAvailableConnectors.forEach(
     ({createConnector, id, ...provided}: ConnectorInstance) => {
-      const createdConnector = createConnector();
-
       if (excludedConnectors?.includes(id)) {
         return;
       }
@@ -89,6 +87,8 @@ export const buildConnectors = ({
       if (connectors.some(({id: customId}) => customId === id)) {
         return;
       }
+
+      const createdConnector = createConnector();
 
       const isWalletConnect = createdConnector.id === 'walletConnect';
 
