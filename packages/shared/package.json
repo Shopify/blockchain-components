@@ -4,14 +4,17 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint '**/*.ts*'"
+    "lint": "eslint '**/*.ts*'",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "main": "src/index.ts",
   "types": "src/index.ts",
   "devDependencies": {
     "@storybook/react": "^6.5.13",
     "@types/styled-components": "^5.1.26",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "vitest": "^0.28.5"
   },
   "dependencies": {
     "react": "^18.2.0",
