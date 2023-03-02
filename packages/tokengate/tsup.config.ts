@@ -3,7 +3,7 @@ import {defineConfig, Options} from 'tsup';
 
 const BASE_CONFIG: Options = {
   entry: ['./src/index.ts'],
-  external: ['react', 'styled-components'],
+  external: ['react'],
   format: ['esm', 'cjs'],
   platform: 'browser',
   target: 'esnext',

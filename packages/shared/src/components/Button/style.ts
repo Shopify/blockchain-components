@@ -1,5 +1,4 @@
-import styled, {css} from 'styled-components';
-
+import styled, {css} from '../../styles/styled';
 import {ThemedCSS} from '../../types/theme';
 
 import {Size} from './types';

@@ -1,9 +1,10 @@
 import {PropsWithChildren} from 'react';
+
 import {
   CSSProperties,
   FlattenInterpolation,
   ThemeProps as StyledThemeProps,
-} from 'styled-components';
+} from '../styles/styled';
 
 type RequiredCSSProperty = Required<CSSProperties>;
 

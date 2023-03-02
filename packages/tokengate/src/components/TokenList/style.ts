@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import {styled} from 'shared';
 
 export const TokenListImageStyle = styled.img`
   width: 100%;

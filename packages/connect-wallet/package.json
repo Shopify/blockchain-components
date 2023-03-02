@@ -47,7 +47,6 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "siwe": "^1.1.6",
-    "styled-components": "^5.3.6",
     "ua-parser-js": "^1.0.32"
   },
   "peerDependencies": {
@@ -61,7 +60,6 @@
     "@testing-library/react": "^13.4.0",
     "@types/qrcode": "^1.5.0",
     "@types/redux-logger": "^3.0.9",
-    "@types/styled-components": "^5.1.26",
     "@types/ua-parser-js": "^0.7.36",
     "@wagmi/core": "0.8.10",
     "happy-dom": "^8.7.1",
