@@ -24,7 +24,7 @@ const Template = ({wallets}: {wallets: 'Ethereum' | 'Solana'}) => {
     publicProvider(),
   ]);
 
-  const {connectors, wagmiConnectors} = buildConnectors({appName: '', chains});
+  const {connectors, wagmiConnectors} = buildConnectors({chains});
 
   const client = createClient({
     autoConnect: true,
