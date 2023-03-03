@@ -1,10 +1,11 @@
-// import {buildConnectors} from '@shopify/connect-wallet';
+import {buildConnectors} from '@shopify/connect-wallet';
+import type {Connector} from '@shopify/connect-wallet';
 import {configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
-import {getDefaultConnectors} from '@shopify/connect-wallet';
-
+import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 // import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {publicProvider} from 'wagmi/providers/public';
+import {Argent} from './assets/Argent';
 
 const {chains, provider, webSocketProvider} = configureChains(
   [mainnet],
@@ -14,10 +15,18 @@ const {chains, provider, webSocketProvider} = configureChains(
   ],
 );
 
-const {connectors: wagmiConnectors, availableConnectors: connectors} =
-  getDefaultConnectors({
-    chains,
-  });
+const argentConnector: Connector = {
+  id: 'argent',
+  name: 'Argent',
+  connector: new WalletConnectConnector({chains, options: {qrcode: false}}),
+  icon: Argent,
+  qrCodeSupported: true,
+};
+
+const {connectors, wagmiConnectors} = buildConnectors({
+  chains,
+  customConnectors: [argentConnector],
+});
 
 const client = createClient({
   autoConnect: true,

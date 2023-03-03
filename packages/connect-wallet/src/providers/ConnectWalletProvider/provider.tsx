@@ -27,7 +27,6 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
       const {connectors: defaultConnectors} = buildConnectors({
         appName: '',
         chains,
-        includeDefaults: true,
       });
       contextualConnectors = defaultConnectors;
     }
