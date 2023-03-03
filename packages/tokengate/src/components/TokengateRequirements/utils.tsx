@@ -30,15 +30,21 @@ export const mapRequirementsToTokenListProps = ({
     }
 
     return {
-      title:
-        condition.name ??
-        `contract ${formatWalletAddress(condition.collectionAddress)}`,
-      subtitle: t('conditionDescription.any'),
+      title: getConditionTitle(condition),
+      subtitle: condition.description ?? t('conditionDescription.any'),
       imageUrl: condition.imageUrl,
       badge,
       round: true,
     };
   });
+
+export const getConditionTitle = ({name, collectionAddress}: Condition) => {
+  if (name) return name;
+
+  if (!collectionAddress) return '';
+
+  return `contract ${formatWalletAddress(collectionAddress)}`;
+};
 
 export const findUnlockingTokenForCondition = ({
   condition,
