@@ -1,5 +1,5 @@
-import styled, {CSSProperties} from 'styled-components';
-import {breakpoints} from 'shared';
+import {CSSProperties} from 'react';
+import {breakpoints, styled} from 'shared';
 
 export const Background = styled.div`
   position: absolute;

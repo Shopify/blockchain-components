@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-restricted-imports
-import {createGlobalStyle, css} from 'styled-components';
+import {createGlobalStyle, css} from './styled';
 
 /**
  * We restrict the use of `createGlobalStyle` because it affects all elements

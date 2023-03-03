@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import {styled} from 'shared';
 
 export const StyledCard = styled.div`
   background-color: ${({theme}) => theme.tokengate.background};

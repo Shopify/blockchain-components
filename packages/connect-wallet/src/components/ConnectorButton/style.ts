@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import {ButtonWrapper} from 'shared';
+import {ButtonWrapper, styled} from 'shared';
 
 export const Button = styled(ButtonWrapper)`
   display: flex;
