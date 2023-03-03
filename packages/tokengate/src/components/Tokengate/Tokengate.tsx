@@ -1,4 +1,5 @@
-import {ReactNode, Fragment, useMemo} from 'react';
+import {ReactNode, Fragment, useMemo, useEffect} from 'react';
+import {ClientAnalytics} from 'shared';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
@@ -22,6 +23,12 @@ export const Tokengate = (props: TokengateProps) => {
     redemptionLimit,
   } = props;
   const {title, subtitle, sections} = useTokengateCardState(props);
+
+  useEffect(() => {
+    ClientAnalytics.publishEvent(
+      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+    );
+  }, []);
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
     () => ({
