@@ -9,7 +9,10 @@ export {adaptUnlockingTokens} from './utils/adapters/unlockingTokens';
 /**
  * Providers
  */
-export {TokengateProvider as Tokengate} from './providers/TokengateProvider';
+export {
+  TokengateProvider as Tokengate,
+  GateProvider as Gate,
+} from './providers/TokengateProvider';
 
 /**
  * Themes

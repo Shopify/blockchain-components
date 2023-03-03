@@ -1,5 +1,7 @@
+/* eslint-disable no-nested-ternary */
 import {ConnectButton, Wallet, useConnectWallet} from '@shopify/connect-wallet';
 import {
+  Gate,
   Tokengate,
   adaptRequirements,
   adaptUnlockingTokens,
@@ -84,21 +86,46 @@ export default function ({serverArguments}: AppProps) {
     },
   });
 
+  const isConnected = Boolean(wallet);
+  const isUnlocked =
+    wallet?.address.toLowerCase() ===
+    '0x81afab294Ee6Ad6c62d0f7E58057216FbB2E197c'.toLowerCase();
+
+  const {title, subtitle} =
+    isConnected && isUnlocked
+      ? {
+          title: `You're In`,
+          subtitle: (
+            <>
+              You can <b>buy up to 4</b>
+            </>
+          ),
+        }
+      : {
+          title: 'Exclusive product!',
+          subtitle: `On the allow list? You're in!`,
+        };
+
   const _TokengateComponent = (
-    <Tokengate
-      connectButton={<ConnectButton />}
-      isLoading={serverArguments?.initialState.isLoading}
-      isConnected={Boolean(wallet)}
-      reaction={{
-        type: 'exclusive_access',
-      }}
-      requirements={adaptRequirements(
-        serverArguments?.initialState.gateRequirement,
-      )}
-      unlockingTokens={adaptUnlockingTokens(
-        checkIfWalletMeetsRequirementsResponse?.unlockingTokens,
-      )}
-    />
+    <Gate title={title} subtitle={subtitle}>
+      <Gate.Conditions>
+        {isConnected ? (
+          isUnlocked ? null : (
+            <Gate.Condition
+              title="You're not on the list!"
+              subtitle=""
+              badge={Gate.Badges.InvalidCondition}
+            />
+          )
+        ) : (
+          <Gate.Condition
+            title="Best wallet holders"
+            subtitle="Optional description"
+          />
+        )}
+      </Gate.Conditions>
+      <ConnectButton />
+    </Gate>
   );
 
   if (isDev) {
