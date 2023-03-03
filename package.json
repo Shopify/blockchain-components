@@ -3,6 +3,7 @@
   "description": "A loosely related set of components for blockchain functionality on Shopify storefronts",
   "scripts": {
     "build": "turbo run build",
+    "build:packages": "turbo run build --filter='!playground'",
     "build-storybook": "storybook build",
     "changeset": "changeset",
     "dev": "turbo run dev",
@@ -11,7 +12,7 @@
     "postinstall": "patch-package",
     "preversion": "echo \"Error: use @changsets/cli to version packages\" && exit 1",
     "preversion-packages": "node scripts/preversion.js",
-    "release": "turbo run build --filter='!playground' && changeset publish",
+    "release": "yarn build:packages && changeset publish",
     "typecheck": "turbo run typecheck",
     "storybook": "storybook dev -p 6006",
     "test": "turbo run test",
