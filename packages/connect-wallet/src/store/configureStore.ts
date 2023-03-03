@@ -1,4 +1,3 @@
-import {logger} from 'redux-logger';
 import {configureStore} from '@reduxjs/toolkit';
 import {
   FLUSH,
@@ -10,6 +9,7 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 
+import logger from '../middleware/loggerMiddleware';
 import {initialState} from '../slices/walletSlice';
 
 import {rootReducer} from './combineReducers';
