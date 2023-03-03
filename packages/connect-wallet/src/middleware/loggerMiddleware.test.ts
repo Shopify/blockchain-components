@@ -81,7 +81,7 @@ describe('loggerMiddleware', () => {
       );
 
       // Test the previous state
-      expect(spyLog.mock.calls[1][0]).toContain('prev state:');
+      expect(spyLog.mock.calls[1][0]).toContain('previous state:');
       expect(spyLog.mock.calls[1][2]).toEqual(expectedPrevState);
 
       // Test the action and payload
