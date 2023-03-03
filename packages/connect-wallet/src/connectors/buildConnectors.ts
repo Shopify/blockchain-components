@@ -22,7 +22,7 @@ type CustomConnector = Omit<ConnectorInstance, 'createConnector'> & {
 interface BuildConnectorsWithDefaults extends ConnectorProps {
   customConnectors?: CustomConnector[];
   excludedConnectors?: string[];
-  includeDefaults?: true | undefined;
+  includeDefaults?: true;
 }
 
 interface BuildConnectorsWithoutDefaults extends ConnectorProps {
@@ -49,7 +49,7 @@ export const buildConnectors = ({
   chains,
   customConnectors,
   excludedConnectors,
-  includeDefaults,
+  includeDefaults = true,
 }: BuildConnectorsProps): BuildConnectorsSignature => {
   const connectors: Connector[] = customConnectors || [];
 
