@@ -31,6 +31,7 @@ export {RootProvider} from './providers/RootProvider';
  */
 export {breakpoints, device} from './styles/breakpoints';
 export {NonEmptyElement} from './styles/sharedStyles';
+export {default as styled, css, keyframes} from './styles/styled';
 
 /**
  * Themes

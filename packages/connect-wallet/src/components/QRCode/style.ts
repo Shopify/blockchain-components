@@ -1,4 +1,5 @@
-import styled, {CSSProperties} from 'styled-components';
+import {CSSProperties} from 'react';
+import {styled} from 'shared';
 
 export const Circle = styled.circle`
   fill: ${({theme}) => theme.typography.colorPrimary};

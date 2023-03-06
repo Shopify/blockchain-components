@@ -1,5 +1,4 @@
-import {breakpoints, ButtonWrapper} from 'shared';
-import styled from 'styled-components';
+import {breakpoints, ButtonWrapper, styled} from 'shared';
 
 export const AddressChip = styled.button`
   appearance: none;

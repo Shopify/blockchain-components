@@ -22,14 +22,9 @@
   "files": [
     "dist"
   ],
+  "node": ">=14.16",
   "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
-  },
+  "exports": "./dist/index.js",
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup --watch",
@@ -39,7 +34,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.1",
+    "@reduxjs/toolkit": "2.0.0-alpha.2",
     "@shopify/gate-context-client": "*",
     "@storybook/react": "^6.5.13",
     "framer-motion": "^8.5.0",
@@ -48,10 +43,9 @@
     "react-i18next": "^12.1.4",
     "react-redux": "^8.0.5",
     "react-use-measure": "^2.1.1",
-    "redux-logger": "^3.0.6",
+    "redux": "^5.0.0-alpha.2",
     "redux-persist": "^6.0.0",
     "siwe": "^1.1.6",
-    "styled-components": "^5.3.6",
     "ua-parser-js": "^1.0.32"
   },
   "peerDependencies": {
@@ -64,8 +58,6 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.4.0",
     "@types/qrcode": "^1.5.0",
-    "@types/redux-logger": "^3.0.9",
-    "@types/styled-components": "^5.1.26",
     "@types/ua-parser-js": "^0.7.36",
     "@wagmi/core": "0.8.10",
     "happy-dom": "^8.7.1",

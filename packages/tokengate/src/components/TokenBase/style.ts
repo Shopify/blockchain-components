@@ -1,5 +1,4 @@
-import {SkeletonThumbnail} from 'shared';
-import styled from 'styled-components';
+import {SkeletonThumbnail, styled} from 'shared';
 
 export const TokenBaseStyle = styled.div`
   display: flex;

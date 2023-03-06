@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import {styled} from 'shared';
 
 export const Wrapper = styled.div`
   p {
