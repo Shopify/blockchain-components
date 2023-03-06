@@ -1,4 +1,4 @@
-import {Chain} from '@wagmi/core';
+import {Chain, InjectedConnector} from '@wagmi/core';
 import {Connector as WagmiConnector} from 'wagmi';
 import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 
@@ -63,6 +63,10 @@ export type Connector = Omit<ConnectorInstance, 'createConnector'> & {
    * Whether the connector is ready to be used or not.
    */
   ready?: boolean;
+};
+
+export type CustomConnector = Omit<ConnectorInstance, 'createConnector'> & {
+  connector: InjectedConnector | WalletConnectConnector;
 };
 
 export type SerializedConnector = Omit<
