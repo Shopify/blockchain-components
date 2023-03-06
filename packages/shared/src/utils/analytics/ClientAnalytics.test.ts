@@ -23,6 +23,7 @@ describe('ClientAnalytics', () => {
       eventArgs,
     );
     expect(mock).toHaveBeenCalledTimes(1);
+    expect(mock).toHaveBeenCalledWith(eventArgs);
   });
 
   it('each subscriber gets called when there are multiple subscribers per event', () => {
@@ -49,7 +50,9 @@ describe('ClientAnalytics', () => {
       eventArgs,
     );
     expect(mock1).toHaveBeenCalledTimes(1);
+    expect(mock1).toHaveBeenCalledWith(eventArgs);
     expect(mock2).toHaveBeenCalledTimes(1);
+    expect(mock2).toHaveBeenCalledWith(eventArgs);
   });
 
   it('subscriber does not get called after unsubscribe', () => {
@@ -61,6 +64,17 @@ describe('ClientAnalytics', () => {
       mock,
     );
     unsubscribe();
+    ClientAnalytics.publishEvent(
+      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+      eventArgs,
+    );
+    expect(mock).toHaveBeenCalledTimes(0);
+  });
+
+  it("subscriber doesn't get called for an event they are not subscribed to", () => {
+    const eventArgs = {testProps: 'testProps'};
+    const mock = vi.fn();
+
     ClientAnalytics.publishEvent(
       ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
       eventArgs,
