@@ -1,3 +1,5 @@
+import {EventName} from '../../utils/analytics/types';
+
 export type Size = 'Sm' | 'Md' | 'Lg';
 
 interface ButtonBaseProps {
@@ -9,7 +11,7 @@ interface ButtonBaseProps {
   primary?: boolean;
   disabled?: boolean;
   size?: Size;
-  onClickEventName?: string;
+  onClickEventName?: EventName;
 }
 
 type LinkButtonProps = ButtonBaseProps & {

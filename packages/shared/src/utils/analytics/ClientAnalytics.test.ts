@@ -16,11 +16,11 @@ describe('ClientAnalytics', () => {
       const mock = vi.fn();
 
       ClientAnalytics.subscribe(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        ClientAnalytics.eventNames.TokengateComponentRendered,
         mock,
       );
       ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        ClientAnalytics.eventNames.TokengateComponentRendered,
         eventArgs,
       );
       expect(mock).toHaveBeenCalledTimes(1);
@@ -35,7 +35,7 @@ describe('ClientAnalytics', () => {
       const date = new Date(2000, 1, 1, 13);
       vi.setSystemTime(date);
       ClientAnalytics.subscribe(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        ClientAnalytics.eventNames.TokengateComponentRendered,
         mock1,
       );
 
@@ -43,11 +43,11 @@ describe('ClientAnalytics', () => {
       date.setMilliseconds(date.getMilliseconds() + 1);
       vi.setSystemTime(date);
       ClientAnalytics.subscribe(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        ClientAnalytics.eventNames.TokengateComponentRendered,
         mock2,
       );
       ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        ClientAnalytics.eventNames.TokengateComponentRendered,
         eventArgs,
       );
       expect(mock1).toHaveBeenCalledTimes(1);
@@ -61,12 +61,12 @@ describe('ClientAnalytics', () => {
       const mock = vi.fn();
 
       const {unsubscribe} = ClientAnalytics.subscribe(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        ClientAnalytics.eventNames.TokengateComponentRendered,
         mock,
       );
       unsubscribe();
       ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        ClientAnalytics.eventNames.TokengateComponentRendered,
         eventArgs,
       );
       expect(mock).toHaveBeenCalledTimes(0);
@@ -77,7 +77,7 @@ describe('ClientAnalytics', () => {
       const mock = vi.fn();
 
       ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        ClientAnalytics.eventNames.TokengateComponentRendered,
         eventArgs,
       );
       expect(mock).toHaveBeenCalledTimes(0);
@@ -91,12 +91,12 @@ describe('ClientAnalytics', () => {
 
       ClientAnalytics.subscribeToAll(mock1);
       ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        ClientAnalytics.eventNames.TokengateComponentRendered,
         eventArgs,
       );
       expect(mock1).toHaveBeenCalledTimes(1);
       expect(mock1).toHaveBeenCalledWith({
-        eventName: ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        eventName: ClientAnalytics.eventNames.TokengateComponentRendered,
         eventArgs,
       });
     });
@@ -108,7 +108,7 @@ describe('ClientAnalytics', () => {
       const {unsubscribe} = ClientAnalytics.subscribeToAll(mock1);
       unsubscribe();
       ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        ClientAnalytics.eventNames.TokengateComponentRendered,
         eventArgs,
       );
       expect(mock1).toHaveBeenCalledTimes(0);

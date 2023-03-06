@@ -1,20 +1,21 @@
 import {
-  SubscriberFunction,
+  Event,
+  EventName,
   Subscriber,
-  Subscribers,
+  SubscriberFunction,
   SubscriberValue,
+  Subscribers,
 } from './types';
-import {eventNames} from './const';
 
 const subscribers: Subscribers = new Map();
 
 /**
- * @param {string} eventname An event name indicating which event you would like to subscribe to.
+ * @param {EventName} eventname An event name indicating which event you would like to subscribe to.
  * @param {(payload: any) => void} callbackFunction Any callback function you would like to be invoked when the event is published.
  * @returns {Object} {unsubscribe} An object containing a cleanup function, unsubscribe, which will clean up the created subscription.
  */
 const subscribe = (
-  eventname: string,
+  eventname: EventName,
   callbackFunction: SubscriberFunction,
 ): Subscriber => {
   const subscription: SubscriberValue = subscribers.get(eventname) || new Map();
@@ -45,7 +46,7 @@ const subscribe = (
  * @returns {void}
  */
 const subscribeToAll = (callbackFunction: SubscriberFunction) => {
-  const eventNamesArray = Object.values(eventNames);
+  const eventNamesArray = Object.values(Event);
 
   eventNamesArray.map((eventName) => {
     const {unsubscribe} = subscribe(eventName, (args) =>
@@ -70,7 +71,7 @@ const subscribeToAll = (callbackFunction: SubscriberFunction) => {
  * @param {any | undefined} payload The data which was dispatched to the event.
  * @returns {void}
  */
-const publishEvent = (eventname: string, payload?: any) => {
+const publishEvent = (eventname: EventName, payload?: any) => {
   const subscriptions = subscribers.get(eventname);
 
   // Loop through our subscriptions for the event name and run the
@@ -82,5 +83,5 @@ export const ClientAnalytics = {
   subscribe,
   subscribeToAll,
   publishEvent,
-  eventNames,
+  eventNames: Event,
 };

@@ -25,9 +25,7 @@ export const Tokengate = (props: TokengateProps) => {
   const {title, subtitle, sections} = useTokengateCardState(props);
 
   useEffect(() => {
-    ClientAnalytics.publishEvent(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-    );
+    ClientAnalytics.publishEvent('TokengateComponentRendered');
   }, []);
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
