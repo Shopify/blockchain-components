@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '../../styles/styled';
 
 export const SkeletonDisplayText = styled.div`
   background-color: #e4e5e7;
