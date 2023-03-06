@@ -97,4 +97,19 @@ describe('ClientAnalytics', () => {
     );
     expect(mock).toHaveBeenCalledTimes(0);
   });
+
+  it('subscriber does not called after unsubscribe when using subscribe to all', () => {
+    it('subscriber gets called when using subscribe to all', () => {
+      const eventArgs = {testProps: 'testProps'};
+      const mock1 = vi.fn();
+
+      const {unsubscribe} = ClientAnalytics.subscribeToAll(mock1);
+      ClientAnalytics.publishEvent(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        eventArgs,
+      );
+      unsubscribe();
+      expect(mock1).toHaveBeenCalledTimes(0);
+    });
+  });
 });
