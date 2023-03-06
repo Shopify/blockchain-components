@@ -1,25 +1,32 @@
-import {ComponentMeta} from '@storybook/react';
+import {Meta, StoryObj} from '@storybook/react';
 
-import {Template} from '../template';
-import {Tokengate} from '../../Tokengate';
+import {DefaultArgTypes, Template} from '../template';
 import {
   TokengatePropsUnlockedFixture,
   TokengatePropsUnlockedWithOrderLimitFixture,
   TokengatePropsUnlockedWithOrderLimitMetFixture,
 } from '../../../../fixtures';
 
-const TokengateStory: ComponentMeta<typeof Tokengate> = {
+const TokengateStory: Meta<typeof Template> = {
   title: 'Tokengate/Exclusive/Unlocked',
-  component: Tokengate,
+  component: Template,
+};
+
+type Story = StoryObj<typeof Template>;
+
+export const NoOrderLimit: Story = {
+  args: TokengatePropsUnlockedFixture(),
+  argTypes: DefaultArgTypes,
+};
+
+export const OrderLimit: Story = {
+  args: TokengatePropsUnlockedWithOrderLimitFixture(),
+  argTypes: DefaultArgTypes,
+};
+
+export const OrderLimitReached: Story = {
+  args: TokengatePropsUnlockedWithOrderLimitMetFixture(),
+  argTypes: DefaultArgTypes,
 };
 
 export default TokengateStory;
-
-export const NoOrderLimit = Template.bind({});
-NoOrderLimit.args = TokengatePropsUnlockedFixture();
-
-export const OrderLimit = Template.bind({});
-OrderLimit.args = TokengatePropsUnlockedWithOrderLimitFixture();
-
-export const OrderLimitReached = Template.bind({});
-OrderLimitReached.args = TokengatePropsUnlockedWithOrderLimitMetFixture();

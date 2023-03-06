@@ -1,12 +1,23 @@
 import React from 'react';
-import {ThemeProvider} from 'styled-components';
-import {withThemes} from '@react-theming/storybook-addon';
-import {Dawn, Default} from 'shared';
+import {RootProvider, Theme, ThemeProps} from 'shared';
 
-const providerFn = ({theme, children}) => {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+type ThemeProviderProps = Omit<ThemeProps, 'children'>;
+type ThemeType = Exclude<ThemeProviderProps['theme'], Theme>;
+
+const getTheme = (themeName: string): ThemeType => {
+  if (themeName === 'Dawn' || themeName === 'Default') {
+    return themeName;
+  }
+
+  return 'Default';
 };
 
-export const withThemeProvider = (withThemes as any)(null, [Dawn, Default], {
-  providerFn,
-});
+export const withThemeProvider = (Story, context) => {
+  const theme = getTheme(context.globals.theme);
+
+  return (
+    <RootProvider theme={theme}>
+      <Story />
+    </RootProvider>
+  );
+};

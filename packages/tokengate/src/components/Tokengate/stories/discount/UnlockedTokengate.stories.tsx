@@ -1,7 +1,6 @@
-import {ComponentMeta} from '@storybook/react';
+import {Meta, StoryObj} from '@storybook/react';
 
-import {Template} from '../template';
-import {Tokengate} from '../../Tokengate';
+import {DefaultArgTypes, Template} from '../template';
 import {
   TokengatePropsUnlockedFixture,
   TokengatePropsUnlockedWithOrderLimitFixture,
@@ -9,24 +8,32 @@ import {
   DiscountReactionFixture,
 } from '../../../../fixtures';
 
-const TokengateStory: ComponentMeta<typeof Tokengate> = {
+const TokengateStory: Meta<typeof Template> = {
   title: 'Tokengate/Discount/Unlocked',
-  component: Tokengate,
+  component: Template,
+};
+
+type Story = StoryObj<typeof Template>;
+
+export const NoOrderLimit: Story = {
+  args: TokengatePropsUnlockedFixture({
+    reaction: DiscountReactionFixture(),
+  }),
+  argTypes: DefaultArgTypes,
+};
+
+export const OrderLimit: Story = {
+  args: TokengatePropsUnlockedWithOrderLimitFixture({
+    reaction: DiscountReactionFixture(),
+  }),
+  argTypes: DefaultArgTypes,
+};
+
+export const OrderLimitReached: Story = {
+  args: TokengatePropsUnlockedWithOrderLimitMetFixture({
+    reaction: DiscountReactionFixture(),
+  }),
+  argTypes: DefaultArgTypes,
 };
 
 export default TokengateStory;
-
-export const NoOrderLimit = Template.bind({});
-NoOrderLimit.args = TokengatePropsUnlockedFixture({
-  reaction: DiscountReactionFixture(),
-});
-
-export const OrderLimit = Template.bind({});
-OrderLimit.args = TokengatePropsUnlockedWithOrderLimitFixture({
-  reaction: DiscountReactionFixture(),
-});
-
-export const OrderLimitReached = Template.bind({});
-OrderLimitReached.args = TokengatePropsUnlockedWithOrderLimitMetFixture({
-  reaction: DiscountReactionFixture(),
-});

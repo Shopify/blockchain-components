@@ -25,7 +25,11 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install && yarn build
+        run: yarn install
+
+      # This omits the build of Playground
+      - name: Build packages
+        run: yarn build:packages
 
       - name: Publish to Chromatic
         run: npx chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }}

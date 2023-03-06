@@ -1,7 +1,7 @@
 /* eslint-disable @shopify/jsx-no-hardcoded-content */
 
 import {useCallback, useState} from 'react';
-import {ComponentMeta, ComponentStory} from '@storybook/react';
+import {Meta, StoryObj} from '@storybook/react';
 import {Button, Text} from 'shared';
 
 import {Tokengate} from '../../Tokengate';
@@ -23,7 +23,7 @@ const discountReaction = ReactionFixture({
   },
 });
 
-export const Template: ComponentStory<typeof Tokengate> = () => {
+export const Template = () => {
   const [reaction, setReaction] = useState<Reaction>(exclusiveReaction);
   const [isLocked, setIsLocked] = useState<boolean>(true);
   const [logic, setLogic] = useState<Requirements['logic']>('ALL');
@@ -129,11 +129,18 @@ export const Template: ComponentStory<typeof Tokengate> = () => {
   );
 };
 
-const TokengateStory: ComponentMeta<typeof Tokengate> = {
+const TokengateStory: Meta<typeof Tokengate> = {
   title: 'Tokengate',
   component: Tokengate,
 };
 
-export default TokengateStory;
+type Story = StoryObj<typeof Template>;
 
-export const Playground = Template.bind({});
+export const Playground: Story = {
+  parameters: {
+    controls: {hideNoControlsWarning: true},
+  },
+  render: () => Template(),
+};
+
+export default TokengateStory;
