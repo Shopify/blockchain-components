@@ -26,6 +26,18 @@ const subscribe = (
   };
 };
 
+const subscribeToAll = (callbackFunction: SubscriberFunction) => {
+  const eventNamesArray = Object.values(eventNames);
+  eventNamesArray.forEach((eventName) => {
+    subscribe(eventName, (args) =>
+      callbackFunction({
+        eventName,
+        eventArgs: args,
+      }),
+    );
+  });
+};
+
 const publishEvent = (eventname: string, payload?: any) => {
   const subs = subscribers[eventname];
 
@@ -41,6 +53,7 @@ const publishEvent = (eventname: string, payload?: any) => {
 
 export const ClientAnalytics = {
   subscribe,
+  subscribeToAll,
   publishEvent,
   eventNames,
 };

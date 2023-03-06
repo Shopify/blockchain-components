@@ -55,6 +55,22 @@ describe('ClientAnalytics', () => {
     expect(mock2).toHaveBeenCalledWith(eventArgs);
   });
 
+  it('subscriber gets called when using subscribe to all', () => {
+    const eventArgs = {testProps: 'testProps'};
+    const mock1 = vi.fn();
+
+    ClientAnalytics.subscribeToAll(mock1);
+    ClientAnalytics.publishEvent(
+      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+      eventArgs,
+    );
+    expect(mock1).toHaveBeenCalledTimes(1);
+    expect(mock1).toHaveBeenCalledWith({
+      eventName: ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+      eventArgs,
+    });
+  });
+
   it('subscriber does not get called after unsubscribe', () => {
     const eventArgs = {testProps: 'testProps'};
     const mock = vi.fn();
