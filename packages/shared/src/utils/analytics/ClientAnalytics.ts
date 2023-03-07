@@ -28,14 +28,24 @@ const subscribe = (
 
 const subscribeToAll = (callbackFunction: SubscriberFunction) => {
   const eventNamesArray = Object.values(eventNames);
-  eventNamesArray.forEach((eventName) => {
-    subscribe(eventName, (args) =>
+  const unSubscribers = eventNamesArray.map((eventName) => {
+    const {unsubscribe} = subscribe(eventName, (args) =>
       callbackFunction({
         eventName,
         eventArgs: args,
       }),
     );
+    return unsubscribe;
   });
+
+  const unsubscribe = () =>
+    unSubscribers.forEach((unSubscriber) => {
+      unSubscriber();
+    });
+
+  return {
+    unsubscribe,
+  };
 };
 
 const publishEvent = (eventname: string, payload?: any) => {

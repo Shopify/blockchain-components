@@ -10,91 +10,108 @@ describe('ClientAnalytics', () => {
     vi.useRealTimers();
   });
 
-  it('subscriber gets called when there is only one subscriber per event', () => {
-    const eventArgs = {testProps: 'testProps'};
-    const mock = vi.fn();
+  describe('subscribe', () => {
+    it('subscriber gets called when there is only one subscriber per event', () => {
+      const eventArgs = {testProps: 'testProps'};
+      const mock = vi.fn();
 
-    ClientAnalytics.subscribe(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      mock,
-    );
-    ClientAnalytics.publishEvent(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      eventArgs,
-    );
-    expect(mock).toHaveBeenCalledTimes(1);
-    expect(mock).toHaveBeenCalledWith(eventArgs);
-  });
+      ClientAnalytics.subscribe(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        mock,
+      );
+      ClientAnalytics.publishEvent(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        eventArgs,
+      );
+      expect(mock).toHaveBeenCalledTimes(1);
+      expect(mock).toHaveBeenCalledWith(eventArgs);
+    });
 
-  it('each subscriber gets called when there are multiple subscribers per event', () => {
-    const eventArgs = {testProps: 'testProps'};
-    const mock1 = vi.fn();
-    const mock2 = vi.fn();
+    it('each subscriber gets called when there are multiple subscribers per event', () => {
+      const eventArgs = {testProps: 'testProps'};
+      const mock1 = vi.fn();
+      const mock2 = vi.fn();
 
-    const date = new Date(2000, 1, 1, 13);
-    vi.setSystemTime(date);
-    ClientAnalytics.subscribe(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      mock1,
-    );
+      const date = new Date(2000, 1, 1, 13);
+      vi.setSystemTime(date);
+      ClientAnalytics.subscribe(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        mock1,
+      );
 
-    // Force +1 millisecond date update
-    date.setMilliseconds(date.getMilliseconds() + 1);
-    vi.setSystemTime(date);
-    ClientAnalytics.subscribe(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      mock2,
-    );
-    ClientAnalytics.publishEvent(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      eventArgs,
-    );
-    expect(mock1).toHaveBeenCalledTimes(1);
-    expect(mock1).toHaveBeenCalledWith(eventArgs);
-    expect(mock2).toHaveBeenCalledTimes(1);
-    expect(mock2).toHaveBeenCalledWith(eventArgs);
-  });
+      // Force +1 millisecond date update
+      date.setMilliseconds(date.getMilliseconds() + 1);
+      vi.setSystemTime(date);
+      ClientAnalytics.subscribe(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        mock2,
+      );
+      ClientAnalytics.publishEvent(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        eventArgs,
+      );
+      expect(mock1).toHaveBeenCalledTimes(1);
+      expect(mock1).toHaveBeenCalledWith(eventArgs);
+      expect(mock2).toHaveBeenCalledTimes(1);
+      expect(mock2).toHaveBeenCalledWith(eventArgs);
+    });
 
-  it('subscriber gets called when using subscribe to all', () => {
-    const eventArgs = {testProps: 'testProps'};
-    const mock1 = vi.fn();
+    it('subscriber does not get called after unsubscribe', () => {
+      const eventArgs = {testProps: 'testProps'};
+      const mock = vi.fn();
 
-    ClientAnalytics.subscribeToAll(mock1);
-    ClientAnalytics.publishEvent(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      eventArgs,
-    );
-    expect(mock1).toHaveBeenCalledTimes(1);
-    expect(mock1).toHaveBeenCalledWith({
-      eventName: ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      eventArgs,
+      const {unsubscribe} = ClientAnalytics.subscribe(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        mock,
+      );
+      unsubscribe();
+      ClientAnalytics.publishEvent(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        eventArgs,
+      );
+      expect(mock).toHaveBeenCalledTimes(0);
+    });
+
+    it('subscriber does not get called for an event it is not subscribed to', () => {
+      const eventArgs = {testProps: 'testProps'};
+      const mock = vi.fn();
+
+      ClientAnalytics.publishEvent(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        eventArgs,
+      );
+      expect(mock).toHaveBeenCalledTimes(0);
     });
   });
 
-  it('subscriber does not get called after unsubscribe', () => {
-    const eventArgs = {testProps: 'testProps'};
-    const mock = vi.fn();
+  describe('subscribeToAll', () => {
+    it('subscriber gets called', () => {
+      const eventArgs = {testProps: 'testProps'};
+      const mock1 = vi.fn();
 
-    const {unsubscribe} = ClientAnalytics.subscribe(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      mock,
-    );
-    unsubscribe();
-    ClientAnalytics.publishEvent(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      eventArgs,
-    );
-    expect(mock).toHaveBeenCalledTimes(0);
-  });
+      ClientAnalytics.subscribeToAll(mock1);
+      ClientAnalytics.publishEvent(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        eventArgs,
+      );
+      expect(mock1).toHaveBeenCalledTimes(1);
+      expect(mock1).toHaveBeenCalledWith({
+        eventName: ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        eventArgs,
+      });
+    });
 
-  it("subscriber doesn't get called for an event they are not subscribed to", () => {
-    const eventArgs = {testProps: 'testProps'};
-    const mock = vi.fn();
+    it('subscriber does not called after unsubscribe', () => {
+      const eventArgs = {testProps: 'testProps'};
+      const mock1 = vi.fn();
 
-    ClientAnalytics.publishEvent(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      eventArgs,
-    );
-    expect(mock).toHaveBeenCalledTimes(0);
+      const {unsubscribe} = ClientAnalytics.subscribeToAll(mock1);
+      unsubscribe();
+      ClientAnalytics.publishEvent(
+        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        eventArgs,
+      );
+      expect(mock1).toHaveBeenCalledTimes(0);
+    });
   });
 });
