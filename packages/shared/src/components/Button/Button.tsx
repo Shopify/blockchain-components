@@ -1,5 +1,8 @@
+import {useCallback} from 'react';
+
 import {Text, Variant} from '../Text';
 import {Spinner} from '../Spinner';
+import {ClientAnalytics} from '../../utils/analytics';
 
 import {ButtonWrapper} from './style';
 import type {ButtonProps, Size} from './types';
@@ -12,8 +15,18 @@ export const Button = ({
   primary = false,
   disabled = false,
   size = 'Md',
+  onClick,
+  onClickEventName,
   ...props
 }: ButtonProps) => {
+  const onClickWithTracking = useCallback(() => {
+    if (onClickEventName) {
+      ClientAnalytics.publishEvent(onClickEventName);
+    }
+    if (onClick) {
+      onClick();
+    }
+  }, [onClick, onClickEventName]);
   const wrapperProps = link
     ? {
         href: link.href,
@@ -40,6 +53,7 @@ export const Button = ({
       role={link ? 'link' : 'button'}
       size={size}
       type="button"
+      onClick={onClickWithTracking}
       {...wrapperProps}
     >
       {/*

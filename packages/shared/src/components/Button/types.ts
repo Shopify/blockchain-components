@@ -9,6 +9,7 @@ interface ButtonBaseProps {
   primary?: boolean;
   disabled?: boolean;
   size?: Size;
+  onClickEventName?: string;
 }
 
 type LinkButtonProps = ButtonBaseProps & {
