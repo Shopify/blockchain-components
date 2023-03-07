@@ -1,7 +1,9 @@
+import {ReactNode} from 'react';
+
 export interface TokenListProps {
   tokens?: {
     title: string;
-    subtitle: string;
+    subtitle: ReactNode;
     imageUrl?: string;
     badge?: React.ReactNode;
     round?: boolean;

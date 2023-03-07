@@ -1,3 +1,4 @@
+import {ReactNode} from 'react';
 import {Text} from 'shared';
 
 import {
@@ -9,7 +10,7 @@ import {
 
 interface TokenBaseProps {
   title?: string;
-  subtitle?: string;
+  subtitle?: ReactNode;
   icon: React.ReactNode;
   round: boolean;
   badge?: React.ReactNode;
