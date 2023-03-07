@@ -1,7 +1,7 @@
 import {Meta, StoryObj} from '@storybook/react';
 import {addDays} from 'shared';
 
-import {DefaultArgTypes, Template} from '../template';
+import {Template} from '../template';
 import {
   TokengatePropsNotConnectedFixture,
   TokengatePropsConnectedFixture,
@@ -19,7 +19,6 @@ export const Locked: Story = {
   args: TokengatePropsNotConnectedFixture({
     reaction: DiscountReactionFixture(),
   }),
-  argTypes: DefaultArgTypes,
 };
 
 export const SoldOut: Story = {
@@ -27,7 +26,6 @@ export const SoldOut: Story = {
     reaction: DiscountReactionFixture(),
     isSoldOut: true,
   }),
-  argTypes: DefaultArgTypes,
 };
 
 export const StartDate: Story = {
@@ -35,14 +33,12 @@ export const StartDate: Story = {
     reaction: DiscountReactionFixture(),
     active: {start: addDays(new Date(), 1).toISOString()},
   }),
-  argTypes: DefaultArgTypes,
 };
 
 export const NoEligibleToken: Story = {
   args: TokengatePropsConnectedFixture({
     reaction: DiscountReactionFixture(),
   }),
-  argTypes: DefaultArgTypes,
 };
 
 export default TokengateStory;
