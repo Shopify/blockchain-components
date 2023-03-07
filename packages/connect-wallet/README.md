@@ -8,17 +8,10 @@ The `@shopify/connect-wallet` package provides a standard way of connecting wall
 
 To get started with using `@shopify/connect-wallet` you need to follow these steps
 
-- [`@shopify/connect-wallet`](#shopifyconnect-wallet)
-  - [Get started](#get-started)
-    - [Installation](#installation)
-    - [Client configuration](#client-configuration)
-    - [App provider setup](#app-provider-setup)
-    - [Adding the `ConnectButton` component to your app](#adding-the-connectbutton-component-to-your-app)
-  - [Additional setup](#additional-setup)
-    - [Polyfills](#polyfills)
-  - [Contributing](#contributing)
-  - [Licenses](#licenses)
-
+1. [Installation](#installation)
+1. [Client configuration](#client-configuration)
+1. [App provider setup](#app-provider-setup)
+1. [Adding the `ConnectButton` component to your app](#adding-the-connectbutton-component-to-your-app)
 ### Installation
 
 Install the `shopify/connect-wallet` package and its wagmi + ethers peer dependencies.
