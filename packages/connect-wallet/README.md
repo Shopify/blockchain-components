@@ -53,7 +53,7 @@ const {chains, provider, webSocketProvider} = configureChains(
   ],
 );
 
-const {connectors, wagmiConnectors} = buildConnectors({appName: '', chains});
+const {connectors, wagmiConnectors} = buildConnectors({chains});
 
 const client = createClient({
   autoConnect: true,

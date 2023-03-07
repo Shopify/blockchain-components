@@ -12,7 +12,6 @@ interface GetDefaultConnectorsSignature {
  * `getdefaultConnectors` is deprecated and will be removed in a future release. Please use `buildConnectors` instead.
  * @deprecated
  */
-
 export const getDefaultConnectors = ({
   appName,
   chains,

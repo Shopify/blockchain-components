@@ -57,7 +57,9 @@ export interface ConnectorInstance {
   qrCodeSupported: boolean;
 }
 
-export type Connector = Omit<ConnectorInstance, 'createConnector'> & {
+type ConnectorBase = Omit<ConnectorInstance, 'createConnector'>;
+
+export type Connector = ConnectorBase & {
   connector: WagmiConnector;
   /**
    * Whether the connector is ready to be used or not.
@@ -65,7 +67,7 @@ export type Connector = Omit<ConnectorInstance, 'createConnector'> & {
   ready?: boolean;
 };
 
-export type CustomConnector = Omit<ConnectorInstance, 'createConnector'> & {
+export type CustomConnector = ConnectorBase & {
   connector: InjectedConnector | WalletConnectConnector;
 };
 
