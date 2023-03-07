@@ -12,6 +12,7 @@ To get started with using `@shopify/connect-wallet` you need to follow these ste
 1. [Client configuration](#client-configuration)
 1. [App provider setup](#app-provider-setup)
 1. [Adding the `ConnectButton` component to your app](#adding-the-connectbutton-component-to-your-app)
+
 ### Installation
 
 Install the `shopify/connect-wallet` package and its wagmi + ethers peer dependencies.
