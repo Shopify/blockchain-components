@@ -1,9 +1,8 @@
 import {WagmiConfig, configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 import {publicProvider} from 'wagmi/providers/public';
-
+import {buildConnectors} from '../../connectors/buildConnectors';
 import {ConnectWalletProvider} from '../../providers/ConnectWalletProvider';
-import {getDefaultConnectors} from '../../connectors/getDefaultConnectors';
 import {ConnectButton} from '..';
 
 const PlaygroundStory = {
@@ -25,18 +24,18 @@ const Template = ({wallets}: {wallets: 'Ethereum' | 'Solana'}) => {
     publicProvider(),
   ]);
 
-  const {connectors} = getDefaultConnectors({chains});
+  const {connectors, wagmiConnectors} = buildConnectors({chains});
 
   const client = createClient({
     autoConnect: true,
-    connectors,
+    connectors: wagmiConnectors,
     provider,
     webSocketProvider,
   });
 
   return (
     <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains}>
+      <ConnectWalletProvider chains={chains} connectors={connectors}>
         <ConnectButton />
       </ConnectWalletProvider>
     </WagmiConfig>

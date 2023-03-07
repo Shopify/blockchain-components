@@ -80,6 +80,7 @@ describe('buildConnectors', () => {
       const {connectors, wagmiConnectors} = buildConnectors({
         chains: CHAINS,
         customConnectors: [CUSTOM_CONNECTOR],
+        includeDefaults: false,
       });
 
       const connectorIds = extractConnectorIds(connectors);
