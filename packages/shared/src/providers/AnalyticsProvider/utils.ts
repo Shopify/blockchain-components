@@ -71,6 +71,7 @@ export const subscribeToAll = (callbackFunction: SubscriberFunction) => {
  * @returns {void}
  */
 export const publishEvent = (eventname: string, payload?: any) => {
+  console.log('publishEvent', subscribers);
   const subscriptions = subscribers.get(eventname);
 
   // Loop through our subscriptions for the event name and run the

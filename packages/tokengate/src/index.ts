@@ -23,6 +23,6 @@ export type {Theme};
 export * from './types';
 
 /**
- * ClientAnalytics
+ * AnalyticsProvider
  */
-export {ClientAnalytics} from 'shared';
+export {AnalyticsContext, AnalyticsProvider} from 'shared';

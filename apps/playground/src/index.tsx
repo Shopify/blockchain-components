@@ -1,4 +1,5 @@
 import {ConnectWalletProvider} from '@shopify/connect-wallet';
+import {AnalyticsProvider} from '@shopify/tokengate';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {WagmiConfig} from 'wagmi';
@@ -43,16 +44,18 @@ window.playground = {
               chains={chains}
               orderAttributionMode="ignoreErrors"
             >
-              <App
-                serverArguments={{
-                  ...this.arguments,
-                  initialState: {
-                    ...this.arguments.initialState,
-                    ...updatedProps,
-                  },
-                }}
-              />
-              <AnalyticsListener />
+              <AnalyticsProvider>
+                <AnalyticsListener />
+                <App
+                  serverArguments={{
+                    ...this.arguments,
+                    initialState: {
+                      ...this.arguments.initialState,
+                      ...updatedProps,
+                    },
+                  }}
+                />
+              </AnalyticsProvider>
             </ConnectWalletProvider>
           </WagmiConfig>
         </React.StrictMode>

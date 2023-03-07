@@ -2,6 +2,7 @@ import {ReactNode, useMemo} from 'react';
 
 import {AnalyticsContext} from './context';
 import {subscribe, subscribeToAll, publishEvent} from './utils';
+import {eventNames} from './const';
 
 export const AnalyticsProvider = ({children}: {children: ReactNode}) => {
   const value = useMemo(
@@ -9,6 +10,7 @@ export const AnalyticsProvider = ({children}: {children: ReactNode}) => {
       subscribe,
       subscribeToAll,
       publishEvent,
+      eventNames,
     }),
     [],
   );

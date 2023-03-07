@@ -1,5 +1,5 @@
-import {ReactNode, Fragment, useMemo, useEffect} from 'react';
-import {ClientAnalytics} from 'shared';
+import {ReactNode, Fragment, useMemo, useEffect, useContext} from 'react';
+import {AnalyticsContext} from 'shared';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
@@ -14,6 +14,7 @@ import {TokengateCardSection, useTokengateCardState} from './utils';
 
 export const Tokengate = (props: TokengateProps) => {
   const {t} = useTranslation('Tokengate');
+  const {publishEvent, eventNames} = useContext(AnalyticsContext);
   const {
     connectButton,
     connectedButton,
@@ -25,10 +26,8 @@ export const Tokengate = (props: TokengateProps) => {
   const {title, subtitle, sections} = useTokengateCardState(props);
 
   useEffect(() => {
-    ClientAnalytics.publishEvent(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-    );
-  }, []);
+    publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED);
+  }, [eventNames.TOKENGATE_COMPONENT_RENDERED, publishEvent]);
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
     () => ({

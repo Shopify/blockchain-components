@@ -1,16 +1,14 @@
-import {useEffect} from 'react';
-import {ClientAnalytics} from '@shopify/tokengate';
+import {useContext, useEffect} from 'react';
+import {AnalyticsContext} from '@shopify/tokengate';
 
 export const AnalyticsListener = () => {
+  const {subscribe, eventNames} = useContext(AnalyticsContext);
   useEffect(() => {
-    const {unsubscribe} = ClientAnalytics.subscribe(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+    const {unsubscribe} = subscribe(
+      eventNames.TOKENGATE_COMPONENT_RENDERED,
       (payload: any) => {
         // eslint-disable-next-line no-console
-        console.log(
-          ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-          payload,
-        );
+        console.log(eventNames.TOKENGATE_COMPONENT_RENDERED, payload);
       },
     );
     return () => unsubscribe();
