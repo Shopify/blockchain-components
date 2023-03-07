@@ -4,7 +4,8 @@ import {ThemeProps} from 'shared';
 export interface Condition {
   name?: string;
   imageUrl?: string;
-  collectionAddress: string;
+  collectionAddress?: string;
+  description?: ReactNode;
 }
 
 export interface Requirements {
@@ -21,11 +22,11 @@ export interface UnlockingToken {
 }
 
 export interface CustomTitles {
-  lockedTitle?: string;
-  lockedSubtitle?: string;
-  unlockedTitle?: string;
-  unlockedSubtitle?: string;
-  unlockedSubtitleWithRedemptionLimit?: string;
+  lockedTitle?: ReactNode;
+  lockedSubtitle?: ReactNode;
+  unlockedTitle?: ReactNode;
+  unlockedSubtitle?: ReactNode;
+  unlockedSubtitleWithRedemptionLimit?: ReactNode;
 }
 
 export interface RedemptionLimit {
