@@ -1,8 +1,8 @@
 import {fireEvent} from '@testing-library/react';
 import {vi} from 'vitest';
 
-import {AnalyticsListenerTestHelper} from '../../utils/analytics/helpers/test';
-import {renderWithContext} from '../../utils/test';
+import {AnalyticsListenerTestHelper} from '../../tests/helpers/ClientAnalytics';
+import {renderWithContext} from '../../tests/utils';
 
 import {Button} from './Button';
 import {DefaultArgs} from './fixtures';
