@@ -1,5 +1,5 @@
 import {ReactNode, Fragment, useMemo, useEffect, useContext} from 'react';
-import {AnalyticsContext} from 'shared';
+import {AnalyticsContext} from '@shopify/blockchain-components-analytics';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';

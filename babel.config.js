@@ -13,5 +13,6 @@ module.exports = {
     './shared',
     './tokengate',
     './gate-context-client',
+    './blockchain-components-analytics',
   ],
 };

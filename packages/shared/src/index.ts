@@ -25,10 +25,6 @@ export * from './icons';
  * Providers
  */
 export {RootProvider} from './providers/RootProvider';
-export {
-  AnalyticsContext,
-  AnalyticsProvider,
-} from './providers/AnalyticsProvider';
 
 /**
  * Styles

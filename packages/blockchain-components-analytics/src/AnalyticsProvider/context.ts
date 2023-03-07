@@ -13,7 +13,6 @@ export interface AnalyticsProviderValue {
     unsubscribe: () => void;
   };
   publishEvent: (eventname: string, payload?: any) => void;
-  eventNames?: any;
 }
 
 const defaultContextValue: AnalyticsProviderValue = {
@@ -23,9 +22,7 @@ const defaultContextValue: AnalyticsProviderValue = {
   subscribeToAll: () => ({
     unsubscribe: () => {},
   }),
-  publishEvent: () => {
-    console.log('default provider');
-  },
+  publishEvent: () => {},
 };
 
 export const AnalyticsContext =

@@ -1,5 +1,5 @@
 import {ConnectWalletProvider} from '@shopify/connect-wallet';
-import {AnalyticsProvider} from '@shopify/tokengate';
+import {AnalyticsProvider} from '@shopify/blockchain-components-analytics';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {WagmiConfig} from 'wagmi';

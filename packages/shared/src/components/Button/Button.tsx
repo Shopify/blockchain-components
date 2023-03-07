@@ -1,8 +1,8 @@
 import {useCallback, useContext} from 'react';
+import {AnalyticsContext} from '@shopify/blockchain-components-analytics';
 
 import {Text, Variant} from '../Text';
 import {Spinner} from '../Spinner';
-import {AnalyticsContext} from '../../providers/AnalyticsProvider';
 
 import {ButtonWrapper} from './style';
 import type {ButtonProps, Size} from './types';

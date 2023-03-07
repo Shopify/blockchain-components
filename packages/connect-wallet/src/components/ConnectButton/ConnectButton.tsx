@@ -8,6 +8,7 @@ import {
   useOutsideClick,
   Text,
 } from 'shared';
+import {eventNames} from '@shopify/blockchain-components-analytics';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
@@ -56,7 +57,7 @@ export const ConnectButton = () => {
         label={t('buttonText')}
         onClick={handleClick}
         size="Lg"
-        onClickEventName="CONNECT_BUTTON_TEST"
+        onClickEventName={eventNames.CONNECT_BUTTON_CLICKED}
       />
     );
   }

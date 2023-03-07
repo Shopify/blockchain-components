@@ -21,8 +21,3 @@ export {Dawn, Default};
  */
 export type {Theme};
 export * from './types';
-
-/**
- * AnalyticsProvider
- */
-export {AnalyticsContext, AnalyticsProvider} from 'shared';
