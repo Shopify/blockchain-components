@@ -1,5 +1,5 @@
 import {I18nextProvider} from 'react-i18next';
-import {RootProvider} from 'shared';
+import {AnalyticsProvider, RootProvider} from 'shared';
 
 import {Tokengate} from '../../components';
 import {TokengateProps} from '../../types';
@@ -11,6 +11,7 @@ export const TokengateProvider = (props: TokengateProps) => {
     <I18nextProvider i18n={i18n}>
       <RootProvider theme={props.theme}>
         <Tokengate {...props} />
+        <AnalyticsProvider />
       </RootProvider>
     </I18nextProvider>
   );

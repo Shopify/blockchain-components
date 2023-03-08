@@ -22,15 +22,9 @@
   "files": [
     "dist"
   ],
+  "node": ">=14.16",
   "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
-    }
-  },
+  "exports": "./dist/index.js",
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup --watch",
@@ -40,10 +34,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "2.0.0-alpha.2",
     "i18next": "^22.4.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^12.1.4"
+    "react-i18next": "^12.1.4",
+    "react-redux": "^8.0.5",
+    "redux": "^5.0.0-alpha.2"
   },
   "devDependencies": {
     "@storybook/react": "^7.0.0-beta.52",

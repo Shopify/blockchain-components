@@ -24,6 +24,7 @@ export * from './icons';
 /**
  * Providers
  */
+export {AnalyticsProvider, publish, subscribe} from './providers/Analytics';
 export {RootProvider} from './providers/RootProvider';
 
 /**

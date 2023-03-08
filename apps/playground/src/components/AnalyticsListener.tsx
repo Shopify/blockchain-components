@@ -1,20 +1,16 @@
 import {useEffect} from 'react';
-import {ClientAnalytics} from '@shopify/tokengate';
+import {subscribe} from 'shared';
+// import {ClientAnalytics} from '@shopify/tokengate';
 
 export const AnalyticsListener = () => {
-  useEffect(() => {
-    const {unsubscribe} = ClientAnalytics.subscribe(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      (payload: any) => {
-        // eslint-disable-next-line no-console
-        console.log(
-          ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-          payload,
-        );
-      },
-    );
-    return () => unsubscribe();
-  });
+  console.log('AnalyticsListener mounted');
 
-  return null;
+  useEffect(() => {
+    subscribe(
+      'TokengateComponentRendered',
+      console.log('Subscribed event for tokengate card component rendered'),
+    );
+  }, []);
+
+  // return null;
 };
