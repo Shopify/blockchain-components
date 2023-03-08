@@ -32,3 +32,12 @@ yarn-error.log*
 # Shopify
 .dev
 .shadowenv.d
+
+# examples directories
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+/examples/**/yarn.lock
