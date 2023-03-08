@@ -4,6 +4,7 @@ export interface Subscriber {
 
 export enum Event {
   TokengateComponentRendered = 'TokengateComponentRendered',
+  ConnectButtonClicked = 'ConnectButtonClicked',
 }
 
 export type EventType = `${Event}`;

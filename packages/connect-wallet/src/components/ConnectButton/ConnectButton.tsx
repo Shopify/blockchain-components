@@ -56,6 +56,7 @@ export const ConnectButton = () => {
         label={t('buttonText')}
         onClick={handleClick}
         size="Lg"
+        onClickEventName="ConnectButtonClicked"
       />
     );
   }

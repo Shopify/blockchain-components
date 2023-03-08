@@ -7,8 +7,8 @@ export const AnalyticsListener = () => {
 
   useEffect(() => {
     subscribe(
-      'TokengateComponentRendered',
-      console.log('Subscribed event for tokengate card component rendered'),
+      'ConnectButtonClicked',
+      console.log('Event captured: ConnectButtonClicked'),
     );
   }, []);
 
