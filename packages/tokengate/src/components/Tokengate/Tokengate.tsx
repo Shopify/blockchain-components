@@ -1,5 +1,5 @@
 import {ReactNode, Fragment, useMemo, useEffect, useContext} from 'react';
-import {AnalyticsContext} from '@shopify/blockchain-components-analytics';
+import {AnalyticsContext, eventNames} from 'shared';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
@@ -14,7 +14,7 @@ import {TokengateCardSection, useTokengateCardState} from './utils';
 
 export const Tokengate = (props: TokengateProps) => {
   const {t} = useTranslation('Tokengate');
-  const {publishEvent, eventNames} = useContext(AnalyticsContext);
+  const {publishEvent} = useContext(AnalyticsContext);
   const {
     connectButton,
     connectedButton,
@@ -27,7 +27,7 @@ export const Tokengate = (props: TokengateProps) => {
 
   useEffect(() => {
     publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED);
-  }, [eventNames.TOKENGATE_COMPONENT_RENDERED, publishEvent]);
+  }, [publishEvent]);
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
     () => ({

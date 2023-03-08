@@ -1,5 +1,5 @@
 import {useCallback, useContext} from 'react';
-import {AnalyticsContext} from '@shopify/blockchain-components-analytics';
+import {AnalyticsContext} from 'shared';
 
 import {Text, Variant} from '../Text';
 import {Spinner} from '../Spinner';

@@ -7,8 +7,8 @@ import {
   useKeyPress,
   useOutsideClick,
   Text,
+  eventNames,
 } from 'shared';
-import {eventNames} from '@shopify/blockchain-components-analytics';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';

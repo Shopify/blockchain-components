@@ -1,5 +1,5 @@
 import {useContext, useEffect} from 'react';
-import {AnalyticsContext} from '@shopify/blockchain-components-analytics';
+import {AnalyticsContext} from 'shared';
 
 export const AnalyticsListener = () => {
   const {subscribeToAll} = useContext(AnalyticsContext);
