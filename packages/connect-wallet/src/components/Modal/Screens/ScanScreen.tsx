@@ -1,3 +1,4 @@
+import {eventNames} from '@shopify/blockchain-components';
 import {AnimatePresence, domAnimation, LazyMotion} from 'framer-motion';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button} from 'shared';
@@ -53,6 +54,10 @@ const ScanScreen = () => {
               href: marketingSite!,
               target: '_blank',
             }}
+            onClickEventName={
+              eventNames.CONNECT_WALLET_GET_WALLET_BUTTON_CLICKED
+            }
+            onClickEventPayload={{connector: name}}
             size="Lg"
           />
         ) : null}
@@ -63,6 +68,9 @@ const ScanScreen = () => {
             fullWidth
             label={t('Scan.wcButton')}
             onClick={walletConnectModalCallback}
+            onClickEventName={
+              eventNames.CONNECT_WALLET_USE_WALLET_BUTTON_CLICKED
+            }
             size="Lg"
           />
         ) : null}

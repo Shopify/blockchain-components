@@ -1,3 +1,4 @@
+import {eventNames} from '@shopify/blockchain-components';
 import {useCallback, useMemo} from 'react';
 import {Button, Spinner, Text} from 'shared';
 
@@ -77,6 +78,9 @@ const SignatureScreen = () => {
             aria-label={t('button.retry')}
             label={t('button.retry')}
             onClick={handleSignMessage}
+            onClickEventName={
+              eventNames.CONNECT_WALLET_RETRY_SIGNATURE_BUTTON_CLICKED
+            }
           />
         </ButtonContainer>
       )}
