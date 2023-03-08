@@ -1,7 +1,8 @@
 import {vi} from 'vitest';
-import {ClientAnalytics} from './ClientAnalytics';
 
-describe('ClientAnalytics', () => {
+import {ClientAnalytics} from './utils';
+
+describe('utils', () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });

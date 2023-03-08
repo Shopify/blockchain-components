@@ -1,7 +1,7 @@
 import {fireEvent} from '@testing-library/react';
 import {vi} from 'vitest';
+import {AnalyticsListenerTestHelper} from '@shopify/blockchain-components-analytics';
 
-import {AnalyticsListenerTestHelper} from '../../tests/helpers/ClientAnalytics';
 import {renderWithContext} from '../../tests/utils';
 
 import {Button} from './Button';

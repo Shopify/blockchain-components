@@ -43,6 +43,7 @@ window.playground = {
               chains={chains}
               orderAttributionMode="ignoreErrors"
             >
+              <AnalyticsListener />
               <App
                 serverArguments={{
                   ...this.arguments,
@@ -52,7 +53,6 @@ window.playground = {
                   },
                 }}
               />
-              <AnalyticsListener />
             </ConnectWalletProvider>
           </WagmiConfig>
         </React.StrictMode>
