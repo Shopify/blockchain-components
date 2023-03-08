@@ -6,7 +6,7 @@ import {publicProvider} from 'wagmi/providers/public';
 import {SerializedConnector} from '../../types/connector';
 
 export const DEFAULT_SERIALIZED_CONNECTOR: SerializedConnector = {
-  id: 'MetaMask',
+  id: 'metaMask',
   name: 'MetaMask',
   qrCodeSupported: false,
 };
@@ -24,3 +24,10 @@ export const CUSTOM_CONNECTOR = {
   qrCodeSupported: false,
   connector: INJECTED_CONNECTOR,
 };
+
+export const DEFAULT_CONNECTOR_COLLECTION = [
+  'metaMask',
+  'rainbow',
+  'ledger',
+  'walletConnect',
+];
