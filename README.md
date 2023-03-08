@@ -44,4 +44,4 @@ For Shopifolk, you can reach out to us in Slack in `#blockchain-apps` channel. F
 
 MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
 
-[<img src="images/shopify.svg" alt="Shopify" width="200" />](https://www.shopify.com/)
+[![Shopify Logo Light](./images/shopify-light.svg#gh-dark-mode-only)![Shopify Logo Dark](./images/shopify-dark.svg#gh-light-mode-only)]((https://www.shopify.com/))
