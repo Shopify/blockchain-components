@@ -50,3 +50,8 @@ export type {Theme, ThemeProps} from './types/theme';
 export {formatWalletAddress} from './utils/formatters';
 export {deepMerge} from './utils/deepMerge';
 export {addDays} from './utils/date';
+export {
+  AnalyticsContext,
+  AnalyticsProvider,
+  eventNames,
+} from './providers/AnalyticsProvider';
