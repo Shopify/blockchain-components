@@ -3,7 +3,7 @@ import {
   useComponentRenderedTracking,
 } from '@shopify/blockchain-components';
 import {MotionConfig} from 'framer-motion';
-import {FC, PropsWithChildren, useMemo} from 'react';
+import {FC, useMemo} from 'react';
 import {Provider} from 'react-redux';
 import {RootProvider} from 'shared';
 
@@ -15,7 +15,7 @@ import store from '../../store/configureStore';
 import {ConnectWalletContext, ConnectWalletProviderValue} from './context';
 import {ProviderProps} from './types';
 
-export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
+export const ConnectWalletProvider: FC<ProviderProps> = ({
   chains,
   connectors,
   children,
@@ -23,7 +23,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   orderAttributionMode = 'required',
   statementGenerator,
   theme,
-}: PropsWithChildren<ProviderProps>) => {
+}: ProviderProps) => {
   useComponentRenderedTracking(eventNames.CONNECT_WALLET_PROVIDER_RENDERED);
 
   const contextValue: ConnectWalletProviderValue = useMemo(() => {
