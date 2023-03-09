@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 
-import {ClientAnalytics} from '../../ClientAnalytics';
+import {ClientAnalytics} from '../../utils/analytics/ClientAnalytics';
 
 export const AnalyticsListenerTestHelper = ({
   eventName,

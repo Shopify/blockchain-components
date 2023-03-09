@@ -27,10 +27,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@shopify/gate-context-client": "*",
+    "@shopify/blockchain-components": "*",
     "@shopify/connect-wallet": "*",
+    "@shopify/gate-context-client": "*",
     "@shopify/tokengate": "*",
-    "analytics": "*",
     "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

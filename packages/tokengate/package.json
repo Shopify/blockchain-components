@@ -40,7 +40,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "analytics": "*",
+    "@shopify/blockchain-components": "*",
     "i18next": "^22.4.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

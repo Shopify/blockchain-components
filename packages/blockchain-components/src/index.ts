@@ -1,7 +1,7 @@
 /**
- * ClientAnalytics
+ * Utils
  */
-export * from './ClientAnalytics';
+export * from './utils/analytics/ClientAnalytics';
 
 /**
  * Tests

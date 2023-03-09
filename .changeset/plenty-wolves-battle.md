@@ -3,4 +3,4 @@
 '@shopify/tokengate': minor
 ---
 
-Import ClientAnalytics from '@shopify/blockchain-components-analytic' package
+Import ClientAnalytics from '@shopify/blockchain-components' package

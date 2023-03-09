@@ -35,9 +35,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "2.0.0-alpha.2",
+    "@shopify/blockchain-components": "*",
     "@shopify/gate-context-client": "*",
     "@storybook/react": "^7.0.0-beta.52",
-    "analytics": "*",
     "framer-motion": "^8.5.0",
     "i18next": "^22.4.9",
     "qrcode": "^1.5.1",
