@@ -38,12 +38,12 @@ window.playground = {
     private AppWithProviders({updatedProps}: {updatedProps?: any}) {
       return (
         <React.StrictMode>
+          <AnalyticsListener />
           <WagmiConfig client={client}>
             <ConnectWalletProvider
               chains={chains}
               orderAttributionMode="ignoreErrors"
             >
-              <AnalyticsListener />
               <App
                 serverArguments={{
                   ...this.arguments,
