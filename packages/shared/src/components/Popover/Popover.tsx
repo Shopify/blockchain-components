@@ -9,11 +9,16 @@ import {ReactNode} from 'react';
 import {createPortal} from 'react-dom';
 
 import {useMediaQuery} from '../../hooks/useMediaQuery';
+import {ClassName} from '../../types/generic';
 
 import {PopoverVariants} from './variants';
 
 interface PopoverProps {
   children: ReactNode;
+  // containerClass allows us to pass any Tailwind class to the container element
+  containerClass?: ClassName;
+  // frameClass allows us to pass any Tailwind class to the frame element
+  frameClass?: ClassName;
   // The ID for the portal DOM element
   id: string;
   // The target ID for the portal (e.g. where the portal will inject into the DOM)
@@ -24,6 +29,8 @@ interface PopoverProps {
 
 export const Popover = ({
   children,
+  containerClass,
+  frameClass,
   id,
   onDismiss,
   target,
@@ -52,7 +59,7 @@ export const Popover = ({
       <AnimatePresence>
         {visible ? (
           <m.div
-            className="sbc-fixed sbc-top-0 sbc-bottom-0 sbc-right-0 sbc-z-max sbc-flex sbc-min-w-full sbc-flex-col sbc-justify-end sbc-p-0 sm:sbc-absolute sm:sbc-top-full sm:sbc-bottom-auto sm:sbc-min-w-[280px] sm:sbc-py-1"
+            className={`sbc-fixed sbc-top-0 sbc-bottom-0 sbc-right-0 sbc-z-max sbc-flex sbc-min-w-full sbc-flex-col sbc-justify-end sbc-p-0 sm:sbc-absolute sm:sbc-top-full sm:sbc-bottom-auto sm:sbc-py-1 ${containerClass}`}
             exit={{pointerEvents: 'none'}}
             id={id}
             initial={{pointerEvents: 'auto'}}
@@ -66,7 +73,7 @@ export const Popover = ({
             />
             <m.div
               animate="show"
-              className="sbc-popover-frame-content sbc-z-20 sbc-flex sbc-flex-col sbc-items-center sbc-gap-y-4 sbc-rounded-popover-mobile sbc-bg-popover sbc-p-popover sbc-shadow-popover-mobile sbc-border-popover sm:sbc-rounded-popover-desktop sm:sbc-pb-popover sm:sbc-shadow-popover-desktop"
+              className={`sbc-popover-frame-content sbc-z-20 sbc-flex sbc-flex-col sbc-items-center sbc-rounded-popover-mobile sbc-bg-popover sbc-p-popover sbc-shadow-popover-mobile sbc-border-popover sm:sbc-rounded-popover-desktop sm:sbc-pb-popover sm:sbc-shadow-popover-desktop ${frameClass}`}
               exit="exit"
               initial="exit"
               variants={PopoverVariants({isMobile, reducedMotion})}
