@@ -1,18 +1,12 @@
+import {ClientAnalytics} from '@shopify/blockchain-components';
 import {useEffect} from 'react';
-import {ClientAnalytics} from '@shopify/tokengate';
 
 export const AnalyticsListener = () => {
   useEffect(() => {
-    const {unsubscribe} = ClientAnalytics.subscribe(
-      ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-      (payload: any) => {
-        // eslint-disable-next-line no-console
-        console.log(
-          ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-          payload,
-        );
-      },
-    );
+    const {unsubscribe} = ClientAnalytics.subscribeToAll((payload: any) => {
+      // eslint-disable-next-line no-console
+      console.log('Captured event', payload);
+    });
     return () => unsubscribe();
   });
 

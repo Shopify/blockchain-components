@@ -1,8 +1,8 @@
+import {ClientAnalytics} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
 
 import {Text, Variant} from '../Text';
 import {Spinner} from '../Spinner';
-import {ClientAnalytics} from '../../utils/analytics';
 
 import {ButtonWrapper} from './style';
 import type {ButtonProps, Size} from './types';
