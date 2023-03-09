@@ -1,3 +1,5 @@
+import {useCallback} from 'react';
+
 import {
   SubscriberFunction,
   Subscriber,
@@ -77,3 +79,30 @@ export const publishEvent = (eventname: string, payload?: any) => {
   // callback functions for the provided subscription.
   subscriptions?.forEach((subscription) => subscription(payload));
 };
+
+/**
+ * @param {() => void | undefined)} callback The original callback function
+ * @param {string} eventName An event name indicating which event to publish to subscribers.
+ * @param {any | undefined} payload The data which was dispatched to the event.
+ * @returns {() => void}
+ */
+export const useEventWithTracking = ({
+  callback,
+  eventName,
+  payload,
+}: {
+  callback?: (payload: any) => void;
+  eventName?: string;
+  payload?: any;
+}) =>
+  useCallback(
+    (onClickPayload: any) => {
+      if (eventName) {
+        publishEvent(eventName, payload);
+      }
+      if (callback) {
+        callback(onClickPayload);
+      }
+    },
+    [callback, eventName, payload],
+  );

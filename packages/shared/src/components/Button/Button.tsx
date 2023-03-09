@@ -1,5 +1,4 @@
-import {publishEvent} from '@shopify/blockchain-components';
-import {useCallback} from 'react';
+import {useEventWithTracking} from '@shopify/blockchain-components';
 
 import {Text, Variant} from '../Text';
 import {Spinner} from '../Spinner';
@@ -19,14 +18,10 @@ export const Button = ({
   onClickEventName,
   ...props
 }: ButtonProps) => {
-  const onClickWithTracking = useCallback(() => {
-    if (onClickEventName) {
-      publishEvent(onClickEventName);
-    }
-    if (onClick) {
-      onClick();
-    }
-  }, [onClick, onClickEventName]);
+  const onClickWithTracking = useEventWithTracking({
+    eventName: onClickEventName,
+    callback: onClick,
+  });
   const wrapperProps = link
     ? {
         href: link.href,

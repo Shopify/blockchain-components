@@ -1,6 +1,14 @@
 import {vi} from 'vitest';
+import {render, fireEvent} from '@testing-library/react';
 
-import {subscribe, subscribeToAll, publishEvent} from './utils';
+import {AnalyticsListenerTestHelper} from '../../../tests/helpers/ClientAnalytics';
+
+import {
+  subscribe,
+  subscribeToAll,
+  publishEvent,
+  useEventWithTracking,
+} from './utils';
 import {eventNames} from './const';
 
 describe('utils', () => {
@@ -87,6 +95,65 @@ describe('utils', () => {
       unsubscribe();
       publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock1).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('useEventWithTracking', () => {
+    const onClickEventName = 'TEST_EVENT_NAME';
+    const Button = ({
+      onClick,
+      onClickEventName,
+    }: {
+      onClick?: () => void;
+      onClickEventName?: string;
+    }) => {
+      const onClickWithTracking = useEventWithTracking({
+        callback: onClick,
+        eventName: onClickEventName,
+      });
+      return (
+        // eslint-disable-next-line @shopify/jsx-no-hardcoded-content
+        <button type="button" aria-label="button" onClick={onClickWithTracking}>
+          button text
+        </button>
+      );
+    };
+
+    it('sends onClick event if onClickEventName is defined', async () => {
+      const onClickMock = vi.fn();
+      const subscriberMock = vi.fn();
+
+      const element = render(
+        <>
+          <AnalyticsListenerTestHelper
+            eventName={onClickEventName}
+            mock={subscriberMock}
+          />
+          <Button onClick={onClickMock} onClickEventName={onClickEventName} />,
+        </>,
+      );
+      const button = await element.findByText('button text');
+      fireEvent.click(button);
+      expect(onClickMock).toBeCalledTimes(1);
+      expect(subscriberMock).toBeCalledTimes(1);
+    });
+
+    it('does not send onClick event if onClickEventName is undefined', async () => {
+      const onClickMock = vi.fn();
+      const subscriberMock = vi.fn();
+      const element = render(
+        <>
+          <AnalyticsListenerTestHelper
+            eventName={onClickEventName}
+            mock={subscriberMock}
+          />
+          <Button onClick={onClickMock} />,
+        </>,
+      );
+      const button = await element.findByText('button text');
+      fireEvent.click(button);
+      expect(onClickMock).toBeCalledTimes(1);
+      expect(subscriberMock).toBeCalledTimes(0);
     });
   });
 });
