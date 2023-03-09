@@ -1,16 +1,16 @@
+import {useContext} from 'react';
+import {ConnectWalletContext} from '../../../providers/ConnectWalletProvider';
 import {GetAConnectorButton} from '../../GetAConnectorButton';
 import {SheetContent} from '../style';
 
-const CONNECTORS = ['metaMask', 'coinbaseWallet', 'rainbow', 'ledger'];
-
 const GetAWalletScreen = () => {
+  const {connectors} = useContext(ConnectWalletContext);
+
   return (
     <SheetContent>
-      {CONNECTORS.map((connectorId) => {
-        return (
-          <GetAConnectorButton connectorId={connectorId} key={connectorId} />
-        );
-      })}
+      {connectors.map(({id}) => (
+        <GetAConnectorButton connectorId={id} key={id} />
+      ))}
     </SheetContent>
   );
 };
