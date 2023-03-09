@@ -14,11 +14,11 @@
     "@storybook/react": "^7.0.0-beta.52",
     "@testing-library/react": "^13.4.0",
     "@types/styled-components": "^5.1.26",
+    "analytics": "*",
     "tsconfig": "*",
     "vitest": "^0.28.5"
   },
   "dependencies": {
-    "analytics": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.6"

@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "analytics": ["../analytics/src/index.ts"],
       "shared": ["../shared/src/index.ts"]
     }
   },

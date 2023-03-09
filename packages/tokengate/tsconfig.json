@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "shared": ["../shared/src/index.ts"]
+      "shared": ["../shared/src/index.ts"],
+      "analytics": ["../analytics/src/index.ts"]
     }
   },
   "include": ["./src", "./styled.d.ts"],

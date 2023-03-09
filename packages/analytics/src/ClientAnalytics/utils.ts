@@ -7,6 +7,7 @@ import {
 import {eventNames} from './const';
 
 const subscribers: Subscribers = new Map();
+console.log('New subscribers', subscribers);
 
 /**
  * @param {string} eventname An event name indicating which event you would like to subscribe to.
