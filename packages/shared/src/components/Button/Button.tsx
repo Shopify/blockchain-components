@@ -1,4 +1,4 @@
-import {useOnClickWithTracking} from '@shopify/blockchain-components';
+import {useEventWithTracking} from '@shopify/blockchain-components';
 
 import {Text, Variant} from '../Text';
 import {Spinner} from '../Spinner';
@@ -18,9 +18,9 @@ export const Button = ({
   onClickEventName,
   ...props
 }: ButtonProps) => {
-  const onClickWithTracking = useOnClickWithTracking({
-    onClickEventName,
-    onClick,
+  const onClickWithTracking = useEventWithTracking({
+    eventName: onClickEventName,
+    callback: onClick,
   });
   const wrapperProps = link
     ? {

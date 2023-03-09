@@ -7,7 +7,7 @@ import {
   subscribe,
   subscribeToAll,
   publishEvent,
-  useOnClickWithTracking,
+  useEventWithTracking,
 } from './utils';
 import {eventNames} from './const';
 
@@ -98,7 +98,7 @@ describe('utils', () => {
     });
   });
 
-  describe('useOnClickWithTracking', () => {
+  describe('useEventWithTracking', () => {
     const onClickEventName = 'TEST_EVENT_NAME';
     const Button = ({
       onClick,
@@ -107,9 +107,9 @@ describe('utils', () => {
       onClick?: () => void;
       onClickEventName?: string;
     }) => {
-      const onClickWithTracking = useOnClickWithTracking({
-        onClick,
-        onClickEventName,
+      const onClickWithTracking = useEventWithTracking({
+        callback: onClick,
+        eventName: onClickEventName,
       });
       return (
         // eslint-disable-next-line @shopify/jsx-no-hardcoded-content

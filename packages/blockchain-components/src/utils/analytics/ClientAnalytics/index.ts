@@ -3,5 +3,5 @@ export {
   publishEvent,
   subscribe,
   subscribeToAll,
-  useOnClickWithTracking,
+  useEventWithTracking,
 } from './utils';

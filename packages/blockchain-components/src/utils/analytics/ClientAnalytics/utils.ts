@@ -81,28 +81,28 @@ export const publishEvent = (eventname: string, payload?: any) => {
 };
 
 /**
- * @param {() => void | undefined)} onClick The original onClick function
- * @param {string} eventname An event name indicating which event to publish to subscribers.
+ * @param {() => void | undefined)} callback The original callback function
+ * @param {string} eventName An event name indicating which event to publish to subscribers.
  * @param {any | undefined} payload The data which was dispatched to the event.
  * @returns {() => void}
  */
-export const useOnClickWithTracking = ({
-  onClick,
-  onClickEventName,
+export const useEventWithTracking = ({
+  callback,
+  eventName,
   payload,
 }: {
-  onClick?: (payload: any) => void;
-  onClickEventName?: string;
+  callback?: (payload: any) => void;
+  eventName?: string;
   payload?: any;
 }) =>
   useCallback(
     (onClickPayload: any) => {
-      if (onClickEventName) {
-        publishEvent(onClickEventName, payload);
+      if (eventName) {
+        publishEvent(eventName, payload);
       }
-      if (onClick) {
-        onClick(onClickPayload);
+      if (callback) {
+        callback(onClickPayload);
       }
     },
-    [onClick, onClickEventName, payload],
+    [callback, eventName, payload],
   );
