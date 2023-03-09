@@ -1,5 +1,5 @@
 {
-  "name": "@shopify/blockchain-components-analytics",
+  "name": "analytics",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",

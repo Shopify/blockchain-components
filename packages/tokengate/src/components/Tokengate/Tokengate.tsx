@@ -1,5 +1,5 @@
 import {ReactNode, Fragment, useMemo, useEffect} from 'react';
-import {ClientAnalytics} from '@shopify/blockchain-components-analytics';
+import {ClientAnalytics} from 'analytics';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';

@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {ClientAnalytics} from '@shopify/blockchain-components-analytics';
+import {ClientAnalytics} from 'analytics';
 
 export const AnalyticsListener = () => {
   useEffect(() => {

@@ -8,7 +8,7 @@ import {
   useOutsideClick,
   Text,
 } from 'shared';
-import {eventNames} from '@shopify/blockchain-components-analytics';
+import {eventNames} from 'analytics';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
