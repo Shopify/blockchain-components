@@ -5,6 +5,7 @@ import {
   adaptUnlockingTokens,
 } from '@shopify/tokengate';
 
+import type {Link} from '@shopify/tokengate';
 import './DawnVariables.css';
 import {Preview} from './style';
 import {
@@ -25,6 +26,7 @@ interface AppProps {
           name: string;
           imageUrl: string;
           contractAddress: string;
+          links: Link[];
         }[];
       };
       unlockingTokens?: {

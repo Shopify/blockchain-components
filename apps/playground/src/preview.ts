@@ -83,6 +83,16 @@ function getGateRequirement() {
             contractAddress: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB',
             imageUrl:
               'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=384',
+            links: [
+              {
+                marketplace: 'OpenSea',
+                url: 'https://blah.com/0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB',
+              },
+              {
+                marketplace: 'SuperRare',
+                url: 'https://blah2.com/0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB',
+              },
+            ],
           },
           {
             name: 'Moonbirds',

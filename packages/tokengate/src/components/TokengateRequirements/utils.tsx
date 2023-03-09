@@ -33,6 +33,7 @@ export const mapRequirementsToTokenListProps = ({
       title: getConditionTitle(condition),
       subtitle: condition.description ?? t('conditionDescription.any'),
       imageUrl: condition.imageUrl,
+      links: condition.links,
       badge,
       round: true,
     };

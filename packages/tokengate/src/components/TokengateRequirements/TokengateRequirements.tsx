@@ -24,6 +24,8 @@ const TokengateRequirements = ({
     t,
   });
 
+  console.log('requirements', requirements);
+
   return (
     <TokenList
       isLoading={isLoading}

@@ -38,3 +38,7 @@ export const TokenBaseText = styled.div`
     text-transform: capitalize;
   }
 `;
+
+export const Wrapper = styled.div`
+  position: relative;
+`;

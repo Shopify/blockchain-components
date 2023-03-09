@@ -1,10 +1,32 @@
 import {ReactNode} from 'react';
 import {ThemeProps} from 'shared';
 
+export enum Marketplace {
+  OpenSea = 'OpenSea',
+  SuperRare = 'SuperRare',
+}
+
+interface MarketplaceLink {
+  label?: never;
+  marketplace: `${Marketplace}`;
+  icon?: never;
+  url: string;
+}
+
+interface CustomLink {
+  label: string;
+  marketplace?: never;
+  icon: ReactNode;
+  url: string;
+}
+
+export type Link = MarketplaceLink | CustomLink;
+
 export interface Condition {
   name?: string;
   imageUrl?: string;
   collectionAddress?: string;
+  links?: Link[];
   description?: ReactNode;
 }
 

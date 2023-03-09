@@ -3,6 +3,7 @@
  */
 export {Button, ButtonWrapper} from './components/Button';
 export {IconButton} from './components/IconButton';
+export {Popover} from './components/Popover';
 export {SkeletonThumbnail} from './components/SkeletonThumbnail/SkeletonThumbnail';
 export {SkeletonDisplayText} from './components/SkeletonDisplayText/SkeletonDisplayText';
 export {Spinner} from './components/Spinner';
