@@ -1,2 +1,2 @@
 export {eventNames} from './const';
-export {ClientAnalytics} from './utils';
+export {publishEvent, subscribe, subscribeToAll} from './utils';

@@ -13,7 +13,7 @@ const subscribers: Subscribers = new Map();
  * @param {(payload: any) => void} callbackFunction Any callback function you would like to be invoked when the event is published.
  * @returns {Object} {unsubscribe} An object containing a cleanup function, unsubscribe, which will clean up the created subscription.
  */
-const subscribe = (
+export const subscribe = (
   eventname: string,
   callbackFunction: SubscriberFunction,
 ): Subscriber => {
@@ -44,7 +44,7 @@ const subscribe = (
  * @param {(payload: any) => void} callbackFunction Any callback function you would like to be invoked when an event is published.
  * @returns {void}
  */
-const subscribeToAll = (callbackFunction: SubscriberFunction) => {
+export const subscribeToAll = (callbackFunction: SubscriberFunction) => {
   const eventNamesArray = Object.values(eventNames);
 
   eventNamesArray.map((eventName) => {
@@ -70,17 +70,10 @@ const subscribeToAll = (callbackFunction: SubscriberFunction) => {
  * @param {any | undefined} payload The data which was dispatched to the event.
  * @returns {void}
  */
-const publishEvent = (eventname: string, payload?: any) => {
+export const publishEvent = (eventname: string, payload?: any) => {
   const subscriptions = subscribers.get(eventname);
 
   // Loop through our subscriptions for the event name and run the
   // callback functions for the provided subscription.
   subscriptions?.forEach((subscription) => subscription(payload));
-};
-
-export const ClientAnalytics = {
-  subscribe,
-  subscribeToAll,
-  publishEvent,
-  eventNames,
 };

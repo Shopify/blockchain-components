@@ -1,6 +1,7 @@
 import {vi} from 'vitest';
 
-import {ClientAnalytics} from './utils';
+import {subscribe, subscribeToAll, publishEvent} from './utils';
+import {eventNames} from './const';
 
 describe('utils', () => {
   beforeEach(() => {
@@ -16,14 +17,8 @@ describe('utils', () => {
       const eventArgs = {testProps: 'testProps'};
       const mock = vi.fn();
 
-      ClientAnalytics.subscribe(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-        mock,
-      );
-      ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-        eventArgs,
-      );
+      subscribe(eventNames.TOKENGATE_COMPONENT_RENDERED, mock);
+      publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock).toHaveBeenCalledTimes(1);
       expect(mock).toHaveBeenCalledWith(eventArgs);
     });
@@ -35,22 +30,13 @@ describe('utils', () => {
 
       const date = new Date(2000, 1, 1, 13);
       vi.setSystemTime(date);
-      ClientAnalytics.subscribe(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-        mock1,
-      );
+      subscribe(eventNames.TOKENGATE_COMPONENT_RENDERED, mock1);
 
       // Force +1 millisecond date update
       date.setMilliseconds(date.getMilliseconds() + 1);
       vi.setSystemTime(date);
-      ClientAnalytics.subscribe(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-        mock2,
-      );
-      ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-        eventArgs,
-      );
+      subscribe(eventNames.TOKENGATE_COMPONENT_RENDERED, mock2);
+      publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock1).toHaveBeenCalledTimes(1);
       expect(mock1).toHaveBeenCalledWith(eventArgs);
       expect(mock2).toHaveBeenCalledTimes(1);
@@ -61,15 +47,12 @@ describe('utils', () => {
       const eventArgs = {testProps: 'testProps'};
       const mock = vi.fn();
 
-      const {unsubscribe} = ClientAnalytics.subscribe(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+      const {unsubscribe} = subscribe(
+        eventNames.TOKENGATE_COMPONENT_RENDERED,
         mock,
       );
       unsubscribe();
-      ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-        eventArgs,
-      );
+      publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock).toHaveBeenCalledTimes(0);
     });
 
@@ -77,10 +60,7 @@ describe('utils', () => {
       const eventArgs = {testProps: 'testProps'};
       const mock = vi.fn();
 
-      ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-        eventArgs,
-      );
+      publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock).toHaveBeenCalledTimes(0);
     });
   });
@@ -90,14 +70,11 @@ describe('utils', () => {
       const eventArgs = {testProps: 'testProps'};
       const mock1 = vi.fn();
 
-      ClientAnalytics.subscribeToAll(mock1);
-      ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-        eventArgs,
-      );
+      subscribeToAll(mock1);
+      publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock1).toHaveBeenCalledTimes(1);
       expect(mock1).toHaveBeenCalledWith({
-        eventName: ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
+        eventName: eventNames.TOKENGATE_COMPONENT_RENDERED,
         eventArgs,
       });
     });
@@ -106,12 +83,9 @@ describe('utils', () => {
       const eventArgs = {testProps: 'testProps'};
       const mock1 = vi.fn();
 
-      const {unsubscribe} = ClientAnalytics.subscribeToAll(mock1);
+      const {unsubscribe} = subscribeToAll(mock1);
       unsubscribe();
-      ClientAnalytics.publishEvent(
-        ClientAnalytics.eventNames.TOKENGATE_COMPONENT_RENDERED,
-        eventArgs,
-      );
+      publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock1).toHaveBeenCalledTimes(0);
     });
   });

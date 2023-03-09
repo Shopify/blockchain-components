@@ -1,4 +1,4 @@
-import {ClientAnalytics} from '@shopify/blockchain-components';
+import {publishEvent} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
 
 import {Text, Variant} from '../Text';
@@ -21,7 +21,7 @@ export const Button = ({
 }: ButtonProps) => {
   const onClickWithTracking = useCallback(() => {
     if (onClickEventName) {
-      ClientAnalytics.publishEvent(onClickEventName);
+      publishEvent(onClickEventName);
     }
     if (onClick) {
       onClick();

@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 
-import {ClientAnalytics} from '../../utils/analytics/ClientAnalytics';
+import {subscribe} from '../../utils/analytics/ClientAnalytics';
 
 export const AnalyticsListenerTestHelper = ({
   eventName,
@@ -10,9 +10,7 @@ export const AnalyticsListenerTestHelper = ({
   mock: (payload: any) => void;
 }) => {
   useEffect(() => {
-    const {unsubscribe} = ClientAnalytics.subscribe(eventName, (payload: any) =>
-      mock(payload),
-    );
+    const {unsubscribe} = subscribe(eventName, (payload: any) => mock(payload));
     return unsubscribe;
   }, [eventName, mock]);
 
