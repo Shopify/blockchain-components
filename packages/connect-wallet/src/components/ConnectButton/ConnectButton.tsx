@@ -1,4 +1,4 @@
-import {eventNames} from '@shopify/blockchain-components';
+import {eventNames, useEventWithTracking} from '@shopify/blockchain-components';
 import {useCallback, useEffect, useState} from 'react';
 import {
   Button,
@@ -48,6 +48,11 @@ export const ConnectButton = () => {
     }
   }, [activeWallet, openModal]);
 
+  const togglePopoverWithTracking = useEventWithTracking({
+    eventName: eventNames.CONNECT_WALLET_CONNECTED_BUTTON_CLICKED,
+    callback: togglePopover,
+  });
+
   if (!activeWallet) {
     return (
       <Button
@@ -56,7 +61,7 @@ export const ConnectButton = () => {
         primary
         label={t('buttonText')}
         onClick={handleClick}
-        onClickEventName={eventNames.CONNECT_BUTTON_CLICKED}
+        onClickEventName={eventNames.CONNECT_WALLET_CONNECT_BUTTON_CLICKED}
         size="Lg"
       />
     );
@@ -68,7 +73,7 @@ export const ConnectButton = () => {
     <Wrapper id="connectWalletConnectedButtonWrapper" ref={ref}>
       <ConnectedButton
         fullWidth
-        onClick={togglePopover}
+        onClick={togglePopoverWithTracking}
         $popoverOpen={popoverVisible}
         size="Lg"
       >

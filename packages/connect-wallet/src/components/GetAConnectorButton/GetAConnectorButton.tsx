@@ -1,3 +1,4 @@
+import {eventNames} from '@shopify/blockchain-components';
 import {Button, Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
@@ -34,6 +35,8 @@ export const GetAConnectorButton = ({
         label={t('buttonText') as string}
         link={{href: marketingSite, target: '_blank'}}
         size="Sm"
+        onClickEventName={eventNames.CONNECT_WALLET_GET_WALLET_BUTTON_CLICKED}
+        onClickEventPayload={{connector: name}}
       />
     </Wrapper>
   );
