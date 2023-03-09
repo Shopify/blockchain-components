@@ -1,3 +1,4 @@
+import {eventNames} from '@shopify/blockchain-components';
 import {useCallback, useEffect, useState} from 'react';
 import {
   Button,
@@ -55,6 +56,7 @@ export const ConnectButton = () => {
         primary
         label={t('buttonText')}
         onClick={handleClick}
+        onClickEventName={eventNames.CONNECT_BUTTON_CLICKED}
         size="Lg"
       />
     );
