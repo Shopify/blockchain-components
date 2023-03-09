@@ -1,23 +1,23 @@
 {
-  "name": "@shopify/tokengate",
-  "version": "0.1.0",
+  "name": "@shopify/blockchain-components",
+  "version": "0.0.1",
   "private": false,
   "license": "MIT",
-  "description": "Tokengate component library for Shopify storefronts",
+  "description": "Shopify's Blockchain Components package",
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shopify/blockchain-components.git",
-    "directory": "packages/tokengate"
+    "directory": "packages/blockchain-components"
   },
   "bugs": {
-    "url": "https://github.com/Shopify/tokengate/issues"
+    "url": "https://github.com/Shopify/blockchain-components/issues"
   },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
   },
-  "homepage": "https://github.com/Shopify/blockchain-components/blob/main/packages/tokengate/README.md",
+  "homepage": "https://github.com/Shopify/blockchain-components/blob/main/packages/blockchain-components/README.md",
   "type": "module",
   "files": [
     "dist"
@@ -27,8 +27,8 @@
   "module": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "scripts": {
@@ -39,19 +39,16 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "@shopify/blockchain-components": "*",
-    "i18next": "^22.4.9",
+  "peerDependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-i18next": "^12.1.4"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@storybook/react": "^7.0.0-beta.52",
+    "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.4.0",
-    "shared": "*",
     "tsconfig": "*",
     "tsup": "^6.5.0",
-    "vitest": "^0.28.5"
+    "vitest": "^0.28.5",
+    "vitest-fetch-mock": "^0.2.1"
   }
 }
