@@ -16,6 +16,7 @@ export const Button = ({
   size = 'Md',
   onClick,
   onClickEventName,
+  onClickEventPayload,
   ...props
 }: ButtonProps) => {
   const onClickWithTracking = useEventWithTracking({

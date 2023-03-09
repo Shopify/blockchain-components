@@ -1,3 +1,4 @@
+import {eventNames} from '@shopify/blockchain-components';
 import {
   AnimatePresence,
   domAnimation,
@@ -109,6 +110,9 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
                 fullWidth
                 label={t('popover.disconnectButton')}
                 onClick={handleDisconnect}
+                onClickEventName={
+                  eventNames.CONNECT_WALLET_DISCONNECT_BUTTON_CLICKED
+                }
               />
             </Frame>
           </Container>

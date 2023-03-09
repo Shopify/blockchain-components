@@ -1,3 +1,4 @@
+import {eventNames} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
 import {Asset, Button, Gift, Key, Text} from 'shared';
 
@@ -71,6 +72,7 @@ const WhatAreWalletsScreen = () => {
           label={t('WhatAreWallets.button')}
           onClick={handleGetAWallet}
           size="Lg"
+          onClickEventName={eventNames.CONNECT_WALLET_GET_WALLET_BUTTON_CLICKED}
         />
       </ButtonContainer>
     </SheetContent>

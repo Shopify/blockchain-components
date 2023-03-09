@@ -1,3 +1,4 @@
+import {useEventWithTracking, eventNames} from '@shopify/blockchain-components';
 import {Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
@@ -12,13 +13,18 @@ interface ConnectorButtonProps {
 }
 
 export const ConnectorButton = ({id, name, onClick}: ConnectorButtonProps) => {
+  const onClickWithTracking = useEventWithTracking({
+    eventName: eventNames.CONNECT_WALLET_CONNECTOR_BUTTON_CLICKED,
+    callback: onClick,
+    payload: {connector: name},
+  });
   const {t} = useTranslation('ConnectorButton');
 
   return (
     <Button
       aria-label={t('accessibilityLabel', {name}) as string}
       fullWidth
-      onClick={onClick}
+      onClick={onClickWithTracking}
       size="Lg"
     >
       <ConnectorIcon id={id} size="Sm" />

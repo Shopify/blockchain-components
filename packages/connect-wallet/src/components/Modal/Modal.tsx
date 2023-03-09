@@ -1,3 +1,4 @@
+import {eventNames} from '@shopify/blockchain-components';
 import {
   AnimatePresence,
   domAnimation,
@@ -64,6 +65,7 @@ export const Modal = () => {
     <IconButton
       aria-label={t('icons.back') as string}
       icon={Back}
+      onClickEventName={eventNames.CONNECT_WALLET_MODAL_BACK_BUTTON_CLICKED}
       onClick={navigation.goBack}
     />
   );
@@ -72,6 +74,7 @@ export const Modal = () => {
     <IconButton
       aria-label={t('icons.whatIsAWallet') as string}
       icon={QuestionMark}
+      onClickEventName={eventNames.CONNECT_WALLET_HELP_BUTTON_CLICKED}
       onClick={() => navigation.navigate(ModalRoute.WhatAreWallets)}
     />
   );
@@ -161,6 +164,9 @@ export const Modal = () => {
                   <IconButton
                     aria-label={t('icons.close') as string}
                     icon={Cancel}
+                    onClickEventName={
+                      eventNames.CONNECT_WALLET_MODAL_CLOSE_BUTTON_CLICKED
+                    }
                     onClick={closeModal}
                   />
                 </Header>

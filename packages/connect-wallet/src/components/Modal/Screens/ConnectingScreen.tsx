@@ -1,3 +1,4 @@
+import {eventNames} from '@shopify/blockchain-components';
 import {useCallback, useMemo} from 'react';
 import {Button, Spinner, Text} from 'shared';
 
@@ -50,6 +51,9 @@ const ConnectingScreen = () => {
             aria-label={t('button.retry')}
             label={t('button.retry')}
             onClick={() => connect({connector})}
+            onClickEventName={
+              eventNames.CONNECT_WALLET_RETRY_CONNECTING_BUTTON_CLICKED
+            }
           />
         ) : null}
 
@@ -59,6 +63,9 @@ const ConnectingScreen = () => {
             fullWidth
             label={t('Connecting.qrCode')}
             onClick={handleUseQRCode}
+            onClickEventName={
+              eventNames.CONNECT_WALLET_USE_QR_CODE_BUTTON_CLICKED
+            }
             size="Lg"
           />
         ) : null}

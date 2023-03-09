@@ -96,12 +96,12 @@ export const useEventWithTracking = ({
   payload?: any;
 }) =>
   useCallback(
-    (onClickPayload: any) => {
+    (eventPayload: any) => {
       if (eventName) {
         publishEvent(eventName, payload);
       }
       if (callback) {
-        callback(onClickPayload);
+        callback(eventPayload);
       }
     },
     [callback, eventName, payload],
