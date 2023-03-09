@@ -1,3 +1,4 @@
+import {ClientAnalytics} from 'analytics';
 import {Dawn, Default, Theme} from 'shared';
 
 /**
@@ -20,6 +21,7 @@ export {useConnectWallet} from './hooks/useConnectWallet';
 /**
  * Providers
  */
+export {ClientAnalytics};
 export {ConnectWalletProvider} from './providers/ConnectWalletProvider';
 
 /**

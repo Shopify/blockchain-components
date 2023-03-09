@@ -37,8 +37,6 @@
     "wagmi": "^0.10.4"
   },
   "devDependencies": {
-    "analytics": "*",
-    "shared": "*",
     "tsconfig": "*"
   }
 }

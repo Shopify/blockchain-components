@@ -1,3 +1,4 @@
+import {ClientAnalytics} from 'analytics';
 import {Dawn, Default, Theme} from 'shared';
 
 /**
@@ -9,6 +10,7 @@ export {adaptUnlockingTokens} from './utils/adapters/unlockingTokens';
 /**
  * Providers
  */
+export {ClientAnalytics};
 export {TokengateProvider as Tokengate} from './providers/TokengateProvider';
 
 /**

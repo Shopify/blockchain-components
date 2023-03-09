@@ -1,5 +1,5 @@
+import {ClientAnalytics} from '@shopify/tokengate';
 import {useEffect} from 'react';
-import {ClientAnalytics} from 'analytics';
 
 export const AnalyticsListener = () => {
   useEffect(() => {
