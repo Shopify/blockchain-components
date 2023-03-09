@@ -1,3 +1,4 @@
+import {publishEvent, eventNames} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
 import {useDisconnect as wagmiUseDisconnect, useAccount} from 'wagmi';
 
@@ -36,6 +37,9 @@ export const useDisconnect = () => {
   const handleDisconnect = useCallback(
     (address?: string) => {
       const addressToDisconnect = address || (connectedAddress as string);
+      publishEvent(eventNames.CONNECT_WALLET_ON_DISCONNECT_EVENT, {
+        address: addressToDisconnect,
+      });
 
       if (!addressToDisconnect) {
         throw new Error(

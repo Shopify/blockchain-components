@@ -1,3 +1,4 @@
+import {eventNames, publishEvent} from '@shopify/blockchain-components';
 import {useEffect} from 'react';
 
 import {buildOnConnectMiddleware} from '../../middleware/onConnectMiddleware';
@@ -14,6 +15,10 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
   // Add the onConnect callback listeners.
   useEffect(() => {
     const listener = buildOnConnectMiddleware(({wallet}) => {
+      publishEvent(eventNames.CONNECT_WALLET_ON_CONNECT_EVENT, {
+        address: wallet.address,
+        connector: wallet.connectorId,
+      });
       onConnect?.(wallet);
     });
 

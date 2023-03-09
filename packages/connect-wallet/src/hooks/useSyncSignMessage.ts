@@ -1,3 +1,4 @@
+import {publishEvent, eventNames} from '@shopify/blockchain-components';
 import {useCallback, useContext} from 'react';
 import {generateNonce, SiweMessage} from 'siwe';
 import {useNetwork, useSignMessage} from 'wagmi';
@@ -58,7 +59,7 @@ export function useSyncSignMessage() {
 
   const signMessage = useCallback(
     async (wallet: Wallet): Promise<SignatureResponse> => {
-      const {address} = wallet;
+      const {address, connectorId} = wallet;
       const nonce = generateNonce();
 
       const message = await generateMessage(address, nonce);
@@ -66,6 +67,10 @@ export function useSyncSignMessage() {
       try {
         const signature = await signMessageAsync({
           message: message.prepareMessage(),
+        });
+        publishEvent(eventNames.CONNECT_WALLET_ON_SIGN_MESSAGE_EVENT, {
+          address,
+          connector: connectorId,
         });
 
         return {
