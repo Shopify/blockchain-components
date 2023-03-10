@@ -29,3 +29,12 @@ export const eventNames = {
   CONNECT_WALLET_ON_SIGN_MESSAGE_EVENT: 'CONNECT_WALLET_ON_SIGN_MESSAGE_EVENT',
   CONNECT_WALLET_ON_DISCONNECT_EVENT: 'CONNECT_WALLET_ON_DISCONNECT_EVENT',
 };
+
+export const shopifyServices = {
+  CART: {name: 'Cart', pathname: 'cart'},
+  CHECKOUT: {name: 'Checkout', pathname: 'checkouts'},
+  COLLECTION: {name: 'Collections', pathname: 'collections'},
+  OTHER: {name: 'Other', pathname: undefined},
+  PAGE: {name: 'Pages', pathname: 'pages'},
+  PDP: {name: 'Product Details Page', pathname: 'products'},
+};

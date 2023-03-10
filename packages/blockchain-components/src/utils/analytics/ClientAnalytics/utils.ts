@@ -6,7 +6,7 @@ import {
   Subscribers,
   SubscriberValue,
 } from './types';
-import {eventNames} from './const';
+import {eventNames, shopifyServices} from './const';
 
 const subscribers: Subscribers = new Map();
 
@@ -74,10 +74,13 @@ export const subscribeToAll = (callbackFunction: SubscriberFunction) => {
  */
 export const publishEvent = (eventname: string, payload?: any) => {
   const subscriptions = subscribers.get(eventname);
+  const additionalPayload = getAdditionalEventPayload();
 
   // Loop through our subscriptions for the event name and run the
   // callback functions for the provided subscription.
-  subscriptions?.forEach((subscription) => subscription(payload));
+  subscriptions?.forEach((subscription) =>
+    subscription({...additionalPayload, ...payload}),
+  );
 };
 
 /**
@@ -106,3 +109,28 @@ export const useEventWithTracking = ({
     },
     [callback, eventName, payload],
   );
+
+/**
+ * @returns {object} An object containing the additional payload we want to send to all published events
+ */
+export const getAdditionalEventPayload = () => {
+  // Casting as any to cover server side rendering
+  const {pathname} = (window as any)?.location || {};
+
+  return {
+    shopifyService: getShopifyService(pathname),
+  };
+};
+
+/**
+ * @param {string} pathname The client's complete URL's pathname
+ * @returns {string} A string that represents the Shopify Service the URL corresponds to (Checkout, PDP, other)
+ */
+export const getShopifyService = (pathname: string) => {
+  const servicesValues = Object.values(shopifyServices);
+  const currentService = servicesValues.find(
+    (service) =>
+      service.pathname && new RegExp(`/${service.pathname}(/)*`).exec(pathname),
+  );
+  return currentService?.name ?? shopifyServices.OTHER.name;
+};
