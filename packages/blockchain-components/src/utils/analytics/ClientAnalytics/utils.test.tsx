@@ -18,8 +18,9 @@ describe('utils', () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
-    // We only need to mock the pathname for these tests
-    (window as {location: {pathname: string}}).location = {
+    // We only need to mock the href and pathname for these tests
+    (window as {location: {pathname: string; href: string}}).location = {
+      href: 'https://ca.shop.gymshark.com/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
       pathname: '/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
     };
   });
@@ -28,6 +29,11 @@ describe('utils', () => {
     vi.useRealTimers();
     window.location = originalWindowLocation;
   });
+
+  const additionalPayload = {
+    shopifyService: shopifyServices.PDP.name,
+    url: 'https://ca.shop.gymshark.com/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
+  };
 
   describe('subscribe', () => {
     it('subscriber gets called when there is only one subscriber per event', () => {
@@ -39,7 +45,7 @@ describe('utils', () => {
       expect(mock).toHaveBeenCalledTimes(1);
       expect(mock).toHaveBeenCalledWith({
         ...eventArgs,
-        shopifyService: shopifyServices.PDP.name,
+        ...additionalPayload,
       });
     });
 
@@ -60,12 +66,12 @@ describe('utils', () => {
       expect(mock1).toHaveBeenCalledTimes(1);
       expect(mock1).toHaveBeenCalledWith({
         ...eventArgs,
-        shopifyService: shopifyServices.PDP.name,
+        ...additionalPayload,
       });
       expect(mock2).toHaveBeenCalledTimes(1);
       expect(mock2).toHaveBeenCalledWith({
         ...eventArgs,
-        shopifyService: shopifyServices.PDP.name,
+        ...additionalPayload,
       });
     });
 
@@ -101,7 +107,7 @@ describe('utils', () => {
       expect(mock1).toHaveBeenCalledTimes(1);
       expect(mock1).toHaveBeenCalledWith({
         eventName: eventNames.TOKENGATE_COMPONENT_RENDERED,
-        eventArgs: {...eventArgs, shopifyService: shopifyServices.PDP.name},
+        eventArgs: {...eventArgs, ...additionalPayload},
       });
     });
 
@@ -274,6 +280,7 @@ describe('utils', () => {
       const additionalPayload = getAdditionalEventPayload();
 
       expect(additionalPayload).toStrictEqual({
+        url: undefined,
         shopifyService: shopifyServices.OTHER.name,
       });
     });
