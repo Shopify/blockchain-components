@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply sbcc-box-border;
+  }
+
+  [id^='shopify-connect-wallet'] *:empty,
+  #walletconnect-wrapper *:empty {
+    @apply sbcc-block;
+  }
+}

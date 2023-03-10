@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply sbcc-box-border;
+  }
+
+  [id^='shopify-tokengate'] *:empty {
+    @apply sbcc-block;
+  }
+}
