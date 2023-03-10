@@ -6,6 +6,7 @@ Here you can find examples on how to use our packages in your framework of choic
 
 | Framework | Example | Framework documentation |
 | - | - | - |
+| Create React App | [Source code](./cra/) | [Create React App docs](https://create-react-app.dev/) |
 | Next.js | [Source code](./nextjs/) | [Next.js docs](https://nextjs.org/docs) |
 | Vite | [Source code](./vite/) | [Vite docs](https://vitejs.dev/guide/) |
 
