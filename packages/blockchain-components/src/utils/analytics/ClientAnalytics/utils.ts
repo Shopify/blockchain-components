@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useEffect} from 'react';
 
 import {
   SubscriberFunction,
@@ -106,3 +106,13 @@ export const useEventWithTracking = ({
     },
     [callback, eventName, payload],
   );
+
+/**
+ * @param {string} eventName An event name indicating which event to publish to subscribers.
+ * @returns {void}
+ */
+export const useComponentRenderedTracking = (eventName: string) => {
+  useEffect(() => {
+    publishEvent(eventName);
+  }, [eventName]);
+};

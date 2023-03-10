@@ -8,6 +8,7 @@ import {
   subscribeToAll,
   publishEvent,
   useEventWithTracking,
+  useComponentRenderedTracking,
 } from './utils';
 import {eventNames} from './const';
 
@@ -154,6 +155,29 @@ describe('utils', () => {
       fireEvent.click(button);
       expect(onClickMock).toBeCalledTimes(1);
       expect(subscriberMock).toBeCalledTimes(0);
+    });
+  });
+
+  describe('useComponentRenderedTracking', () => {
+    const onClickEventName = 'TEST_EVENT_NAME';
+    const Element = () => {
+      useComponentRenderedTracking('TEST_EVENT_NAME');
+      return <div />;
+    };
+
+    it('sends rendering event', () => {
+      const subscriberMock = vi.fn();
+
+      render(
+        <>
+          <AnalyticsListenerTestHelper
+            eventName={onClickEventName}
+            mock={subscriberMock}
+          />
+          <Element />,
+        </>,
+      );
+      expect(subscriberMock).toBeCalledTimes(1);
     });
   });
 });
