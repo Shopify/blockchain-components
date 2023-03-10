@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@shopify/connect-wallet": "*",
+    "@shopify/connect-wallet": "file:../../packages/connect-wallet",
     "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -19,8 +19,11 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
-    "tsconfig": "*",
+    "tsconfig": "file:../../packages/tsconfig",
     "typescript": "^4.9.3",
     "vite": "^4.1.0"
+  },
+  "resolutions": {
+    "@shopify/gate-context-client": "file:../../packages/gate-context-client"
   }
 }

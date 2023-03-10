@@ -1,6 +1,6 @@
 {
   "name": "@shopify/connect-wallet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "license": "MIT",
   "description": "Crypto wallet connection library for Shopify storefronts",
@@ -62,8 +62,6 @@
     "@types/ua-parser-js": "^0.7.36",
     "@wagmi/core": "0.8.10",
     "happy-dom": "^8.7.1",
-    "shared": "*",
-    "tsconfig": "*",
     "tsup": "^6.5.0",
     "vitest": "^0.28.5"
   }
