@@ -1,6 +1,6 @@
 {
   "name": "@shopify/tokengate",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "license": "MIT",
   "description": "Tokengate component library for Shopify storefronts",
@@ -49,8 +49,6 @@
   "devDependencies": {
     "@storybook/react": "^7.0.0-beta.52",
     "@testing-library/react": "^13.4.0",
-    "shared": "*",
-    "tsconfig": "*",
     "tsup": "^6.5.0",
     "vitest": "^0.28.5"
   }
