@@ -4,4 +4,5 @@ export {
   subscribe,
   subscribeToAll,
   useEventWithTracking,
+  useComponentRenderedTracking,
 } from './utils';

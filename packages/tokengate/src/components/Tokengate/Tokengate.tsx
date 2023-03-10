@@ -1,5 +1,8 @@
-import {publishEvent, eventNames} from '@shopify/blockchain-components';
-import {ReactNode, Fragment, useMemo, useEffect} from 'react';
+import {
+  useComponentRenderedTracking,
+  eventNames,
+} from '@shopify/blockchain-components';
+import {ReactNode, Fragment, useMemo} from 'react';
 
 import {AvailableSoonButton} from '../AvailableSoonButton';
 import {Card} from '../Card';
@@ -24,9 +27,7 @@ export const Tokengate = (props: TokengateProps) => {
   } = props;
   const {title, subtitle, sections} = useTokengateCardState(props);
 
-  useEffect(() => {
-    publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED);
-  }, []);
+  useComponentRenderedTracking(eventNames.TOKENGATE_COMPONENT_RENDERED);
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
     () => ({

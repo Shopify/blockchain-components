@@ -1,3 +1,7 @@
+import {
+  eventNames,
+  useComponentRenderedTracking,
+} from '@shopify/blockchain-components';
 import {MotionConfig} from 'framer-motion';
 import {FC, PropsWithChildren, useMemo} from 'react';
 import {Provider} from 'react-redux';
@@ -18,6 +22,8 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   statementGenerator,
   theme,
 }: PropsWithChildren<ProviderProps>) => {
+  useComponentRenderedTracking(eventNames.CONNECT_WALLET_COMPONENT_RENDERED);
+
   const contextValue: ConnectWalletProviderValue = useMemo(() => {
     return {
       chains,
