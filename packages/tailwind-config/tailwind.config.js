@@ -44,6 +44,7 @@ module.exports = {
       tokengate: '8px',
       // Add the DEFAULT value -- DEFAULT is a Tailwind convention
       DEFAULT: defaultTheme.borderRadius.DEFAULT,
+      full: defaultTheme.borderRadius.full,
     },
     borderStyle: {
       'button-disabled': 'unset',
