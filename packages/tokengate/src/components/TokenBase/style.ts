@@ -1,4 +1,4 @@
-import {SkeletonThumbnail, styled} from 'shared';
+import {styled} from 'shared';
 
 export const TokenBaseStyle = styled.div`
   display: flex;
@@ -14,13 +14,12 @@ export const TokenBaseIcon = styled.div<{round: boolean}>`
   height: 48px;
   width: 48px;
   position: relative;
+  border-radius: ${(props) => (props.round ? '50%' : '4px')};
+  overflow: hidden;
 
-  img,
-  ${SkeletonThumbnail} {
+  img {
     height: inherit;
     width: inherit;
-    border-radius: ${(props) => (props.round ? '50%' : '4px')};
-    overflow: hidden;
   }
 `;
 
