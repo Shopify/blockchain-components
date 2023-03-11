@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "paths": {
+      "@shopify/blockchain-components": [
+        "../../packages/blockchain-components/src/index.ts"
+      ]
+    }
   },
   "include": ["./src", "./styled.d.ts"],
   "exclude": ["node_modules", "./dist"],

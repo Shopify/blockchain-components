@@ -2,7 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "*": ["./src/*"]
+      "*": ["./src/*"],
+      "@shopify/blockchain-components": [
+        "../blockchain-components/src/index.ts"
+      ]
     }
   },
   "include": ["./src", "./styled.d.ts"],

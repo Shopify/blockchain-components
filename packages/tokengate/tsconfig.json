@@ -3,6 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "shared": ["../shared/src/index.ts"],
+      "@shopify/blockchain-components": [
+        "../blockchain-components/src/index.ts"
+      ],
       "tsconfig": ["../tsconfig"]
     }
   },

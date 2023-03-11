@@ -27,7 +27,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@shopify/blockchain-components": "*",
     "@shopify/connect-wallet": "*",
     "@shopify/gate-context-client": "*",
     "@shopify/tokengate": "*",
