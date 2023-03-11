@@ -1,4 +1,4 @@
-import {CoinbaseWallet} from 'shared';
+import {CoinbaseWallet} from '@shopify/blockchain-components';
 import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
 
 import {ConnectorInstance, ConnectorProps} from '../types/connector';

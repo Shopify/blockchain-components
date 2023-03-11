@@ -1,4 +1,4 @@
-import {styled} from 'shared';
+import {styled} from '@shopify/blockchain-components';
 
 export const Wrapper = styled.div`
   p {

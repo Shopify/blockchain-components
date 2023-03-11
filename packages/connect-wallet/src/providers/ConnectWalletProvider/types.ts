@@ -1,5 +1,5 @@
 import {Chain} from '@wagmi/core';
-import {ThemeProps} from 'shared';
+import {ThemeProps} from '@shopify/blockchain-components';
 
 import {OrderAttributionMode} from '../../types/orderAttribution';
 

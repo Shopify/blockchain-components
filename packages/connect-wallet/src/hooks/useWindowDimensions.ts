@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useIsMounted} from 'shared';
+import {useIsMounted} from '@shopify/blockchain-components';
 
 interface UseWindowDimensionsReturn {
   height: number | undefined;

@@ -1,5 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react';
-import type {ThemeProps} from 'shared';
+import type {ThemeProps} from '@shopify/blockchain-components';
 import {WagmiConfig, configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 import {publicProvider} from 'wagmi/providers/public';

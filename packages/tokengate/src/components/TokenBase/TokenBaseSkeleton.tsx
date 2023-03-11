@@ -1,4 +1,7 @@
-import {SkeletonThumbnail, SkeletonDisplayText} from 'shared';
+import {
+  SkeletonThumbnail,
+  SkeletonDisplayText,
+} from '@shopify/blockchain-components';
 
 import {TokenBaseStyle, TokenBaseIcon, TokenBaseText} from './style';
 

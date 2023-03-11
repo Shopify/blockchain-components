@@ -1,4 +1,4 @@
-import {Text, Button} from 'shared';
+import {Text, Button} from '@shopify/blockchain-components';
 
 import {useTranslation} from '../../hooks/useTranslation';
 

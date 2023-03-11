@@ -1,4 +1,4 @@
-import {SkeletonThumbnail, styled} from 'shared';
+import {SkeletonThumbnail, styled} from '@shopify/blockchain-components';
 
 export const TokenBaseStyle = styled.div`
   display: flex;

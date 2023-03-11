@@ -1,4 +1,13 @@
-import {eventNames} from '@shopify/blockchain-components';
+import {
+  eventNames,
+  Button,
+  CircleTick,
+  Copy,
+  formatWalletAddress,
+  Text,
+  useIsMounted,
+  useMediaQuery,
+} from '@shopify/blockchain-components';
 import {
   AnimatePresence,
   domAnimation,
@@ -8,15 +17,6 @@ import {
 } from 'framer-motion';
 import {useCallback} from 'react';
 import {createPortal} from 'react-dom';
-import {
-  Button,
-  CircleTick,
-  Copy,
-  formatWalletAddress,
-  Text,
-  useIsMounted,
-  useMediaQuery,
-} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';

@@ -1,5 +1,5 @@
-import {useEventWithTracking} from '@shopify/blockchain-components';
 import {ComponentPropsWithoutRef, ReactNode} from 'react';
+import {useEventWithTracking} from '../../utils/analytics/ClientAnalytics';
 
 import {StyledButton} from './style';
 

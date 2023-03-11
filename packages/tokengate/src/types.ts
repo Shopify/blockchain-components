@@ -1,5 +1,5 @@
 import {ReactNode} from 'react';
-import {ThemeProps} from 'shared';
+import {ThemeProps} from '@shopify/blockchain-components';
 
 export interface Condition {
   name?: string;

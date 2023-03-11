@@ -1,6 +1,10 @@
-import {eventNames} from '@shopify/blockchain-components';
+import {
+  eventNames,
+  Button,
+  Spinner,
+  Text,
+} from '@shopify/blockchain-components';
 import {useCallback, useMemo} from 'react';
-import {Button, Spinner, Text} from 'shared';
 
 import {useAppSelector} from '../../../hooks/useAppState';
 import {useTranslation} from '../../../hooks/useTranslation';

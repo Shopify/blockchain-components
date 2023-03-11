@@ -10,7 +10,6 @@ module.exports = {
     // and merge with this root level config.
     './connect-wallet',
     './playground',
-    './shared',
     './tokengate',
     './gate-context-client',
     './blockchain-components',

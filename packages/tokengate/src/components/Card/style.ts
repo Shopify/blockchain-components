@@ -1,4 +1,4 @@
-import {styled} from 'shared';
+import {styled} from '@shopify/blockchain-components';
 
 export const StyledCard = styled.div`
   background-color: ${({theme}) => theme.tokengate.background};

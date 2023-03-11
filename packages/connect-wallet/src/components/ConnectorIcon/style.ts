@@ -1,4 +1,4 @@
-import {styled} from 'shared';
+import {styled} from '@shopify/blockchain-components';
 
 import {Size} from '../../types/sizes';
 

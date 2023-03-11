@@ -1,5 +1,5 @@
 import {useEventWithTracking, eventNames} from '@shopify/blockchain-components';
-import {Text} from 'shared';
+import {Text} from '@shopify/blockchain-components';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useTranslation} from '../../hooks/useTranslation';

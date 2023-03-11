@@ -1,5 +1,5 @@
 import {CSSProperties} from 'react';
-import {styled} from 'shared';
+import {styled} from '@shopify/blockchain-components';
 
 export const Circle = styled.circle`
   fill: ${({theme}) => theme.typography.colorPrimary};

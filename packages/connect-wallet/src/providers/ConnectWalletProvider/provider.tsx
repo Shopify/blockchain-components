@@ -1,11 +1,11 @@
 import {
   eventNames,
   useComponentRenderedTracking,
+  RootProvider,
 } from '@shopify/blockchain-components';
 import {MotionConfig} from 'framer-motion';
 import {FC, PropsWithChildren, useMemo} from 'react';
 import {Provider} from 'react-redux';
-import {RootProvider} from 'shared';
 
 import {I18nProvider} from '../I18nProvider';
 import {ModalProvider} from '../ModalProvider';

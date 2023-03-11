@@ -1,4 +1,4 @@
-import {styled} from 'shared';
+import {styled} from '@shopify/blockchain-components';
 
 export const TokenListImageStyle = styled.img`
   width: 100%;

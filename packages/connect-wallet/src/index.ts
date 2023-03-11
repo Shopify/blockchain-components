@@ -1,4 +1,4 @@
-import {Dawn, Default, Theme} from 'shared';
+import {Dawn, Default, Theme} from '@shopify/blockchain-components';
 
 /**
  * Components

@@ -1,7 +1,7 @@
 /* eslint-disable @shopify/jsx-no-hardcoded-content */
 
 import {Meta, StoryObj} from '@storybook/react';
-import {Button} from 'shared';
+import {Button} from '@shopify/blockchain-components';
 
 import {Template} from '../template';
 import {ReactionFixture, TokengatePropsFixture} from '../../../../fixtures';

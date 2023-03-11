@@ -1,4 +1,4 @@
-import {Rainbow as rainbowIcon} from 'shared';
+import {Rainbow as rainbowIcon} from '@shopify/blockchain-components';
 
 import {ConnectorInstance, ConnectorProps} from '../types/connector';
 import {getBrowserInfo} from '../utils/getBrowser';

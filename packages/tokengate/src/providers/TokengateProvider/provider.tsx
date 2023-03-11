@@ -1,5 +1,5 @@
 import {I18nextProvider} from 'react-i18next';
-import {RootProvider} from 'shared';
+import {RootProvider} from '@shopify/blockchain-components';
 
 import {Tokengate} from '../../components';
 import {TokengateProps} from '../../types';

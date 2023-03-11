@@ -1,5 +1,4 @@
-import {eventNames} from '@shopify/blockchain-components';
-import {Button, Text} from 'shared';
+import {eventNames, Button, Text} from '@shopify/blockchain-components';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useConnectorData} from '../../hooks/useConnectorData';

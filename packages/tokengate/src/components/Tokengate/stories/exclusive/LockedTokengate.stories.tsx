@@ -1,5 +1,5 @@
 import {Meta, StoryObj} from '@storybook/react';
-import {addDays} from 'shared';
+import {addDays} from '@shopify/blockchain-components';
 
 import {Template} from '../template';
 import {

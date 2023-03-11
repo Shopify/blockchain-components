@@ -1,5 +1,5 @@
 import {CSSProperties} from 'react';
-import {breakpoints, styled} from 'shared';
+import {breakpoints, styled} from '@shopify/blockchain-components';
 
 export const Background = styled.div`
   position: absolute;

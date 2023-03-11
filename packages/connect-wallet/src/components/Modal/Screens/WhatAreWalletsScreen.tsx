@@ -1,6 +1,12 @@
-import {eventNames} from '@shopify/blockchain-components';
+import {
+  eventNames,
+  Asset,
+  Button,
+  Gift,
+  Key,
+  Text,
+} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
-import {Asset, Button, Gift, Key, Text} from 'shared';
 
 import {useTranslation} from '../../../hooks/useTranslation';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';

@@ -1,5 +1,5 @@
 import React from 'react';
-import {RootProvider, Theme, ThemeProps} from 'shared';
+import {RootProvider, Theme, ThemeProps} from '@shopify/blockchain-components';
 
 type ThemeProviderProps = Omit<ThemeProps, 'children'>;
 type ThemeType = Exclude<ThemeProviderProps['theme'], Theme>;

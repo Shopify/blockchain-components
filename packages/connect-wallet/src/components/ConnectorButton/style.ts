@@ -1,4 +1,4 @@
-import {ButtonWrapper, styled} from 'shared';
+import {ButtonWrapper, styled} from '@shopify/blockchain-components';
 
 export const Button = styled(ButtonWrapper)`
   display: flex;

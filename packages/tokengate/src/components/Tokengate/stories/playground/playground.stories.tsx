@@ -2,7 +2,7 @@
 
 import {useCallback, useState} from 'react';
 import {Meta, StoryObj} from '@storybook/react';
-import {Button, Text} from 'shared';
+import {Button, Text} from '@shopify/blockchain-components';
 
 import {Tokengate} from '../../Tokengate';
 import {

@@ -1,4 +1,4 @@
-import {SkeletonThumbnail} from 'shared';
+import {SkeletonThumbnail} from '@shopify/blockchain-components';
 
 import {TokenListImageStyle} from './style';
 

@@ -1,4 +1,4 @@
-import {LedgerLive as ledgerLiveIcon} from 'shared';
+import {LedgerLive as ledgerLiveIcon} from '@shopify/blockchain-components';
 
 import {ConnectorInstance, ConnectorProps} from '../types/connector';
 

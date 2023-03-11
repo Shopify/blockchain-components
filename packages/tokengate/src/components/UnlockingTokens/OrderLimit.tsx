@@ -1,4 +1,4 @@
-import {Text} from 'shared';
+import {Text} from '@shopify/blockchain-components';
 
 export const OrderLimit = ({
   consumedOrderLimit,

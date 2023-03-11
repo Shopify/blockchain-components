@@ -1,6 +1,6 @@
-import {eventNames, useEventWithTracking} from '@shopify/blockchain-components';
-import {useCallback, useEffect, useState} from 'react';
 import {
+  eventNames,
+  useEventWithTracking,
   Button,
   CaretDown,
   device,
@@ -8,7 +8,8 @@ import {
   useKeyPress,
   useOutsideClick,
   Text,
-} from 'shared';
+} from '@shopify/blockchain-components';
+import {useCallback, useEffect, useState} from 'react';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';

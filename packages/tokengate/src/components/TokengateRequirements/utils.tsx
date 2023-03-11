@@ -1,4 +1,4 @@
-import {formatWalletAddress} from 'shared';
+import {formatWalletAddress} from '@shopify/blockchain-components';
 
 import {TokenListProps} from '../TokenList';
 import {Requirements, Condition, UnlockingToken} from '../../types';

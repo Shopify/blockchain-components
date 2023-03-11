@@ -1,4 +1,4 @@
-import {styled} from 'shared';
+import {styled} from '@shopify/blockchain-components';
 
 export const TokengateRequirementsSeparatorStyle = styled.div<{$gap: string}>`
   display: flex;

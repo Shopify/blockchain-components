@@ -1,4 +1,4 @@
-import {useEventWithTracking} from '@shopify/blockchain-components';
+import {useEventWithTracking} from '../../utils/analytics/ClientAnalytics';
 
 import {Text, Variant} from '../Text';
 import {Spinner} from '../Spinner';

@@ -1,4 +1,4 @@
-import {WalletConnect as walletConnectIcon} from 'shared';
+import {WalletConnect as walletConnectIcon} from '@shopify/blockchain-components';
 
 import {ConnectorInstance, ConnectorProps} from '../types/connector';
 import {getBrowserInfo} from '../utils/getBrowser';

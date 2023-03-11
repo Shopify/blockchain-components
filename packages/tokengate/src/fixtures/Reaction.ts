@@ -1,4 +1,4 @@
-import {deepMerge, DeepPartial} from 'shared';
+import {deepMerge, DeepPartial} from '@shopify/blockchain-components';
 
 import {Reaction} from '../types';
 

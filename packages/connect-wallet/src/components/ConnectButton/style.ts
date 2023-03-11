@@ -1,4 +1,8 @@
-import {breakpoints, ButtonWrapper, styled} from 'shared';
+import {
+  breakpoints,
+  ButtonWrapper,
+  styled,
+} from '@shopify/blockchain-components';
 
 export const AddressChip = styled.button`
   appearance: none;

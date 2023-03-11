@@ -1,4 +1,4 @@
-import {MetaMask as metaMaskIcon} from 'shared';
+import {MetaMask as metaMaskIcon} from '@shopify/blockchain-components';
 import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
 
 import {ConnectorInstance, ConnectorProps} from '../types/connector';

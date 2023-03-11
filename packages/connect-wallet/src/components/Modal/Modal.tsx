@@ -1,4 +1,14 @@
-import {eventNames} from '@shopify/blockchain-components';
+import {
+  eventNames,
+  Back,
+  Cancel,
+  IconButton,
+  QuestionMark,
+  Text,
+  useIsMounted,
+  useKeyPress,
+  useMediaQuery,
+} from '@shopify/blockchain-components';
 import {
   AnimatePresence,
   domAnimation,
@@ -9,16 +19,6 @@ import {
 import {useCallback, useEffect} from 'react';
 import {createPortal} from 'react-dom';
 import useMeasure from 'react-use-measure';
-import {
-  Back,
-  Cancel,
-  IconButton,
-  QuestionMark,
-  Text,
-  useIsMounted,
-  useKeyPress,
-  useMediaQuery,
-} from 'shared';
 
 import {useDefaultConnectors} from '../../hooks/useDefaultConnectors';
 import {useAppSelector} from '../../hooks/useAppState';

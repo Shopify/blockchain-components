@@ -1,7 +1,6 @@
-import {eventNames} from '@shopify/blockchain-components';
+import {eventNames, Button} from '@shopify/blockchain-components';
 import {AnimatePresence, domAnimation, LazyMotion} from 'framer-motion';
 import {useCallback, useEffect, useMemo, useState} from 'react';
-import {Button} from 'shared';
 
 import {useAppSelector} from '../../../hooks/useAppState';
 import {useConnectorData} from '../../../hooks/useConnectorData';
