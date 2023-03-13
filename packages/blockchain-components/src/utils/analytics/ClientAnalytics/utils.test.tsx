@@ -10,6 +10,7 @@ import {
   useEventWithTracking,
   getShopifyService,
   getAdditionalEventPayload,
+  useComponentRenderedTracking,
 } from './utils';
 import {eventNames, shopifyServices} from './const';
 
@@ -283,6 +284,29 @@ describe('utils', () => {
         url: undefined,
         shopifyService: shopifyServices.OTHER.name,
       });
+    });
+  });
+
+  describe('useComponentRenderedTracking', () => {
+    const onRenderedEventName = 'TEST_EVENT_NAME';
+    const Element = () => {
+      useComponentRenderedTracking('TEST_EVENT_NAME');
+      return <div />;
+    };
+
+    it('sends rendering event', () => {
+      const subscriberMock = vi.fn();
+
+      render(
+        <>
+          <AnalyticsListenerTestHelper
+            eventName={onRenderedEventName}
+            mock={subscriberMock}
+          />
+          <Element />,
+        </>,
+      );
+      expect(subscriberMock).toBeCalledTimes(1);
     });
   });
 });

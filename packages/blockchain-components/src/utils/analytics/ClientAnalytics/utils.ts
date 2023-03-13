@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useEffect} from 'react';
 
 import {
   SubscriberFunction,
@@ -134,4 +134,14 @@ export const getShopifyService = (pathname: string) => {
       service.pathname && new RegExp(`/${service.pathname}(/)*`).exec(pathname),
   );
   return currentService?.name ?? shopifyServices.OTHER.name;
+};
+
+/**
+ * @param {string} eventName An event name indicating which event to publish to subscribers.
+ * @returns {void}
+ */
+export const useComponentRenderedTracking = (eventName: string) => {
+  useEffect(() => {
+    publishEvent(eventName);
+  }, [eventName]);
 };
