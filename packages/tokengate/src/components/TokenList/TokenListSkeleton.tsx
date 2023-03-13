@@ -1,7 +1,13 @@
-import {TokenBaseSkeleton} from '../TokenBase';
+import {SkeletonDisplayText, SkeletonThumbnail} from 'shared';
+
+import {TokenBase} from '../TokenBase';
 
 const TokenListSkeleton = ({round}: {round: boolean}) => (
-  <TokenBaseSkeleton round={round} />
+  <TokenBase
+    icon={<SkeletonThumbnail />}
+    round={round}
+    title={<SkeletonDisplayText />}
+  />
 );
 
 export {TokenListSkeleton};
