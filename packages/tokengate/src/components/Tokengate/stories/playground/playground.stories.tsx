@@ -26,6 +26,7 @@ const discountReaction = ReactionFixture({
 export const Template = () => {
   const [reaction, setReaction] = useState<Reaction>(exclusiveReaction);
   const [isLocked, setIsLocked] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [logic, setLogic] = useState<Requirements['logic']>('ALL');
 
   const onReactionChange = useCallback((reaction: string) => {
@@ -44,6 +45,7 @@ export const Template = () => {
             reaction,
             requirements: RequirementsFixture({logic}),
           })}
+          isLoading={isLoading}
           connectButton={<Button label="Connect wallet" fullWidth primary />}
           connectedButton={<Button label="0xab...aec9b" fullWidth />}
         />
@@ -122,6 +124,21 @@ export const Template = () => {
               onChange={() => setLogic('ANY')}
             />
             <Text>Any</Text>
+          </label>
+        </Control>
+        <Control>
+          <Text bold variant="headingSm">
+            Loading
+          </Text>
+          <label htmlFor="loading">
+            <input
+              id="loading"
+              type="checkbox"
+              aria-label="loading"
+              checked={isLoading}
+              onChange={() => setIsLoading(!isLoading)}
+            />
+            <Text>Toggle loading</Text>
           </label>
         </Control>
       </Controls>
