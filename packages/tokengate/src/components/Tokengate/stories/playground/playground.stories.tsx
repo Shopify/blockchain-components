@@ -1,6 +1,6 @@
 /* eslint-disable @shopify/jsx-no-hardcoded-content */
 
-import {useCallback, useState} from 'react';
+import {ReactNode, useCallback, useState} from 'react';
 import {Meta, StoryObj} from '@storybook/react';
 import {Button, Text} from 'shared';
 
@@ -12,8 +12,6 @@ import {
 } from '../../../../fixtures';
 import {Reaction, Requirements} from '../../../../types';
 
-import {Wrapper, TokengateWrapper, Controls, Control} from './style';
-
 const exclusiveReaction = ReactionFixture();
 const discountReaction = ReactionFixture({
   type: 'discount',
@@ -22,6 +20,22 @@ const discountReaction = ReactionFixture({
     value: 20,
   },
 });
+
+interface WithChildrenProps {
+  children: ReactNode;
+}
+
+const Controls = ({children}: WithChildrenProps) => {
+  return <div className="sbc-flex sbc-flex-col sbc-gap-y-6">{children}</div>;
+};
+
+const ControlGroup = ({children}: WithChildrenProps) => {
+  return <div className="sbc-flex sbc-flex-col">{children}</div>;
+};
+
+const Control = ({children}: WithChildrenProps) => {
+  return <div className="sbc-flex sbc-gap-x-2">{children}</div>;
+};
 
 export const Template = () => {
   const [reaction, setReaction] = useState<Reaction>(exclusiveReaction);
@@ -36,8 +50,8 @@ export const Template = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <TokengateWrapper>
+    <div className="sbc-flex sbc-flex-col sbc-gap-3 md:sbc-flex-row md:sbc-gap-6">
+      <div className="sbc-min-w-[400px] sbc-max-w-2xl">
         <Tokengate
           {...TokengatePropsConnectedFixture({
             isConnected: !isLocked,
@@ -49,13 +63,11 @@ export const Template = () => {
           connectButton={<Button label="Connect wallet" fullWidth primary />}
           connectedButton={<Button label="0xab...aec9b" fullWidth />}
         />
-      </TokengateWrapper>
+      </div>
       <Controls>
-        <Control>
-          <Text bold variant="headingSm">
-            Reaction
-          </Text>
-          <label htmlFor="exclusive_access">
+        <ControlGroup>
+          <Text variant="headingSm">Reaction</Text>
+          <Control>
             <input
               id="exclusive_access"
               type="checkbox"
@@ -63,9 +75,12 @@ export const Template = () => {
               checked={reaction.type === 'exclusive_access'}
               onChange={() => onReactionChange('exclusive_access')}
             />
-            <Text>Exclusive access</Text>
-          </label>
-          <label htmlFor="discount">
+            <Text as="label" htmlFor="exclusive_access">
+              Exclusive access
+            </Text>
+          </Control>
+
+          <Control>
             <input
               id="discount"
               type="checkbox"
@@ -73,14 +88,15 @@ export const Template = () => {
               checked={reaction.type === 'discount'}
               onChange={() => onReactionChange('discount')}
             />
-            <Text>Discount</Text>
-          </label>
-        </Control>
-        <Control>
-          <Text bold variant="headingSm">
-            State
-          </Text>
-          <label htmlFor="locked">
+            <Text as="label" htmlFor="discount">
+              Discount
+            </Text>
+          </Control>
+        </ControlGroup>
+
+        <ControlGroup>
+          <Text variant="headingSm">State</Text>
+          <Control>
             <input
               id="locked"
               type="checkbox"
@@ -88,9 +104,12 @@ export const Template = () => {
               checked={isLocked}
               onChange={() => setIsLocked(true)}
             />
-            <Text>Locked</Text>
-          </label>
-          <label htmlFor="unlocked">
+            <Text as="label" htmlFor="locked">
+              Locked
+            </Text>
+          </Control>
+
+          <Control>
             <input
               id="unlocked"
               type="checkbox"
@@ -98,14 +117,15 @@ export const Template = () => {
               checked={!isLocked}
               onChange={() => setIsLocked(false)}
             />
-            <Text>Unlocked</Text>
-          </label>
-        </Control>
-        <Control>
-          <Text bold variant="headingSm">
-            Logic
-          </Text>
-          <label htmlFor="logic-all">
+            <Text as="label" htmlFor="unlocked">
+              Unlocked
+            </Text>
+          </Control>
+        </ControlGroup>
+
+        <ControlGroup>
+          <Text variant="headingSm">Logic</Text>
+          <Control>
             <input
               id="logic-all"
               type="checkbox"
@@ -113,9 +133,12 @@ export const Template = () => {
               checked={logic === 'ALL'}
               onChange={() => setLogic('ALL')}
             />
-            <Text>All</Text>
-          </label>
-          <label htmlFor="logic-any">
+            <Text as="label" htmlFor="logic-all">
+              All
+            </Text>
+          </Control>
+
+          <Control>
             <input
               id="logic-any"
               type="checkbox"
@@ -123,14 +146,15 @@ export const Template = () => {
               checked={logic === 'ANY'}
               onChange={() => setLogic('ANY')}
             />
-            <Text>Any</Text>
-          </label>
-        </Control>
-        <Control>
-          <Text bold variant="headingSm">
-            Loading
-          </Text>
-          <label htmlFor="loading">
+            <Text as="label" htmlFor="logic-any">
+              Any
+            </Text>
+          </Control>
+        </ControlGroup>
+
+        <ControlGroup>
+          <Text variant="headingSm">Loading</Text>
+          <Control>
             <input
               id="loading"
               type="checkbox"
@@ -138,11 +162,13 @@ export const Template = () => {
               checked={isLoading}
               onChange={() => setIsLoading(!isLoading)}
             />
-            <Text>Toggle loading</Text>
-          </label>
-        </Control>
+            <Text as="label" htmlFor="loading">
+              Loading
+            </Text>
+          </Control>
+        </ControlGroup>
       </Controls>
-    </Wrapper>
+    </div>
   );
 };
 
