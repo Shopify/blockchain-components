@@ -86,7 +86,11 @@ export const Button = ({
       {loading ? (
         <Spinner />
       ) : (
-        <Text as="label" bold variant={sizeVariant}>
+        <Text
+          as="label"
+          className="sbc-pointer-events-none"
+          variant={sizeVariant}
+        >
           {label}
         </Text>
       )}
