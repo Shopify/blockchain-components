@@ -11,6 +11,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    animation: {
+      spin: 'spin 500ms linear infinite',
+    },
     backgroundColor: {
       'button-disabled': '#F1F1F1',
       'button-disabled-hover': '#F1F1F1',
