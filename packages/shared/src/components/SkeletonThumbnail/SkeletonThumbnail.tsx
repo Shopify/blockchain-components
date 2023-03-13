@@ -5,5 +5,5 @@ export const SkeletonThumbnail = ({size}: {size?: number}) => {
     ? `sbc-w-[${size}px] sbc-h-[${size}px]`
     : 'sbc-w-full sbc-h-full';
 
-  return <div className={`sbc-bg-skeleton ${dimensions}`} />;
+  return <div className={`sbc-animate-pulse sbc-bg-skeleton ${dimensions}`} />;
 };

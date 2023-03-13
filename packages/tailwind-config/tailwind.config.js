@@ -11,6 +11,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        spin: 'spin 500ms linear infinite',
+      },
       padding: {
         'button-large': '14px 20px',
         'button-medium': '10px 16px',
@@ -18,9 +21,6 @@ module.exports = {
         modal: '24px',
         tokengate: '20px',
       },
-    },
-    animation: {
-      spin: 'spin 500ms linear infinite',
     },
     backgroundColor: {
       'button-disabled': '#F1F1F1',
