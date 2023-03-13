@@ -22,7 +22,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   statementGenerator,
   theme,
 }: PropsWithChildren<ProviderProps>) => {
-  useComponentRenderedTracking(eventNames.CONNECT_WALLET_COMPONENT_RENDERED);
+  useComponentRenderedTracking(eventNames.CONNECT_WALLET_PROVIDER_RENDERED);
 
   const contextValue: ConnectWalletProviderValue = useMemo(() => {
     return {

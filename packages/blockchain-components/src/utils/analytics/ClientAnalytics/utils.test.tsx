@@ -288,7 +288,7 @@ describe('utils', () => {
   });
 
   describe('useComponentRenderedTracking', () => {
-    const onClickEventName = 'TEST_EVENT_NAME';
+    const onRenderedEventName = 'TEST_EVENT_NAME';
     const Element = () => {
       useComponentRenderedTracking('TEST_EVENT_NAME');
       return <div />;
@@ -300,7 +300,7 @@ describe('utils', () => {
       render(
         <>
           <AnalyticsListenerTestHelper
-            eventName={onClickEventName}
+            eventName={onRenderedEventName}
             mock={subscriberMock}
           />
           <Element />,
