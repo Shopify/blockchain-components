@@ -3,7 +3,17 @@ import {createElement} from 'react';
 
 import {ClassName} from '../../types/generic';
 
-import {Element, TextProps, Variant} from './types';
+import {Color, Element, TextProps, Variant} from './types';
+
+const COLOR_CSS: Record<Color, ClassName> = {
+  'button-disabled': 'sbc-text-button-disabled',
+  'button-primary': 'sbc-text-button-primary',
+  'button-secondary': 'sbc-text-button-secondary',
+  critical: 'sbc-text-critical',
+  disabled: 'sbc-text-disabled',
+  primary: 'sbc-text-primary',
+  secondary: 'sbc-text-secondary',
+};
 
 const BODY_LG_CSS: ClassName = 'sbc-font-body-lg sbc-text-body-lg';
 const BODY_MD_CSS: ClassName = 'sbc-font-body-md sbc-text-body-md';
@@ -30,10 +40,10 @@ export const Text = ({
 }: TextProps) => {
   const className = [
     VARIANT_CSS[variant],
+    COLOR_CSS[color],
     // Since className can be undefined, we need to use this spread hack unless
     // we want an additional space in our class on the DOM element.
     ...(props.className ? [props.className] : []),
-    `sbc-text-${color}`,
   ].join(' ');
 
   const wrapperProps = {
