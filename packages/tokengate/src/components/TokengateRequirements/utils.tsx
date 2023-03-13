@@ -1,9 +1,8 @@
 import {formatWalletAddress} from 'shared';
 
+import {CrossBadge} from '../../assets/icons/CrossBadge';
 import {TokenListProps} from '../TokenList';
 import {Requirements, Condition, UnlockingToken} from '../../types';
-
-import {TokengateRequirementsBadge} from './TokengateRequirementsBadge';
 
 export const mapRequirementsToTokenListProps = ({
   requirements,
@@ -25,8 +24,11 @@ export const mapRequirementsToTokenListProps = ({
         condition,
         unlockingTokens,
       });
-      badge = unlockingTokens?.length !== undefined &&
-        !unlockingTokenForCurrentCondition && <TokengateRequirementsBadge />;
+      badge =
+        unlockingTokens?.length !== undefined &&
+        !unlockingTokenForCurrentCondition ? (
+          <CrossBadge />
+        ) : null;
     }
 
     return {
