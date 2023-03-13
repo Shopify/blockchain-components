@@ -1,7 +1,5 @@
 import {Text} from 'shared';
 
-import {StyledCard, SubtitleWrapper} from './style';
-
 interface CardProps {
   title: React.ReactNode;
   subtitle: React.ReactNode;
@@ -11,18 +9,21 @@ interface CardProps {
 
 const Card = ({title, subtitle, button, children}: CardProps) => {
   return (
-    <StyledCard id="shopify-tokengate-card-container">
+    <div
+      className="sbc-rounded-tokengate sbc-border-tokengate sbc-bg-tokengate sbc-p-tokengate sbc-text-left sbc-shadow-tokengate"
+      id="shopify-tokengate-card-container"
+    >
       <Text as="h2" variant="headingMd">
         {title}
       </Text>
-      <SubtitleWrapper>
+      <div className=" sbc-pt-[4px]">
         <Text as="span" variant="bodyMd" color="secondary">
           {subtitle}
         </Text>
-      </SubtitleWrapper>
+      </div>
       {children}
       {button}
-    </StyledCard>
+    </div>
   );
 };
 

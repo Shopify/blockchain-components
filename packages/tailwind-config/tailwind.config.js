@@ -56,11 +56,13 @@ module.exports = {
       modal: 'unset',
       none: 'unset',
       popover: 'unset',
+      tokengate: 'solid',
     },
     borderWidth: {
       'button-disabled': '0px',
       'button-primary': '0px',
       'button-secondary': '1px',
+      tokengate: '1px',
     },
     boxShadow: {
       modal: '0px 0px 1px rgba(0, 0, 0, 0.2), 0px 26px 80px rgba(0, 0, 0, 0.2)',
