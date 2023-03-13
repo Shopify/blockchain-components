@@ -10,7 +10,15 @@ module.exports = {
     '../../packages/tokengate/src/**/*.{ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      padding: {
+        'button-large': '14px 20px',
+        'button-medium': '10px 16px',
+        'button-small': '6px 12px',
+        modal: '24px',
+        tokengate: '20px',
+      },
+    },
     animation: {
       spin: 'spin 500ms linear infinite',
     },
@@ -102,14 +110,6 @@ module.exports = {
       'heading-lg': defaultTheme.lineHeight[7],
       'heading-md': defaultTheme.lineHeight[6],
       'heading-sm': defaultTheme.lineHeight[5],
-    },
-    padding: {
-      0: '0px',
-      'button-large': '14px 20px',
-      'button-medium': '10px 16px',
-      'button-small': '6px 12px',
-      modal: '24px',
-      tokengate: '20px',
     },
     textColor: {
       'button-disabled': '#8C9196',
