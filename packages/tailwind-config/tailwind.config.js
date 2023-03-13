@@ -119,6 +119,7 @@ module.exports = {
       disabled: '#8C9196',
       primary: '#202223',
       secondary: '#6D7175',
+      inherit: 'inherit',
       // Holding on icon for now -- will use secondary in the meantime.
       // icon: '#6D7175',
     },

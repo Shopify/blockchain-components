@@ -70,7 +70,7 @@ export const ConnectButton = () => {
   const {address, connectorId, displayName} = activeWallet;
 
   return (
-    <Wrapper id="connectWalletConnectedButtonWrapper" ref={ref}>
+    <Wrapper id="shopify-connect-wallet-connected-button-wrapper" ref={ref}>
       <ConnectedButton
         fullWidth
         onClick={togglePopoverWithTracking}
