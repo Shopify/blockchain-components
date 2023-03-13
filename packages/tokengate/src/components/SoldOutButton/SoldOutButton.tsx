@@ -2,13 +2,11 @@ import {Text, Button} from 'shared';
 
 import {useTranslation} from '../../hooks/useTranslation';
 
-import {Wrapper} from './style';
-
 const SoldOutButton = () => {
   const {t} = useTranslation('SoldOutButton');
 
   return (
-    <Wrapper>
+    <div className="sbc-w-full">
       <Button
         aria-label={t('buttonText')}
         disabled
@@ -17,10 +15,15 @@ const SoldOutButton = () => {
         size="Lg"
       />
 
-      <Text as="p" variant="bodyMd" color="secondary">
+      <Text
+        as="p"
+        color="secondary"
+        className="sbc-mt-2 sbc-w-full sbc-cursor-default sbc-text-center"
+        variant="bodyMd"
+      >
         {t('description')}
       </Text>
-    </Wrapper>
+    </div>
   );
 };
 

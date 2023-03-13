@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  [id^='shopify-tokengate'] {
+    @apply sbc-text-primary;
+  }
+
   [id^='shopify-tokengate'] *:empty {
     @apply sbc-block;
   }
