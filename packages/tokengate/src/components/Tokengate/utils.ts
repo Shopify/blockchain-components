@@ -17,14 +17,15 @@ export enum TokengateCardSection {
 export const useTokengateCardState = (tokengateProps: TokengateProps) => {
   return {
     sections: getSections(tokengateProps),
+    isLocked: calculatedIsLocked(tokengateProps),
+    hasRequirementsNotMet: calculateHasRequirementsNotMet(tokengateProps),
     ...useTitleAndSubtitle(tokengateProps),
   };
 };
 
 export const getSections = (tokengateProps: TokengateProps) => {
   const isLocked = calculatedIsLocked(tokengateProps);
-  const {active, isSoldOut, isConnected, unlockingTokens, isLoading} =
-    tokengateProps;
+  const {active, isSoldOut, isConnected, isLoading} = tokengateProps;
 
   if (isLoading) {
     return [
@@ -48,7 +49,7 @@ export const getSections = (tokengateProps: TokengateProps) => {
     ];
   }
 
-  if (isConnected && isLocked && unlockingTokens) {
+  if (calculateHasRequirementsNotMet(tokengateProps)) {
     return [
       TokengateCardSection.TokengateRequirementMissingTokens,
       TokengateCardSection.ConnectedWallet,
@@ -190,4 +191,10 @@ export const calculatedIsLocked = (props: TokengateProps) => {
   );
 
   return !hasTokenForAllConditions;
+};
+
+const calculateHasRequirementsNotMet = (props: TokengateProps) => {
+  const {isLoading, isConnected, unlockingTokens} = props;
+  const isLocked = calculatedIsLocked(props);
+  return !isLoading && isConnected && isLocked && Boolean(unlockingTokens);
 };
