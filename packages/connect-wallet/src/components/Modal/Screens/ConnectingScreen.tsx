@@ -1,4 +1,4 @@
-import {eventNames} from '@shopify/blockchain-components';
+import {eventNames, getBrowserInfo} from '@shopify/blockchain-components';
 import {useCallback, useMemo} from 'react';
 import {Button, Spinner, Text} from 'shared';
 
@@ -15,7 +15,6 @@ import {
   SheetContent,
 } from '../style';
 import {ConnectionState} from '../../../types/connectionState';
-import {getBrowserInfo} from '../../../utils/getBrowser';
 
 const ConnectingScreen = () => {
   const {pendingConnector} = useAppSelector((state) => state.wallet);

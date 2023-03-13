@@ -46,9 +46,13 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.4.0",
+    "@types/ua-parser-js": "^0.7.36",
     "tsconfig": "*",
     "tsup": "^6.5.0",
     "vitest": "^0.28.5",
     "vitest-fetch-mock": "^0.2.1"
+  },
+  "dependencies": {
+    "ua-parser-js": "^1.0.32"
   }
 }

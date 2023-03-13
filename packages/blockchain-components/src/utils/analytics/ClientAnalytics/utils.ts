@@ -1,5 +1,7 @@
 import {useCallback, useEffect} from 'react';
 
+import {getBrowserInfo} from '../../getBrowser';
+
 import {
   SubscriberFunction,
   Subscriber,
@@ -120,6 +122,7 @@ export const getAdditionalEventPayload = () => {
   return {
     shopifyService: getShopifyService(pathname),
     url: href,
+    ...getBrowserInfo(),
   };
 };
 

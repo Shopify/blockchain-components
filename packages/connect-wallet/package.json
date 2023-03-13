@@ -46,8 +46,7 @@
     "react-use-measure": "^2.1.1",
     "redux": "^5.0.0-alpha.2",
     "redux-persist": "^6.0.0",
-    "siwe": "^1.1.6",
-    "ua-parser-js": "^1.0.32"
+    "siwe": "^1.1.6"
   },
   "peerDependencies": {
     "ethers": "^5.7.2",
@@ -59,7 +58,6 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.4.0",
     "@types/qrcode": "^1.5.0",
-    "@types/ua-parser-js": "^0.7.36",
     "@wagmi/core": "0.8.10",
     "happy-dom": "^8.7.1",
     "tsup": "^6.5.0",

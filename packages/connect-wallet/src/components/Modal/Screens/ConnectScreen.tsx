@@ -1,3 +1,4 @@
+import {getBrowserInfo} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
 
 import {SheetContent} from '../style';
@@ -7,7 +8,6 @@ import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink'
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
 import {setPendingConnector} from '../../../slices/walletSlice';
 import {Connector} from '../../../types/connector';
-import {getBrowserInfo} from '../../../utils/getBrowser';
 import {isInstalled} from '../../../utils/isInstalled';
 
 interface ConnectScreenProps {
