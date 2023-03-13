@@ -22,6 +22,7 @@ module.exports = {
       modal: '#FFFFFF',
       overlay: 'rgba(18, 18, 18, 0.2)',
       popover: '#FFFFFF',
+      skeleton: '#E4E5E7',
       tokengate: '#FFFFFF',
       transparent: 'transparent',
     },
