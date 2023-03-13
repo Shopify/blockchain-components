@@ -15,12 +15,18 @@ const COLOR_CSS: Record<Color, ClassName> = {
   secondary: 'sbc-text-secondary',
 };
 
-const BODY_LG_CSS: ClassName = 'sbc-font-body-lg sbc-text-body-lg';
-const BODY_MD_CSS: ClassName = 'sbc-font-body-md sbc-text-body-md';
-const BODY_SM_CSS: ClassName = 'sbc-font-body-sm sbc-text-body-sm';
-const HEADING_LG_CSS: ClassName = 'sbc-font-heading-lg sbc-text-heading-lg';
-const HEADING_MD_CSS: ClassName = 'sbc-font-heading-md sbc-text-heading-md';
-const HEADING_SM_CSS: ClassName = 'sbc-font-heading-sm sbc-text-heading-sm';
+const BODY_LG_CSS: ClassName =
+  'sbc-font-body-lg sbc-text-body-lg sbc-leading-body-lg';
+const BODY_MD_CSS: ClassName =
+  'sbc-font-body-md sbc-text-body-md sbc-leading-body-md';
+const BODY_SM_CSS: ClassName =
+  'sbc-font-body-sm sbc-text-body-sm sbc-leading-body-sm';
+const HEADING_LG_CSS: ClassName =
+  'sbc-font-heading-lg sbc-text-heading-lg sbc-leading-heading-lg';
+const HEADING_MD_CSS: ClassName =
+  'sbc-font-heading-md sbc-text-heading-md sbc-leading-heading-md';
+const HEADING_SM_CSS: ClassName =
+  'sbc-font-heading-sm sbc-text-heading-sm sbc-leading-heading-sm';
 
 const VARIANT_CSS: Record<Variant, ClassName> = {
   bodyLg: BODY_LG_CSS,

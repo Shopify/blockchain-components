@@ -16,11 +16,14 @@ const Card = ({title, subtitle, button, children}: CardProps) => {
       <Text as="h2" variant="headingMd">
         {title}
       </Text>
-      <div className="sbc-pt-1">
-        <Text as="span" variant="bodyMd" color="secondary">
-          {subtitle}
-        </Text>
-      </div>
+      <Text
+        as="span"
+        className="sbc-block sbc-pt-1"
+        variant="bodyMd"
+        color="secondary"
+      >
+        {subtitle}
+      </Text>
       {children}
       {button}
     </div>

@@ -10,4 +10,8 @@
   [id^='shopify-tokengate'] *:empty {
     @apply sbc-block;
   }
+
+  .sbc-my-divider {
+    margin: calc(calc(theme(fontSize[body-sm]) / 2) * -1) 0;
+  }
 }
