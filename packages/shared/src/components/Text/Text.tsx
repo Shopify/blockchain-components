@@ -34,13 +34,13 @@ const VARIANT_CSS: Record<Variant, ClassName> = {
 export const Text = ({
   as = 'span',
   children,
-  color = 'primary',
+  color,
   variant = 'bodyMd',
   ...props
 }: TextProps) => {
   const className = [
     VARIANT_CSS[variant],
-    COLOR_CSS[color],
+    color ? COLOR_CSS[color] : 'sbc-text-inherit',
     // Since className can be undefined, we need to use this spread hack unless
     // we want an additional space in our class on the DOM element.
     ...(props.className ? [props.className] : []),

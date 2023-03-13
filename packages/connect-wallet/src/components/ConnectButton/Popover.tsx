@@ -57,7 +57,9 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
 
   const portalElement = mobile
     ? document.body
-    : document.getElementById('connectWalletConnectedButtonWrapper');
+    : document.getElementById(
+        'shopify-connect-wallet-connected-button-wrapper',
+      );
 
   const {address, connectorId} = connectedWallets[0];
 
@@ -70,7 +72,7 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
    * in the DOM that is relevant to the size of the device. For example,
    * on mobile devices, this will render within the document.body, but in
    * the context of a desktop device, this will render in the
-   * connectWalletConnectedButtonWrapper.
+   * `shopify-connect-wallet-connected-button-wrapper`.
    */
   return createPortal(
     <LazyMotion features={domAnimation}>
