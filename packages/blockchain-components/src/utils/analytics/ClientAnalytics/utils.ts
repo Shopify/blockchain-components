@@ -1,5 +1,7 @@
 import {useCallback, useEffect} from 'react';
 
+import {getClientBrowserParameters} from '../../clientBrowserParameters';
+
 import {
   SubscriberFunction,
   Subscriber,
@@ -115,11 +117,11 @@ export const useEventWithTracking = ({
  */
 export const getAdditionalEventPayload = () => {
   // Casting as any to cover server side rendering
-  const {pathname, href} = (window as any)?.location || {};
+  const {pathname} = (window as any)?.location || {};
 
   return {
     shopifyService: getShopifyService(pathname),
-    url: href,
+    ...getClientBrowserParameters(),
   };
 };
 

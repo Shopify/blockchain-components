@@ -34,6 +34,13 @@ describe('utils', () => {
   const additionalPayload = {
     shopifyService: shopifyServices.PDP.name,
     url: 'https://ca.shop.gymshark.com/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
+    path: '/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
+    referrer: undefined,
+    search: undefined,
+    title: undefined,
+    uniqueToken: '',
+    visitToken: '',
+    userAgent: expect.any(String),
   };
 
   describe('subscribe', () => {
@@ -265,24 +272,36 @@ describe('utils', () => {
 
   describe('getAdditionalEventPayload', () => {
     const originalWindow = window;
+    const originalDocument = document;
 
     // Forcing window to be undefined for this test to mimic server side rendering
     beforeEach(() => {
       // eslint-disable-next-line no-global-assign
       window = undefined as any;
+      // eslint-disable-next-line no-global-assign
+      document = undefined as any;
     });
 
     afterEach(() => {
       // eslint-disable-next-line no-global-assign
       window = originalWindow;
+      // eslint-disable-next-line no-global-assign
+      document = originalDocument;
     });
 
     it('does not break if window is undefined', () => {
       const additionalPayload = getAdditionalEventPayload();
 
       expect(additionalPayload).toStrictEqual({
-        url: undefined,
         shopifyService: shopifyServices.OTHER.name,
+        path: '',
+        referrer: '',
+        search: '',
+        title: '',
+        uniqueToken: '',
+        url: '',
+        userAgent: '',
+        visitToken: '',
       });
     });
   });
