@@ -18,11 +18,15 @@ module.exports = {
         'button-large': '14px 20px',
         'button-medium': '10px 16px',
         'button-small': '6px 12px',
-        modal: '24px',
         tokengate: '20px',
+        popover: '24px',
+      },
+      zIndex: {
+        max: '2147483647',
       },
     },
     backgroundColor: {
+      'address-chip': '#FAFBFB',
       'button-disabled': '#F1F1F1',
       'button-disabled-hover': '#F1F1F1',
       'button-primary': '#202223',
@@ -30,7 +34,6 @@ module.exports = {
       'button-secondary': '#FFFFFF',
       'button-secondary-hover': '#F6F6F7',
       divider: '#E1E3E5',
-      modal: '#FFFFFF',
       overlay: 'rgba(18, 18, 18, 0.2)',
       popover: '#FFFFFF',
       skeleton: '#E4E5E7',
@@ -41,7 +44,6 @@ module.exports = {
       'button-disabled': '#202223',
       'button-primary': 'unset',
       'button-secondary': '#C9CCCF',
-      modal: 'unset',
       popover: 'unset',
       tokengate: 'rgba(0, 0, 0, 0.12)',
     },
@@ -49,9 +51,8 @@ module.exports = {
       'button-large': '6px',
       'button-medium': '6px',
       'button-small': '6px',
-      'modal-desktop': '16px',
-      'modal-mobile': '32px 32px 0px 0px',
-      popover: '8px',
+      'popover-desktop': '16px',
+      'popover-mobile': '32px 32px 0px 0px',
       tokengate: '8px',
       // Add the DEFAULT value -- DEFAULT is a Tailwind convention
       DEFAULT: defaultTheme.borderRadius.DEFAULT,
@@ -61,7 +62,6 @@ module.exports = {
       'button-disabled': 'unset',
       'button-primary': 'unset',
       'button-secondary': 'solid',
-      modal: 'unset',
       none: 'unset',
       popover: 'unset',
       tokengate: 'solid',
@@ -73,10 +73,11 @@ module.exports = {
       tokengate: '1px',
     },
     boxShadow: {
-      modal: '0px 0px 1px rgba(0, 0, 0, 0.2), 0px 26px 80px rgba(0, 0, 0, 0.2)',
       none: defaultTheme.boxShadow.none,
-      popover:
+      'popover-desktop':
         '0px 3px 6px -3px rgba(23, 24, 24, 0.08), 0px 8px 20px -4px rgba(23, 24, 24, 0.12)',
+      'popover-mobile':
+        '0px 0px 1px rgba(0, 0, 0, 0.2), 0px 26px 80px rgba(0, 0, 0, 0.2)',
       tokengate: 'unset',
     },
     fontFamily: {
