@@ -51,21 +51,28 @@ const SignatureScreen = () => {
   }, [error, isCriticalError, pendingWallet?.connectorName, signing, t]);
 
   return (
-    <div className="sbc-flex sbc-flex-col sbc-justify-center sbc-gap-y-6 sbc-p-popover sbc-pt-0">
-      <div className="sbc-mx-auto sbc-mt-6 sbc-mb-0">
+    <div className="sbc-flex sbc-flex-col sbc-justify-center sbc-gap-y-6 sbc-p-popover sbc-pt-6">
+      <div className="sbc-mx-auto">
         <ConnectorIcon id={pendingWallet?.connectorId} size="xl" />
       </div>
 
-      <Text as="h3" className="sbc-text-center" variant="headingLg">
-        {content.title}
-      </Text>
-      <Text
-        as="p"
-        className="sbc-text-center"
-        color={isCriticalError ? 'critical' : 'secondary'}
-      >
-        {content.subtitle}
-      </Text>
+      <div className="sbc-block">
+        <Text
+          as="h3"
+          className="sbc-mt-0 sbc-mb-2 sbc-text-center"
+          variant="headingLg"
+        >
+          {content.title}
+        </Text>
+
+        <Text
+          as="p"
+          className="sbc-m-0 sbc-text-center"
+          color={isCriticalError ? 'critical' : 'secondary'}
+        >
+          {content.subtitle}
+        </Text>
+      </div>
 
       {signing ? (
         <Spinner />
