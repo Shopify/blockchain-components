@@ -128,5 +128,5 @@ module.exports = {
       // icon: '#6D7175',
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 };
