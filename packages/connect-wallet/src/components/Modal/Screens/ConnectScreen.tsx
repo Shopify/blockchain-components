@@ -1,6 +1,5 @@
 import {useCallback} from 'react';
 
-import {SheetContent} from '../style';
 import {ConnectorButton} from '../../ConnectorButton';
 import {useAppDispatch} from '../../../hooks/useAppState';
 import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
@@ -107,7 +106,7 @@ const ConnectScreen = ({connectors}: ConnectScreenProps) => {
   );
 
   return (
-    <SheetContent rowGap="12px">
+    <div className="sbc-flex sbc-flex-col sbc-justify-center sbc-gap-y-3 sbc-p-popover sbc-pt-0">
       {connectors.map((providedConnector) => {
         const {connector, id, name} = providedConnector;
 
@@ -124,7 +123,7 @@ const ConnectScreen = ({connectors}: ConnectScreenProps) => {
           />
         );
       })}
-    </SheetContent>
+    </div>
   );
 };
 
