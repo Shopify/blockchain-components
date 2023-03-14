@@ -1,5 +1,4 @@
 import type {Meta, StoryObj} from '@storybook/react';
-import type {ThemeProps} from 'shared';
 import {WagmiConfig, configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 import {publicProvider} from 'wagmi/providers/public';
@@ -7,14 +6,11 @@ import {buildConnectors} from '../../connectors/buildConnectors';
 import {ConnectWalletProvider} from '../../providers/ConnectWalletProvider';
 import {ConnectButton} from '..';
 
-type ProviderThemeType = ThemeProps['theme'];
-
 interface TemplateProps {
-  theme: ProviderThemeType;
   wallets: 'Ethereum' | 'Solana';
 }
 
-const Component = ({theme, wallets}: TemplateProps) => {
+const Component = ({wallets}: TemplateProps) => {
   const chains = wallets === 'Ethereum' ? [mainnet] : [];
   const {provider, webSocketProvider} = configureChains(chains, [
     publicProvider(),
@@ -31,11 +27,7 @@ const Component = ({theme, wallets}: TemplateProps) => {
 
   return (
     <WagmiConfig client={client}>
-      <ConnectWalletProvider
-        chains={chains}
-        connectors={connectors}
-        theme={theme}
-      >
+      <ConnectWalletProvider chains={chains} connectors={connectors}>
         <ConnectButton />
       </ConnectWalletProvider>
     </WagmiConfig>
@@ -59,8 +51,8 @@ export const Playground: Story = {
       options: ['Ethereum'],
     },
   },
-  render: (args, {globals: {theme}}) => {
-    return <Component {...args} theme={theme} />;
+  render: (args) => {
+    return <Component {...args} />;
   },
 };
 

@@ -1,8 +1,6 @@
 import {AnalyticsListenerTestHelper} from '@shopify/blockchain-components';
-import {fireEvent} from '@testing-library/react';
+import {render, fireEvent} from '@testing-library/react';
 import {vi} from 'vitest';
-
-import {renderWithContext} from '../../tests/utils';
 
 import {Button} from './Button';
 import {DefaultArgs} from './fixtures';
@@ -14,7 +12,7 @@ describe('Button', () => {
     it('sends onClick event if onClickEventName is defined', async () => {
       const onClickMock = vi.fn();
       const subscriberMock = vi.fn();
-      const element = renderWithContext(
+      const element = render(
         <>
           <AnalyticsListenerTestHelper
             eventName={onClickEventName}
@@ -38,7 +36,7 @@ describe('Button', () => {
     it('does not send onClick event if onClickEventName is undefined', async () => {
       const onClickMock = vi.fn();
       const subscriberMock = vi.fn();
-      const element = renderWithContext(
+      const element = render(
         <>
           <AnalyticsListenerTestHelper
             eventName={onClickEventName}

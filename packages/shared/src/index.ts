@@ -1,7 +1,7 @@
 /**
  * Components
  */
-export {Button, ButtonWrapper, getButtonClassname} from './components/Button';
+export {Button, getButtonClassname} from './components/Button';
 export {IconButton} from './components/IconButton';
 export {SkeletonThumbnail} from './components/SkeletonThumbnail/SkeletonThumbnail';
 export {SkeletonDisplayText} from './components/SkeletonDisplayText/SkeletonDisplayText';
@@ -22,27 +22,14 @@ export {useOutsideClick} from './hooks/useOutsideClick';
 export * from './icons';
 
 /**
- * Providers
- */
-export {RootProvider} from './providers/RootProvider';
-
-/**
  * Styles
  */
 export {breakpoints, device} from './styles/breakpoints';
-export {NonEmptyElement} from './styles/sharedStyles';
-export {default as styled, css, keyframes} from './styles/styled';
-
-/**
- * Themes
- */
-export {Dawn, Default} from './themes';
 
 /**
  * Types
  */
 export {type DeepPartial} from './types/deepPartial';
-export type {Theme, ThemeProps} from './types/theme';
 
 /**
  * Utils
