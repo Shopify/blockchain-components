@@ -36,6 +36,7 @@ const SIZE_MAP: Record<`${Size}`, {style: ClassName; variant: Variant}> = {
 
 export const getButtonClassname = ({
   centered = true,
+  className,
   disabled = false,
   fullWidth = false,
   primary = false,
@@ -53,13 +54,21 @@ export const getButtonClassname = ({
   const widthCSS: ClassName = fullWidth ? 'sbc-w-full' : 'sbc-w-fit';
   const variantCSS = disabled ? DISABLED_CSS : enabledCSS;
 
-  const classes = [baseCSS, justifyCSS, sizeCSS, widthCSS, variantCSS];
+  const classes = [
+    baseCSS,
+    justifyCSS,
+    sizeCSS,
+    widthCSS,
+    variantCSS,
+    ...(className ? [className] : []),
+  ];
 
   return classes.join(' ');
 };
 
 export const Button = ({
   centered = true,
+  className,
   disabled = false,
   fullWidth = false,
   label,
@@ -86,13 +95,19 @@ export const Button = ({
     : props;
 
   const {variant: sizeVariant} = SIZE_MAP[size];
-  const className = getButtonClassname({disabled, fullWidth, primary, size});
+  const buttonCSS = getButtonClassname({
+    className,
+    disabled,
+    fullWidth,
+    primary,
+    size,
+  });
 
   return (
     <button
       aria-disabled={disabled}
       aria-label={label}
-      className={className}
+      className={buttonCSS}
       disabled={disabled}
       onClick={onClickWithTracking}
       role={link ? 'link' : 'button'}
