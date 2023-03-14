@@ -85,7 +85,7 @@ const ConnectingScreen = () => {
   return (
     <SheetContent rowGap="24px">
       <ConnectingWalletIcon>
-        <ConnectorIcon id={pendingConnector?.id} size="Xl" />
+        <ConnectorIcon id={pendingConnector?.id} size="xl" />
       </ConnectingWalletIcon>
 
       <Center>
