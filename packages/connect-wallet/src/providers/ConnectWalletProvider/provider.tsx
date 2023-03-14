@@ -5,7 +5,6 @@ import {
 import {MotionConfig} from 'framer-motion';
 import {FC, useMemo} from 'react';
 import {Provider} from 'react-redux';
-import {RootProvider} from 'shared';
 
 import {buildConnectors} from '../../connectors/buildConnectors';
 import {I18nProvider} from '../I18nProvider';
@@ -22,7 +21,6 @@ export const ConnectWalletProvider: FC<ProviderProps> = ({
   requireSignature = true,
   orderAttributionMode = 'required',
   statementGenerator,
-  theme,
 }: ProviderProps) => {
   useComponentRenderedTracking(eventNames.CONNECT_WALLET_PROVIDER_RENDERED);
 
@@ -54,13 +52,11 @@ export const ConnectWalletProvider: FC<ProviderProps> = ({
   return (
     <ConnectWalletContext.Provider value={contextValue}>
       <I18nProvider>
-        <RootProvider theme={theme}>
-          <MotionConfig reducedMotion="user">
-            <Provider store={store}>
-              <ModalProvider>{children}</ModalProvider>
-            </Provider>
-          </MotionConfig>
-        </RootProvider>
+        <MotionConfig reducedMotion="user">
+          <Provider store={store}>
+            <ModalProvider>{children}</ModalProvider>
+          </Provider>
+        </MotionConfig>
       </I18nProvider>
     </ConnectWalletContext.Provider>
   );
