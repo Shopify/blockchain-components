@@ -31,7 +31,7 @@ export const ConnectorButton = ({id, name, onClick}: ConnectorButtonProps) => {
       onClick={onClickWithTracking}
       type="button"
     >
-      <ConnectorIcon id={id} size="Sm" />
+      <ConnectorIcon id={id} size="sm" />
       <Text as="label" variant="bodyLg">
         {name}
       </Text>
