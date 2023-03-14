@@ -1,12 +1,14 @@
 import {Chain} from '@wagmi/core';
 import {createContext} from 'react';
 
+import {Connector} from '../../types/connector';
 import {OrderAttributionMode} from '../../types/orderAttribution';
 
 import {StatementGenerator} from './types';
 
 export interface ConnectWalletProviderValue {
   chains: Chain[];
+  connectors: Connector[];
   requireSignature?: boolean;
   statementGenerator?: StatementGenerator;
   orderAttributionMode: OrderAttributionMode;
@@ -14,6 +16,7 @@ export interface ConnectWalletProviderValue {
 
 const defaultContextValue: ConnectWalletProviderValue = {
   chains: [],
+  connectors: [],
   requireSignature: true,
   orderAttributionMode: 'required',
 };

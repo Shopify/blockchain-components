@@ -9,6 +9,7 @@ export {ConnectorIcon} from './components/ConnectorIcon/ConnectorIcon';
 /**
  * Constants
  */
+export {buildConnectors} from './connectors/buildConnectors';
 export {getDefaultConnectors} from './connectors/getDefaultConnectors';
 
 /**
@@ -31,5 +32,9 @@ export {Dawn, Default};
  * Types
  */
 export type {Theme};
-export type {Connector, SerializedConnector} from './types/connector';
+export type {
+  Connector,
+  CustomConnector,
+  SerializedConnector,
+} from './types/connector';
 export type {Wallet} from './types/wallet';

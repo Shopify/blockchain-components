@@ -28,7 +28,7 @@ We recommend creating a new file at the root of your app.
 Create a file in your project titled `connect-wallet-config.ts` at the root of your app with the following code. For more information, refer to [wagmi documentation](https://wagmi.sh).
 
 ```ts
-import {getDefaultConnectors} from '@shopify/connect-wallet';
+import {buildConnectors} from '@shopify/connect-wallet';
 import {configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 /**
@@ -38,7 +38,6 @@ import {mainnet} from 'wagmi/chains';
  */
 // import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {publicProvider} from 'wagmi/providers/public';
-
 const {chains, provider, webSocketProvider} = configureChains(
   [mainnet],
   [
@@ -46,17 +45,16 @@ const {chains, provider, webSocketProvider} = configureChains(
     publicProvider(),
   ],
 );
-
-const {connectors} = getDefaultConnectors({chains});
-
+const {connectors, wagmiConnectors} = buildConnectors({
+  chains,
+});
 const client = createClient({
   autoConnect: true,
-  connectors,
+  connectors: wagmiConnectors,
   provider,
   webSocketProvider,
 });
-
-export {chains, client};
+export {chains, client, connectors};
 ```
 
 ### App provider setup
@@ -67,12 +65,12 @@ Let's begin using the configured client and chains. In your app's entry point, (
 import {ConnectWalletProvider} from '@shopify/connect-wallet';
 import {WagmiConfig} from 'wagmi';
 
-import {chains, client} from './connect-wallet-config'
+import {chains, client, connectors} from './connect-wallet-config'
 
 export function Index() {
   return (
     <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains}>
+      <ConnectWalletProvider chains={chains} connectors={connectors}>
         /* {...your app content here} */
       </ConnectWalletProvider>
     </WagmiConfig>
