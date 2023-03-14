@@ -38,7 +38,6 @@ import {mainnet} from 'wagmi/chains';
  */
 // import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {publicProvider} from 'wagmi/providers/public';
-
 const {chains, provider, webSocketProvider} = configureChains(
   [mainnet],
   [
@@ -46,16 +45,15 @@ const {chains, provider, webSocketProvider} = configureChains(
     publicProvider(),
   ],
 );
-
-const {connectors, wagmiConnectors} = buildConnectors({chains});
-
+const {connectors, wagmiConnectors} = buildConnectors({
+  chains,
+});
 const client = createClient({
   autoConnect: true,
   connectors: wagmiConnectors,
   provider,
   webSocketProvider,
 });
-
 export {chains, client, connectors};
 ```
 
@@ -67,12 +65,12 @@ Let's begin using the configured client and chains. In your app's entry point, (
 import {ConnectWalletProvider} from '@shopify/connect-wallet';
 import {WagmiConfig} from 'wagmi';
 
-import {chains, client} from './connect-wallet-config'
+import {chains, client, connectors} from './connect-wallet-config'
 
 export function Index() {
   return (
     <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains}>
+      <ConnectWalletProvider chains={chains} connectors={connectors}>
         /* {...your app content here} */
       </ConnectWalletProvider>
     </WagmiConfig>
