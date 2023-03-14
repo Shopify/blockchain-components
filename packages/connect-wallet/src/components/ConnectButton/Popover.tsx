@@ -24,7 +24,6 @@ import {useDisconnect} from '../../hooks/useDisconnect';
 import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
 import {useTranslation} from '../../hooks/useTranslation';
 
-import {AddressChip, Background, Container, Frame} from './style';
 import {PopoverVariants} from './variants';
 
 interface PopoverProps {
@@ -78,34 +77,38 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
     <LazyMotion features={domAnimation}>
       <AnimatePresence>
         {visible ? (
-          <Container
-            as={m.div}
+          <m.div
+            className="sbc-fixed sbc-top-0 sbc-bottom-0 sbc-right-0 sbc-z-max sbc-flex sbc-min-w-full sbc-flex-col sbc-justify-end sbc-p-0 sm:sbc-absolute sm:sbc-top-full sm:sbc-bottom-auto sm:sbc-min-w-[280px] sm:sbc-py-1"
             exit={{pointerEvents: 'none'}}
             id="shopify-connect-wallet-popover-container"
             initial={{pointerEvents: 'auto'}}
           >
-            <Background
-              onClick={onDismiss}
+            <m.div
               animate={{opacity: 1}}
-              as={m.div}
+              className="sbc-absolute sbc-z-10 sbc-block sbc-h-full sbc-w-full sbc-bg-overlay sm:!sbc-hidden"
               exit={{opacity: 0}}
               initial={{opacity: 0}}
+              onClick={onDismiss}
             />
-            <Frame
+            <m.div
               animate="show"
-              as={m.div}
+              className="sbc-popover-frame-content sbc-z-20 sbc-flex sbc-flex-col sbc-items-center sbc-gap-y-4 sbc-rounded-popover-mobile sbc-border-none sbc-bg-popover sbc-p-popover sbc-shadow-popover-mobile sm:sbc-rounded-popover-desktop sm:sbc-border-popover sm:sbc-pb-popover sm:sbc-shadow-popover-desktop"
               exit="exit"
               initial="exit"
               variants={PopoverVariants({isSmall, reducedMotion})}
             >
               <ConnectorIcon id={connectorId} size="Lg" />
 
-              <AddressChip onClick={() => copy(address)}>
-                <Text as="span" variant="bodyLg">
+              <button
+                className="sbc-flex sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-py-2 sbc-px-3 hover:sbc-bg-button-secondary-hover"
+                onClick={() => copy(address)}
+                type="button"
+              >
+                <Text as="span" variant="bodyLg" color="primary">
                   {formatWalletAddress(address)}
                 </Text>
                 {copied ? CircleTick : Copy}
-              </AddressChip>
+              </button>
 
               <Button
                 aria-label={t('popover.disconnectButton')}
@@ -116,8 +119,8 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
                   eventNames.CONNECT_WALLET_DISCONNECT_BUTTON_CLICKED
                 }
               />
-            </Frame>
-          </Container>
+            </m.div>
+          </m.div>
         ) : null}
       </AnimatePresence>
     </LazyMotion>,

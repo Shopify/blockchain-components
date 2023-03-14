@@ -11,4 +11,15 @@
   #walletconnect-wrapper *:empty {
     @apply sbc-block;
   }
+
+  .sbc-popover-frame-content {
+    /* Uses the devices safe-area-inset-bottom with an
+     * additional 24px added for consistent padding and
+     * references the theme for a fallback padding value.
+     */
+    padding-bottom: calc(
+      theme(padding[popover]) +
+        env(safe-area-inset-bottom, theme(padding[popover]))
+    );
+  }
 }
