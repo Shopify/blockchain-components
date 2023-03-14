@@ -54,6 +54,7 @@ module.exports = {
       'button-small': '6px',
       'popover-desktop': '16px',
       'popover-mobile': '32px 32px 0px 0px',
+      qrcode: '16px',
       tokengate: '8px',
       // Add the DEFAULT value -- DEFAULT is a Tailwind convention
       DEFAULT: defaultTheme.borderRadius.DEFAULT,
@@ -82,6 +83,10 @@ module.exports = {
       'popover-mobile':
         '0px 0px 1px rgba(0, 0, 0, 0.2), 0px 26px 80px rgba(0, 0, 0, 0.2)',
       tokengate: 'unset',
+    },
+    fill: {
+      'qrcode-primary': '#202223',
+      'qrcode-secondary': '#FFFFFF',
     },
     fontFamily: {
       'body-lg': defaultTheme.fontFamily.sans,
@@ -128,5 +133,11 @@ module.exports = {
       // icon: '#6D7175',
     },
   },
-  plugins: [require('@tailwindcss/line-clamp')],
+  corePlugins: {
+    aspectRatio: false,
+  },
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
+  ],
 };
