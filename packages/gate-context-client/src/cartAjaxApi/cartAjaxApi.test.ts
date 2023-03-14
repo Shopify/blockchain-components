@@ -1,10 +1,23 @@
-import {vi} from 'vitest';
+import {vi, Mock} from 'vitest';
 import createFetchMock from 'vitest-fetch-mock';
+import {eventNames, publishEvent} from '@shopify/blockchain-components';
 
 import {undefinedGateContextGenerator} from '../index';
 
 import {getGateContextCartAjaxClient} from './cartAjaxApi';
 import {CartAjaxApiError, CartAjaxApiNotSupportedError} from './errors';
+
+vi.mock('@shopify/blockchain-components', async () => {
+  const {eventNames} = (await vi.importActual(
+    '@shopify/blockchain-components',
+  )) as any;
+  const publishEvent = vi.fn();
+
+  return {
+    eventNames,
+    publishEvent,
+  };
+});
 
 const mockShopifyValue = {
   routes: {
@@ -21,6 +34,10 @@ describe('AjaxAPI', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
     fetchMock.enableMocks();
+  });
+
+  afterEach(() => {
+    (publishEvent as Mock).mockClear();
   });
 
   const gateContextAjaxClient = getGateContextCartAjaxClient({
@@ -126,6 +143,17 @@ describe('AjaxAPI', () => {
           },
         }),
       );
+    });
+
+    it('calls publishEvent when gate context is submitted to the cart attribute', async () => {
+      mockFetch();
+      const data = gateContextData();
+
+      await gateContextAjaxClient.write(data);
+      expect(publishEvent).toHaveBeenCalledWith(
+        eventNames.GATE_CONTEXT_CLIENT_ON_CONTEXT_SUBMITTED_TO_CART_ATTRIBUTES,
+      );
+      expect(publishEvent).toHaveBeenCalledOnce();
     });
   });
 
