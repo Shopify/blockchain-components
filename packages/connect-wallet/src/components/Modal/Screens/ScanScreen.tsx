@@ -8,7 +8,6 @@ import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useTranslation} from '../../../hooks/useTranslation';
 import {useModal} from '../../../providers/ModalProvider';
 import {QRCode, QRCodeSkeleton} from '../../QRCode';
-import {ButtonContainer, SheetContent} from '../style';
 import {cleanupConnection} from '../../../utils/cleanupConnection';
 
 const ScanScreen = () => {
@@ -43,7 +42,7 @@ const ScanScreen = () => {
     }
 
     return (
-      <ButtonContainer>
+      <div className="sbc-flex sbc-flex-col sbc-items-center sbc-gap-y-3">
         {hasGetProductButton ? (
           <Button
             aria-label={t('Scan.getProduct', {connectorName: name})}
@@ -74,7 +73,7 @@ const ScanScreen = () => {
             size="Lg"
           />
         ) : null}
-      </ButtonContainer>
+      </div>
     );
   }, [
     connector?.id,
@@ -156,7 +155,7 @@ const ScanScreen = () => {
   }, []);
 
   return (
-    <SheetContent rowGap="16px">
+    <div className="sbc-flex sbc-flex-col sbc-justify-center sbc-gap-y-4 sbc-p-popover sbc-pt-0">
       <LazyMotion features={domAnimation}>
         <AnimatePresence>
           {qrCodeURI ? <QRCode uri={qrCodeURI} /> : <QRCodeSkeleton />}
@@ -164,7 +163,7 @@ const ScanScreen = () => {
       </LazyMotion>
 
       {buttons}
-    </SheetContent>
+    </div>
   );
 };
 
