@@ -8,12 +8,6 @@ import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useModalScreenContent} from '../../../hooks/useModalContent';
 import {useTranslation} from '../../../hooks/useTranslation';
 import {ModalRoute, useModal} from '../../../providers/ModalProvider';
-import {
-  ButtonContainer,
-  Center,
-  ConnectingWalletIcon,
-  SheetContent,
-} from '../style';
 import {ConnectionState} from '../../../types/connectionState';
 import {getBrowserInfo} from '../../../utils/getBrowser';
 
@@ -45,10 +39,11 @@ const ConnectingScreen = () => {
     }
 
     return (
-      <ButtonContainer>
+      <div className="sbc-flex sbc-flex-col sbc-items-center sbc-gap-y-3">
         {canTryAgain ? (
           <Button
             aria-label={t('button.retry')}
+            className="sbc-w-full sm:sbc-w-fit"
             label={t('button.retry')}
             onClick={() => connect({connector})}
             onClickEventName={
@@ -69,7 +64,7 @@ const ConnectingScreen = () => {
             size="Lg"
           />
         ) : null}
-      </ButtonContainer>
+      </div>
     );
   }, [
     canTryAgain,
@@ -83,20 +78,22 @@ const ConnectingScreen = () => {
   ]);
 
   return (
-    <SheetContent rowGap="24px">
-      <ConnectingWalletIcon>
+    <div className="sbc-flex sbc-flex-col sbc-justify-center sbc-gap-y-6 sbc-p-popover sbc-pt-0">
+      <div className="sbc-mx-auto sbc-mt-6 sbc-mb-0">
         <ConnectorIcon id={pendingConnector?.id} size="xl" />
-      </ConnectingWalletIcon>
+      </div>
 
-      <Center>
-        <Text as="h3" variant="headingLg">
-          {title}
-        </Text>
+      <Text as="h3" className="sbc-text-center" variant="headingLg">
+        {title}
+      </Text>
 
-        <Text as="p" color={isErrorState ? 'critical' : 'secondary'}>
-          {body}
-        </Text>
-      </Center>
+      <Text
+        as="p"
+        className="sbc-text-center"
+        color={isErrorState ? 'critical' : 'secondary'}
+      >
+        {body}
+      </Text>
 
       {connectionStatus === ConnectionState.Connecting &&
       pendingConnector?.name !== 'WalletConnect' ? (
@@ -104,7 +101,7 @@ const ConnectingScreen = () => {
       ) : (
         buttons
       )}
-    </SheetContent>
+    </div>
   );
 };
 
