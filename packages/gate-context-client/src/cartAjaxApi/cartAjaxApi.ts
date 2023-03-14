@@ -3,6 +3,7 @@
  * the abstraction that refers to how gate unlocking information is stored
  * without specific references to the backing store.
  */
+import {publishEvent, eventNames} from '@shopify/blockchain-components';
 import {
   GateContextClient,
   GateContextClientOptions,
@@ -64,6 +65,9 @@ async function write<TGateContext, TRawResponse>(
     }),
   });
   const json = await response.json();
+  publishEvent(
+    eventNames.GATE_CONTEXT_CLIENT_ON_CONTEXT_SUBMITTED_TO_CART_ATTRIBUTES,
+  );
   return {
     raw: json,
   };
