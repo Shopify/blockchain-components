@@ -5,7 +5,6 @@ import {
   adaptUnlockingTokens,
 } from '@shopify/tokengate';
 
-import './DawnVariables.css';
 import {Preview} from './style';
 import {
   EventName,

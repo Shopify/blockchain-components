@@ -29,11 +29,16 @@
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
+    },
+    "./styles.css": {
+      "import": "./dist/styles.css"
     }
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "DEV=true tsup --watch",
+    "build": "tsup && tailwindcss -i ./src/styles.css -o ./dist/styles.css",
+    "dev": "concurrently \"yarn run dev:*\"",
+    "dev:tailwind": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch",
+    "dev:tsup": "DEV=true tsup --watch",
     "lint": "eslint '**/*.ts*'",
     "test": "vitest run",
     "test:watch": "vitest",

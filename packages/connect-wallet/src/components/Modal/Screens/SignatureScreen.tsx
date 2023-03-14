@@ -59,7 +59,7 @@ const SignatureScreen = () => {
   return (
     <SheetContent rowGap="24px">
       <ConnectingWalletIcon>
-        <ConnectorIcon id={pendingWallet?.connectorId} size="Xl" />
+        <ConnectorIcon id={pendingWallet?.connectorId} size="xl" />
       </ConnectingWalletIcon>
       <Center>
         <Text as="h3" variant="headingLg">

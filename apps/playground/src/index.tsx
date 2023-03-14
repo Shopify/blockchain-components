@@ -3,6 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {WagmiConfig} from 'wagmi';
 
+import '@shopify/connect-wallet/styles.css';
+import '@shopify/tokengate/styles.css';
+
 import {AnalyticsListener} from './components/AnalyticsListener';
 import App from './App';
 import './index.css';

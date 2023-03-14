@@ -1,13 +1,14 @@
 import {Text} from 'shared';
 
-import {Wrapper} from './style';
-
 const Error = ({text}: {text?: string}) => (
-  <Wrapper>
-    <Text as="p" variant="bodyMd" color="critical">
-      {text}
-    </Text>
-  </Wrapper>
+  <Text
+    as="p"
+    className="sbc-mt-2 sbc-whitespace-pre-line sbc-text-center"
+    color="critical"
+    variant="bodyMd"
+  >
+    {text}
+  </Text>
 );
 
 export {Error};

@@ -24,10 +24,19 @@
   ],
   "node": ">=14.16",
   "types": "./dist/index.d.ts",
-  "exports": "./dist/index.js",
+  "exports": {
+    ".": {
+      "default": "./dist/index.js"
+    },
+    "./styles.css": {
+      "import": "./dist/styles.css"
+    }
+  },
   "scripts": {
-    "build": "tsup",
-    "dev": "DEV=true tsup --watch",
+    "build": "tsup && tailwindcss -i ./src/styles.css -o ./dist/styles.css",
+    "dev": "concurrently \"yarn run dev:*\"",
+    "dev:tailwind": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch",
+    "dev:tsup": "DEV=true tsup --watch",
     "lint": "eslint '**/*.ts*'",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -61,7 +70,10 @@
     "@types/qrcode": "^1.5.0",
     "@types/ua-parser-js": "^0.7.36",
     "@wagmi/core": "0.8.10",
+    "autoprefixer": "^10.4.14",
     "happy-dom": "^8.7.1",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.7",
     "tsup": "^6.5.0",
     "vitest": "^0.28.5"
   }

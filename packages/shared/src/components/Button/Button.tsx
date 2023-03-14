@@ -2,21 +2,74 @@ import {useEventWithTracking} from '@shopify/blockchain-components';
 
 import {Text, Variant} from '../Text';
 import {Spinner} from '../Spinner';
+import {ClassName} from '../../types/generic';
 
-import {ButtonWrapper} from './style';
-import type {ButtonProps, Size} from './types';
+import type {ButtonProps, GetButtonClassnameProps, Size} from './types';
+
+// Sizes
+const LG_CSS: ClassName = 'sbc-rounded-button-large sbc-p-button-large';
+const MD_CSS: ClassName = 'sbc-rounded-button-medium sbc-p-button-medium';
+const SM_CSS: ClassName = 'sbc-rounded-button-small sbc-p-button-small';
+
+// Variants
+const PRIMARY_CSS: ClassName =
+  'sbc-bg-button-primary sbc-border-button-primary sbc-text-button-primary hover:sbc-bg-button-primary-hover';
+const SECONDARY_CSS: ClassName =
+  'sbc-bg-button-secondary sbc-border-button-secondary sbc-text-button-secondary hover:sbc-bg-button-secondary-hover';
+const DISABLED_CSS: ClassName =
+  'sbc-bg-button-disabled sbc-border-button-disabled sbc-text-button-disabled';
+
+const SIZE_MAP: Record<`${Size}`, {style: ClassName; variant: Variant}> = {
+  Sm: {
+    style: SM_CSS,
+    variant: 'bodyMd',
+  },
+  Md: {
+    style: MD_CSS,
+    variant: 'bodyMd',
+  },
+  Lg: {
+    style: LG_CSS,
+    variant: 'bodyLg',
+  },
+};
+
+export const getButtonClassname = ({
+  centered = true,
+  disabled = false,
+  fullWidth = false,
+  primary = false,
+  size = 'Md',
+}: GetButtonClassnameProps): ClassName => {
+  const {style: sizeCSS} = SIZE_MAP[size];
+
+  const baseCSS: ClassName =
+    'sbc-m-0 sbc-flex sbc-flex-row sbc-items-center sbc-no-underline sbc-transition-colors';
+
+  const enabledCSS = primary ? PRIMARY_CSS : SECONDARY_CSS;
+  const justifyCSS: ClassName = centered
+    ? 'sbc-justify-center'
+    : 'sbc-justify-start';
+  const widthCSS: ClassName = fullWidth ? 'sbc-w-full' : 'sbc-w-fit';
+  const variantCSS = disabled ? DISABLED_CSS : enabledCSS;
+
+  const classes = [baseCSS, justifyCSS, sizeCSS, widthCSS, variantCSS];
+
+  return classes.join(' ');
+};
 
 export const Button = ({
+  centered = true,
+  disabled = false,
   fullWidth = false,
   label,
-  loading = false,
   link,
-  primary = false,
-  disabled = false,
-  size = 'Md',
+  loading = false,
   onClick,
   onClickEventName,
   onClickEventPayload,
+  primary = false,
+  size = 'Md',
   ...props
 }: ButtonProps) => {
   const onClickWithTracking = useEventWithTracking({
@@ -32,24 +85,18 @@ export const Button = ({
       }
     : props;
 
-  const sizeMappedToTextVariant: {[S in Size]: Variant} = {
-    Sm: 'bodyMd',
-    Md: 'bodyMd',
-    Lg: 'bodyLg',
-  };
+  const {variant: sizeVariant} = SIZE_MAP[size];
+  const className = getButtonClassname({disabled, fullWidth, primary, size});
 
   return (
-    <ButtonWrapper
+    <button
       aria-disabled={disabled}
       aria-label={label}
-      as={link ? 'a' : 'button'}
+      className={className}
       disabled={disabled}
-      fullWidth={fullWidth}
-      primary={loading ? false : primary}
-      role={link ? 'link' : 'button'}
-      size={size}
-      type="button"
       onClick={onClickWithTracking}
+      role={link ? 'link' : 'button'}
+      type="button"
       {...wrapperProps}
     >
       {/*
@@ -60,10 +107,14 @@ export const Button = ({
       {loading ? (
         <Spinner />
       ) : (
-        <Text as="label" bold variant={sizeMappedToTextVariant[size]}>
+        <Text
+          as="label"
+          className="sbc-pointer-events-none"
+          variant={sizeVariant}
+        >
           {label}
         </Text>
       )}
-    </ButtonWrapper>
+    </button>
   );
 };

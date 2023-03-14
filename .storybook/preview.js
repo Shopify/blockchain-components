@@ -1,5 +1,8 @@
 import {withThemeProvider} from './decorators';
 
+import '@shopify/connect-wallet/styles.css';
+import '@shopify/tokengate/styles.css';
+
 export const parameters = {
   actions: {argTypesRegex: '^on[A-Z].*'},
   controls: {

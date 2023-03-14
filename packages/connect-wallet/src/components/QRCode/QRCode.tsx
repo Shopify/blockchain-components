@@ -114,7 +114,7 @@ export function QRCode({uri}: Props) {
       </svg>
 
       <IconContainer>
-        <ConnectorIcon id={pendingConnector?.id} size="Xl" />
+        <ConnectorIcon id={pendingConnector?.id} size="xl" />
       </IconContainer>
     </Container>
   );

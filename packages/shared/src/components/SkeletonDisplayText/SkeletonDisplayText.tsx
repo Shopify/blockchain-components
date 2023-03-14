@@ -1,8 +1,3 @@
-import styled from '../../styles/styled';
-
-export const SkeletonDisplayText = styled.div`
-  background-color: #e4e5e7;
-  width: 7.5rem;
-  height: 20px;
-  border-radius: 4px;
-`;
+export const SkeletonDisplayText = () => (
+  <div className="sbc-h-5 sbc-w-[7.5rem] sbc-animate-pulse sbc-rounded sbc-bg-skeleton" />
+);

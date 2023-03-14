@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  [id^='shopify-tokengate'] {
+    @apply sbc-text-primary;
+  }
+
+  [id^='shopify-tokengate'] *:empty {
+    @apply sbc-block;
+  }
+
+  .sbc-my-divider {
+    margin: calc(calc(theme(fontSize[body-sm]) / 2) * -1) 0;
+  }
+}

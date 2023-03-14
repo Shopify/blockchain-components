@@ -1,7 +1,7 @@
 /**
  * Components
  */
-export {Button, ButtonWrapper} from './components/Button';
+export {Button, ButtonWrapper, getButtonClassname} from './components/Button';
 export {IconButton} from './components/IconButton';
 export {SkeletonThumbnail} from './components/SkeletonThumbnail/SkeletonThumbnail';
 export {SkeletonDisplayText} from './components/SkeletonDisplayText/SkeletonDisplayText';
