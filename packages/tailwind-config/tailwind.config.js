@@ -44,6 +44,7 @@ module.exports = {
       'button-disabled': '#202223',
       'button-primary': 'unset',
       'button-secondary': '#C9CCCF',
+      divider: '#E1E3E5',
       popover: 'unset',
       tokengate: 'rgba(0, 0, 0, 0.12)',
     },
@@ -62,6 +63,7 @@ module.exports = {
       'button-disabled': 'unset',
       'button-primary': 'unset',
       'button-secondary': 'solid',
+      divider: 'solid',
       none: 'unset',
       popover: 'unset',
       tokengate: 'solid',
@@ -70,6 +72,7 @@ module.exports = {
       'button-disabled': '0px',
       'button-primary': '0px',
       'button-secondary': '1px',
+      divider: '1px',
       tokengate: '1px',
     },
     boxShadow: {
