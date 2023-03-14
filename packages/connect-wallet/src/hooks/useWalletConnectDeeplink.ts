@@ -1,9 +1,8 @@
+import {Browser, getBrowserInfo} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
 
-import {Browser} from '../types/browser';
 import {Connector} from '../types/connector';
 import {cleanupConnection} from '../utils/cleanupConnection';
-import {getBrowserInfo} from '../utils/getBrowser';
 
 interface ItemProps {
   href: string;
