@@ -85,7 +85,7 @@ export const ConnectButton = () => {
       <button
         aria-disabled={false}
         aria-label={buttonLabel}
-        className={buttonClassname}
+        className={`${buttonClassname} sbc-gap-x-2`}
         onClick={togglePopoverWithTracking}
         type="button"
       >
