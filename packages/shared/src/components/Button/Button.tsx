@@ -4,7 +4,7 @@ import {Text, Variant} from '../Text';
 import {Spinner} from '../Spinner';
 import {ClassName} from '../../types/generic';
 
-import type {ButtonProps, Size} from './types';
+import type {ButtonProps, GetButtonClassnameProps, Size} from './types';
 
 // Sizes
 const LG_CSS: ClassName = 'sbc-rounded-button-large sbc-p-button-large';
@@ -35,24 +35,31 @@ const SIZE_MAP: Record<`${Size}`, {style: ClassName; variant: Variant}> = {
 };
 
 export const getButtonClassname = ({
-  disabled,
-  fullWidth,
-  primary,
-  size,
-}: Required<
-  Pick<ButtonProps, 'disabled' | 'fullWidth' | 'primary' | 'size'>
->): ClassName => {
+  centered = true,
+  disabled = false,
+  fullWidth = false,
+  primary = false,
+  size = 'Md',
+}: GetButtonClassnameProps): ClassName => {
   const {style: sizeCSS} = SIZE_MAP[size];
 
-  const enabledCSS = primary ? PRIMARY_CSS : SECONDARY_CSS;
-  const variantClass = `${disabled ? DISABLED_CSS : enabledCSS} ${sizeCSS}`;
+  const baseCSS: ClassName =
+    'sbc-m-0 sbc-flex sbc-flex-row sbc-items-center sbc-no-underline sbc-transition-colors';
 
-  return `sbc-m-0 sbc-flex sbc-flex-row sbc-items-center sbc-justify-center sbc-no-underline sbc-transition-colors ${
-    fullWidth ? 'sbc-w-full' : 'sbc-w-fit'
-  } ${variantClass}`;
+  const enabledCSS = primary ? PRIMARY_CSS : SECONDARY_CSS;
+  const justifyCSS: ClassName = centered
+    ? 'sbc-justify-center'
+    : 'sbc-justify-start';
+  const widthCSS: ClassName = fullWidth ? 'sbc-w-full' : 'sbc-w-fit';
+  const variantCSS = disabled ? DISABLED_CSS : enabledCSS;
+
+  const classes = [baseCSS, justifyCSS, sizeCSS, widthCSS, variantCSS];
+
+  return classes.join(' ');
 };
 
 export const Button = ({
+  centered = true,
   disabled = false,
   fullWidth = false,
   label,
