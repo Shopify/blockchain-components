@@ -25,7 +25,6 @@ import {useAppSelector} from '../../hooks/useAppState';
 import {useTranslation} from '../../hooks/useTranslation';
 import {ModalRoute, useModal} from '../../providers/ModalProvider';
 
-import {Background, Header, Sheet, Wrapper} from './style';
 import {
   ConnectScreen,
   ConnectingScreen,
@@ -129,22 +128,22 @@ export const Modal = () => {
     <LazyMotion features={domAnimation}>
       <AnimatePresence>
         {active ? (
-          <Wrapper
-            as={m.div}
+          <m.div
+            className="sbc-fixed sbc-top-0 sbc-left-0 sbc-right-0 sbc-bottom-0 sbc-z-max sbc-flex sbc-items-end sbc-justify-center sm:sbc-items-center"
             exit={{pointerEvents: 'none'}}
             id="shopify-connect-wallet-modal-container"
             initial={{pointerEvents: 'auto'}}
           >
-            <Background
+            <m.div
               animate={{opacity: 1}}
-              as={m.div}
+              className="sbc-absolute sbc-z-10 sbc-h-full sbc-w-full sbc-bg-overlay"
               exit={{opacity: 0}}
               initial={{opacity: 0}}
               onClick={handleBackdropPress}
             />
-            <Sheet
+            <m.div
               animate="show"
-              as={m.div}
+              className="sbc-relative sbc-z-20 sbc-w-full sbc-max-w-none sbc-overflow-hidden sbc-rounded-popover-mobile sbc-border-popover sbc-bg-popover sbc-shadow-popover-mobile sm:sbc-max-w-sm sm:sbc-rounded-popover-desktop sm:sbc-shadow-popover-desktop"
               exit="exit"
               initial="exit"
               variants={ModalVariants({
@@ -154,10 +153,14 @@ export const Modal = () => {
               })}
             >
               <div ref={ref}>
-                <Header>
+                <div className="sbc-flex sbc-flex-row sbc-items-center sbc-gap-x-4 sbc-p-popover">
                   {leftButton}
 
-                  <Text as="h2" variant="headingMd">
+                  <Text
+                    as="h2"
+                    className="sbc-max-w-full sbc-flex-1 sbc-text-ellipsis sbc-whitespace-nowrap sbc-break-all sbc-text-center sbc-line-clamp-2"
+                    variant="headingMd"
+                  >
                     {title}
                   </Text>
 
@@ -169,12 +172,12 @@ export const Modal = () => {
                     }
                     onClick={closeModal}
                   />
-                </Header>
+                </div>
 
                 {screenComponent}
               </div>
-            </Sheet>
-          </Wrapper>
+            </m.div>
+          </m.div>
         ) : null}
       </AnimatePresence>
     </LazyMotion>,
