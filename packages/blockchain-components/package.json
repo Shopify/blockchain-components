@@ -50,5 +50,8 @@
     "tsup": "^6.5.0",
     "vitest": "^0.28.5",
     "vitest-fetch-mock": "^0.2.1"
+  },
+  "dependencies": {
+    "worktop": "^0.7.3"
   }
 }
