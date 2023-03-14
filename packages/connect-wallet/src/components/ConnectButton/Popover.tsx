@@ -97,7 +97,7 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
               initial="exit"
               variants={PopoverVariants({isSmall, reducedMotion})}
             >
-              <ConnectorIcon id={connectorId} size="Lg" />
+              <ConnectorIcon id={connectorId} size="lg" />
 
               <button
                 className="sbc-flex sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-py-2 sbc-px-3 hover:sbc-bg-button-secondary-hover"

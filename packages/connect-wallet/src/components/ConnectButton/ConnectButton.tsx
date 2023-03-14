@@ -87,7 +87,7 @@ export const ConnectButton = () => {
         onClick={togglePopoverWithTracking}
         type="button"
       >
-        <ConnectorIcon id={connectorId} size="Xs" />
+        <ConnectorIcon id={connectorId} size="xs" />
         <Text as="span" variant="bodyLg">
           {buttonLabel}
         </Text>
