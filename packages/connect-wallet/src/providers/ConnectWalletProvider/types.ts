@@ -1,5 +1,4 @@
 import {Chain} from '@wagmi/core';
-import {ThemeProps} from 'shared';
 
 import {Connector} from '../../types/connector';
 import {OrderAttributionMode} from '../../types/orderAttribution';
@@ -17,7 +16,7 @@ export type StatementGenerator =
   | ((props: StatementGeneratorProps) => Promise<string>)
   | undefined;
 
-interface ProviderBaseProps extends ThemeProps {
+interface ProviderBaseProps {
   chains: Chain[];
   connectors: Connector[];
 }

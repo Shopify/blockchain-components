@@ -54,17 +54,6 @@ module.exports = {
       {
         paths: [
           {
-            name: 'styled-components',
-            importNames: [
-              'createGlobalStyle',
-              'ThemeContext',
-              'useTheme',
-              'withTheme',
-            ],
-            message:
-              'The import specified affects external stylesheets and creates build errors for developers using styled-components.',
-          },
-          {
             name: 'react-i18next',
             importNames: ['useTranslation'],
             message:

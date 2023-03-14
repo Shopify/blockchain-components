@@ -1,5 +1,4 @@
 import {ReactNode} from 'react';
-import {ThemeProps} from 'shared';
 
 export interface Condition {
   name?: string;
@@ -42,7 +41,7 @@ export interface Reaction {
   };
 }
 
-export type TokengateProps = ThemeProps & {
+export interface TokengateProps {
   connectButton: ReactNode;
   connectedButton?: ReactNode;
   isLoading?: boolean;
@@ -59,7 +58,7 @@ export type TokengateProps = ThemeProps & {
   };
   reaction?: Reaction;
   redemptionLimit?: RedemptionLimit;
-};
+}
 
 export const instanceOfUnlockingToken = (
   object: any,
