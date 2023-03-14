@@ -34,6 +34,24 @@ const SIZE_MAP: Record<`${Size}`, {style: ClassName; variant: Variant}> = {
   },
 };
 
+export const getButtonClassname = ({
+  disabled,
+  fullWidth,
+  primary,
+  size,
+}: Required<
+  Pick<ButtonProps, 'disabled' | 'fullWidth' | 'primary' | 'size'>
+>): ClassName => {
+  const {style: sizeCSS} = SIZE_MAP[size];
+
+  const enabledCSS = primary ? PRIMARY_CSS : SECONDARY_CSS;
+  const variantClass = `${disabled ? DISABLED_CSS : enabledCSS} ${sizeCSS}`;
+
+  return `sbc-m-0 sbc-flex sbc-flex-row sbc-items-center sbc-justify-center sbc-no-underline sbc-transition-colors ${
+    fullWidth ? 'sbc-w-full' : 'sbc-w-fit'
+  } ${variantClass}`;
+};
+
 export const Button = ({
   disabled = false,
   fullWidth = false,
@@ -60,18 +78,14 @@ export const Button = ({
       }
     : props;
 
-  const {style: sizeCSS, variant: sizeVariant} = SIZE_MAP[size];
-
-  const enabledCSS = primary ? PRIMARY_CSS : SECONDARY_CSS;
-  const variantClass = `${disabled ? DISABLED_CSS : enabledCSS} ${sizeCSS}`;
+  const {variant: sizeVariant} = SIZE_MAP[size];
+  const className = getButtonClassname({disabled, fullWidth, primary, size});
 
   return (
     <button
       aria-disabled={disabled}
       aria-label={label}
-      className={`sbc-m-0 sbc-flex sbc-flex-row sbc-items-center sbc-justify-center sbc-no-underline sbc-transition-colors ${
-        fullWidth ? 'sbc-w-full' : 'sbc-w-fit'
-      } ${variantClass}`}
+      className={className}
       disabled={disabled}
       onClick={onClickWithTracking}
       role={link ? 'link' : 'button'}
