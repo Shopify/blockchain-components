@@ -1,7 +1,6 @@
 import {MotionConfig} from 'framer-motion';
 import {FC, PropsWithChildren, useMemo} from 'react';
 import {Provider} from 'react-redux';
-import {RootProvider} from 'shared';
 
 import {I18nProvider} from '../I18nProvider';
 import {ModalProvider} from '../ModalProvider';
@@ -16,7 +15,6 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   requireSignature = true,
   orderAttributionMode = 'required',
   statementGenerator,
-  theme,
 }: PropsWithChildren<ProviderProps>) => {
   const contextValue: ConnectWalletProviderValue = useMemo(() => {
     return {
@@ -30,13 +28,11 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   return (
     <ConnectWalletContext.Provider value={contextValue}>
       <I18nProvider>
-        <RootProvider theme={theme}>
-          <MotionConfig reducedMotion="user">
-            <Provider store={store}>
-              <ModalProvider>{children}</ModalProvider>
-            </Provider>
-          </MotionConfig>
-        </RootProvider>
+        <MotionConfig reducedMotion="user">
+          <Provider store={store}>
+            <ModalProvider>{children}</ModalProvider>
+          </Provider>
+        </MotionConfig>
       </I18nProvider>
     </ConnectWalletContext.Provider>
   );

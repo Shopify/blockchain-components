@@ -5,7 +5,7 @@ import {
   adaptUnlockingTokens,
 } from '@shopify/tokengate';
 
-import {Preview} from './style';
+import './App.css';
 import {
   EventName,
   CheckIfWalletMeetsRequirementsEvent,
@@ -101,7 +101,9 @@ export default function ({serverArguments}: AppProps) {
   );
 
   if (isDev) {
-    return <Preview>{_TokengateComponent}</Preview>;
+    return (
+      <div className="blockchain-components-preview">{_TokengateComponent}</div>
+    );
   }
 
   return _TokengateComponent;

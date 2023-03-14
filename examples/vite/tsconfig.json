@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist"
   },
-  "include": ["./src", "./styled.d.ts"],
+  "include": ["./src"],
   "exclude": ["node_modules", "./dist"],
   "extends": "tsconfig/react-app.json"
 }
