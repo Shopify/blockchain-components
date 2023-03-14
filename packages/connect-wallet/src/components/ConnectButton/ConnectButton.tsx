@@ -69,9 +69,7 @@ export const ConnectButton = () => {
 
   const {address, connectorId, displayName} = activeWallet;
   const buttonClassname = getButtonClassname({
-    disabled: false,
     fullWidth: true,
-    primary: false,
     size: 'Lg',
   });
   const buttonLabel = displayName || formatWalletAddress(address);
