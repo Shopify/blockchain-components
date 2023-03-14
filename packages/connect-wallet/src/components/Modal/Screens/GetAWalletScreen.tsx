@@ -1,17 +1,16 @@
 import {useContext} from 'react';
 import {ConnectWalletContext} from '../../../providers/ConnectWalletProvider';
 import {GetAConnectorButton} from '../../GetAConnectorButton';
-import {SheetContent} from '../style';
 
 const GetAWalletScreen = () => {
   const {connectors} = useContext(ConnectWalletContext);
 
   return (
-    <SheetContent>
+    <div className="sbc-flex sbc-flex-col sbc-justify-center sbc-p-popover sbc-pt-0">
       {connectors.map(({id}) => (
         <GetAConnectorButton connectorId={id} key={id} />
       ))}
-    </SheetContent>
+    </div>
   );
 };
 
