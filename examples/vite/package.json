@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "bundle-packages": "cd ../../ && yarn build --filter='!playground'",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -24,6 +25,7 @@
     "vite": "^4.1.0"
   },
   "resolutions": {
+    "@shopify/blockchain-components": "file:../../packages/blockchain-components",
     "@shopify/gate-context-client": "file:../../packages/gate-context-client"
   }
 }
