@@ -1,3 +1,4 @@
+import {PropsWithChildren} from 'react';
 import {WagmiConfig} from 'wagmi';
 
 import {ConnectWalletProvider} from '../providers/ConnectWalletProvider';
@@ -13,7 +14,7 @@ export const PackageContext = ({
   children,
   client,
   ...props
-}: PackageContextProps) => {
+}: PropsWithChildren<PackageContextProps>) => {
   return (
     <WagmiConfig client={client}>
       <ConnectWalletProvider {...props}>{children}</ConnectWalletProvider>

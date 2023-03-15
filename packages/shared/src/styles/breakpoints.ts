@@ -1,32 +1,26 @@
-// Can address the following violation in another PR.
-/* eslint-disable @shopify/typescript/prefer-pascal-case-enums */
-
 /**
- * Sizes are based on Bootstrap breakpoints.
- * https://getbootstrap.com/docs/5.0/layout/breakpoints/#available-breakpoints
+ * Sizes are based on Tailwind breakpoints.
+ * https://tailwindcss.com/docs/responsive-design
  */
 export const device = {
-  sm: 576,
+  sm: 640,
   md: 768,
-  lg: 992,
-  xl: 1200,
-  xxl: 1400,
+  lg: 1024,
+  xl: 1280,
+  xxl: 1536,
 };
 
-enum AvailableBreakpoint {
-  smDown = 'smDown',
-  smUp = 'smUp',
-  mdDown = 'mdDown',
-  mdUp = 'mdUp',
-  lgDown = 'lgDown',
-  lgUp = 'lgUp',
-  xlDown = 'xlDown',
-  xlUp = 'xlUp',
-  xxlDown = 'xxlDown',
-  xxlUp = 'xxlUp',
-}
-
-export type Breakpoint = keyof typeof AvailableBreakpoint;
+export type Breakpoint =
+  | 'smDown'
+  | 'smUp'
+  | 'mdDown'
+  | 'mdUp'
+  | 'lgDown'
+  | 'lgUp'
+  | 'xlDown'
+  | 'xlUp'
+  | 'xxlDown'
+  | 'xxlUp';
 
 /**
  * @example
