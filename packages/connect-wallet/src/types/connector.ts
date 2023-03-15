@@ -1,5 +1,4 @@
-import {Chain} from '@wagmi/core';
-import {Connector as WagmiConnector} from 'wagmi';
+import {Chain, Connector as WagmiConnector} from 'wagmi';
 import {InjectedConnector} from 'wagmi/connectors/injected';
 import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 
