@@ -23,10 +23,12 @@
     "tsconfig": "file:../../packages/tsconfig"
   },
   "resolutions": {
+    "@shopify/blockchain-components": "file:../../packages/blockchain-components",
     "@shopify/gate-context-client": "file:../../packages/gate-context-client"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "bundle-packages": "cd ../../ && yarn build --filter='!playground'",
+    "start": "yarn bundle-packages && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -1,4 +1,5 @@
 import {ConnectWalletProvider} from '@shopify/connect-wallet';
+import '@shopify/connect-wallet/styles.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {WagmiConfig} from 'wagmi';
@@ -14,7 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains}>
+      <ConnectWalletProvider chains={chains} connectors={[]}>
         <App />
       </ConnectWalletProvider>
     </WagmiConfig>
