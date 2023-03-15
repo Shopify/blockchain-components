@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "bundle-packages": "cd ../../ && yarn build --filter='!playground'",
+    "dev": "yarn bundle-packages && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -26,6 +27,7 @@
     "tsconfig": "file:../../packages/tsconfig"
   },
   "resolutions": {
+    "@shopify/blockchain-components": "file:../../packages/blockchain-components",
     "@shopify/gate-context-client": "file:../../packages/gate-context-client"
   }
 }

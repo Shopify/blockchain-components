@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "bundle-packages": "cd ../../ && yarn build --filter='!playground'",
-    "dev": "vite",
+    "dev": "yarn bundle-packages && vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
