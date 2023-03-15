@@ -3,6 +3,7 @@ import {render, fireEvent} from '@testing-library/react';
 
 import {AnalyticsListenerTestHelper} from '../../../tests/helpers/ClientAnalytics';
 import {shopifyServices} from '../../shopify/const';
+import {WindowWithShopifyAnalytics} from '../../shopify/types';
 
 import {
   subscribe,
@@ -15,7 +16,7 @@ import {
 import {eventNames} from './const';
 
 describe('utils', () => {
-  const originalWindowLocation = window.location;
+  const originalWindow = window;
 
   beforeEach(() => {
     vi.useFakeTimers();
@@ -24,14 +25,25 @@ describe('utils', () => {
       href: 'https://ca.shop.gymshark.com/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
       pathname: '/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
     };
+    (window as WindowWithShopifyAnalytics).ShopifyAnalytics = {
+      meta: {
+        page: {
+          pageType: 'product',
+          resourceId: 5301989212320,
+          resourceType: 'product',
+        },
+      },
+    };
   });
 
   afterEach(() => {
     vi.useRealTimers();
-    window.location = originalWindowLocation;
+    // eslint-disable-next-line no-global-assign
+    window = originalWindow;
   });
 
   const additionalPayload = {
+    shopifyResourceId: 5301989212320,
     shopifyService: shopifyServices.PDP.name,
     url: 'https://ca.shop.gymshark.com/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
     path: '/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
@@ -212,6 +224,7 @@ describe('utils', () => {
       const additionalPayload = getAdditionalEventPayload();
 
       expect(additionalPayload).toStrictEqual({
+        shopifyResourceId: undefined,
         shopifyService: shopifyServices.OTHER.name,
         path: '',
         referrer: '',
