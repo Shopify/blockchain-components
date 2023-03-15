@@ -27,7 +27,15 @@ const TokenList = ({tokens, separator, isLoading}: TokenListProps) => {
     )
   );
 
-  return <div className="sbc-py-2">{content}</div>;
+  return (
+    <div
+      className={`sbc-flex sbc-flex-col sbc-py-5${
+        separator ? '' : ' sbc-gap-y-3'
+      }`}
+    >
+      {content}
+    </div>
+  );
 };
 
 export {TokenList};

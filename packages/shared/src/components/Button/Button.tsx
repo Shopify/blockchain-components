@@ -13,11 +13,11 @@ const SM_CSS: ClassName = 'sbc-rounded-button-small sbc-p-button-small';
 
 // Variants
 const PRIMARY_CSS: ClassName =
-  'sbc-bg-button-primary sbc-border-button-primary sbc-text-button-primary hover:sbc-bg-button-primary-hover';
+  'sbc-bg-button-primary sbc-border-button-primary sbc-text-button-primary hover:sbc-bg-button-primary-hover sbc-cursor-pointer';
 const SECONDARY_CSS: ClassName =
-  'sbc-bg-button-secondary sbc-border-button-secondary sbc-text-button-secondary hover:sbc-bg-button-secondary-hover';
+  'sbc-bg-button-secondary sbc-border-button-secondary sbc-text-button-secondary hover:sbc-bg-button-secondary-hover sbc-cursor-pointer';
 const DISABLED_CSS: ClassName =
-  'sbc-bg-button-disabled sbc-border-button-disabled sbc-text-button-disabled';
+  'sbc-bg-button-disabled sbc-border-button-disabled sbc-text-button-disabled sbc-cursor-default';
 
 const SIZE_MAP: Record<`${Size}`, {style: ClassName; variant: Variant}> = {
   Sm: {
@@ -45,7 +45,7 @@ export const getButtonClassname = ({
   const {style: sizeCSS} = SIZE_MAP[size];
 
   const baseCSS: ClassName =
-    'sbc-m-0 sbc-flex sbc-flex-row sbc-items-center sbc-no-underline sbc-transition-colors';
+    'sbc-m-0 sbc-flex sbc-flex-row sbc-items-center sbc-no-underline sbc-transition-colors sbc-appearance-none';
 
   const enabledCSS = primary ? PRIMARY_CSS : SECONDARY_CSS;
   const justifyCSS: ClassName = centered

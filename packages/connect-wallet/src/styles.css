@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  [id^='shopify-connect-wallet'] {
-    @apply sbc-text-primary;
+  [id^='shopify-connect-wallet'] * {
+    @apply sbc-box-border;
   }
 
   [id^='shopify-connect-wallet'] *:empty,

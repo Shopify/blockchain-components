@@ -143,7 +143,7 @@ export const Modal = () => {
             />
             <m.div
               animate="show"
-              className="sbc-relative sbc-z-20 sbc-w-full sbc-max-w-none sbc-overflow-hidden sbc-rounded-popover-mobile sbc-border-popover sbc-bg-popover sbc-shadow-popover-mobile sm:sbc-max-w-sm sm:sbc-rounded-popover-desktop sm:sbc-shadow-popover-desktop"
+              className="sbc-relative sbc-z-20 sbc-w-full sbc-max-w-none sbc-overflow-hidden sbc-rounded-popover-mobile sbc-bg-popover sbc-shadow-popover-mobile sbc-border-popover sm:sbc-max-w-sm sm:sbc-rounded-popover-desktop sm:sbc-shadow-popover-desktop"
               exit="exit"
               initial="exit"
               variants={ModalVariants({

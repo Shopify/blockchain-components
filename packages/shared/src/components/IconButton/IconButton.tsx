@@ -18,7 +18,7 @@ const IconButton = ({
   });
   return (
     <button
-      className="sbc-flex sbc-h-5 sbc-w-5 sbc-cursor-pointer sbc-items-center sbc-justify-center sbc-border-none sbc-bg-transparent sbc-p-0 sbc-text-secondary sbc-shadow-none sbc-outline-none sbc-transition-opacity hover:sbc-opacity-60 focus:sbc-text-secondary focus-visible:sbc-opacity-60"
+      className="sbc-flex sbc-h-5 sbc-w-5 sbc-cursor-pointer sbc-items-center sbc-justify-center sbc-bg-transparent sbc-p-0 sbc-text-secondary sbc-shadow-none sbc-outline-none sbc-transition-opacity sbc-border-none hover:sbc-opacity-60 focus:sbc-text-secondary focus-visible:sbc-opacity-60"
       onClick={onClickWithTracking}
       {...rest}
       type="button"
