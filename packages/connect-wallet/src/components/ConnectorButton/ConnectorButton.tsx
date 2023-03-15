@@ -32,7 +32,7 @@ export const ConnectorButton = ({id, name, onClick}: ConnectorButtonProps) => {
       type="button"
     >
       <ConnectorIcon id={id} size="sm" />
-      <Text as="label" variant="bodyLg">
+      <Text as="label" className="sbc-pointer-events-none" variant="bodyLg">
         {name}
       </Text>
     </button>

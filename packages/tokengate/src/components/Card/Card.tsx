@@ -10,7 +10,7 @@ interface CardProps {
 const Card = ({title, subtitle, button, children}: CardProps) => {
   return (
     <div
-      className="sbc-rounded-tokengate sbc-border-tokengate sbc-bg-tokengate sbc-p-tokengate sbc-text-left sbc-shadow-tokengate"
+      className="sbc-rounded-tokengate sbc-bg-tokengate sbc-p-tokengate sbc-text-left sbc-shadow-tokengate sbc-border-tokengate"
       id="shopify-tokengate-card-container"
     >
       <Text as="h2" variant="headingMd">
@@ -18,7 +18,7 @@ const Card = ({title, subtitle, button, children}: CardProps) => {
       </Text>
       <Text
         as="span"
-        className="sbc-block sbc-pt-1"
+        className="sbc-mt-1 sbc-block"
         variant="bodyMd"
         color="secondary"
       >

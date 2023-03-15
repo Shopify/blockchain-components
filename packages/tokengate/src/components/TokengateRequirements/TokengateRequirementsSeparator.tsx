@@ -11,7 +11,7 @@ const TokengateRequirementsSeparator = ({
 
   return (
     <div
-      className={`sbc-my-divider sbc-flex sbc-items-center ${
+      className={`sbc-flex sbc-items-center sbc-py-1 ${
         logic ? 'sbc-gap-x-3' : 'sbc-gap-x-0'
       }`}
     >

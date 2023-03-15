@@ -92,7 +92,7 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
             />
             <m.div
               animate="show"
-              className="sbc-popover-frame-content sbc-z-20 sbc-flex sbc-flex-col sbc-items-center sbc-gap-y-4 sbc-rounded-popover-mobile sbc-border-none sbc-bg-popover sbc-p-popover sbc-shadow-popover-mobile sm:sbc-rounded-popover-desktop sm:sbc-border-popover sm:sbc-pb-popover sm:sbc-shadow-popover-desktop"
+              className="sbc-popover-frame-content sbc-z-20 sbc-flex sbc-flex-col sbc-items-center sbc-gap-y-4 sbc-rounded-popover-mobile sbc-bg-popover sbc-p-popover sbc-shadow-popover-mobile sbc-border-popover sm:sbc-rounded-popover-desktop sm:sbc-pb-popover sm:sbc-shadow-popover-desktop"
               exit="exit"
               initial="exit"
               variants={PopoverVariants({isSmall, reducedMotion})}
@@ -100,11 +100,16 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
               <ConnectorIcon id={connectorId} size="lg" />
 
               <button
-                className="sbc-flex sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-py-2 sbc-px-3 hover:sbc-bg-button-secondary-hover"
+                className="sbc-flex sbc-cursor-pointer sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-py-2 sbc-px-3 sbc-transition-colors sbc-border-none hover:sbc-bg-button-secondary-hover"
                 onClick={() => copy(address)}
                 type="button"
               >
-                <Text as="span" variant="bodyLg" color="primary">
+                <Text
+                  as="span"
+                  className="sbc-pointer-events-none"
+                  color="primary"
+                  variant="bodyLg"
+                >
                   {formatWalletAddress(address)}
                 </Text>
                 {copied ? CircleTick : Copy}

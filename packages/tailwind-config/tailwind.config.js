@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   // Using SBC for now
@@ -59,15 +60,6 @@ module.exports = {
       // Add the DEFAULT value -- DEFAULT is a Tailwind convention
       DEFAULT: defaultTheme.borderRadius.DEFAULT,
       full: defaultTheme.borderRadius.full,
-    },
-    borderStyle: {
-      'button-disabled': 'unset',
-      'button-primary': 'unset',
-      'button-secondary': 'solid',
-      divider: 'solid',
-      none: 'unset',
-      popover: 'unset',
-      tokengate: 'solid',
     },
     borderWidth: {
       'button-disabled': '0px',
@@ -135,9 +127,46 @@ module.exports = {
   },
   corePlugins: {
     aspectRatio: false,
+    borderStyle: false,
+    preflight: false,
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/line-clamp'),
+    /**
+     * Custom border styles for the blockchain components
+     *
+     * These are defined as a plugin since providing them to the
+     * theme object above does not add the border styles to the
+     * utilities layer as expected.
+     */
+    plugin(function ({addUtilities}) {
+      addUtilities({
+        '.border-button-disabled': {
+          'border-style': 'var(--sbc-button-disabled-border-style, unset)',
+        },
+        '.border-button-primary': {
+          'border-style': 'var(--sbc-button-primary-border-style, unset)',
+        },
+        '.border-button-secondary': {
+          'border-style': 'var(--sbc-button-secondary-border-style, solid)',
+        },
+        '.border-divider': {
+          'border-style': 'var(--sbc-divider-border-style, solid)',
+        },
+        '.border-b-divider': {
+          'border-bottom-style': 'var(--sbc-divider-border-style, solid)',
+        },
+        '.border-none': {
+          'border-style': 'unset',
+        },
+        '.border-popover': {
+          'border-style': 'var(--sbc-popover-border-style, unset)',
+        },
+        '.border-tokengate': {
+          'border-style': 'var(--sbc-tokengate-border-style, solid)',
+        },
+      });
+    }),
   ],
 };
