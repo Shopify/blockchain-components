@@ -1,6 +1,7 @@
 import {useCallback, useEffect} from 'react';
 
 import {getClientBrowserParameters} from '../../clientBrowserParameters';
+import {getShopifyService} from '../../shopify/utils';
 
 import {
   SubscriberFunction,
@@ -8,7 +9,7 @@ import {
   Subscribers,
   SubscriberValue,
 } from './types';
-import {eventNames, shopifyServices} from './const';
+import {eventNames} from './const';
 
 const subscribers: Subscribers = new Map();
 
@@ -123,19 +124,6 @@ export const getAdditionalEventPayload = () => {
     shopifyService: getShopifyService(pathname),
     ...getClientBrowserParameters(),
   };
-};
-
-/**
- * @param {string} pathname The client's complete URL's pathname
- * @returns {string} A string that represents the Shopify Service the URL corresponds to (Checkout, PDP, other)
- */
-export const getShopifyService = (pathname: string) => {
-  const servicesValues = Object.values(shopifyServices);
-  const currentService = servicesValues.find(
-    (service) =>
-      service.pathname && new RegExp(`/${service.pathname}(/)*`).exec(pathname),
-  );
-  return currentService?.name ?? shopifyServices.OTHER.name;
 };
 
 /**

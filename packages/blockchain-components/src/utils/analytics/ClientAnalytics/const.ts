@@ -35,12 +35,3 @@ export const eventNames = {
   GATE_CONTEXT_CLIENT_ON_CONTEXT_SUBMITTED_TO_CART_ATTRIBUTES:
     'GATE_CONTEXT_CLIENT_ON_CONTEXT_SUBMITTED_TO_CART_ATTRIBUTES',
 };
-
-export const shopifyServices = {
-  CART: {name: 'Cart', pathname: 'cart'},
-  CHECKOUT: {name: 'Checkout', pathname: 'checkouts'},
-  COLLECTION: {name: 'Collections', pathname: 'collections'},
-  OTHER: {name: 'Other', pathname: undefined},
-  PAGE: {name: 'Pages', pathname: 'pages'},
-  PDP: {name: 'Product Details Page', pathname: 'products'},
-};
