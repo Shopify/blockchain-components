@@ -4,12 +4,12 @@ import {WagmiConfig} from 'wagmi';
 
 import '../styles/globals.css';
 
-import {chains, client} from '../connect-wallet-config';
+import {chains, client, connectors} from '../connect-wallet-config';
 
 export default function App({Component, pageProps}: AppProps) {
   return (
     <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains}>
+      <ConnectWalletProvider chains={chains} connectors={connectors}>
         <Component {...pageProps} />
       </ConnectWalletProvider>
     </WagmiConfig>
