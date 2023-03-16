@@ -8,6 +8,7 @@ Here you can find examples on how to use our packages in your framework of choic
 | - | - | - | - |
 | Create React App | [Source code](./cra/) | `yarn start` | [Create React App docs](https://create-react-app.dev/) |
 | Next.js | [Source code](./nextjs/) | `yarn dev` | [Next.js docs](https://nextjs.org/docs) |
+| Remix | [Source code](./remix/) | `yarn dev` | [Remix docs](https://remix.run/docs/) |
 | Vite | [Source code](./vite/) | `yarn dev` | [Vite docs](https://vitejs.dev/guide/) |
 | Vite w/ Custom Theme | [Source code](./vite-custom-theme/) | `yarn dev` | [Vite docs](https://vitejs.dev/guide/) |
 
