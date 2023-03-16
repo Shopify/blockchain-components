@@ -45,7 +45,10 @@ export const Text = ({
   ...props
 }: TextProps) => {
   const className = [
+    // Base CSS
+    'sbc-m-0',
     VARIANT_CSS[variant],
+    // If a color was provided, use that color. Otherwise, inherit color
     color ? COLOR_CSS[color] : 'sbc-text-inherit',
     // Since className can be undefined, we need to use this spread hack unless
     // we want an additional space in our class on the DOM element.

@@ -109,7 +109,7 @@ export function QRCode({uri}: Props) {
   return (
     <m.div
       animate={{opacity: 1}}
-      className="sbc-relative sbc-w-full sbc-rounded-qrcode sbc-border-button-secondary sbc-p-4"
+      className="sbc-relative sbc-w-full sbc-rounded-qrcode sbc-p-4 sbc-border-button-secondary"
       initial={{opacity: 0}}
     >
       <div className="sbc-aspect-w-1 sbc-aspect-h-1">

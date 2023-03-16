@@ -3,7 +3,7 @@ import {m} from 'framer-motion';
 export const QRCodeSkeleton = () => {
   return (
     <m.div
-      className="sbc-relative sbc-w-full sbc-rounded-qrcode sbc-border-button-secondary sbc-p-4"
+      className="sbc-relative sbc-w-full sbc-rounded-qrcode sbc-p-4 sbc-border-button-secondary"
       exit={{opacity: 0}}
       initial={{opacity: 1}}
     >

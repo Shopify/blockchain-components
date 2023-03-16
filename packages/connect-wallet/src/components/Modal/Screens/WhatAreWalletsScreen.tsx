@@ -23,7 +23,7 @@ const ListItem = ({content, icon, title}: ListItemProps) => {
           {title}
         </Text>
 
-        <Text as="p" className="sbc-m-0" color="secondary">
+        <Text as="p" color="secondary">
           {content}
         </Text>
       </div>
