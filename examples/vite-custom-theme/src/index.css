@@ -12,40 +12,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
-  /**
-   * Custom blockchain-components custom theme
-   * Dark mode
-   */
-
-  /* BG colors */
-  --sbc-bg-address-chip: #d1ff42;
-  --sbc-bg-address-chip-hover: #afd236;
-  --sbc-bg-button-primary: #d1ff42;
-  --sbc-bg-button-primary-hover: #afd236;
-  --sbc-bg-button-secondary: transparent;
-  --sbc-bg-button-secondary-hover: #404040;
-  --sbc-bg-divider: #46484b;
-  --sbc-bg-overlay: rgba(22, 22, 22, 0.85);
-  --sbc-bg-popover: #161616;
-
-  /* Border colors */
-  --sbc-border-color-button-primary: unset;
-  --sbc-border-color-button-secondary: #46484b;
-  --sbc-border-color-divider: #46484b;
-  --sbc-border-color-popover: unset;
-
-  /* Fill colors */
-  --sbc-fill-qrcode-foreground: #e7e5e4;
-  --sbc-fill-qrcode-background: #161616;
-
-  /* Text colors */
-  --sbc-text-color-address-chip: #161616;
-  --sbc-text-color-button-primary: #161616;
-  --sbc-text-color-button-secondary: #efefef;
-  --sbc-text-color-critical: #f87171;
-  --sbc-text-color-primary: #efefef;
-  --sbc-text-color-secondary: #717171;
 }
 
 a {
@@ -81,9 +47,9 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-/* button:hover {
+button:hover {
   border-color: #646cff;
-} */
+}
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -93,40 +59,6 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
-
-    /**
-     * Custom blockchain-components custom theme
-     * Dark mode
-     */
-
-    /* BG colors */
-    --sbc-bg-address-chip: #ffffff;
-    --sbc-bg-address-chip-hover: #f9f9f9;
-    --sbc-bg-button-primary: #161616;
-    --sbc-bg-button-primary-hover: #2a2a2a;
-    --sbc-bg-button-secondary: transparent;
-    --sbc-bg-button-secondary-hover: #e5e5e5;
-    --sbc-bg-divider: #dbdbdb;
-    --sbc-bg-overlay: rgba(155, 155, 155, 0.75);
-    --sbc-bg-popover: #efefef;
-
-    /* Border colors */
-    --sbc-border-color-button-primary: unset;
-    --sbc-border-color-button-secondary: #a3a3a3;
-    --sbc-border-color-divider: #dbdbdb;
-    --sbc-border-color-popover: unset;
-
-    /* Fill colors */
-    --sbc-fill-qrcode-foreground: #161616;
-    --sbc-fill-qrcode-background: #efefef;
-
-    /* Text colors */
-    --sbc-text-color-address-chip: #161616;
-    --sbc-text-color-button-primary: #efefef;
-    --sbc-text-color-button-secondary: #161616;
-    --sbc-text-color-critical: #991b1b;
-    --sbc-text-color-primary: #161616;
-    --sbc-text-color-secondary: #717171;
   }
   a:hover {
     color: #747bff;
