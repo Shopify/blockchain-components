@@ -5,12 +5,12 @@ import {WagmiConfig} from 'wagmi';
 
 import App from './App';
 import './index.css';
-import {chains, client} from './connect-wallet-config';
+import {chains, client, connectors} from './connect-wallet-config';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains}>
+      <ConnectWalletProvider chains={chains} connectors={connectors}>
         <App />
       </ConnectWalletProvider>
     </WagmiConfig>
