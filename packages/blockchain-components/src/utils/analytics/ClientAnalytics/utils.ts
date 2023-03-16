@@ -1,7 +1,10 @@
 import {useCallback, useEffect} from 'react';
 
 import {getClientBrowserParameters} from '../../clientBrowserParameters';
-import {getShopifyServiceName} from '../../shopify/utils';
+import {
+  getShopifyServiceName,
+  getShopifyAnalyticsMetaPage,
+} from '../../shopify/utils';
 
 import {
   SubscriberFunction,
@@ -122,6 +125,7 @@ export const getAdditionalEventPayload = () => {
 
   return {
     shopifyService: getShopifyServiceName(pathname),
+    shopifyResourceId: getShopifyAnalyticsMetaPage()?.resourceId,
     ...getClientBrowserParameters(),
   };
 };
