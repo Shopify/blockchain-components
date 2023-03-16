@@ -3,7 +3,7 @@ import {ReactNode} from 'react';
 export interface Condition {
   name?: string;
   imageUrl?: string;
-  collectionAddress?: string;
+  contractAddress?: string;
   description?: ReactNode;
 }
 
@@ -16,7 +16,7 @@ export interface UnlockingToken {
   name: string;
   imageUrl: string;
   collectionName: string;
-  collectionAddress: string;
+  contractAddress: string;
   consumedRedemptionLimit?: number;
 }
 

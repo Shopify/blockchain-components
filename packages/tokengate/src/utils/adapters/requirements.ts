@@ -15,7 +15,7 @@ export const adaptRequirements = (gateRequirement?: {
   return {
     logic: gateRequirement.operator === 'AND' ? 'ALL' : 'ANY',
     conditions: gateRequirement.tokenSeries.map((tokenSeries) => ({
-      collectionAddress: tokenSeries.contractAddress,
+      contractAddress: tokenSeries.contractAddress,
       name: tokenSeries.name,
       imageUrl: tokenSeries.imageUrl,
     })),

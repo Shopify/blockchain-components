@@ -310,13 +310,13 @@ describe('Tokengate - utils', () => {
               logic: 'ANY',
               conditions: [
                 ConditionFixture({
-                  collectionAddress: '0xabc',
+                  contractAddress: '0xabc',
                 }),
               ],
             }),
             unlockingTokens: [
               UnlockingTokenFixture({
-                collectionAddress: '0x123',
+                contractAddress: '0x123',
               }),
             ],
           }),
@@ -332,13 +332,13 @@ describe('Tokengate - utils', () => {
               logic: 'ANY',
               conditions: [
                 ConditionFixture({
-                  collectionAddress: '0xabc',
+                  contractAddress: '0xabc',
                 }),
               ],
             }),
             unlockingTokens: [
               UnlockingTokenFixture({
-                collectionAddress: '0xabc',
+                contractAddress: '0xabc',
               }),
             ],
           }),
@@ -354,16 +354,16 @@ describe('Tokengate - utils', () => {
               logic: 'ANY',
               conditions: [
                 ConditionFixture({
-                  collectionAddress: '0xabc',
+                  contractAddress: '0xabc',
                 }),
                 ConditionFixture({
-                  collectionAddress: '0xefg',
+                  contractAddress: '0xefg',
                 }),
               ],
             }),
             unlockingTokens: [
               UnlockingTokenFixture({
-                collectionAddress: '0xefg',
+                contractAddress: '0xefg',
               }),
             ],
           }),
@@ -379,16 +379,16 @@ describe('Tokengate - utils', () => {
               logic: 'ANY',
               conditions: [
                 ConditionFixture({
-                  collectionAddress: '0xabc',
+                  contractAddress: '0xabc',
                 }),
                 ConditionFixture({
-                  collectionAddress: '0xefg',
+                  contractAddress: '0xefg',
                 }),
               ],
             }),
             unlockingTokens: [
               UnlockingTokenFixture({
-                collectionAddress: '0x123',
+                contractAddress: '0x123',
               }),
             ],
           }),
@@ -424,13 +424,13 @@ describe('Tokengate - utils', () => {
               logic: 'ALL',
               conditions: [
                 ConditionFixture({
-                  collectionAddress: '0xabc',
+                  contractAddress: '0xabc',
                 }),
               ],
             }),
             unlockingTokens: [
               UnlockingTokenFixture({
-                collectionAddress: '0x123',
+                contractAddress: '0x123',
               }),
             ],
           }),
@@ -446,13 +446,13 @@ describe('Tokengate - utils', () => {
               logic: 'ALL',
               conditions: [
                 ConditionFixture({
-                  collectionAddress: '0xabc',
+                  contractAddress: '0xabc',
                 }),
               ],
             }),
             unlockingTokens: [
               UnlockingTokenFixture({
-                collectionAddress: '0xabc',
+                contractAddress: '0xabc',
               }),
             ],
           }),
@@ -468,16 +468,16 @@ describe('Tokengate - utils', () => {
               logic: 'ALL',
               conditions: [
                 ConditionFixture({
-                  collectionAddress: '0xabc',
+                  contractAddress: '0xabc',
                 }),
                 ConditionFixture({
-                  collectionAddress: '0xefg',
+                  contractAddress: '0xefg',
                 }),
               ],
             }),
             unlockingTokens: [
               UnlockingTokenFixture({
-                collectionAddress: '0xefg',
+                contractAddress: '0xefg',
               }),
             ],
           }),
@@ -493,19 +493,19 @@ describe('Tokengate - utils', () => {
               logic: 'ALL',
               conditions: [
                 ConditionFixture({
-                  collectionAddress: '0xabc',
+                  contractAddress: '0xabc',
                 }),
                 ConditionFixture({
-                  collectionAddress: '0xefg',
+                  contractAddress: '0xefg',
                 }),
               ],
             }),
             unlockingTokens: [
               UnlockingTokenFixture({
-                collectionAddress: '0xabc',
+                contractAddress: '0xabc',
               }),
               UnlockingTokenFixture({
-                collectionAddress: '0xefg',
+                contractAddress: '0xefg',
               }),
             ],
           }),
@@ -521,19 +521,19 @@ describe('Tokengate - utils', () => {
               logic: 'ALL',
               conditions: [
                 ConditionFixture({
-                  collectionAddress: '0xabc',
+                  contractAddress: '0xabc',
                 }),
                 ConditionFixture({
-                  collectionAddress: '0xefg',
+                  contractAddress: '0xefg',
                 }),
               ],
             }),
             unlockingTokens: [
               UnlockingTokenFixture({
-                collectionAddress: '0x123',
+                contractAddress: '0x123',
               }),
               ConditionFixture({
-                collectionAddress: '0xefg',
+                contractAddress: '0xefg',
               }),
             ],
           }),

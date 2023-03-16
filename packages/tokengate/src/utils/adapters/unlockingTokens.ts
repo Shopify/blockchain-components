@@ -16,7 +16,7 @@ const adaptUnlockingToken = (
   name: unlockingToken.token.title,
   imageUrl: unlockingToken.token.mediaUrl,
   collectionName: unlockingToken.token.contractName,
-  collectionAddress: unlockingToken.token.contractAddress,
+  contractAddress: unlockingToken.token.contractAddress,
   consumedRedemptionLimit: unlockingToken.token.consumedOrderLimit,
 });
 

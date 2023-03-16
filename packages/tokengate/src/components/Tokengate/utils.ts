@@ -184,8 +184,8 @@ export const calculatedIsLocked = (props: TokengateProps) => {
       Boolean(
         unlockingTokens.find(
           (unlockingToken) =>
-            unlockingToken.collectionAddress.toLowerCase() ===
-            condition.collectionAddress?.toLowerCase(),
+            unlockingToken.contractAddress.toLowerCase() ===
+            condition.contractAddress?.toLowerCase(),
         ),
       ),
   );
