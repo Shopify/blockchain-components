@@ -1,0 +1,137 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  /**
+   * Custom blockchain-components custom theme
+   * Dark mode
+   */
+
+  /* BG colors */
+  --sbc-bg-address-chip: #d1ff42;
+  --sbc-bg-address-chip-hover: #afd236;
+  --sbc-bg-button-primary: #d1ff42;
+  --sbc-bg-button-primary-hover: #afd236;
+  --sbc-bg-button-secondary: transparent;
+  --sbc-bg-button-secondary-hover: #404040;
+  --sbc-bg-divider: #46484b;
+  --sbc-bg-overlay: rgba(22, 22, 22, 0.85);
+  --sbc-bg-popover: #161616;
+
+  /* Border colors */
+  --sbc-border-color-button-primary: unset;
+  --sbc-border-color-button-secondary: #46484b;
+  --sbc-border-color-divider: #46484b;
+  --sbc-border-color-popover: unset;
+
+  /* Fill colors */
+  --sbc-fill-qrcode-foreground: #e7e5e4;
+  --sbc-fill-qrcode-background: #161616;
+
+  /* Text colors */
+  --sbc-text-color-address-chip: #161616;
+  --sbc-text-color-button-primary: #161616;
+  --sbc-text-color-button-secondary: #efefef;
+  --sbc-text-color-critical: #f87171;
+  --sbc-text-color-primary: #efefef;
+  --sbc-text-color-secondary: #717171;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+/* button:hover {
+  border-color: #646cff;
+} */
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+
+    /**
+     * Custom blockchain-components custom theme
+     * Dark mode
+     */
+
+    /* BG colors */
+    --sbc-bg-address-chip: #ffffff;
+    --sbc-bg-address-chip-hover: #f9f9f9;
+    --sbc-bg-button-primary: #161616;
+    --sbc-bg-button-primary-hover: #2a2a2a;
+    --sbc-bg-button-secondary: transparent;
+    --sbc-bg-button-secondary-hover: #e5e5e5;
+    --sbc-bg-divider: #dbdbdb;
+    --sbc-bg-overlay: rgba(155, 155, 155, 0.75);
+    --sbc-bg-popover: #efefef;
+
+    /* Border colors */
+    --sbc-border-color-button-primary: unset;
+    --sbc-border-color-button-secondary: #a3a3a3;
+    --sbc-border-color-divider: #dbdbdb;
+    --sbc-border-color-popover: unset;
+
+    /* Fill colors */
+    --sbc-fill-qrcode-foreground: #161616;
+    --sbc-fill-qrcode-background: #efefef;
+
+    /* Text colors */
+    --sbc-text-color-address-chip: #161616;
+    --sbc-text-color-button-primary: #efefef;
+    --sbc-text-color-button-secondary: #161616;
+    --sbc-text-color-critical: #991b1b;
+    --sbc-text-color-primary: #161616;
+    --sbc-text-color-secondary: #717171;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}

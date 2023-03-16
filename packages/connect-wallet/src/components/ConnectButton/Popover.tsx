@@ -100,14 +100,13 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
               <ConnectorIcon id={connectorId} size="lg" />
 
               <button
-                className="sbc-flex sbc-cursor-pointer sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-py-2 sbc-px-3 sbc-transition-colors sbc-border-none hover:sbc-bg-button-secondary-hover"
+                className="sbc-flex sbc-cursor-pointer sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-py-2 sbc-px-3 sbc-text-address-chip sbc-transition-colors sbc-border-none hover:sbc-bg-address-chip-hover"
                 onClick={() => copy(address)}
                 type="button"
               >
                 <Text
                   as="span"
                   className="sbc-pointer-events-none"
-                  color="primary"
                   variant="bodyLg"
                 >
                   {formatWalletAddress(address)}
