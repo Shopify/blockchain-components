@@ -63,6 +63,7 @@ Let's begin using the configured client and chains. In your app's entry point, (
 
 ```tsx
 import {ConnectWalletProvider} from '@shopify/connect-wallet';
+import '@shopify/connect-wallet/styles.css';
 import {WagmiConfig} from 'wagmi';
 
 import {chains, client, connectors} from './connect-wallet-config'
