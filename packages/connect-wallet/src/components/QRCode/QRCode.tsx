@@ -5,8 +5,6 @@ import {ReactElement, useMemo} from 'react';
 import {useAppSelector} from '../../hooks/useAppState';
 import {ConnectorIcon} from '../ConnectorIcon';
 
-import {Circle, Container, IconContainer, Rect} from './style';
-
 const APP_LOGO_SIZE = 88;
 const DEFAULT_QR_CODE_SIZE = 380;
 
@@ -57,12 +55,16 @@ export function QRCode({uri}: Props) {
         const size = cellSize * (7 - i * 2);
 
         svg.push(
-          <Rect
-            $isForeground={i % 2 === 0}
+          <rect
+            className={
+              i % 2 === 0
+                ? 'sbc-fill-qrcode-primary'
+                : 'sbc-fill-qrcode-secondary'
+            }
             key={`${i}-${x}-${y}`}
+            height={size}
             rx={borderRadius}
             width={size}
-            height={size}
             x={x1 + cellSize * i}
             y={y1 + cellSize * i}
           />,
@@ -88,11 +90,12 @@ export function QRCode({uri}: Props) {
 
         if (shouldRender) {
           svg.push(
-            <Circle
-              // eslint-disable-next-line react/no-array-index-key
-              key={`circle-${i}-${j}`}
+            <circle
+              className="sbc-fill-qrcode-primary"
               cx={i * cellSize + cellSize / 2}
               cy={j * cellSize + cellSize / 2}
+              // eslint-disable-next-line react/no-array-index-key
+              key={`circle-${i}-${j}`}
               r={2}
             />,
           );
@@ -104,18 +107,25 @@ export function QRCode({uri}: Props) {
   }, [length, matrix]);
 
   return (
-    <Container as={m.div} initial={{opacity: 0}} animate={{opacity: 1}}>
-      <svg
-        height="100%"
-        width="100%"
-        viewBox={`0 0 ${DEFAULT_QR_CODE_SIZE} ${DEFAULT_QR_CODE_SIZE}`}
-      >
-        {dots}
-      </svg>
+    <m.div
+      animate={{opacity: 1}}
+      className="sbc-relative sbc-w-full sbc-rounded-qrcode sbc-p-4 sbc-border-button-secondary"
+      initial={{opacity: 0}}
+    >
+      <div className="sbc-aspect-w-1 sbc-aspect-h-1">
+        <svg
+          height="100%"
+          width="100%"
+          viewBox={`0 0 ${DEFAULT_QR_CODE_SIZE} ${DEFAULT_QR_CODE_SIZE}`}
+        >
+          {dots}
+        </svg>
+      </div>
 
-      <IconContainer>
-        <ConnectorIcon id={pendingConnector?.id} size="Xl" />
-      </IconContainer>
-    </Container>
+      <div className="sbc-absolute sbc-top-0 sbc-left-0 sbc-right-0 sbc-bottom-0 sbc-flex sbc-items-center sbc-justify-center">
+        {/* <div className=""> */}
+        <ConnectorIcon id={pendingConnector?.id} size="xl" />
+      </div>
+    </m.div>
   );
 }

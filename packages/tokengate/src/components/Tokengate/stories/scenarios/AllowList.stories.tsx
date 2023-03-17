@@ -101,11 +101,6 @@ export const AllowList: Story = {
         disable: true,
       },
     },
-    theme: {
-      table: {
-        disable: true,
-      },
-    },
     unlockingTokens: {
       table: {
         disable: true,

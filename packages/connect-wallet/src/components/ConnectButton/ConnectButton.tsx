@@ -8,6 +8,7 @@ import {
   useKeyPress,
   useOutsideClick,
   Text,
+  getButtonClassname,
 } from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
@@ -17,7 +18,6 @@ import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {useModal} from '../../providers/ModalProvider';
 
 import {Popover} from './Popover';
-import {CaretIcon, ConnectedButton, Wrapper} from './style';
 
 export const ConnectButton = () => {
   const {activeWallet} = useAppSelector((state) => state.wallet);
@@ -68,27 +68,43 @@ export const ConnectButton = () => {
   }
 
   const {address, connectorId, displayName} = activeWallet;
+  const buttonClassname = getButtonClassname({
+    fullWidth: true,
+    size: 'Lg',
+  });
+  const buttonLabel = displayName || formatWalletAddress(address);
 
   return (
-    <Wrapper id="connectWalletConnectedButtonWrapper" ref={ref}>
-      <ConnectedButton
-        fullWidth
+    <div
+      className="sbc-relative"
+      id="shopify-connect-wallet-connected-button-wrapper"
+      ref={ref}
+    >
+      <button
+        aria-disabled={false}
+        aria-label={buttonLabel}
+        className={`${buttonClassname} sbc-gap-x-2`}
         onClick={togglePopoverWithTracking}
-        $popoverOpen={popoverVisible}
-        size="Lg"
+        type="button"
       >
-        <ConnectorIcon id={connectorId} size="Xs" />
+        <ConnectorIcon id={connectorId} size="xs" />
         <Text as="span" variant="bodyLg">
-          {displayName || formatWalletAddress(address)}
+          {buttonLabel}
         </Text>
-        <CaretIcon>{CaretDown}</CaretIcon>
-      </ConnectedButton>
+        <div
+          className={`sbc-h-5 sbc-w-5 sbc-origin-center sbc-transition-transform ${
+            popoverVisible ? 'sbc-rotate-180' : 'sbc-rotate-0'
+          }`}
+        >
+          {CaretDown}
+        </div>
+      </button>
 
       <Popover
         mobile={shouldUseMobileSizes}
         onDismiss={() => setPopoverVisible(false)}
         visible={popoverVisible}
       />
-    </Wrapper>
+    </div>
   );
 };

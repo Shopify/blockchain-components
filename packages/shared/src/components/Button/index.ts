@@ -1,2 +1,1 @@
-export {Button} from './Button';
-export {ButtonWrapper} from './style';
+export {Button, getButtonClassname} from './Button';

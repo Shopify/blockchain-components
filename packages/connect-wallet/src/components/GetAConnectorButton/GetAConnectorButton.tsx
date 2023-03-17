@@ -5,8 +5,6 @@ import {ConnectorIcon} from '../ConnectorIcon';
 import {useConnectorData} from '../../hooks/useConnectorData';
 import {useTranslation} from '../../hooks/useTranslation';
 
-import {ConnectorData, Wrapper} from './style';
-
 interface GetAConnectorButtonProps {
   connectorId: string;
 }
@@ -22,13 +20,13 @@ export const GetAConnectorButton = ({
   }
 
   return (
-    <Wrapper>
-      <ConnectorData>
-        <ConnectorIcon id={connectorId} size="Md" />
+    <div className="sbc-flex sbc-flex-row sbc-items-center sbc-py-3 sbc-px-0 sbc-border-b-divider last-of-type:sbc-border-none">
+      <div className="sbc-flex sbc-flex-1 sbc-items-center sbc-gap-x-3">
+        <ConnectorIcon id={connectorId} size="md" />
         <Text as="span" variant="bodyLg">
           {name}
         </Text>
-      </ConnectorData>
+      </div>
 
       <Button
         aria-label={t('accessibilityLabel', {name}) as string}
@@ -38,7 +36,7 @@ export const GetAConnectorButton = ({
         onClickEventName={eventNames.CONNECT_WALLET_GET_WALLET_BUTTON_CLICKED}
         onClickEventPayload={{connector: name}}
       />
-    </Wrapper>
+    </div>
   );
 };
 

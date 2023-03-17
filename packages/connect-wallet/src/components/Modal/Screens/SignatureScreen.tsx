@@ -6,12 +6,6 @@ import {useAppSelector} from '../../../hooks/useAppState';
 import {useTranslation} from '../../../hooks/useTranslation';
 import {useModal} from '../../../providers/ModalProvider';
 import {ConnectorIcon} from '../../ConnectorIcon';
-import {
-  ButtonContainer,
-  Center,
-  ConnectingWalletIcon,
-  SheetContent,
-} from '../style';
 
 const SignatureScreen = () => {
   const {pendingWallet} = useAppSelector((state) => state.wallet);
@@ -57,34 +51,43 @@ const SignatureScreen = () => {
   }, [error, isCriticalError, pendingWallet?.connectorName, signing, t]);
 
   return (
-    <SheetContent rowGap="24px">
-      <ConnectingWalletIcon>
-        <ConnectorIcon id={pendingWallet?.connectorId} size="Xl" />
-      </ConnectingWalletIcon>
-      <Center>
-        <Text as="h3" variant="headingLg">
+    <div className="sbc-flex sbc-flex-col sbc-justify-center sbc-gap-y-6 sbc-p-popover sbc-pt-6">
+      <div className="sbc-mx-auto">
+        <ConnectorIcon id={pendingWallet?.connectorId} size="xl" />
+      </div>
+
+      <div className="sbc-block">
+        <Text
+          as="h3"
+          className="sbc-mt-0 sbc-mb-2 sbc-text-center"
+          variant="headingLg"
+        >
           {content.title}
         </Text>
-        <Text as="p" color={isCriticalError ? 'critical' : 'secondary'}>
+
+        <Text
+          as="p"
+          className="sbc-m-0 sbc-text-center"
+          color={isCriticalError ? 'critical' : 'secondary'}
+        >
           {content.subtitle}
         </Text>
-      </Center>
+      </div>
 
       {signing ? (
         <Spinner />
       ) : (
-        <ButtonContainer>
-          <Button
-            aria-label={t('button.retry')}
-            label={t('button.retry')}
-            onClick={handleSignMessage}
-            onClickEventName={
-              eventNames.CONNECT_WALLET_RETRY_SIGNATURE_BUTTON_CLICKED
-            }
-          />
-        </ButtonContainer>
+        <Button
+          aria-label={t('button.retry')}
+          className="sbc-mx-auto sbc-w-full sm:sbc-w-fit"
+          label={t('button.retry')}
+          onClick={handleSignMessage}
+          onClickEventName={
+            eventNames.CONNECT_WALLET_RETRY_SIGNATURE_BUTTON_CLICKED
+          }
+        />
       )}
-    </SheetContent>
+    </div>
   );
 };
 

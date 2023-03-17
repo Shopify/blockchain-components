@@ -1,8 +1,11 @@
+import {ClassName} from '../../types/generic';
+
 export type Size = 'Sm' | 'Md' | 'Lg';
 
 interface ButtonBaseProps {
   id?: string;
-  className?: HTMLDivElement['className'];
+  centered?: boolean;
+  className?: ClassName;
   fullWidth?: boolean;
   label: string;
   loading?: boolean;
@@ -27,3 +30,8 @@ type DefaultButtonProps = ButtonBaseProps & {
 };
 
 export type ButtonProps = DefaultButtonProps | LinkButtonProps;
+
+export type GetButtonClassnameProps = Pick<
+  ButtonProps,
+  'centered' | 'className' | 'disabled' | 'fullWidth' | 'primary' | 'size'
+>;

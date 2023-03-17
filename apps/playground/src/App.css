@@ -1,0 +1,12 @@
+.blockchain-components-preview {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blockchain-components-preview > div {
+  flex: 1;
+  max-width: 380px;
+}

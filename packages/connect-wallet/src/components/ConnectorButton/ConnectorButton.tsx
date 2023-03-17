@@ -1,10 +1,8 @@
 import {useEventWithTracking, eventNames} from '@shopify/blockchain-components';
-import {Text} from 'shared';
+import {getButtonClassname, Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useTranslation} from '../../hooks/useTranslation';
-
-import {Button} from './style';
 
 interface ConnectorButtonProps {
   id: string;
@@ -20,17 +18,23 @@ export const ConnectorButton = ({id, name, onClick}: ConnectorButtonProps) => {
   });
   const {t} = useTranslation('ConnectorButton');
 
+  const buttonClassName = getButtonClassname({
+    centered: false,
+    fullWidth: true,
+    size: 'Lg',
+  });
+
   return (
-    <Button
+    <button
       aria-label={t('accessibilityLabel', {name}) as string}
-      fullWidth
+      className={`${buttonClassName} sbc-flex sbc-items-center sbc-gap-x-2 sbc-p-3 last-of-type:sbc-mb-0`}
       onClick={onClickWithTracking}
-      size="Lg"
+      type="button"
     >
-      <ConnectorIcon id={id} size="Sm" />
-      <Text as="label" variant="bodyLg">
+      <ConnectorIcon id={id} size="sm" />
+      <Text as="label" className="sbc-pointer-events-none" variant="bodyLg">
         {name}
       </Text>
-    </Button>
+    </button>
   );
 };

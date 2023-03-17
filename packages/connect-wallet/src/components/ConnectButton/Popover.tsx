@@ -24,7 +24,6 @@ import {useDisconnect} from '../../hooks/useDisconnect';
 import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
 import {useTranslation} from '../../hooks/useTranslation';
 
-import {AddressChip, Background, Container, Frame} from './style';
 import {PopoverVariants} from './variants';
 
 interface PopoverProps {
@@ -57,7 +56,9 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
 
   const portalElement = mobile
     ? document.body
-    : document.getElementById('connectWalletConnectedButtonWrapper');
+    : document.getElementById(
+        'shopify-connect-wallet-connected-button-wrapper',
+      );
 
   const {address, connectorId} = connectedWallets[0];
 
@@ -70,40 +71,48 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
    * in the DOM that is relevant to the size of the device. For example,
    * on mobile devices, this will render within the document.body, but in
    * the context of a desktop device, this will render in the
-   * connectWalletConnectedButtonWrapper.
+   * `shopify-connect-wallet-connected-button-wrapper`.
    */
   return createPortal(
     <LazyMotion features={domAnimation}>
       <AnimatePresence>
         {visible ? (
-          <Container
-            as={m.div}
+          <m.div
+            className="sbc-fixed sbc-top-0 sbc-bottom-0 sbc-right-0 sbc-z-max sbc-flex sbc-min-w-full sbc-flex-col sbc-justify-end sbc-p-0 sm:sbc-absolute sm:sbc-top-full sm:sbc-bottom-auto sm:sbc-min-w-[280px] sm:sbc-py-1"
             exit={{pointerEvents: 'none'}}
             id="shopify-connect-wallet-popover-container"
             initial={{pointerEvents: 'auto'}}
           >
-            <Background
-              onClick={onDismiss}
+            <m.div
               animate={{opacity: 1}}
-              as={m.div}
+              className="sbc-absolute sbc-z-10 sbc-block sbc-h-full sbc-w-full sbc-bg-overlay sm:!sbc-hidden"
               exit={{opacity: 0}}
               initial={{opacity: 0}}
+              onClick={onDismiss}
             />
-            <Frame
+            <m.div
               animate="show"
-              as={m.div}
+              className="sbc-popover-frame-content sbc-z-20 sbc-flex sbc-flex-col sbc-items-center sbc-gap-y-4 sbc-rounded-popover-mobile sbc-bg-popover sbc-p-popover sbc-shadow-popover-mobile sbc-border-popover sm:sbc-rounded-popover-desktop sm:sbc-pb-popover sm:sbc-shadow-popover-desktop"
               exit="exit"
               initial="exit"
               variants={PopoverVariants({isSmall, reducedMotion})}
             >
-              <ConnectorIcon id={connectorId} size="Lg" />
+              <ConnectorIcon id={connectorId} size="lg" />
 
-              <AddressChip onClick={() => copy(address)}>
-                <Text as="span" variant="bodyLg">
+              <button
+                className="sbc-flex sbc-cursor-pointer sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-py-2 sbc-px-3 sbc-text-address-chip sbc-transition-colors sbc-border-none hover:sbc-bg-address-chip-hover"
+                onClick={() => copy(address)}
+                type="button"
+              >
+                <Text
+                  as="span"
+                  className="sbc-pointer-events-none"
+                  variant="bodyLg"
+                >
                   {formatWalletAddress(address)}
                 </Text>
                 {copied ? CircleTick : Copy}
-              </AddressChip>
+              </button>
 
               <Button
                 aria-label={t('popover.disconnectButton')}
@@ -114,8 +123,8 @@ export const Popover = ({mobile, onDismiss, visible}: PopoverProps) => {
                   eventNames.CONNECT_WALLET_DISCONNECT_BUTTON_CLICKED
                 }
               />
-            </Frame>
-          </Container>
+            </m.div>
+          </m.div>
         ) : null}
       </AnimatePresence>
     </LazyMotion>,

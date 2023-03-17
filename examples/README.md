@@ -1,14 +1,16 @@
 # Framework examples
 
-> ℹ️ Prior to running any of the examples, you must run the [build script](../README.md#run-a-command) to build the packages for use.
+> ℹ️ All framework example contain an additional script for the dev environment which will bundle all packages prior to running the dev server. This means you must install all dependencies for the repository prior to running any examples.
 
 Here you can find examples on how to use our packages in your framework of choice.
 
-| Framework | Example | Framework documentation |
-| - | - | - |
-| Create React App | [Source code](./cra/) | [Create React App docs](https://create-react-app.dev/) |
-| Next.js | [Source code](./nextjs/) | [Next.js docs](https://nextjs.org/docs) |
-| Vite | [Source code](./vite/) | [Vite docs](https://vitejs.dev/guide/) |
+| Framework | Example | Start command | Framework documentation |
+| - | - | - | - |
+| Create React App | [Source code](./cra/) | `yarn start` | [Create React App docs](https://create-react-app.dev/) |
+| Next.js | [Source code](./nextjs/) | `yarn dev` | [Next.js docs](https://nextjs.org/docs) |
+| Remix | [Source code](./remix/) | `yarn dev` | [Remix docs](https://remix.run/docs/) |
+| Vite | [Source code](./vite/) | `yarn dev` | [Vite docs](https://vitejs.dev/guide/) |
+| Vite w/ Custom Theme | [Source code](./vite-custom-theme/) | `yarn dev` | [Vite docs](https://vitejs.dev/guide/) |
 
 
 ## Additional documentation

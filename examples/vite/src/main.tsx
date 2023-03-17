@@ -1,4 +1,5 @@
 import {ConnectWalletProvider} from '@shopify/connect-wallet';
+import '@shopify/connect-wallet/styles.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {WagmiConfig} from 'wagmi';

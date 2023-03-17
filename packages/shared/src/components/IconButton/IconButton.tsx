@@ -1,8 +1,6 @@
 import {useEventWithTracking} from '@shopify/blockchain-components';
 import {ComponentPropsWithoutRef, ReactNode} from 'react';
 
-import {StyledButton} from './style';
-
 interface IconButtonProps extends ComponentPropsWithoutRef<'button'> {
   onClickEventName?: string;
   icon: ReactNode;
@@ -19,9 +17,14 @@ const IconButton = ({
     callback: onClick,
   });
   return (
-    <StyledButton onClick={onClickWithTracking} {...rest} type="button">
-      {icon}
-    </StyledButton>
+    <button
+      className="sbc-flex sbc-h-5 sbc-w-5 sbc-cursor-pointer sbc-items-center sbc-justify-center sbc-bg-transparent sbc-p-0 sbc-text-secondary sbc-shadow-none sbc-outline-none sbc-transition-opacity sbc-border-none hover:sbc-opacity-60 focus:sbc-text-secondary focus-visible:sbc-opacity-60"
+      onClick={onClickWithTracking}
+      {...rest}
+      type="button"
+    >
+      <div className="sbc-pointer-events-none">{icon}</div>
+    </button>
   );
 };
 

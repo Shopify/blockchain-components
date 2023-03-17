@@ -1,0 +1,38 @@
+{
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix dev",
+    "start": "remix-serve build",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@remix-run/node": "^1.14.0",
+    "@remix-run/react": "^1.14.0",
+    "@remix-run/serve": "^1.14.0",
+    "@shopify/connect-wallet": "file:../../packages/connect-wallet",
+    "ethers": "^5.7.2",
+    "isbot": "^3.6.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.3.8",
+    "wagmi": "^0.10.4"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.14.0",
+    "@remix-run/eslint-config": "^1.14.0",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "eslint": "^8.27.0",
+    "tsconfig": "file:../../packages/tsconfig",
+    "typescript": "^4.8.4"
+  },
+  "resolutions": {
+    "@shopify/blockchain-components": "file:../../packages/blockchain-components",
+    "@shopify/gate-context-client": "file:../../packages/gate-context-client"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

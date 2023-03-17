@@ -1,14 +1,13 @@
 import {m} from 'framer-motion';
 
-import {Container} from './style';
-
 export const QRCodeSkeleton = () => {
   return (
-    <Container
-      as={m.div}
-      initial={{opacity: 1}}
+    <m.div
+      className="sbc-relative sbc-w-full sbc-rounded-qrcode sbc-p-4 sbc-border-button-secondary"
       exit={{opacity: 0}}
-      $aspectRatio="1 / 1"
-    />
+      initial={{opacity: 1}}
+    >
+      <div className="sbc-aspect-w-1 sbc-aspect-h-1 sbc-w-full" />
+    </m.div>
   );
 };
