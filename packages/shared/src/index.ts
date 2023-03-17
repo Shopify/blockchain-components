@@ -3,10 +3,16 @@
  */
 export {Button, getButtonClassname} from './components/Button';
 export {IconButton} from './components/IconButton';
+export {Popover} from './components/Popover';
 export {SkeletonThumbnail} from './components/SkeletonThumbnail/SkeletonThumbnail';
 export {SkeletonDisplayText} from './components/SkeletonDisplayText/SkeletonDisplayText';
 export {Spinner} from './components/Spinner';
 export {Text} from './components/Text';
+
+/**
+ * Constants
+ */
+export {EASE, MOBILE_SPRING, SPRING} from './constants/transitions';
 
 /**
  * Hooks

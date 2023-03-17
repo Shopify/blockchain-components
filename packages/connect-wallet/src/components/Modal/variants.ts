@@ -1,6 +1,5 @@
 import {Variants} from 'framer-motion';
-
-import {EASE, MOBILE_SPRING} from '../../constants/transitions';
+import {EASE, MOBILE_SPRING} from 'shared';
 
 export const ModalReducedMotion: Variants = {
   exit: {

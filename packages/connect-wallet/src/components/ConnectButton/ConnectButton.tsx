@@ -3,24 +3,29 @@ import {useCallback, useEffect, useState} from 'react';
 import {
   Button,
   CaretDown,
+  CircleTick,
+  Copy,
   device,
   formatWalletAddress,
+  getButtonClassname,
+  Popover,
+  Text,
   useKeyPress,
   useOutsideClick,
-  Text,
-  getButtonClassname,
 } from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppSelector} from '../../hooks/useAppState';
+import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
+import {useDisconnect} from '../../hooks/useDisconnect';
 import {useTranslation} from '../../hooks/useTranslation';
 import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {useModal} from '../../providers/ModalProvider';
 
-import {Popover} from './Popover';
-
 export const ConnectButton = () => {
   const {activeWallet} = useAppSelector((state) => state.wallet);
+  const {copy, copied} = useCopyToClipboard();
+  const {disconnect} = useDisconnect();
   const {openModal} = useModal();
   const [popoverVisible, setPopoverVisible] = useState(false);
   const {t} = useTranslation('ConnectButton');
@@ -47,6 +52,15 @@ export const ConnectButton = () => {
       openModal();
     }
   }, [activeWallet, openModal]);
+
+  const handleDisconnect = useCallback(() => {
+    if (!activeWallet) {
+      return;
+    }
+
+    disconnect(activeWallet.address);
+    setPopoverVisible(false);
+  }, [activeWallet, disconnect]);
 
   const togglePopoverWithTracking = useEventWithTracking({
     eventName: eventNames.CONNECT_WALLET_CONNECTED_BUTTON_CLICKED,
@@ -101,10 +115,32 @@ export const ConnectButton = () => {
       </button>
 
       <Popover
-        mobile={shouldUseMobileSizes}
+        id="shopify-connect-wallet-popover-container"
         onDismiss={() => setPopoverVisible(false)}
+        target="shopify-connect-wallet-connected-button-wrapper"
         visible={popoverVisible}
-      />
+      >
+        <ConnectorIcon id={connectorId} size="lg" />
+
+        <button
+          className="sbc-flex sbc-cursor-pointer sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-py-2 sbc-px-3 sbc-text-address-chip sbc-transition-colors sbc-border-none hover:sbc-bg-address-chip-hover"
+          onClick={() => copy(address)}
+          type="button"
+        >
+          <Text as="span" className="sbc-pointer-events-none" variant="bodyLg">
+            {formatWalletAddress(address)}
+          </Text>
+          {copied ? CircleTick : Copy}
+        </button>
+
+        <Button
+          aria-label={t('popover.disconnectButton')}
+          fullWidth
+          label={t('popover.disconnectButton')}
+          onClick={handleDisconnect}
+          onClickEventName={eventNames.CONNECT_WALLET_DISCONNECT_BUTTON_CLICKED}
+        />
+      </Popover>
     </div>
   );
 };

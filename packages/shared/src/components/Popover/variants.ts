@@ -63,13 +63,13 @@ export const PopoverStandard: Variants = {
 };
 
 export const PopoverVariants = ({
-  isSmall,
+  isMobile,
   reducedMotion,
 }: {
-  isSmall: boolean;
+  isMobile: boolean;
   reducedMotion: boolean | null;
 }): Variants => {
-  if (isSmall) {
+  if (isMobile) {
     return reducedMotion ? PopoverReducedMotionSmall : PopoverSmall;
   }
 
