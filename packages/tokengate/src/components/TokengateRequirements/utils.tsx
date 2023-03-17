@@ -40,12 +40,12 @@ export const mapRequirementsToTokenListProps = ({
     };
   });
 
-export const getConditionTitle = ({name, collectionAddress}: Condition) => {
+export const getConditionTitle = ({name, contractAddress}: Condition) => {
   if (name) return name;
 
-  if (!collectionAddress) return '';
+  if (!contractAddress) return '';
 
-  return `contract ${formatWalletAddress(collectionAddress)}`;
+  return `contract ${formatWalletAddress(contractAddress)}`;
 };
 
 export const findUnlockingTokenForCondition = ({
@@ -57,5 +57,5 @@ export const findUnlockingTokenForCondition = ({
 }) =>
   unlockingTokens?.find(
     (unlockingToken) =>
-      unlockingToken.collectionAddress === condition.collectionAddress,
+      unlockingToken.contractAddress === condition.contractAddress,
   );
