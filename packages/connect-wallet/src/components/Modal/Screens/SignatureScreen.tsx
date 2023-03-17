@@ -2,25 +2,28 @@ import {eventNames} from '@shopify/blockchain-components';
 import {useCallback, useMemo} from 'react';
 import {Button, Spinner, Text} from 'shared';
 
-import {useAppSelector} from '../../../hooks/useAppState';
-import {useTranslation} from '../../../hooks/useTranslation';
-import {useModal} from '../../../providers/ModalProvider';
 import {ConnectorIcon} from '../../ConnectorIcon';
+import {useAppDispatch, useAppSelector} from '../../../hooks/useAppState';
+import {useSignMessage} from '../../../hooks/useSignMessage';
+import {useTranslation} from '../../../hooks/useTranslation';
+import {closeModal, setError} from '../../../slices/modalSlice';
 
 const SignatureScreen = () => {
+  const dispatch = useAppDispatch();
+  const {error, signing} = useAppSelector((state) => state.modal);
   const {pendingWallet} = useAppSelector((state) => state.wallet);
-  const {clearError, closeModal, error, signing, requestSignature} = useModal();
+  const {signMessage} = useSignMessage();
   const {t} = useTranslation('Screens');
 
   const handleSignMessage = useCallback(() => {
     if (!pendingWallet) {
-      closeModal();
+      dispatch(closeModal());
       return;
     }
 
-    clearError();
-    requestSignature(pendingWallet);
-  }, [clearError, closeModal, pendingWallet, requestSignature]);
+    dispatch(setError());
+    signMessage(pendingWallet);
+  }, [dispatch, pendingWallet, signMessage]);
 
   const isCriticalError =
     error !== undefined && error.name !== 'UserRejectedRequestError';

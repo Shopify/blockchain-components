@@ -1,8 +1,7 @@
-export enum ConnectionState {
-  AlreadyConnected = 'AlreadyConnected',
-  Connected = 'Connected',
-  Connecting = 'Connecting',
-  Failed = 'Failed',
-  Rejected = 'Rejected',
-  Unavailable = 'Unavailable',
-}
+export type ConnectionState =
+  | 'AlreadyConnected'
+  | 'Connected'
+  | 'Connecting'
+  | 'Failed'
+  | 'Rejected'
+  | 'Unavailable';

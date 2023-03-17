@@ -1,16 +1,33 @@
 import {publishEvent, eventNames} from '@shopify/blockchain-components';
 import {useCallback, useContext} from 'react';
 import {generateNonce, SiweMessage} from 'siwe';
-import {useNetwork, useSignMessage} from 'wagmi';
+import {useNetwork, useSignMessage as useWagmiSignMessage} from 'wagmi';
 
 import {ConnectWalletContext} from '../providers/ConnectWalletProvider';
+import {
+  closeModal,
+  navigate,
+  openModal,
+  setError,
+  setSigning,
+} from '../slices/modalSlice';
+import {
+  setPendingConnector,
+  setPendingWallet,
+  validatePendingWallet,
+} from '../slices/walletSlice';
 import {SignatureResponse, Wallet} from '../types/wallet';
 import {ConnectWalletError} from '../utils/error';
 
-export function useSyncSignMessage() {
-  const {chains, statementGenerator} = useContext(ConnectWalletContext);
+import {useAppDispatch, useAppSelector} from './useAppState';
+
+export function useSignMessage() {
+  const dispatch = useAppDispatch();
+  const {open} = useAppSelector((state) => state.modal);
+  const {chains, requireSignature, statementGenerator} =
+    useContext(ConnectWalletContext);
   const {chain} = useNetwork();
-  const {isLoading, signMessageAsync} = useSignMessage();
+  const {signMessageAsync} = useWagmiSignMessage();
 
   const generateMessage = useCallback(
     async (address: string, nonce: string) => {
@@ -59,19 +76,67 @@ export function useSyncSignMessage() {
 
   const signMessage = useCallback(
     async (wallet: Wallet): Promise<SignatureResponse> => {
+      if (!requireSignature) {
+        throw new ConnectWalletError(
+          'Signatures can only be requested on connect when requireSignature is true',
+        );
+      }
+
+      dispatch(setSigning(true));
+
+      // If the modal is not present, ensure that we open it.
+      if (!open) {
+        dispatch(openModal());
+        dispatch(navigate('Signature'));
+      }
+
       const {address, connectorId} = wallet;
       const nonce = generateNonce();
 
       const message = await generateMessage(address, nonce);
 
       try {
+        // Wait for the signature
         const signature = await signMessageAsync({
           message: message.prepareMessage(),
         });
+
+        // Publish the signed message event
         publishEvent(eventNames.CONNECT_WALLET_ON_SIGN_MESSAGE_EVENT, {
           address,
           connector: connectorId,
         });
+
+        /**
+         * Note: We will only move past the validatePendingWallet action
+         * when the signed message is decrypted to match the address
+         * matching the pending wallet and the nonces match.
+         *
+         * In the event that the following fails (throws an error due to
+         * mismatched addresses) we will set the error state for the
+         * signature modal and allow the user to try again.
+         */
+        await dispatch(
+          validatePendingWallet({
+            address,
+            message: JSON.stringify(message),
+            nonce,
+            signature,
+          }),
+        );
+
+        /**
+         * Close the modal using `resetModal`.
+         *
+         * Signature cleanup should only be performed
+         * when the user dismisses the modal while signing or
+         * when pressing "Back" while signing, so we utilize
+         * resetModal here to ensure the wallet
+         * is not disconnected.
+         */
+        dispatch(setPendingConnector(undefined));
+        dispatch(setPendingWallet(undefined));
+        dispatch(closeModal());
 
         return {
           address,
@@ -79,17 +144,22 @@ export function useSyncSignMessage() {
           nonce,
           signature,
         };
-      } catch (error) {
+      } catch (error: any) {
+        /**
+         * Set the error in state, resulting in an updated UI state for
+         * the signature modal. The user can attempt to sign the message
+         * with the correct wallet again.
+         */
+        dispatch(setError({message: error.message, name: error.name}));
+        dispatch(setSigning(false));
         // If the error was returned by the use sign message hook then return that.
-        // We should probably add some more verbose error handling in here as well.
         throw error || new ConnectWalletError('Verification process failed.');
       }
     },
-    [generateMessage, signMessageAsync],
+    [dispatch, generateMessage, open, requireSignature, signMessageAsync],
   );
 
   return {
-    signing: isLoading,
     signMessage,
   };
 }

@@ -6,9 +6,9 @@ import {MotionConfig} from 'framer-motion';
 import {FC, PropsWithChildren, useMemo} from 'react';
 import {Provider} from 'react-redux';
 
+import {Modal} from '../../components';
 import {buildConnectors} from '../../connectors/buildConnectors';
 import {I18nProvider} from '../I18nProvider';
-import {ModalProvider} from '../ModalProvider';
 import store from '../../store/configureStore';
 
 import {ConnectWalletContext, ConnectWalletProviderValue} from './context';
@@ -57,7 +57,8 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
       <I18nProvider>
         <MotionConfig reducedMotion="user">
           <Provider store={store}>
-            <ModalProvider>{children}</ModalProvider>
+            {children}
+            <Modal />
           </Provider>
         </MotionConfig>
       </I18nProvider>

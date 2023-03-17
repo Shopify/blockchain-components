@@ -3,33 +3,37 @@ import {useCallback, useMemo} from 'react';
 import {Button, Spinner, Text} from 'shared';
 
 import {ConnectorIcon} from '../../ConnectorIcon';
-import {useAppSelector} from '../../../hooks/useAppState';
+import {useAppDispatch, useAppSelector} from '../../../hooks/useAppState';
+import {useConnect} from '../../../hooks/useConnect';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useModalScreenContent} from '../../../hooks/useModalContent';
 import {useTranslation} from '../../../hooks/useTranslation';
-import {ModalRoute, useModal} from '../../../providers/ModalProvider';
+import {navigate} from '../../../slices/modalSlice';
 import {ConnectionState} from '../../../types/connectionState';
 import {getBrowserInfo} from '../../../utils/getBrowser';
 
+const ERROR_STATES: ConnectionState[] = ['Failed', 'Unavailable'];
+const TRY_AGAIN_STATES: ConnectionState[] = ['Failed', 'Rejected'];
+
 const ConnectingScreen = () => {
+  const dispatch = useAppDispatch();
+  const {connectionStatus} = useAppSelector((state) => state.modal);
   const {pendingConnector} = useAppSelector((state) => state.wallet);
+  const {connect} = useConnect();
   const {connector, qrCodeSupported} = useConnectorData({
     id: pendingConnector?.id,
   });
-  const {connect, connectionStatus, navigation} = useModal();
   const {body, title} = useModalScreenContent(connectionStatus);
   const {t} = useTranslation('Screens');
 
-  const errorStates = [ConnectionState.Failed, ConnectionState.Unavailable];
-  const tryAgainStates = [ConnectionState.Failed, ConnectionState.Rejected];
-  const isErrorState = errorStates.includes(connectionStatus);
-  const canTryAgain = tryAgainStates.includes(connectionStatus);
+  const isErrorState = ERROR_STATES.includes(connectionStatus);
+  const canTryAgain = TRY_AGAIN_STATES.includes(connectionStatus);
 
   const {mobilePlatform} = getBrowserInfo();
 
   const handleUseQRCode = useCallback(() => {
-    navigation.navigate(ModalRoute.Scan);
-  }, [navigation]);
+    dispatch(navigate('Scan'));
+  }, [dispatch]);
 
   const buttons = useMemo(() => {
     const hasButtons = canTryAgain || (!mobilePlatform && qrCodeSupported);
@@ -101,7 +105,7 @@ const ConnectingScreen = () => {
         </Text>
       </div>
 
-      {connectionStatus === ConnectionState.Connecting &&
+      {connectionStatus === 'Connecting' &&
       pendingConnector?.name !== 'WalletConnect' ? (
         <Spinner />
       ) : (

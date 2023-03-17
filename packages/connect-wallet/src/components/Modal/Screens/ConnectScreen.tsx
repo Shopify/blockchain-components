@@ -2,8 +2,9 @@ import {useCallback} from 'react';
 
 import {ConnectorButton} from '../../ConnectorButton';
 import {useAppDispatch} from '../../../hooks/useAppState';
+import {useConnect} from '../../../hooks/useConnect';
 import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
-import {ModalRoute, useModal} from '../../../providers/ModalProvider';
+import {closeModal, navigate} from '../../../slices/modalSlice';
 import {setPendingConnector} from '../../../slices/walletSlice';
 import {Connector} from '../../../types/connector';
 import {getBrowserInfo} from '../../../utils/getBrowser';
@@ -15,7 +16,7 @@ interface ConnectScreenProps {
 
 const ConnectScreen = ({connectors}: ConnectScreenProps) => {
   const dispatch = useAppDispatch();
-  const {closeModal, connect, navigation} = useModal();
+  const {connect} = useConnect();
   const {connectUsingWalletConnect} = useWalletConnectDeeplink();
 
   const {mobilePlatform} = getBrowserInfo();
@@ -70,7 +71,7 @@ const ConnectScreen = ({connectors}: ConnectScreenProps) => {
         !mobilePlatform;
 
       if (shouldUseScanScreen) {
-        navigation.navigate(ModalRoute.Scan);
+        dispatch(navigate('Scan'));
         return;
       }
 
@@ -82,7 +83,7 @@ const ConnectScreen = ({connectors}: ConnectScreenProps) => {
       const shouldCloseModal = isWalletConnect && mobilePlatform;
 
       if (shouldCloseModal) {
-        closeModal();
+        dispatch(closeModal());
         return;
       }
 
@@ -93,16 +94,9 @@ const ConnectScreen = ({connectors}: ConnectScreenProps) => {
         connectUsingWalletConnect(connector);
       }
 
-      navigation.navigate(ModalRoute.Connecting);
+      dispatch(navigate('Connecting'));
     },
-    [
-      closeModal,
-      connect,
-      connectUsingWalletConnect,
-      dispatch,
-      mobilePlatform,
-      navigation,
-    ],
+    [connect, connectUsingWalletConnect, dispatch, mobilePlatform],
   );
 
   return (

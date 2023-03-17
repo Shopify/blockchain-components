@@ -10,13 +10,15 @@ import {
 } from 'redux-persist';
 
 import logger from '../middleware/loggerMiddleware';
-import {initialState} from '../slices/walletSlice';
+import {initialState as initialModalState} from '../slices/modalSlice';
+import {initialState as initialWalletState} from '../slices/walletSlice';
 
 import {rootReducer} from './combineReducers';
 import {listenerMiddleware} from './listenerMiddleware';
 
 const preloadedState = {
-  wallet: initialState,
+  modal: initialModalState,
+  wallet: initialWalletState,
 };
 
 const store = configureStore({
