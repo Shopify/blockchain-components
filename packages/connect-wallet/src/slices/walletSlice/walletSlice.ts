@@ -8,6 +8,7 @@ import {SignatureResponse, Wallet} from '../../types/wallet';
 import {ConnectWalletError} from '../../utils/error';
 
 import {fetchEns} from './fetchEns';
+import {fetchDelegations} from './delegateCash';
 
 export interface WalletSliceType {
   activeWallet?: Wallet;
@@ -233,6 +234,27 @@ export const walletSlice = createSlice({
       }
 
       throw new ConnectWalletError(errorMessage);
+    });
+    builder.addCase(fetchDelegations.fulfilled, (state, action) => {
+      if (action.payload) {
+        const {address, delegationsWalletAddresses} = action.payload;
+
+        const connectedWallet = state.connectedWallets.find(
+          (wallet) => wallet.address === address,
+        );
+
+        // Update wallet in 'connectedWallets' state
+        if (connectedWallet) {
+          connectedWallet.delegationsWalletAddresses =
+            delegationsWalletAddresses;
+        }
+
+        // Update wallet in 'activeWallet' state
+        if (state.activeWallet?.address === address) {
+          state.activeWallet.delegationsWalletAddresses =
+            delegationsWalletAddresses;
+        }
+      }
     });
   },
 });

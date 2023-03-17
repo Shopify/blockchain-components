@@ -6,6 +6,7 @@ import {
   addWallet,
   attributeOrder,
   fetchEns,
+  fetchDelegations,
   setActiveWallet,
   setPendingWallet,
 } from '../slices/walletSlice';
@@ -142,6 +143,7 @@ export const useMiddleware = ({
           fetchEns({address: wallet.address, chain: {...rest}, provider}),
         );
       }
+      state.dispatch(fetchDelegations(wallet.address));
     });
 
     return dispatch(listener);

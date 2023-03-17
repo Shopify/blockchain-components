@@ -50,4 +50,9 @@ export interface Wallet extends ConnectedWallet {
    * ISO datetime string in which the wallet was verified.
    */
   signedOn?: string;
+  /**
+   * A list of "vault" proxy wallet addresses delegations that have delegated ownership to this wallet.
+   * You can treat these addresses as being controlled by the same entity as this wallet.
+   */
+  delegationsWalletAddresses?: string[];
 }
