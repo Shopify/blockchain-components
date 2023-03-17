@@ -17,12 +17,14 @@ import {SignatureResponse, Wallet} from '../types/wallet';
 import {useAppDispatch, useAppSelector} from './useAppState';
 
 interface UseMiddlewareProps {
+  allowDelegateCashSupport?: boolean;
   orderAttributionMode: OrderAttributionMode;
   requestSignature: (wallet: Wallet) => Promise<SignatureResponse | undefined>;
   requireSignature?: boolean;
 }
 
 export const useMiddleware = ({
+  allowDelegateCashSupport,
   orderAttributionMode,
   requestSignature,
   requireSignature,
@@ -143,9 +145,17 @@ export const useMiddleware = ({
           fetchEns({address: wallet.address, chain: {...rest}, provider}),
         );
       }
-      state.dispatch(fetchDelegations(wallet.address));
+      if (allowDelegateCashSupport) {
+        state.dispatch(fetchDelegations(wallet.address));
+      }
     });
 
     return dispatch(listener);
-  }, [chain, dispatch, orderAttributionMode, provider]);
+  }, [
+    allowDelegateCashSupport,
+    chain,
+    dispatch,
+    orderAttributionMode,
+    provider,
+  ]);
 };

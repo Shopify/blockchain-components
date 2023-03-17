@@ -7,6 +7,7 @@ import {OrderAttributionMode} from '../../types/orderAttribution';
 import {StatementGenerator} from './types';
 
 export interface ConnectWalletProviderValue {
+  allowDelegateCashSupport?: boolean;
   chains: Chain[];
   connectors: Connector[];
   requireSignature?: boolean;
@@ -15,6 +16,7 @@ export interface ConnectWalletProviderValue {
 }
 
 const defaultContextValue: ConnectWalletProviderValue = {
+  allowDelegateCashSupport: true,
   chains: [],
   connectors: [],
   requireSignature: true,

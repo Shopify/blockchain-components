@@ -29,7 +29,7 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
   const {pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
-  const {requireSignature, orderAttributionMode} =
+  const {allowDelegateCashSupport, requireSignature, orderAttributionMode} =
     useContext(ConnectWalletContext);
   const {disconnect} = useDisconnect();
   const {signing, signMessage} = useSyncSignMessage();
@@ -212,7 +212,12 @@ export const ModalProvider: React.FC<PropsWithChildren> = ({children}) => {
     },
   });
 
-  useMiddleware({orderAttributionMode, requestSignature, requireSignature});
+  useMiddleware({
+    allowDelegateCashSupport,
+    orderAttributionMode,
+    requestSignature,
+    requireSignature,
+  });
 
   const contextValue: ModalProviderValue = useMemo(() => {
     return {

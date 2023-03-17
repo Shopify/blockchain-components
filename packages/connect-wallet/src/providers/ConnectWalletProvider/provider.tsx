@@ -15,6 +15,7 @@ import {ConnectWalletContext, ConnectWalletProviderValue} from './context';
 import {ProviderProps} from './types';
 
 export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
+  allowDelegateCashSupport = true,
   chains,
   connectors,
   children,
@@ -35,6 +36,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
     }
 
     return {
+      allowDelegateCashSupport,
       chains,
       connectors: contextualConnectors,
       requireSignature,
@@ -42,6 +44,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
       orderAttributionMode,
     };
   }, [
+    allowDelegateCashSupport,
     chains,
     connectors,
     requireSignature,
