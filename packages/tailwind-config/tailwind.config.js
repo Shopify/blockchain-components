@@ -18,11 +18,11 @@ module.exports = {
         spin: 'spin 500ms linear infinite',
       },
       padding: {
-        'button-large': 'var(--sbc-button-large-padding, 14px 20px)',
-        'button-medium': 'var(--sbc-button-medium-padding, 10px 16px)',
-        'button-small': 'var(--sbc-button-small-padding, 6px 12px)',
-        tokengate: 'var(--sbc-tokengate-padding, 20px)',
-        popover: 'var(--sbc-popover-padding, 24px)',
+        'button-large': 'var(--sbc-padding-button-large, 14px 20px)',
+        'button-medium': 'var(--sbc-padding-button-medium, 10px 16px)',
+        'button-small': 'var(--sbc-padding-button-small, 6px 12px)',
+        popover: 'var(--sbc-padding-popover, 24px)',
+        tokengate: 'var(--sbc-padding-tokengate, 20px)',
       },
       zIndex: {
         max: '2147483647',
@@ -70,6 +70,7 @@ module.exports = {
       'button-primary': 'var(--sbc-border-width-button-primary, 0px)',
       'button-secondary': 'var(--sbc-border-width-button-secondary, 1px)',
       divider: 'var(--sbc-border-width-divider, 1px)',
+      popover: 'var(--sbc-border-width-popover, 0px)',
       tokengate: 'var(--sbc-border-width-tokengate, 1px)',
     },
     boxShadow: {
@@ -146,28 +147,28 @@ module.exports = {
     plugin(function ({addUtilities}) {
       addUtilities({
         '.border-button-disabled': {
-          'border-style': 'var(--sbc-button-disabled-border-style, unset)',
+          'border-style': 'var(--sbc-border-style-button-disabled, unset)',
         },
         '.border-button-primary': {
-          'border-style': 'var(--sbc-button-primary-border-style, unset)',
+          'border-style': 'var(--sbc-border-style-button-primary, unset)',
         },
         '.border-button-secondary': {
-          'border-style': 'var(--sbc-button-secondary-border-style, solid)',
+          'border-style': 'var(--sbc-border-style-button-secondary, solid)',
         },
         '.border-divider': {
-          'border-style': 'var(--sbc-divider-border-style, solid)',
+          'border-style': 'var(--sbc-border-style-divider, solid)',
         },
         '.border-b-divider': {
-          'border-bottom-style': 'var(--sbc-divider-border-style, solid)',
+          'border-bottom-style': 'var(--sbc-border-style-divider, solid)',
         },
         '.border-none': {
           'border-style': 'unset',
         },
         '.border-popover': {
-          'border-style': 'var(--sbc-popover-border-style, unset)',
+          'border-style': 'var(--sbc-border-style-popover, unset)',
         },
         '.border-tokengate': {
-          'border-style': 'var(--sbc-tokengate-border-style, solid)',
+          'border-style': 'var(--sbc-border-style-tokengate, solid)',
         },
       });
     }),
