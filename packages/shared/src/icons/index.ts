@@ -5,6 +5,7 @@ export {CaretDown} from './CaretDown';
 export {CircleTick} from './CircleTick';
 export {CoinbaseWallet} from './CoinbaseWallet';
 export {Copy} from './Copy';
+export {DelegateCash} from './DelegateCash';
 export {Gift} from './Gift';
 export {Key} from './Key';
 export {LedgerLive} from './LedgerLive';
