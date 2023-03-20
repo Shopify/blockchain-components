@@ -26,6 +26,11 @@ export interface ConnectedWallet {
    * This will only be filled when an Alchemy or Infura provider are present.
    */
   displayName?: string;
+  /**
+   * A list of "vault" proxy wallet addresses that have delegated ownership to this wallet.
+   * You can treat these addresses as being controlled by the same entity as this wallet.
+   */
+  vaults?: Address[];
 }
 
 export interface SignatureResponse {

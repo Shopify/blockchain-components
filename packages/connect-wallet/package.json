@@ -47,6 +47,7 @@
     "@shopify/blockchain-components": "*",
     "@shopify/gate-context-client": "*",
     "@storybook/react": "^7.0.0-beta.52",
+    "delegatecash": "^0.4.1",
     "framer-motion": "^8.5.0",
     "i18next": "^22.4.9",
     "qrcode": "^1.5.1",
