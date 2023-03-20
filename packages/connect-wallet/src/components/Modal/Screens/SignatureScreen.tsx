@@ -4,6 +4,7 @@ import {Button, Spinner, Text} from 'shared';
 
 import {ConnectorIcon} from '../../ConnectorIcon';
 import {useAppDispatch, useAppSelector} from '../../../hooks/useAppState';
+import {useDisconnect} from '../../../hooks/useDisconnect';
 import {useSignMessage} from '../../../hooks/useSignMessage';
 import {useTranslation} from '../../../hooks/useTranslation';
 import {closeModal, setError} from '../../../slices/modalSlice';
@@ -12,18 +13,20 @@ const SignatureScreen = () => {
   const dispatch = useAppDispatch();
   const {error, signing} = useAppSelector((state) => state.modal);
   const {pendingWallet} = useAppSelector((state) => state.wallet);
+  const {disconnect} = useDisconnect();
   const {signMessage} = useSignMessage();
   const {t} = useTranslation('Screens');
 
   const handleSignMessage = useCallback(() => {
     if (!pendingWallet) {
       dispatch(closeModal());
+      disconnect();
       return;
     }
 
     dispatch(setError());
     signMessage(pendingWallet);
-  }, [dispatch, pendingWallet, signMessage]);
+  }, [disconnect, dispatch, pendingWallet, signMessage]);
 
   const isCriticalError =
     error !== undefined && error.name !== 'UserRejectedRequestError';
