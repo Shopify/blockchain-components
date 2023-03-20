@@ -82,18 +82,24 @@ describe('loggerMiddleware', () => {
 
       // Test the previous state
       expect(spyLog.mock.calls[1][0]).toContain('previous state:');
-      expect(spyLog.mock.calls[1][2]).toEqual(expectedPrevState);
+      expect(spyLog.mock.calls[1][2]).toEqual(
+        expect.objectContaining(expectedPrevState),
+      );
 
       // Test the action and payload
       expect(spyLog.mock.calls[2][0]).toContain('action:');
-      expect(spyLog.mock.calls[2][2]).toEqual({
-        type: action.type,
-        payload,
-      });
+      expect(spyLog.mock.calls[2][2]).toEqual(
+        expect.objectContaining({
+          type: action.type,
+          payload,
+        }),
+      );
 
       // Test the next state
       expect(spyLog.mock.calls[3][0]).toContain('next state:');
-      expect(spyLog.mock.calls[3][2]).toEqual(expectedNextState);
+      expect(spyLog.mock.calls[3][2]).toEqual(
+        expect.objectContaining(expectedNextState),
+      );
     });
   });
 });

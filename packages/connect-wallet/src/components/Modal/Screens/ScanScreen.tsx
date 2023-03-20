@@ -3,20 +3,22 @@ import {AnimatePresence, domAnimation, LazyMotion} from 'framer-motion';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button} from 'shared';
 
-import {useAppSelector} from '../../../hooks/useAppState';
+import {useAppDispatch, useAppSelector} from '../../../hooks/useAppState';
+import {useConnect} from '../../../hooks/useConnect';
 import {useConnectorData} from '../../../hooks/useConnectorData';
 import {useTranslation} from '../../../hooks/useTranslation';
-import {useModal} from '../../../providers/ModalProvider';
 import {QRCode, QRCodeSkeleton} from '../../QRCode';
+import {closeModal} from '../../../slices/modalSlice';
 import {cleanupConnection} from '../../../utils/cleanupConnection';
 
 const ScanScreen = () => {
+  const dispatch = useAppDispatch();
   const {pendingConnector} = useAppSelector((state) => state.wallet);
+  const {connect} = useConnect();
   const {connector, marketingSite, modalConnector, name, qrCodeSupported} =
     useConnectorData({
       id: pendingConnector?.id,
     });
-  const {closeModal, connect} = useModal();
   const [qrCodeURI, setQRCodeURI] = useState<string | undefined>();
   const {t} = useTranslation('Screens');
 
@@ -26,8 +28,8 @@ const ScanScreen = () => {
     }
 
     connect({connector: modalConnector});
-    closeModal();
-  }, [closeModal, connect, modalConnector]);
+    dispatch(closeModal());
+  }, [connect, dispatch, modalConnector]);
 
   const buttons = useMemo(() => {
     const hasGetProductButton = Boolean(marketingSite);

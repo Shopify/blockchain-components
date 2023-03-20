@@ -20,10 +20,13 @@ import {
   useMediaQuery,
 } from 'shared';
 
-import {useAppSelector} from '../../hooks/useAppState';
+import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
+import {useDisconnect} from '../../hooks/useDisconnect';
+import {useMiddleware} from '../../hooks/useMiddleware';
 import {useTranslation} from '../../hooks/useTranslation';
 import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
-import {ModalRoute, useModal} from '../../providers/ModalProvider';
+import {closeModal, goBack, navigate} from '../../slices/modalSlice';
+import {ModalRoute} from '../../types/modal';
 
 import {
   ConnectScreen,
@@ -36,36 +39,57 @@ import {
 import {ModalVariants} from './variants';
 
 export const Modal = () => {
+  const dispatch = useAppDispatch();
+  const {open, route} = useAppSelector((state) => state.modal);
   const {pendingConnector, pendingWallet} = useAppSelector(
     (state) => state.wallet,
   );
-  const {connectors} = useContext(ConnectWalletContext);
+  const {
+    connectors,
+    enableDelegateCash,
+    orderAttributionMode,
+    requireSignature,
+  } = useContext(ConnectWalletContext);
+  const {disconnect} = useDisconnect();
   const isMounted = useIsMounted();
   const escPress = useKeyPress('Escape');
   const [ref, {height}] = useMeasure();
   const isSmall = useMediaQuery('smDown');
-  const {active, closeModal, navigation} = useModal();
   const reducedMotion = useReducedMotion();
   const {t} = useTranslation('Modal');
 
+  useMiddleware({enableDelegateCash, orderAttributionMode, requireSignature});
+
   useEffect(() => {
-    if (escPress && active) {
-      closeModal();
+    if (escPress && open) {
+      dispatch(closeModal());
     }
-  }, [active, closeModal, escPress]);
+  }, [dispatch, escPress, open]);
 
-  const handleBackdropPress = useCallback(() => {
-    if (!active) return;
+  const handleCloseModal = useCallback(() => {
+    if (!open) return;
 
-    closeModal();
-  }, [active, closeModal]);
+    if (route === 'Signature') {
+      disconnect(pendingWallet?.address);
+    }
+
+    dispatch(closeModal());
+  }, [disconnect, dispatch, open, pendingWallet?.address, route]);
+
+  const handleGoBack = useCallback(() => {
+    if (route === 'Signature') {
+      disconnect(pendingWallet?.address);
+    }
+
+    dispatch(goBack());
+  }, [disconnect, dispatch, pendingWallet?.address, route]);
 
   const backButton = (
     <IconButton
       aria-label={t('icons.back') as string}
       icon={Back}
       onClickEventName={eventNames.CONNECT_WALLET_MODAL_BACK_BUTTON_CLICKED}
-      onClick={navigation.goBack}
+      onClick={handleGoBack}
     />
   );
 
@@ -74,51 +98,47 @@ export const Modal = () => {
       aria-label={t('icons.whatIsAWallet') as string}
       icon={QuestionMark}
       onClickEventName={eventNames.CONNECT_WALLET_HELP_BUTTON_CLICKED}
-      onClick={() => navigation.navigate(ModalRoute.WhatAreWallets)}
+      onClick={() => dispatch(navigate('WhatAreWallets'))}
     />
   );
 
-  const mappedScreenData: {
-    [R in ModalRoute]: {
-      leftButton: JSX.Element;
-      screenComponent: JSX.Element;
-      title: string;
-    };
-  } = {
+  const mappedScreenData: Record<
+    ModalRoute,
+    {leftButton: JSX.Element; screen: JSX.Element; title: string}
+  > = {
     Connect: {
       leftButton: whatAreWalletsButton,
-      screenComponent: <ConnectScreen connectors={connectors} />,
+      screen: <ConnectScreen connectors={connectors} />,
       title: t('title.Connect'),
     },
     Connecting: {
       leftButton: backButton,
-      screenComponent: <ConnectingScreen />,
+      screen: <ConnectingScreen />,
       title: t('title.Connecting', {connector: pendingConnector?.name}),
     },
     GetAWallet: {
       leftButton: backButton,
-      screenComponent: <GetAWalletScreen />,
+      screen: <GetAWalletScreen />,
       title: t('title.GetAWallet'),
     },
     Scan: {
       leftButton: backButton,
-      screenComponent: <ScanScreen />,
+      screen: <ScanScreen />,
       title: t('title.Scan', {connector: pendingConnector?.name}),
     },
     Signature: {
       leftButton: backButton,
-      screenComponent: <SignatureScreen />,
+      screen: <SignatureScreen />,
       title: t('title.Signature', {connector: pendingWallet?.connectorName}),
     },
     WhatAreWallets: {
       leftButton: backButton,
-      screenComponent: <WhatAreWalletsScreen />,
+      screen: <WhatAreWalletsScreen />,
       title: t('title.WhatAreWallets'),
     },
   };
 
-  const {leftButton, screenComponent, title} =
-    mappedScreenData[navigation.route];
+  const {leftButton, screen, title} = mappedScreenData[route];
 
   if (!isMounted) {
     return null;
@@ -127,7 +147,7 @@ export const Modal = () => {
   return createPortal(
     <LazyMotion features={domAnimation}>
       <AnimatePresence>
-        {active ? (
+        {open ? (
           <m.div
             className="sbc-fixed sbc-top-0 sbc-left-0 sbc-right-0 sbc-bottom-0 sbc-z-max sbc-flex sbc-items-end sbc-justify-center sm:sbc-items-center"
             exit={{pointerEvents: 'none'}}
@@ -139,7 +159,7 @@ export const Modal = () => {
               className="sbc-absolute sbc-z-10 sbc-h-full sbc-w-full sbc-bg-overlay"
               exit={{opacity: 0}}
               initial={{opacity: 0}}
-              onClick={handleBackdropPress}
+              onClick={handleCloseModal}
             />
             <m.div
               animate="show"
@@ -170,11 +190,11 @@ export const Modal = () => {
                     onClickEventName={
                       eventNames.CONNECT_WALLET_MODAL_CLOSE_BUTTON_CLICKED
                     }
-                    onClick={closeModal}
+                    onClick={handleCloseModal}
                   />
                 </div>
 
-                {screenComponent}
+                {screen}
               </div>
             </m.div>
           </m.div>

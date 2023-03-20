@@ -9,38 +9,37 @@ export const useModalScreenContent = (
   const {pendingConnector} = useAppSelector((state) => state.wallet);
   const {t} = useTranslation('UseModalContent');
 
-  const screenContent: {
-    [key in keyof typeof ConnectionState]: {body: string; title: string};
-  } = {
-    AlreadyConnected: {
-      body: t('alreadyConnected.body'),
-      title: t('alreadyConnected.title'),
-    },
-    Connected: {
-      body: t('connected.body'),
-      title: t('connected.title'),
-    },
-    Connecting: {
-      body: t('connecting.body', {
-        connectorName: pendingConnector?.name || 'wallet app',
-      }),
-      title: t('connecting.title'),
-    },
-    Failed: {
-      body: t('failed.body'),
-      title: t('failed.title'),
-    },
-    Rejected: {
-      body: t('rejected.body', {
-        connectorName: pendingConnector?.name || 'wallet app',
-      }),
-      title: t('rejected.title'),
-    },
-    Unavailable: {
-      body: t('unavailable.body'),
-      title: t('unavailable.title'),
-    },
-  };
+  const screenContent: Record<ConnectionState, {body: string; title: string}> =
+    {
+      AlreadyConnected: {
+        body: t('alreadyConnected.body'),
+        title: t('alreadyConnected.title'),
+      },
+      Connected: {
+        body: t('connected.body'),
+        title: t('connected.title'),
+      },
+      Connecting: {
+        body: t('connecting.body', {
+          connectorName: pendingConnector?.name || 'wallet app',
+        }),
+        title: t('connecting.title'),
+      },
+      Failed: {
+        body: t('failed.body'),
+        title: t('failed.title'),
+      },
+      Rejected: {
+        body: t('rejected.body', {
+          connectorName: pendingConnector?.name || 'wallet app',
+        }),
+        title: t('rejected.title'),
+      },
+      Unavailable: {
+        body: t('unavailable.body'),
+        title: t('unavailable.title'),
+      },
+    };
 
   return screenContent[state];
 };

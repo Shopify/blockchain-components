@@ -16,18 +16,18 @@ import {
 } from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
-import {useAppSelector} from '../../hooks/useAppState';
+import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
 import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
 import {useDisconnect} from '../../hooks/useDisconnect';
 import {useTranslation} from '../../hooks/useTranslation';
 import {useWindowDimensions} from '../../hooks/useWindowDimensions';
-import {useModal} from '../../providers/ModalProvider';
+import {openModal} from '../../slices/modalSlice';
 
 export const ConnectButton = () => {
+  const dispatch = useAppDispatch();
   const {activeWallet} = useAppSelector((state) => state.wallet);
   const {copy, copied} = useCopyToClipboard();
   const {disconnect} = useDisconnect();
-  const {openModal} = useModal();
   const [popoverVisible, setPopoverVisible] = useState(false);
   const {t} = useTranslation('ConnectButton');
   const {width} = useWindowDimensions();
@@ -50,9 +50,9 @@ export const ConnectButton = () => {
 
   const handleClick = useCallback(() => {
     if (!activeWallet) {
-      openModal();
+      dispatch(openModal());
     }
-  }, [activeWallet, openModal]);
+  }, [activeWallet, dispatch]);
 
   const handleDisconnect = useCallback(() => {
     if (!activeWallet) {

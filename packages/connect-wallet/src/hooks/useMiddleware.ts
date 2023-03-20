@@ -12,21 +12,20 @@ import {
 } from '../slices/walletSlice';
 import {addListener} from '../store/listenerMiddleware';
 import {OrderAttributionMode} from '../types/orderAttribution';
-import {SignatureResponse, Wallet} from '../types/wallet';
+import {Wallet} from '../types/wallet';
 
 import {useAppDispatch, useAppSelector} from './useAppState';
+import {useSignMessage} from './useSignMessage';
 
 interface UseMiddlewareProps {
   enableDelegateCash?: boolean;
   orderAttributionMode: OrderAttributionMode;
-  requestSignature: (wallet: Wallet) => Promise<SignatureResponse | undefined>;
   requireSignature?: boolean;
 }
 
 export const useMiddleware = ({
   enableDelegateCash,
   orderAttributionMode,
-  requestSignature,
   requireSignature,
 }: UseMiddlewareProps) => {
   const dispatch = useAppDispatch();
@@ -35,6 +34,7 @@ export const useMiddleware = ({
   );
   const {chain} = useNetwork();
   const provider = useProvider();
+  const {signMessage} = useSignMessage();
 
   useAccount({
     onConnect: ({address, connector, isReconnected}) => {
@@ -114,12 +114,12 @@ export const useMiddleware = ({
               return;
             }
 
-            requestSignature(wallet);
+            signMessage(wallet);
           },
         }),
       );
     }
-  }, [dispatch, requestSignature, requireSignature]);
+  }, [dispatch, signMessage, requireSignature]);
 
   /**
    * onConnect listener (internal)

@@ -2,8 +2,9 @@ import {eventNames} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
 import {Asset, Button, Gift, Key, Text} from 'shared';
 
+import {useAppDispatch} from '../../../hooks/useAppState';
 import {useTranslation} from '../../../hooks/useTranslation';
-import {ModalRoute, useModal} from '../../../providers/ModalProvider';
+import {navigate} from '../../../slices/modalSlice';
 
 interface ListItemProps {
   content: string;
@@ -32,12 +33,12 @@ const ListItem = ({content, icon, title}: ListItemProps) => {
 };
 
 const WhatAreWalletsScreen = () => {
-  const {navigation} = useModal();
+  const dispatch = useAppDispatch();
   const {t} = useTranslation('Screens');
 
   const handleGetAWallet = useCallback(() => {
-    navigation.navigate(ModalRoute.GetAWallet);
-  }, [navigation]);
+    dispatch(navigate('GetAWallet'));
+  }, [dispatch]);
 
   const listItems = [
     {
