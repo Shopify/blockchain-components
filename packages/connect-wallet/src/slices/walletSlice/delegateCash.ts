@@ -1,5 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {DelegateCash} from 'delegatecash';
+import {Address} from 'wagmi';
 
 export const fetchDelegations = createAsyncThunk(
   'wallet/fetchDelegations',
@@ -17,14 +18,14 @@ export const fetchDelegations = createAsyncThunk(
     );
 
     // Get only the vault wallet addresses
-    const delegationsWalletAddresses = delegationsFilteredByAllType.map(
-      (delegation) => delegation.vault,
+    const vaults = delegationsFilteredByAllType.map(
+      (delegation) => delegation.vault as Address,
     );
 
-    if (delegationsWalletAddresses.length) {
+    if (vaults.length) {
       return thunkApi.fulfillWithValue({
         address: walletAddress,
-        delegationsWalletAddresses,
+        vaults,
       });
     }
   },

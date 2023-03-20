@@ -237,22 +237,24 @@ export const walletSlice = createSlice({
     });
     builder.addCase(fetchDelegations.fulfilled, (state, action) => {
       if (action.payload) {
-        const {address, delegationsWalletAddresses} = action.payload;
+        const {address, vaults} = action.payload;
 
         const connectedWallet = state.connectedWallets.find(
-          (wallet) => wallet.address === address,
+          (wallet) =>
+            wallet.address.toLocaleLowerCase() === address.toLocaleLowerCase(),
         );
 
         // Update wallet in 'connectedWallets' state
         if (connectedWallet) {
-          connectedWallet.delegationsWalletAddresses =
-            delegationsWalletAddresses;
+          connectedWallet.vaults = vaults;
         }
 
         // Update wallet in 'activeWallet' state
-        if (state.activeWallet?.address === address) {
-          state.activeWallet.delegationsWalletAddresses =
-            delegationsWalletAddresses;
+        if (
+          state.activeWallet?.address.toLocaleLowerCase() ===
+          address.toLocaleLowerCase()
+        ) {
+          state.activeWallet.vaults = vaults;
         }
       }
     });
