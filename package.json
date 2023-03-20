@@ -85,7 +85,7 @@
     "turbo": "latest",
     "typescript": "^4.4.2",
     "vite": "^4.1.4",
-    "vite-plugin-node-stdlib-browser": "^0.1.1",
+    "vite-plugin-node-polyfills": "^0.7.0",
     "vitest": "^0.28.5",
     "vitest-fetch-mock": "^0.2.1",
     "wagmi": "^0.10.4"
