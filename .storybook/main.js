@@ -1,4 +1,5 @@
 const react = require('@vitejs/plugin-react');
+const {nodePolyfills} = require('vite-plugin-node-polyfills');
 
 module.exports = {
   stories: [
@@ -15,7 +16,10 @@ module.exports = {
     options: {},
   },
   async viteFinal(config) {
-    config.plugins = mergePlugins(config.plugins, react());
+    config.plugins = mergePlugins(config.plugins, [
+      nodePolyfills(),
+      ...react(),
+    ]);
     return config;
   },
 };
@@ -34,7 +38,7 @@ const mergePlugins = (originalPlugins, newPlugins) => {
 
     // If new plugin does not exist, append it
     if (originalPluginIndex < 0) {
-      return finalPlugins.append(newPlugin);
+      return finalPlugins.push(newPlugin);
     }
 
     // If new plugin does exist, replace it
