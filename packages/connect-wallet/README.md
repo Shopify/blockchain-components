@@ -4,22 +4,15 @@
 
 The `@shopify/connect-wallet` package provides a standard way of connecting wallets and signing messages on Shopify storefronts. For more in-depth information, [read the complete documentation](https://shopify.dev/api/blockchain/components/connect-wallet).
 
-## Get started
-
-To get started with using `@shopify/connect-wallet` you need to follow these steps
-
-1. [Installation](#installation)
-1. [Client configuration](#client-configuration)
-1. [App provider setup](#app-provider-setup)
-1. [Adding the `ConnectButton` component to your app](#adding-the-connectbutton-component-to-your-app)
-
-### Installation
+## Installation
 
 Install the `shopify/connect-wallet` package and its wagmi + ethers peer dependencies.
 
 ```bash
 yarn add @shopify/connect-wallet ethers wagmi
 ```
+
+## Documentation
 
 ### Client configuration
 
@@ -63,6 +56,7 @@ Let's begin using the configured client and chains. In your app's entry point, (
 
 ```tsx
 import {ConnectWalletProvider} from '@shopify/connect-wallet';
+import '@shopify/connect-wallet/styles.css';
 import {WagmiConfig} from 'wagmi';
 
 import {chains, client, connectors} from './connect-wallet-config'
@@ -98,22 +92,16 @@ export const Header = () => {
 }
 ```
 
-## Additional setup
+For further detailed documentation, [visit shopify.dev](https://shopify.dev/docs/api/blockchain/components/connect-wallet).
 
-Additional setup might be required depending on the tooling of your project.
-
-### Polyfills
-
-If you're using a bundler such as [Vite](https://vitejs.dev/) which doesn't provide Node polyfills, you will need to polyfill `global`, `Buffer`, and `process`. Below is a list of plugins that you can use for polyfills:
-
-- [`@esbuild-plugins/node-globals-polyfill`](https://github.com/remorses/esbuild-plugins)
-- [`vite-plugin-node-stdlib-browser`](https://github.com/sodatea/vite-plugin-node-stdlib-browser)
-- [`vite-plugin-node-polyfills`](https://github.com/voracious/vite-plugin-node-polyfills)
+For examples of component usage, see the [examples folder](https://github.com/Shopify/blockchain-components/tree/main/examples).
 
 ## Contributing
 
 Pull requests are welcome. See the [contribution guidelines](../../.github/contributing.md) for more information.
 
-## Licenses
+## License
 
-- Source code is under the [MIT license](../../LICENSE.md).
+MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
+
+[![Shopify Logo Light](../../images/shopify-light.svg#gh-dark-mode-only)![Shopify Logo Dark](../../images/shopify-dark.svg#gh-light-mode-only)](<(https://www.shopify.com/)>)
