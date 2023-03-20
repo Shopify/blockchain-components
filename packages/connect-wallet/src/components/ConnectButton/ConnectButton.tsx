@@ -5,6 +5,7 @@ import {
   CaretDown,
   CircleTick,
   Copy,
+  DelegateCash,
   device,
   formatWalletAddress,
   getButtonClassname,
@@ -81,7 +82,7 @@ export const ConnectButton = () => {
     );
   }
 
-  const {address, connectorId, displayName} = activeWallet;
+  const {address, connectorId, displayName, vaults} = activeWallet;
   const buttonClassname = getButtonClassname({
     fullWidth: true,
     size: 'Lg',
@@ -105,6 +106,14 @@ export const ConnectButton = () => {
         <Text as="span" variant="bodyLg">
           {buttonLabel}
         </Text>
+        {vaults && vaults.length > 0 ? (
+          <div className="sbc-flex sbc-flex-row sbc-items-center sbc-justify-center sbc-gap-x-1 sbc-px-2">
+            <div className="sbc-flex sbc-h-3">{DelegateCash}</div>
+            <Text as="span" variant="bodySm">
+              {vaults.length}
+            </Text>
+          </div>
+        ) : null}
         <div
           className={`sbc-h-5 sbc-w-5 sbc-origin-center sbc-transition-transform ${
             popoverVisible ? 'sbc-rotate-180' : 'sbc-rotate-0'
