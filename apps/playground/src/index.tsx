@@ -44,9 +44,9 @@ window.playground = {
           <AnalyticsListener />
           <WagmiConfig client={client}>
             <ConnectWalletProvider
-              allowDelegateCashSupport
               chains={chains}
               connectors={connectors}
+              enableDelegateCash
               orderAttributionMode="ignoreErrors"
             >
               <App

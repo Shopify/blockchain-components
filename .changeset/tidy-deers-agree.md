@@ -2,4 +2,4 @@
 '@shopify/connect-wallet': minor
 ---
 
-[delegate-cash] Add allowDelegateCashSupport prop to ConnectWalletProvider
+[delegate-cash] Add enableDelegateCash prop to ConnectWalletProvider
