@@ -46,6 +46,7 @@ window.playground = {
             <ConnectWalletProvider
               chains={chains}
               connectors={connectors}
+              enableDelegateCash
               orderAttributionMode="ignoreErrors"
             >
               <App

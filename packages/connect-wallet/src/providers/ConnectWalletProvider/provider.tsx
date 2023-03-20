@@ -18,6 +18,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,
   connectors,
   children,
+  enableDelegateCash = true,
   requireSignature = true,
   orderAttributionMode = 'required',
   statementGenerator,
@@ -35,6 +36,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
     }
 
     return {
+      enableDelegateCash,
       chains,
       connectors: contextualConnectors,
       requireSignature,
@@ -42,6 +44,7 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
       orderAttributionMode,
     };
   }, [
+    enableDelegateCash,
     chains,
     connectors,
     requireSignature,

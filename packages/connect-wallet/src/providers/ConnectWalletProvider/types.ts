@@ -58,8 +58,13 @@ interface OrderAttributionModeProps {
   orderAttributionMode?: OrderAttributionMode;
 }
 
+interface EnableDelegateCashProps {
+  enableDelegateCash?: boolean;
+}
+
 export type ProviderProps = (
   | SignatureRequiredProps
   | SignatureNotRequiredProps
 ) &
-  OrderAttributionModeProps;
+  OrderAttributionModeProps &
+  EnableDelegateCashProps;
