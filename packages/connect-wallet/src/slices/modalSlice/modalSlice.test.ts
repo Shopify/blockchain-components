@@ -110,10 +110,6 @@ describe('modalSlice', () => {
       expect(reducer(ERROR_STATE, setError())).toStrictEqual(initialState);
     });
 
-    it('sets the error to undefined when dispatched with no parameter', () => {
-      expect(reducer(ERROR_STATE, setError())).toStrictEqual(initialState);
-    });
-
     it('sets the error to an object when dispatched with only error.name', () => {
       expect(
         reducer(initialState, setError({name: 'UserRejectedRequestError'})),
@@ -123,7 +119,7 @@ describe('modalSlice', () => {
       });
     });
 
-    it('sets the error to an object when dispatched with only error.name', () => {
+    it('sets the error to an object when dispatched with only error.message', () => {
       expect(
         reducer(initialState, setError({message: 'User rejected request'})),
       ).toStrictEqual({

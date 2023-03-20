@@ -108,9 +108,10 @@ export function useSignMessage() {
         });
 
         /**
-         * Note: We will only move past the validatePendingWallet action
+         * Note: We will only move past the `validatePendingWallet` action
          * when the signed message is decrypted to match the address
-         * matching the pending wallet and the nonces match.
+         * present in the `pendingWallet` object and when the nonces for the signature
+         * and the message the store match.
          *
          * In the event that the following fails (throws an error due to
          * mismatched addresses) we will set the error state for the
