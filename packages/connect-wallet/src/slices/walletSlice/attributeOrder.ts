@@ -7,7 +7,7 @@ import {gateContextClient} from './gateContextClient';
 
 export interface AttributeOrderResponse {
   orderAttributionMode: OrderAttributionMode;
-  wallet: {address: string};
+  wallet: {address: string; vaults?: string[]};
 }
 
 export const attributeOrder = createAsyncThunk<
@@ -21,9 +21,14 @@ export const attributeOrder = createAsyncThunk<
 
     if (orderAttributionMode === 'disabled') return fulfill();
 
+    const {address, vaults} = wallet;
+
     if (orderAttributionMode === 'ignoreErrors') {
       gateContextClient
-        .write({walletAddress: wallet.address})
+        .write({
+          walletAddress: address,
+          vaults,
+        })
         .catch((error: any) =>
           console.error(
             new ConnectWalletError(
@@ -33,19 +38,21 @@ export const attributeOrder = createAsyncThunk<
           ),
         );
 
-      return thunkApi.fulfillWithValue({orderAttributionMode});
+      return fulfill();
     }
 
-    if (!wallet.address) {
+    if (!address) {
       return thunkApi.rejectWithValue(
         'Missing payload during order attribution',
       );
     }
 
-    const {address} = wallet;
     try {
-      await gateContextClient.write({walletAddress: address});
-      return fulfill({address});
+      await gateContextClient.write({
+        walletAddress: address,
+        vaults,
+      });
+      return fulfill({address, vaults});
     } catch (error) {
       return thunkApi.rejectWithValue((error as any)?.message || error);
     }

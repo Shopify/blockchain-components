@@ -22,11 +22,9 @@ export const fetchDelegations = createAsyncThunk(
       (delegation) => delegation.vault as Address,
     );
 
-    if (vaults.length) {
-      return thunkApi.fulfillWithValue({
-        address: walletAddress,
-        vaults,
-      });
-    }
+    return thunkApi.fulfillWithValue({
+      address: walletAddress,
+      vaults,
+    });
   },
 );

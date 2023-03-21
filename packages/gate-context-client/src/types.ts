@@ -8,6 +8,7 @@ export interface GateContextWriteResponse<TRawResponse> {
 
 export interface GateContextInput {
   walletAddress: string;
+  vaults?: string[];
   walletVerificationMessage?: string;
   walletVerificationSignature?: string;
 }
