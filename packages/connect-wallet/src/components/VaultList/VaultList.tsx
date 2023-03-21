@@ -17,13 +17,8 @@ export const VaultList = ({vaults}: {vaults?: Address[]}) => {
         <Text variant="bodyMd">{t('title', {count: vaults.length})}</Text>
       </div>
       <div className="sbc-flex sbc-flex-col sbc-pt-3">
-        {vaults.map((vault, index) => (
-          <div key={vault} className="sbc-w-full">
-            <VaultListRow vault={vault} />
-            {index < vaults.length - 1 ? (
-              <span className="sbc-h-px sbc-flex-1 sbc-bg-divider" />
-            ) : null}
-          </div>
+        {vaults.map((vault) => (
+          <VaultListRow key={vault} vault={vault} />
         ))}
       </div>
     </div>

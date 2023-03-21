@@ -164,6 +164,15 @@ module.exports = {
         '.border-none': {
           'border-style': 'unset',
         },
+        '.border-t-0': {
+          'border-top-style': 'unset',
+        },
+        '.border-l-0': {
+          'border-left-style': 'unset',
+        },
+        '.border-r-0': {
+          'border-right-style': 'unset',
+        },
         '.border-popover': {
           'border-style': 'var(--sbc-border-style-popover, unset)',
         },
