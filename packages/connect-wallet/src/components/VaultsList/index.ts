@@ -1,1 +1,0 @@
-export {VaultsList} from './VaultsList';

@@ -22,7 +22,7 @@ import {useDisconnect} from '../../hooks/useDisconnect';
 import {useTranslation} from '../../hooks/useTranslation';
 import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {openModal} from '../../slices/modalSlice';
-import {VaultsList} from '../VaultsList';
+import {VaultList} from '../VaultList';
 
 export const ConnectButton = () => {
   const dispatch = useAppDispatch();
@@ -143,7 +143,7 @@ export const ConnectButton = () => {
           {copied ? CircleTick : Copy}
         </button>
 
-        <VaultsList vaults={vaults} />
+        <VaultList vaults={vaults} />
 
         <Button
           aria-label={t('popover.disconnectButton')}

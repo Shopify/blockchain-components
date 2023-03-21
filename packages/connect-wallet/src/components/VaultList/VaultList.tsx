@@ -3,10 +3,10 @@ import {Address} from 'wagmi';
 
 import {useTranslation} from '../../hooks/useTranslation';
 
-import {WalletAddressRow} from './components/VaultsListRow';
+import {VaultListRow} from './components/VaultListRow';
 
-export const VaultsList = ({vaults}: {vaults?: Address[]}) => {
-  const {t} = useTranslation('VaultsList');
+export const VaultList = ({vaults}: {vaults?: Address[]}) => {
+  const {t} = useTranslation('VaultList');
 
   if (!vaults) return null;
 
@@ -19,7 +19,7 @@ export const VaultsList = ({vaults}: {vaults?: Address[]}) => {
       <div className="sbc-flex sbc-flex-col sbc-pt-3">
         {vaults.map((vault, index) => (
           <div key={vault} className="sbc-w-full">
-            <WalletAddressRow vault={vault} />
+            <VaultListRow vault={vault} />
             {index < vaults.length - 1 ? (
               <span className="sbc-h-px sbc-flex-1 sbc-bg-divider" />
             ) : null}

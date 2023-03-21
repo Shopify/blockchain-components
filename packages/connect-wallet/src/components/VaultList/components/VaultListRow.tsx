@@ -6,7 +6,7 @@ interface Props {
   vault: string;
 }
 
-export const WalletAddressRow = ({vault}: Props) => {
+export const VaultListRow = ({vault}: Props) => {
   const {copy, copied} = useCopyToClipboard();
 
   return (
