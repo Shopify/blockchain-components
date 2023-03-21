@@ -10,6 +10,7 @@ import GetAConnectorButton from './translations/en/GetAConnectorButton.json';
 import Modal from './translations/en/Modal.json';
 import Screens from './translations/en/Screens.json';
 import UseModalContent from './translations/en/UseModalContent.json';
+import VaultsList from './translations/en/VaultsList.json';
 
 const i18n = createInstance({
   fallbackLng: 'en',
@@ -23,6 +24,7 @@ const i18n = createInstance({
       Modal,
       Screens,
       UseModalContent,
+      VaultsList,
     },
   },
 });

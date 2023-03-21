@@ -22,6 +22,7 @@ import {useDisconnect} from '../../hooks/useDisconnect';
 import {useTranslation} from '../../hooks/useTranslation';
 import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {openModal} from '../../slices/modalSlice';
+import {VaultsList} from '../VaultsList';
 
 export const ConnectButton = () => {
   const dispatch = useAppDispatch();
@@ -107,9 +108,9 @@ export const ConnectButton = () => {
           {buttonLabel}
         </Text>
         {vaults && vaults.length > 0 ? (
-          <div className="sbc-flex sbc-flex-row sbc-items-center sbc-justify-center sbc-gap-x-1 sbc-px-2">
-            <div className="sbc-flex sbc-h-3">{DelegateCash}</div>
-            <Text as="span" variant="bodySm">
+          <div className="sbc-flex sbc-flex-row sbc-items-center sbc-justify-center sbc-gap-x-1 sbc-rounded sbc-bg-address-chip sbc-px-2 sbc-py-1">
+            <div className="sbc-h-3 sbc-w-3">{DelegateCash}</div>
+            <Text as="span" variant="bodySm" color="secondary">
               {vaults.length}
             </Text>
           </div>
@@ -141,6 +142,8 @@ export const ConnectButton = () => {
           </Text>
           {copied ? CircleTick : Copy}
         </button>
+
+        <VaultsList vaults={vaults} />
 
         <Button
           aria-label={t('popover.disconnectButton')}
