@@ -85,7 +85,7 @@ export default function ({serverArguments}: AppProps) {
 
   const _TokengateComponent = (
     <Tokengate
-      connectButton={<ConnectButton />}
+      connectButton={<ConnectButton popoverType="modal" />}
       isLoading={serverArguments?.initialState.isLoading}
       isConnected={Boolean(wallet)}
       reaction={{

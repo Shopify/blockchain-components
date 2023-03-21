@@ -1,25 +1,9 @@
 import {eventNames} from '@shopify/blockchain-components';
-import {
-  AnimatePresence,
-  domAnimation,
-  LazyMotion,
-  m,
-  useReducedMotion,
-} from 'framer-motion';
 import {useCallback, useEffect, useContext} from 'react';
-import {createPortal} from 'react-dom';
-import useMeasure from 'react-use-measure';
-import {
-  Back,
-  Cancel,
-  IconButton,
-  QuestionMark,
-  Text,
-  useIsMounted,
-  useKeyPress,
-  useMediaQuery,
-} from 'shared';
 
+import {Back, IconButton, QuestionMark, useKeyPress} from 'shared';
+
+import {Modal as CommonModal} from '../Common';
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
 import {useDisconnect} from '../../hooks/useDisconnect';
 import {useMiddleware} from '../../hooks/useMiddleware';
@@ -36,7 +20,6 @@ import {
   SignatureScreen,
   WhatAreWalletsScreen,
 } from './Screens';
-import {ModalVariants} from './variants';
 
 export const Modal = () => {
   const dispatch = useAppDispatch();
@@ -51,11 +34,7 @@ export const Modal = () => {
     requireSignature,
   } = useContext(ConnectWalletContext);
   const {disconnect} = useDisconnect();
-  const isMounted = useIsMounted();
   const escPress = useKeyPress('Escape');
-  const [ref, {height}] = useMeasure();
-  const isSmall = useMediaQuery('smDown');
-  const reducedMotion = useReducedMotion();
   const {t} = useTranslation('Modal');
 
   useMiddleware({enableDelegateCash, orderAttributionMode, requireSignature});
@@ -140,67 +119,15 @@ export const Modal = () => {
 
   const {leftButton, screen, title} = mappedScreenData[route];
 
-  if (!isMounted) {
-    return null;
-  }
-
-  return createPortal(
-    <LazyMotion features={domAnimation}>
-      <AnimatePresence>
-        {open ? (
-          <m.div
-            className="sbc-fixed sbc-top-0 sbc-left-0 sbc-right-0 sbc-bottom-0 sbc-z-max sbc-flex sbc-items-end sbc-justify-center sm:sbc-items-center"
-            exit={{pointerEvents: 'none'}}
-            id="shopify-connect-wallet-modal-container"
-            initial={{pointerEvents: 'auto'}}
-          >
-            <m.div
-              animate={{opacity: 1}}
-              className="sbc-absolute sbc-z-10 sbc-h-full sbc-w-full sbc-bg-overlay"
-              exit={{opacity: 0}}
-              initial={{opacity: 0}}
-              onClick={handleCloseModal}
-            />
-            <m.div
-              animate="show"
-              className="sbc-relative sbc-z-20 sbc-w-full sbc-max-w-none sbc-overflow-hidden sbc-rounded-popover-mobile sbc-bg-popover sbc-shadow-popover-mobile sbc-border-popover sm:sbc-max-w-sm sm:sbc-rounded-popover-desktop sm:sbc-shadow-popover-desktop"
-              exit="exit"
-              initial="exit"
-              variants={ModalVariants({
-                height,
-                isSmall,
-                reducedMotion,
-              })}
-            >
-              <div ref={ref}>
-                <div className="sbc-flex sbc-flex-row sbc-items-center sbc-gap-x-4 sbc-p-popover">
-                  {leftButton}
-
-                  <Text
-                    as="h2"
-                    className="sbc-max-w-full sbc-flex-1 sbc-text-ellipsis sbc-whitespace-nowrap sbc-break-all sbc-text-center sbc-line-clamp-2"
-                    variant="headingMd"
-                  >
-                    {title}
-                  </Text>
-
-                  <IconButton
-                    aria-label={t('icons.close') as string}
-                    icon={Cancel}
-                    onClickEventName={
-                      eventNames.CONNECT_WALLET_MODAL_CLOSE_BUTTON_CLICKED
-                    }
-                    onClick={handleCloseModal}
-                  />
-                </div>
-
-                {screen}
-              </div>
-            </m.div>
-          </m.div>
-        ) : null}
-      </AnimatePresence>
-    </LazyMotion>,
-    document.body,
+  return (
+    <CommonModal
+      closeEventName="CONNECT_WALLET_MODAL_CLOSE_BUTTON_CLICKED"
+      leftButton={leftButton}
+      onDismiss={handleCloseModal}
+      title={title}
+      visible={open}
+    >
+      {screen}
+    </CommonModal>
   );
 };

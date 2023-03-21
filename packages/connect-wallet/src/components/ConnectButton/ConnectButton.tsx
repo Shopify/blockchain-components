@@ -3,13 +3,10 @@ import {useCallback, useEffect, useState} from 'react';
 import {
   Button,
   CaretDown,
-  CircleTick,
-  Copy,
   DelegateCash,
   device,
   formatWalletAddress,
   getButtonClassname,
-  Popover,
   Text,
   useKeyPress,
   useOutsideClick,
@@ -17,17 +14,18 @@ import {
 
 import {ConnectorIcon} from '../ConnectorIcon';
 import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
-import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
-import {useDisconnect} from '../../hooks/useDisconnect';
 import {useTranslation} from '../../hooks/useTranslation';
 import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {openModal} from '../../slices/modalSlice';
 
-export const ConnectButton = () => {
+import {ConnectedWalletDetail} from './ConnectedWalletDetail';
+import type {ConnectButtonProps} from './types';
+
+export const ConnectButton = ({
+  popoverType = 'dropdown',
+}: ConnectButtonProps) => {
   const dispatch = useAppDispatch();
   const {activeWallet} = useAppSelector((state) => state.wallet);
-  const {copy, copied} = useCopyToClipboard();
-  const {disconnect} = useDisconnect();
   const [popoverVisible, setPopoverVisible] = useState(false);
   const {t} = useTranslation('ConnectButton');
   const {width} = useWindowDimensions();
@@ -53,15 +51,6 @@ export const ConnectButton = () => {
       dispatch(openModal());
     }
   }, [activeWallet, dispatch]);
-
-  const handleDisconnect = useCallback(() => {
-    if (!activeWallet) {
-      return;
-    }
-
-    disconnect(activeWallet.address);
-    setPopoverVisible(false);
-  }, [activeWallet, disconnect]);
 
   const togglePopoverWithTracking = useEventWithTracking({
     eventName: eventNames.CONNECT_WALLET_CONNECTED_BUTTON_CLICKED,
@@ -114,42 +103,24 @@ export const ConnectButton = () => {
             </Text>
           </div>
         ) : null}
-        <div
-          className={`sbc-h-5 sbc-w-5 sbc-origin-center sbc-transition-transform ${
-            popoverVisible ? 'sbc-rotate-180' : 'sbc-rotate-0'
-          }`}
-        >
-          {CaretDown}
-        </div>
+
+        {popoverType === 'dropdown' ? (
+          <div
+            className={`sbc-h-5 sbc-w-5 sbc-origin-center sbc-transition-transform ${
+              popoverVisible ? 'sbc-rotate-180' : 'sbc-rotate-0'
+            }`}
+          >
+            {CaretDown}
+          </div>
+        ) : null}
       </button>
 
-      <Popover
-        id="shopify-connect-wallet-popover-container"
+      <ConnectedWalletDetail
         onDismiss={() => setPopoverVisible(false)}
-        target="shopify-connect-wallet-connected-button-wrapper"
+        popoverType={popoverType}
         visible={popoverVisible}
-      >
-        <ConnectorIcon id={connectorId} size="lg" />
-
-        <button
-          className="sbc-flex sbc-cursor-pointer sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-py-2 sbc-px-3 sbc-text-address-chip sbc-transition-colors sbc-border-none hover:sbc-bg-address-chip-hover"
-          onClick={() => copy(address)}
-          type="button"
-        >
-          <Text as="span" className="sbc-pointer-events-none" variant="bodyLg">
-            {formatWalletAddress(address)}
-          </Text>
-          {copied ? CircleTick : Copy}
-        </button>
-
-        <Button
-          aria-label={t('popover.disconnectButton')}
-          fullWidth
-          label={t('popover.disconnectButton')}
-          onClick={handleDisconnect}
-          onClickEventName={eventNames.CONNECT_WALLET_DISCONNECT_BUTTON_CLICKED}
-        />
-      </Popover>
+        wallet={activeWallet}
+      />
     </div>
   );
 };
