@@ -17,6 +17,7 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
     const listener = buildOnConnectMiddleware(({wallet}) => {
       publishEvent(eventNames.CONNECT_WALLET_ON_CONNECT_EVENT, {
         address: wallet.address,
+        vaults: wallet.vaults,
         connector: wallet.connectorId,
       });
       onConnect?.(wallet);
