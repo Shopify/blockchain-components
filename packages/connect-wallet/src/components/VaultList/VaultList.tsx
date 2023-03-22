@@ -11,7 +11,7 @@ export const VaultList = ({vaults}: {vaults?: Address[]}) => {
   if (!vaults) return null;
 
   return (
-    <div className="sbc-rounded-lg sbc-w-full sbc-bg-address-chip sbc-p-4">
+    <div className="sbc-w-full sbc-rounded-lg sbc-bg-address-chip sbc-p-4">
       <div className="sbc-flex sbc-items-start sbc-gap-x-4">
         <div className="sbc-w-4">{DelegateCash}</div>
         <Text variant="bodyMd">{t('title', {count: vaults.length})}</Text>
