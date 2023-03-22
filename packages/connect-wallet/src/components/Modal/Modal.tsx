@@ -31,6 +31,7 @@ import {ModalRoute} from '../../types/modal';
 import {
   ConnectScreen,
   ConnectingScreen,
+  DelegateWalletsScreen,
   GetAWalletScreen,
   ScanScreen,
   SignatureScreen,
@@ -115,6 +116,11 @@ export const Modal = () => {
       leftButton: backButton,
       screen: <ConnectingScreen />,
       title: t('title.Connecting', {connector: pendingConnector?.name}),
+    },
+    DelegateWallets: {
+      leftButton: backButton,
+      screen: <DelegateWalletsScreen />,
+      title: t('title.DelegateWallets'),
     },
     GetAWallet: {
       leftButton: backButton,

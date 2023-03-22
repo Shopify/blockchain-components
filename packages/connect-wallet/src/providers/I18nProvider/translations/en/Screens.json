@@ -2,6 +2,13 @@
   "Connecting": {
     "qrCode": "Use QR Code"
   },
+  "DelegateWallets": {
+    "description": "Delegate wallets let you prove ownership of a wallet that you don’t want to connect.",
+    "howItWorks": "How it works",
+    "link": "Link your main wallet to a delegate using <0>delegate.cash</0> – includes a transaction fee.",
+    "connect": "Come back and connect your delegated wallet.",
+    "perks": "Get all the perks of your vaulted wallet while it stays unconnected."
+  },
   "Scan": {
     "getProduct": "Get {{connectorName}}",
     "wcButton": "Use WalletConnect modal"
