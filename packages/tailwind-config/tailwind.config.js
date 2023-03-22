@@ -64,6 +64,7 @@ module.exports = {
       // Add the DEFAULT value -- DEFAULT is a Tailwind convention
       DEFAULT: defaultTheme.borderRadius.DEFAULT,
       full: defaultTheme.borderRadius.full,
+      lg: '0.5rem',
     },
     borderWidth: {
       'button-disabled': 'var(--sbc-border-width-button-disabled, 0px)',
@@ -72,6 +73,7 @@ module.exports = {
       divider: 'var(--sbc-border-width-divider, 1px)',
       popover: 'var(--sbc-border-width-popover, 0px)',
       tokengate: 'var(--sbc-border-width-tokengate, 1px)',
+      0: '0',
     },
     boxShadow: {
       none: defaultTheme.boxShadow.none,
