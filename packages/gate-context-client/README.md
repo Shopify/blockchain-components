@@ -4,7 +4,19 @@
 
 The `gate-context-client` package provides an abstract interface to read and write gate context information. The client writes gate context information for use by [Shopify functions](/docs/api/functions). For example, the client could write a signed message to the context. That message could be validated and processed by a Shopify function in order to apply discounts or block checkout.
 
-## Code example
+## Installation
+
+Install the `shopify/gate-context-client` package.
+
+```bash
+yarn add @shopify/gate-context-client
+```
+
+## Documentation
+
+See the [Tokengating example app tutorial](https://shopify.dev/apps/blockchain/tokengating/build-a-tokengating-app) for further documentation. Specifically, the end of the [Show gates on the storefront using a theme app extension](https://shopify.dev/apps/blockchain/tokengating/build-a-tokengating-app/show-gates-storefront) part about writing an HMAC.
+
+### Code example
 
 ```typescript
 interface Input {
@@ -26,17 +38,7 @@ async function run(data: Input) {
 }
 ```
 
-## Installation
-
-```bash
-yarn add @shopify/gate-context-client
-```
-
-## Get started
-
-See the [Tokengating example app tutorial](https://shopify.dev/apps/blockchain/tokengating/build-a-tokengating-app) for more context, and specifically the end of the [Show gates on the storefront using a theme app extension](https://shopify.dev/apps/blockchain/tokengating/build-a-tokengating-app/show-gates-storefront) part about writing an HMAC.
-
-## Backends
+### Backends
 
 The client is intended to abstract backend details and automatically choose the correct backend where possible. For
 example, for the Online store channel, the Cart Ajax API will be used. The [Cart Ajax API](https://shopify.dev/docs/api/ajax/reference/cart) is the only supported backend right now.
@@ -57,7 +59,7 @@ After writing via the client and inspecting the cart, via `/cart.js`, you'd see 
 }
 ```
 
-## `shopifyGateContextGenerator`
+### `shopifyGateContextGenerator`
 
 This is an async transformation function that will get called before the write to the
 backend occurs, and may be used to override the written value.
@@ -87,3 +89,13 @@ async function run(data: Input) {
   }
 }
 ```
+
+## Contributing
+
+Pull requests are welcome. See the [contribution guidelines](../../.github/contributing.md) for more information.
+
+## License
+
+MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
+
+[![Shopify Logo Light](../../images/shopify-light.svg#gh-dark-mode-only)![Shopify Logo Dark](../../images/shopify-dark.svg#gh-light-mode-only)](<(https://www.shopify.com/)>)
