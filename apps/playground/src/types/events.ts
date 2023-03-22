@@ -34,6 +34,7 @@ export interface CheckIfWalletMeetsRequirementsEvent extends EventBusEvent {
     address: string;
     message: string;
     signature: string;
+    vaults?: string[];
   };
   response: {
     isUnlocked: boolean;

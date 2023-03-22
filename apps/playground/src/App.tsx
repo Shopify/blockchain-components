@@ -76,6 +76,7 @@ export default function ({serverArguments}: AppProps) {
         address: response.address,
         message: response.message,
         signature: response.signature,
+        vaults: response.vaults,
       });
     },
     onDisconnect: () => {
