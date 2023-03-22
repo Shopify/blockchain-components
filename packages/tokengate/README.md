@@ -6,6 +6,24 @@ The `tokengate` component presents the gate requirements to unlock a reaction, a
 
 [View in Storybook](https://main--639b1f308693132693d9b82c.chromatic.com/?path=/story/tokengate-discount-locked--locked)
 
+## Installation
+
+Install the `shopify/tokengate` package.
+
+```bash
+yarn add @shopify/tokengate
+```
+
 ## Documentation
 
 For detailed documentation, [visit shopify.dev](https://shopify.dev/api/blockchain/components/tokengate).
+
+## Contributing
+
+Pull requests are welcome. See the [contribution guidelines](../../.github/contributing.md) for more information.
+
+## License
+
+MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
+
+[![Shopify Logo Light](../../images/shopify-light.svg#gh-dark-mode-only)![Shopify Logo Dark](../../images/shopify-dark.svg#gh-light-mode-only)](<(https://www.shopify.com/)>)
