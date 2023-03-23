@@ -33,13 +33,20 @@ export interface RedemptionLimit {
   perToken: number;
 }
 
-export interface Reaction {
-  type: 'exclusive_access' | 'discount';
-  discount?: {
-    type: 'percentage' | 'amount';
+interface DiscountReaction {
+  type: 'discount';
+  discount: {
+    type: 'amount' | 'percentage';
     value: number;
   };
 }
+
+interface ExclusiveAccessReaction {
+  type: 'exclusive_access';
+  discount?: never;
+}
+
+export type Reaction = DiscountReaction | ExclusiveAccessReaction;
 
 export interface TokengateProps {
   connectButton: ReactNode;
