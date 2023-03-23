@@ -1,8 +1,10 @@
 import {useCallback} from 'react';
+import {Text, DelegateCash} from 'shared';
 
 import {ConnectorButton} from '../../ConnectorButton';
 import {useAppDispatch} from '../../../hooks/useAppState';
 import {useConnect} from '../../../hooks/useConnect';
+import {useTranslation} from '../../../hooks/useTranslation';
 import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
 import {closeModal, navigate} from '../../../slices/modalSlice';
 import {setPendingConnector} from '../../../slices/walletSlice';
@@ -17,6 +19,7 @@ interface ConnectScreenProps {
 const ConnectScreen = ({connectors}: ConnectScreenProps) => {
   const dispatch = useAppDispatch();
   const {connect} = useConnect();
+  const {t} = useTranslation('ConnectScreen');
   const {connectUsingWalletConnect} = useWalletConnectDeeplink();
 
   const {mobilePlatform} = getBrowserInfo();
@@ -99,6 +102,10 @@ const ConnectScreen = ({connectors}: ConnectScreenProps) => {
     [connect, connectUsingWalletConnect, dispatch, mobilePlatform],
   );
 
+  const handleNavigateDelegateWallets = useCallback(() => {
+    dispatch(navigate('DelegateWallets'));
+  }, [dispatch]);
+
   return (
     <div className="sbc-flex sbc-flex-col sbc-justify-center sbc-gap-y-3 sbc-p-popover sbc-pt-0">
       {connectors.map((providedConnector) => {
@@ -117,6 +124,18 @@ const ConnectScreen = ({connectors}: ConnectScreenProps) => {
           />
         );
       })}
+      <div className="sbc-flex sbc-flex-row sbc-self-center sbc-whitespace-pre-wrap">
+        <div className="sbc-mr-2 sbc-w-4">{DelegateCash}</div>
+        <Text
+          as="a"
+          color="secondary"
+          onClick={handleNavigateDelegateWallets}
+          className="sbc-cursor-pointer sbc-underline"
+        >
+          {t('delegateWallets.delegateWallets')}
+        </Text>
+        <Text color="secondary">{t('delegateWallets.supported')}</Text>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,7 @@
 {
+  "button": {
+    "retry": "Retry"
+  },
   "icons": {
     "back": "Go back",
     "close": "Close modal",
@@ -7,12 +10,10 @@
   "title": {
     "Connect": "Connect wallet",
     "Connecting": "Connect with {{connector}}",
+    "DelegateWallets": "Delegate wallets",
     "GetAWallet": "Get a wallet",
     "Scan": "Scan with {{connector}}",
     "Signature": "Sign with {{connector}}",
     "WhatAreWallets": "What is a wallet?"
-  },
-  "button": {
-    "retry": "Retry"
   }
 }
