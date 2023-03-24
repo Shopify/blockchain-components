@@ -1,32 +1,31 @@
 {
-  "name": "vite",
+  "name": "vite-example",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "bundle-packages": "cd ../../ && yarn build --filter='!playground'",
-    "dev": "yarn bundle-packages && vite",
+    "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@shopify/connect-wallet": "file:../../packages/connect-wallet",
+    "@shopify/connect-wallet": "*",
     "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "wagmi": "^0.10.4"
   },
   "devDependencies": {
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^3.1.0",
-    "tsconfig": "file:../../packages/tsconfig",
+    "tsconfig": "*",
     "typescript": "^4.9.3",
-    "vite": "^4.1.0",
+    "vite": "^4.1.4",
     "vite-plugin-node-polyfills": "^0.7.0"
   },
   "resolutions": {
-    "@shopify/blockchain-components": "file:../../packages/blockchain-components",
-    "@shopify/gate-context-client": "file:../../packages/gate-context-client"
+    "@shopify/blockchain-components": "*",
+    "@shopify/gate-context-client": "*"
   }
 }

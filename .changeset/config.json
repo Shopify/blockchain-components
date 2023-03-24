@@ -10,7 +10,14 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["playground"],
+  "ignore": [
+    "cra",
+    "custom-theme",
+    "nextjs",
+    "playground",
+    "remix",
+    "vite-example"
+  ],
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
     "updateInternalDependents": "always"
   }
