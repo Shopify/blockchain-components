@@ -13,6 +13,7 @@
   --sbc-bg-divider: #46484b;
   --sbc-bg-overlay: rgba(22, 22, 22, 0.85);
   --sbc-bg-popover: #161616;
+  --sbc-bg-tokengate: #161616;
 
   /* Border colors */
   --sbc-border-color-button-primary: unset;
@@ -45,6 +46,7 @@
     --sbc-bg-divider: #dbdbdb;
     --sbc-bg-overlay: rgba(155, 155, 155, 0.75);
     --sbc-bg-popover: #efefef;
+    --sbc-bg-tokengate: #efefef;
 
     /* Border colors */
     --sbc-border-color-button-primary: unset;

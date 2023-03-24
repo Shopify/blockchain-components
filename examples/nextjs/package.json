@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@shopify/connect-wallet": "*",
+    "@shopify/tokengate": "*",
     "@types/node": "18.14.6",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
