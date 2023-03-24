@@ -11,7 +11,7 @@ import {
 
 import {Link} from '../Link';
 
-import {useTranslation} from '../../hooks/useTranslation';
+import {useTranslation} from '../../providers/I18nProvider';
 import {LinkType} from '../../types';
 
 interface TokenBaseProps {

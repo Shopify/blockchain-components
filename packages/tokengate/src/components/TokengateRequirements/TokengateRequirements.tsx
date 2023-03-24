@@ -1,5 +1,5 @@
 import {TokenList} from '../TokenList';
-import {useTranslation} from '../../hooks/useTranslation';
+import {useTranslation} from '../../providers/I18nProvider';
 import {Requirements, UnlockingToken} from '../../types';
 
 import {TokengateRequirementsSeparator} from './TokengateRequirementsSeparator';

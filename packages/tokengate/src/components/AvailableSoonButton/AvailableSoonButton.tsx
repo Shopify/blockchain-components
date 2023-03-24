@@ -1,6 +1,6 @@
 import {Button} from 'shared';
 
-import {useTranslation} from '../../hooks/useTranslation';
+import {useTranslation} from '../../providers/I18nProvider';
 
 interface AvailableSoonButtonProps {
   availableDate?: string;

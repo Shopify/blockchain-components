@@ -1,4 +1,4 @@
-import {useTranslation} from '../../hooks/useTranslation';
+import {useTranslation} from '../../providers/I18nProvider';
 import {TokengateProps, UnlockingToken} from '../../types';
 
 export enum TokengateCardSection {

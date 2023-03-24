@@ -1,6 +1,6 @@
 import {Text, Button} from 'shared';
 
-import {useTranslation} from '../../hooks/useTranslation';
+import {useTranslation} from '../../providers/I18nProvider';
 
 const SoldOutButton = () => {
   const {t} = useTranslation('SoldOutButton');

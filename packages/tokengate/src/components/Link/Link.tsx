@@ -11,7 +11,7 @@ import {
   Text,
 } from 'shared';
 
-import {useTranslation} from '../../hooks/useTranslation';
+import {useTranslation} from '../../providers/I18nProvider';
 import {LinkType, Marketplace} from '../../types';
 
 const iconMap: Record<Marketplace, ReactNode> = {

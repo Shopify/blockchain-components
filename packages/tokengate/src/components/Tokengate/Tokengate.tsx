@@ -11,7 +11,7 @@ import {Error} from '../Error';
 import {SoldOutButton} from '../SoldOutButton';
 import {TokengateRequirements} from '../TokengateRequirements';
 import {UnlockingTokens} from '../UnlockingTokens';
-import {useTranslation} from '../../hooks/useTranslation';
+import {I18nProvider, useTranslation} from '../../providers/I18nProvider';
 import {TokengateProps} from '../../types';
 
 import {TokengateCardSection, useTokengateCardState} from './utils';
@@ -85,10 +85,12 @@ export const Tokengate = (props: TokengateProps) => {
   );
 
   return (
-    <Card title={title as string} subtitle={subtitle as string}>
-      {sections.map((section: TokengateCardSection) => (
-        <Fragment key={section}>{sectionMapping[section]}</Fragment>
-      ))}
-    </Card>
+    <I18nProvider>
+      <Card title={title as string} subtitle={subtitle as string}>
+        {sections.map((section: TokengateCardSection) => (
+          <Fragment key={section}>{sectionMapping[section]}</Fragment>
+        ))}
+      </Card>
+    </I18nProvider>
   );
 };
