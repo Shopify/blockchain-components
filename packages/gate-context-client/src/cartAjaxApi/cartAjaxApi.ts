@@ -102,6 +102,7 @@ async function getAttributes<TGateContext>(
 
   const defaultAttributes = {
     'Wallet Address': gateContextInput.walletAddress,
+    ...(gateContextInput.vaults && {Vaults: gateContextInput.vaults}),
   };
 
   if (typeof shopify_gate_context !== 'undefined') {

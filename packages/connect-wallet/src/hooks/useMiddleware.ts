@@ -122,31 +122,64 @@ export const useMiddleware = ({
   }, [dispatch, signMessage, requireSignature]);
 
   /**
+   * Fetch delegations listener
+   *
+   * This listener will run after the delegations are fetched and
+   * will attribute the wallet addresses to the order.
+   */
+  useEffect(() => {
+    return dispatch(
+      addListener({
+        actionCreator: fetchDelegations.fulfilled,
+        effect: (action, state) => {
+          const {address, vaults} = action.payload;
+          state.dispatch(
+            attributeOrder({
+              orderAttributionMode,
+              wallet: {address, vaults},
+            }),
+          );
+        },
+      }),
+    );
+  }, [dispatch, orderAttributionMode]);
+
+  /**
    * onConnect listener (internal)
    *
    * This listener will run order attribution functionality.
    */
   useEffect(() => {
     const listener = buildOnConnectMiddleware(({state, wallet}) => {
-      state.dispatch(
-        attributeOrder({
-          orderAttributionMode,
-          wallet,
-        }),
-      );
-
-      // This will re-run the query for ENS names every time that
-      // the page reloads as well. Which might be desired if a user
-      // buys an ENS in between connecting their wallet. However, it
-      // could lead to excessive calls to the chain.
+      /**
+       * This will re-run the query for ENS names every time that
+       * the page reloads as well. Which might be desired if a user
+       * buys an ENS in between connecting their wallet. However, it
+       * could lead to excessive calls to the chain.
+       */
       if (chain) {
         const {unsupported, ...rest} = chain;
         state.dispatch(
           fetchEns({address: wallet.address, chain: {...rest}, provider}),
         );
       }
+      /**
+       *  If enableDelegateCash is true, we will fetch the delegations
+       * and the fetchDelegations.fulfilled listener will wait until
+       * the action is fulfilled to attribute the order
+       *
+       * If enableDelegateCash is false, we will not fetch the delegations
+       * and attribute the order immediately
+       */
       if (enableDelegateCash) {
         state.dispatch(fetchDelegations(wallet.address));
+      } else {
+        state.dispatch(
+          attributeOrder({
+            orderAttributionMode,
+            wallet,
+          }),
+        );
       }
     });
 

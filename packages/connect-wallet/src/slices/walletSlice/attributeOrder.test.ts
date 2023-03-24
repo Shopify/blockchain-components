@@ -24,18 +24,6 @@ describe('attributeOrder', () => {
       expect(write).toHaveBeenCalledTimes(1);
     });
 
-    it('returns address in the payload', async () => {
-      mockWrite();
-      const result = await executeThunk();
-
-      expect(result.type).toBe('wallet/attributeOrder/fulfilled');
-      expect(result.payload).toStrictEqual({
-        orderAttributionMode: 'required',
-        address: '0x123',
-      });
-      expect(result.meta.requestStatus).toBe('fulfilled');
-    });
-
     it('fails on errors', async () => {
       const write = mockWrite(() => Promise.reject(new Error('error')));
       const result = await executeThunk(
@@ -43,6 +31,38 @@ describe('attributeOrder', () => {
       );
       expect(result.type).toBe('wallet/attributeOrder/rejected');
       expect(write).toHaveBeenCalledTimes(1);
+    });
+
+    describe('when vault addresses are not defined', () => {
+      it('returns address without vaults in the payload', async () => {
+        mockWrite();
+        const result = await executeThunk();
+
+        expect(result.type).toBe('wallet/attributeOrder/fulfilled');
+        expect(result.payload).toStrictEqual({
+          orderAttributionMode: 'required',
+          address: '0x123',
+          vaults: undefined,
+        });
+        expect(result.meta.requestStatus).toBe('fulfilled');
+      });
+    });
+
+    describe('when vault addresses are defined', () => {
+      it('returns address with vaults in the payload', async () => {
+        mockWrite();
+        const result = await executeThunk(
+          defaultAttributeOrder({withVaults: true}),
+        );
+
+        expect(result.type).toBe('wallet/attributeOrder/fulfilled');
+        expect(result.payload).toStrictEqual({
+          orderAttributionMode: 'required',
+          address: '0x123',
+          vaults: ['0x456', '0x789'],
+        });
+        expect(result.meta.requestStatus).toBe('fulfilled');
+      });
     });
   });
 
@@ -76,9 +96,11 @@ describe('attributeOrder', () => {
 
 function defaultAttributeOrder({
   orderAttributionMode = 'required',
-}: {orderAttributionMode?: OrderAttributionMode} = {}) {
+  withVaults = false,
+}: {orderAttributionMode?: OrderAttributionMode; withVaults?: boolean} = {}) {
   const wallet = {
     address: '0x123',
+    ...(withVaults && {vaults: ['0x456', '0x789']}),
   };
 
   return attributeOrder({wallet, orderAttributionMode});
