@@ -68,7 +68,9 @@ const DelegateWalletsScreen = () => {
         {t('DelegateWallets.description')}
       </Text>
       <div className="sbc-flex sbc-flex-col sbc-gap-y-4">
-        <Text variant="headingSm">{t('DelegateWallets.howItWorks')}</Text>
+        <Text color="primary" variant="headingSm">
+          {t('DelegateWallets.howItWorks')}
+        </Text>
         {listItems.map((item) => (
           <ListItem key={item.key} content={item.content} icon={item.icon} />
         ))}

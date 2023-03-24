@@ -23,7 +23,7 @@ export const GetAConnectorButton = ({
     <div className="sbc-flex sbc-flex-row sbc-items-center sbc-py-3 sbc-px-0 sbc-border-b-divider last-of-type:sbc-border-none">
       <div className="sbc-flex sbc-flex-1 sbc-items-center sbc-gap-x-3">
         <ConnectorIcon id={connectorId} size="md" />
-        <Text as="span" variant="bodyLg">
+        <Text as="span" color="primary" variant="bodyLg">
           {name}
         </Text>
       </div>

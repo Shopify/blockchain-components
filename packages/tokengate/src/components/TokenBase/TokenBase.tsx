@@ -71,7 +71,12 @@ export const TokenBase = ({
         </div>
 
         <div className="sbc-flex-grow">
-          <Text as="p" className="sbc-capitalize" variant="bodyLg">
+          <Text
+            as="p"
+            className="sbc-capitalize"
+            color="primary"
+            variant="bodyLg"
+          >
             {title}
           </Text>
 

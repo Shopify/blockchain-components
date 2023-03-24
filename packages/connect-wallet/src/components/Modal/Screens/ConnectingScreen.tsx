@@ -91,6 +91,7 @@ const ConnectingScreen = () => {
         <Text
           as="h3"
           className="sbc-mt-0 sbc-mb-2 sbc-text-center"
+          color="primary"
           variant="headingLg"
         >
           {title}

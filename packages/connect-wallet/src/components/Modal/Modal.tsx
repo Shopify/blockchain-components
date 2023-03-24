@@ -185,6 +185,7 @@ export const Modal = () => {
                   <Text
                     as="h2"
                     className="sbc-max-w-full sbc-flex-1 sbc-text-ellipsis sbc-whitespace-nowrap sbc-break-all sbc-text-center sbc-line-clamp-2"
+                    color="primary"
                     variant="headingMd"
                   >
                     {title}

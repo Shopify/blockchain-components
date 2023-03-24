@@ -17,7 +17,7 @@ const TokengateRequirementsSeparator = ({
     >
       {DividerLine}
       {logic ? (
-        <Text as="span" variant="bodySm">
+        <Text as="span" color="primary" variant="bodySm">
           {logic === 'ALL' ? 'AND' : 'OR'}
         </Text>
       ) : null}
