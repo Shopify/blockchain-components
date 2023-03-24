@@ -1,7 +1,8 @@
 import {eventNames, publishEvent} from '@shopify/blockchain-components';
-import {useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 
 import {buildOnConnectMiddleware} from '../../middleware/onConnectMiddleware';
+import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
 import {removeWallet} from '../../slices/walletSlice';
 import {addListener} from '../../store/listenerMiddleware';
 import {useAppDispatch} from '../useAppState';
@@ -9,6 +10,7 @@ import {useAppDispatch} from '../useAppState';
 import {useConnectWalletProps} from './types';
 
 export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
+  const {enableDelegateCash} = useContext(ConnectWalletContext);
   const {onConnect, onDisconnect} = props || {};
   const dispatch = useAppDispatch();
 
@@ -21,10 +23,10 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
         connector: wallet.connectorId,
       });
       onConnect?.(wallet);
-    });
+    }, enableDelegateCash);
 
     return dispatch(listener);
-  }, [dispatch, onConnect]);
+  }, [dispatch, enableDelegateCash, onConnect]);
 
   // Add the onDisconnect callback listeners.
   useEffect(() => {
