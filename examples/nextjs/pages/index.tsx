@@ -1,14 +1,42 @@
 /* eslint-disable @shopify/jsx-prefer-fragment-wrappers */
 /* eslint-disable @shopify/jsx-no-hardcoded-content */
-import {ConnectButton} from '@shopify/connect-wallet';
+import {useCallback, useState} from 'react';
+import {ConnectButton, useConnectWallet} from '@shopify/connect-wallet';
+import {Tokengate, UnlockingToken} from '@shopify/tokengate';
 import Head from 'next/head';
 import Image from 'next/image';
 import {Inter} from 'next/font/google';
+
+import {checkIfWalletMeetsRequirements, requirements} from '../fixtures';
 import styles from '../styles/Home.module.css';
 
 const inter = Inter({subsets: ['latin']});
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
+  const [userTokens, setUserTokens] = useState<UnlockingToken[]>([]);
+
+  const onConnectCallback = useCallback(() => {
+    setLoading(true);
+
+    checkIfWalletMeetsRequirements()
+      .then((tokens) => {
+        setUserTokens(tokens);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error(
+          `Error while checking if wallet meets requirements: ${error}`,
+        );
+      });
+  }, []);
+
+  const {wallet} = useConnectWallet({
+    onConnect: () => onConnectCallback(),
+    onDisconnect: () => setUserTokens([]),
+  });
+
   return (
     <>
       <Head>
@@ -19,9 +47,6 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className={styles.description}>
-          <div>
-            <ConnectButton />
-          </div>
           <>
             <a
               href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -59,6 +84,16 @@ export default function Home() {
               priority
             />
           </div>
+        </div>
+
+        <div style={{width: '400px'}}>
+          <Tokengate
+            connectButton={<ConnectButton />}
+            isConnected={Boolean(wallet)}
+            isLoading={loading}
+            requirements={requirements}
+            unlockingTokens={userTokens}
+          />
         </div>
 
         <div className={styles.grid}>

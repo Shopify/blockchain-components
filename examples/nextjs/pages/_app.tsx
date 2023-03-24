@@ -1,5 +1,6 @@
 import {ConnectWalletProvider} from '@shopify/connect-wallet';
 import '@shopify/connect-wallet/styles.css';
+import '@shopify/tokengate/styles.css';
 import type {AppProps} from 'next/app';
 import {WagmiConfig} from 'wagmi';
 

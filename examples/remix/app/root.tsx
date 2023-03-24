@@ -8,7 +8,8 @@ import {
   ScrollRestoration,
 } from '@remix-run/react';
 import {ConnectWalletProvider} from '@shopify/connect-wallet';
-import stylesheet from '@shopify/connect-wallet/styles.css';
+import connectWalletStylesheet from '@shopify/connect-wallet/styles.css';
+import tokengateStylesheet from '@shopify/tokengate/styles.css';
 import {WagmiConfig} from 'wagmi';
 
 import {chains, client, connectors} from '~/connect-wallet-config';
@@ -16,7 +17,11 @@ import {chains, client, connectors} from '~/connect-wallet-config';
 export const links: LinksFunction = () => [
   {
     rel: 'stylesheet',
-    href: stylesheet,
+    href: connectWalletStylesheet,
+  },
+  {
+    rel: 'stylesheet',
+    href: tokengateStylesheet,
   },
 ];
 
