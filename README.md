@@ -33,7 +33,7 @@ Run commands across all workspaces. This uses [`turbo run <command>`](https://tu
 | `yarn dev:packages`      | Builds all packages located in the `./packages` directory without regard to any dependencies between the packages and rebuilds when package files are changed. Does not generate declaration files (`.d.ts`).                                                                           |
 | `yarn example`           | Runs the script in `./examples/scripts` which opens a prompt asking which example you want to run. After selecting an example, the packages within `./packages` are built and the example you selected is started.                                                                      |
 | `yarn example:[example]` | Starts the development server for the example you provided. <br /><br /> Options: `cra` &#124; `custom-theme` &#124; `nextjs` &#124; `remix` &#124; `vite`                                                                                                                              |
-| `yarn lint`              | Runs [eslint](https://eslint.org/) against all packages in workspaces that contain a `lint` script to ensure they comply with the rules provided in our [eslint configuration](../.eslintrc.js).                                                                                                 |
+| `yarn lint`              | Runs [eslint](https://eslint.org/) against all packages in workspaces that contain a `lint` script to ensure they comply with the rules provided in our [eslint configuration](../.eslintrc.js).                                                                                        |
 | `yarn typecheck`         | Builds all packages located in `./packages` directory in order of their dependencies and runs type validation.                                                                                                                                                                          |
 
 ## Want to contribute?
@@ -48,4 +48,10 @@ For Shopifolk, you can reach out to us in Slack in `#blockchain-components` chan
 
 MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
 
-[![Shopify Logo Light](./images/shopify-light.svg#gh-dark-mode-only)![Shopify Logo Dark](./images/shopify-dark.svg#gh-light-mode-only)](<(https://www.shopify.com/)>)
+<a href="https://shopify.com" target="_blank">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./images/shopify-light.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./images/shopify-dark.svg">
+    <img alt="Shopify Logo" src="./images/shopify-dark.svg">
+  </picture>
+</a>

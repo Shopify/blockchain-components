@@ -20,4 +20,11 @@ For additional information on the packages in this repository, read the [develop
 
 MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](../LICENSE.md) for details.
 
-[![Shopify Logo Light](../images/shopify-light.svg#gh-dark-mode-only)![Shopify Logo Dark](../images/shopify-dark.svg#gh-light-mode-only)](<(https://www.shopify.com/)>)
+<a href="https://shopify.com" target="_blank">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/shopify-light.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../images/shopify-dark.svg">
+    <img alt="Shopify Logo" src="../images/shopify-dark.svg">
+  </picture>
+</a>
+
