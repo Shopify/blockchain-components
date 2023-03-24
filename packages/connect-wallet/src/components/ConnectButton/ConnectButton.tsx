@@ -125,6 +125,8 @@ export const ConnectButton = () => {
       </button>
 
       <Popover
+        containerClass="sbc-min-w-[280px]"
+        frameClass="sbc-gap-y-4"
         id="shopify-connect-wallet-popover-container"
         onDismiss={() => setPopoverVisible(false)}
         target="shopify-connect-wallet-connected-button-wrapper"

@@ -4,6 +4,7 @@ import {
   adaptRequirements,
   adaptUnlockingTokens,
 } from '@shopify/tokengate';
+import type {LinkType} from '@shopify/tokengate';
 
 import './App.css';
 import {
@@ -24,6 +25,7 @@ interface AppProps {
           name: string;
           imageUrl: string;
           contractAddress: string;
+          links?: LinkType[];
         }[];
       };
       unlockingTokens?: {
