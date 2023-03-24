@@ -1,4 +1,4 @@
-import {Chain} from '@wagmi/core';
+import {Chain} from 'wagmi';
 
 import {Connector} from '../../types/connector';
 import {OrderAttributionMode} from '../../types/orderAttribution';

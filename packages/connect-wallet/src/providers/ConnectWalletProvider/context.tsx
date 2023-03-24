@@ -1,4 +1,4 @@
-import {Chain} from '@wagmi/core';
+import {Chain} from 'wagmi';
 import {createContext} from 'react';
 
 import {Connector} from '../../types/connector';

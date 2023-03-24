@@ -2,7 +2,7 @@ import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 
 const mappedConnectors = new Map<string, WalletConnectConnector>();
 
-// Reused type creation from @wagmi/walletConnect
+// Reused type creation from wagmi/connectors/walletConnect
 type WalletConnectConnectorProps = ConstructorParameters<
   typeof WalletConnectConnector
 >[0];
