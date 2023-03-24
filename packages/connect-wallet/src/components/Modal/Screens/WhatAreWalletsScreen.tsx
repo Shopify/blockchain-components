@@ -20,7 +20,7 @@ const ListItem = ({content, icon, title}: ListItemProps) => {
       </div>
 
       <div className="sbc-flex-grow">
-        <Text as="h3" className="sbc-mb-1" variant="headingSm">
+        <Text as="h3" className="sbc-mb-1" color="primary" variant="headingSm">
           {title}
         </Text>
 

@@ -13,7 +13,7 @@ const Card = ({title, subtitle, button, children}: CardProps) => {
       className="sbc-rounded-tokengate sbc-bg-tokengate sbc-p-tokengate sbc-text-left sbc-shadow-tokengate sbc-border-tokengate"
       id="shopify-tokengate-card-container"
     >
-      <Text as="h2" variant="headingMd">
+      <Text as="h2" color="primary" variant="headingMd">
         {title}
       </Text>
       <Text
