@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@shopify/connect-wallet": "file:../../packages/connect-wallet",
+    "@shopify/connect-wallet": "*",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -15,20 +15,19 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "typescript": "^4.4.2",
+    "typescript": "^4.9.3",
     "wagmi": "^0.10.4",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "tsconfig": "file:../../packages/tsconfig"
+    "tsconfig": "*"
   },
   "resolutions": {
-    "@shopify/blockchain-components": "file:../../packages/blockchain-components",
-    "@shopify/gate-context-client": "file:../../packages/gate-context-client"
+    "@shopify/blockchain-components": "*",
+    "@shopify/gate-context-client": "*"
   },
   "scripts": {
-    "bundle-packages": "cd ../../ && yarn build --filter='!playground'",
-    "start": "yarn bundle-packages && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
