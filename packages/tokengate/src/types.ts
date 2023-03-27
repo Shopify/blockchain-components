@@ -65,7 +65,7 @@ export interface RedemptionLimit {
 interface DiscountReaction {
   type: 'discount';
   discount: {
-    type: 'amount' | 'percentage';
+    type: 'fixedAmount' | 'percentage';
     value: number;
   };
 }
