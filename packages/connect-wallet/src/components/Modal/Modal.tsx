@@ -109,7 +109,12 @@ export const Modal = () => {
   > = {
     Connect: {
       leftButton: whatAreWalletsButton,
-      screen: <ConnectScreen connectors={connectors} />,
+      screen: (
+        <ConnectScreen
+          connectors={connectors}
+          enableDelegateCash={enableDelegateCash}
+        />
+      ),
       title: t('title.Connect'),
     },
     Connecting: {

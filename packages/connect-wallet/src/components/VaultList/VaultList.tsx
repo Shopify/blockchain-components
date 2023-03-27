@@ -8,7 +8,7 @@ import {VaultListRow} from './components/VaultListRow';
 export const VaultList = ({vaults}: {vaults?: Address[]}) => {
   const {t} = useTranslation('VaultList');
 
-  if (!vaults) return null;
+  if (!vaults || vaults.length === 0) return null;
 
   return (
     <div className="sbc-w-full sbc-rounded-lg sbc-bg-address-chip sbc-p-4">
