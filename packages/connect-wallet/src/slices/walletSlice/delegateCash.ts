@@ -4,7 +4,20 @@ import {Address} from 'wagmi';
 
 export const fetchDelegations = createAsyncThunk(
   'wallet/fetchDelegations',
-  async (walletAddress: string, thunkApi) => {
+  async (
+    {
+      walletAddress,
+      enableDelegateCash,
+    }: {walletAddress: Address; enableDelegateCash?: boolean},
+    thunkApi,
+  ) => {
+    if (!enableDelegateCash) {
+      return thunkApi.fulfillWithValue({
+        address: walletAddress,
+        vaults: undefined,
+      });
+    }
+
     const delegateCash = new DelegateCash();
     const delegations = await delegateCash.getDelegationsByDelegate(
       walletAddress,
