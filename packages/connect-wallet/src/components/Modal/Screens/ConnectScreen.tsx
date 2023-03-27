@@ -14,9 +14,13 @@ import {isInstalled} from '../../../utils/isInstalled';
 
 interface ConnectScreenProps {
   connectors: Connector[];
+  enableDelegateCash?: boolean;
 }
 
-const ConnectScreen = ({connectors}: ConnectScreenProps) => {
+const ConnectScreen = ({
+  connectors,
+  enableDelegateCash,
+}: ConnectScreenProps) => {
   const dispatch = useAppDispatch();
   const {connect} = useConnect();
   const {t} = useTranslation('ConnectScreen');
@@ -124,18 +128,20 @@ const ConnectScreen = ({connectors}: ConnectScreenProps) => {
           />
         );
       })}
-      <div className="sbc-flex sbc-flex-row sbc-self-center sbc-whitespace-pre-wrap">
-        <div className="sbc-mr-2 sbc-w-4">{DelegateCash}</div>
-        <Text
-          as="a"
-          color="secondary"
-          onClick={handleNavigateDelegateWallets}
-          className="sbc-cursor-pointer sbc-underline"
-        >
-          {t('delegateWallets.delegateWallets')}
-        </Text>
-        <Text color="secondary">{t('delegateWallets.supported')}</Text>
-      </div>
+      {enableDelegateCash ? (
+        <div className="sbc-flex sbc-flex-row sbc-self-center sbc-whitespace-pre-wrap">
+          <div className="sbc-mr-2 sbc-w-4">{DelegateCash}</div>
+          <Text
+            as="a"
+            color="secondary"
+            onClick={handleNavigateDelegateWallets}
+            className="sbc-cursor-pointer sbc-underline"
+          >
+            {t('delegateWallets.delegateWallets')}
+          </Text>
+          <Text color="secondary">{t('delegateWallets.supported')}</Text>
+        </div>
+      ) : null}
     </div>
   );
 };
