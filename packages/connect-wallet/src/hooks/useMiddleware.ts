@@ -126,6 +126,8 @@ export const useMiddleware = ({
    *
    * This listener will run after the delegations are fetched and
    * will attribute the wallet addresses to the order.
+   *
+   * Complete flow diagram of connecting a wallet: https://tinyurl.com/4dbfcm5w
    */
   useEffect(() => {
     return dispatch(
@@ -164,23 +166,13 @@ export const useMiddleware = ({
         );
       }
       /**
-       *  If enableDelegateCash is true, we will fetch the delegations
-       * and the fetchDelegations.fulfilled listener will wait until
-       * the action is fulfilled to attribute the order
+       * This will fetch the delegate-cash delegations for the wallet.
        *
-       * If enableDelegateCash is false, we will not fetch the delegations
-       * and attribute the order immediately
+       * Complete flow diagram of connecting a wallet: https://tinyurl.com/4dbfcm5w
        */
-      if (enableDelegateCash) {
-        state.dispatch(fetchDelegations(wallet.address));
-      } else {
-        state.dispatch(
-          attributeOrder({
-            orderAttributionMode,
-            wallet,
-          }),
-        );
-      }
+      state.dispatch(
+        fetchDelegations({walletAddress: wallet.address, enableDelegateCash}),
+      );
     });
 
     return dispatch(listener);

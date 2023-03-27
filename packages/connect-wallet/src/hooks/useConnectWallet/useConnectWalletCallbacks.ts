@@ -1,8 +1,7 @@
 import {eventNames, publishEvent} from '@shopify/blockchain-components';
 import {useEffect} from 'react';
 
-import {buildOnConnectMiddleware} from '../../middleware/onConnectMiddleware';
-import {removeWallet} from '../../slices/walletSlice';
+import {removeWallet, attributeOrder} from '../../slices/walletSlice';
 import {addListener} from '../../store/listenerMiddleware';
 import {useAppDispatch} from '../useAppState';
 
@@ -12,15 +11,27 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
   const {onConnect, onDisconnect} = props || {};
   const dispatch = useAppDispatch();
 
-  // Add the onConnect callback listeners.
+  /**
+   * Add the onConnect callback listeners.
+   *
+   * This listener will run after the order is attributed,
+   * which is the last step of the connect wallet flow.
+   * Complete flow diagram of connecting a wallet: https://tinyurl.com/4dbfcm5w
+   */
   useEffect(() => {
-    const listener = buildOnConnectMiddleware(({wallet}) => {
-      publishEvent(eventNames.CONNECT_WALLET_ON_CONNECT_EVENT, {
-        address: wallet.address,
-        vaults: wallet.vaults,
-        connector: wallet.connectorId,
-      });
-      onConnect?.(wallet);
+    const listener = addListener({
+      actionCreator: attributeOrder.fulfilled,
+      effect: (_action, state) => {
+        const {activeWallet} = state.getState().wallet;
+        if (!activeWallet) return;
+
+        publishEvent(eventNames.CONNECT_WALLET_ON_CONNECT_EVENT, {
+          address: activeWallet.address,
+          vaults: activeWallet.vaults,
+          connector: activeWallet.connectorId,
+        });
+        onConnect?.(activeWallet);
+      },
     });
 
     return dispatch(listener);
