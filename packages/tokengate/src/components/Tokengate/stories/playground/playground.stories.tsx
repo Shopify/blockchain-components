@@ -16,7 +16,7 @@ const exclusiveReaction = ReactionFixture();
 const discountReaction = ReactionFixture({
   type: 'discount',
   discount: {
-    type: 'amount',
+    type: 'fixedAmount',
     value: 20,
   },
 });

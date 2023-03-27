@@ -15,7 +15,7 @@ export const DiscountReactionFixture = (customProps?: DeepPartial<Reaction>) =>
     {
       type: 'discount',
       discount: {
-        type: 'amount',
+        type: 'fixedAmount',
         value: 10,
       },
     },
