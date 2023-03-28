@@ -142,6 +142,7 @@ module.exports = {
       'heading-lg': 'var(--sbc-line-height-heading-lg, 28px)',
       'heading-md': 'var(--sbc-line-height-heading-md, 24px)',
       'heading-sm': 'var(--sbc-line-height-heading-sm, 20px)',
+      none: 0,
     },
     maxWidth: {
       // Override default sizes to use pixels instead of REMs
