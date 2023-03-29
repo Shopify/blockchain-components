@@ -12,11 +12,12 @@ This repository is managed as a monorepo. Each package has its own `README.md` a
 
 ### Package Index
 
-| Package                                                      | Description                                              | NPM                                                                                                                                                  |
-| ------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [@shopify/connect-wallet](packages/connect-wallet)           | Crypto wallet connection library for Shopify storefronts | [![@shopify/connect-wallet](https://img.shields.io/npm/v/@shopify/connect-wallet)](https://npmjs.com/package/@shopify/connect-wallet)                |
-| [@shopify/gate-context-client](packages/gate-context-client) | Gate unlocking context client for Shopify storefronts    | [![@shopify/gate-context-client](https://img.shields.io/npm/v/@shopify/gate-context-client)](https://npmjs.com/package/@shopify/gate-context-client) |
-| [@shopify/tokengate](packages/tokengate)                     | Tokengating component for Shopify storefronts            | [![@shopify/tokengate](https://img.shields.io/npm/v/@shopify/tokengate)](https://npmjs.com/package/@shopify/tokengate)                               |
+| Package                                                          | Description                                              | NPM                                                                                                                                                        |
+| ---------------------------------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [@shopify/blockchain-components](packages/blockchain-components) | Shared packages for blockchain components                | [![@shopify/blockchain-components](https://img.shields.io/npm/v/@shopify/blockchain-components)](https://npmjs.com/package/@shopify/blockchain-components) |
+| [@shopify/connect-wallet](packages/connect-wallet)               | Crypto wallet connection library for Shopify storefronts | [![@shopify/connect-wallet](https://img.shields.io/npm/v/@shopify/connect-wallet)](https://npmjs.com/package/@shopify/connect-wallet)                      |
+| [@shopify/gate-context-client](packages/gate-context-client)     | Gate unlocking context client for Shopify storefronts    | [![@shopify/gate-context-client](https://img.shields.io/npm/v/@shopify/gate-context-client)](https://npmjs.com/package/@shopify/gate-context-client)       |
+| [@shopify/tokengate](packages/tokengate)                         | Tokengating component for Shopify storefronts            | [![@shopify/tokengate](https://img.shields.io/npm/v/@shopify/tokengate)](https://npmjs.com/package/@shopify/tokengate)                                     |
 
 ### Run a command
 
