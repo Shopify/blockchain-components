@@ -1,6 +1,6 @@
 {
   "name": "@shopify/tokengate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "license": "MIT",
   "description": "Tokengate component library for Shopify storefronts",

@@ -1,5 +1,11 @@
 # @shopify/blockchain-components
 
+## 1.0.0
+
+### Major Changes
+
+- [#161](https://github.com/Shopify/blockchain-components/pull/161) [`930c48d`](https://github.com/Shopify/blockchain-components/commit/930c48d9562ec74092a5cc83475416595e80f619) Thanks [@caropinzonsilva](https://github.com/caropinzonsilva)! - Release V1.0.0 for all components.
+
 ## 0.1.0
 
 ### Minor Changes
