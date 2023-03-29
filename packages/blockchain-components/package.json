@@ -1,6 +1,6 @@
 {
   "name": "@shopify/blockchain-components",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": false,
   "license": "MIT",
   "description": "Shopify's Blockchain Components package",

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/gate-context-client",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": false,
   "license": "MIT",
   "description": "Utility API utilizing the AJAX Cart API to store wallet address and signature data.",
