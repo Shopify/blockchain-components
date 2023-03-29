@@ -64,7 +64,7 @@ export const TokenBase = ({
           </div>
 
           {badge ? (
-            <div className="sbc-absolute sbc-right-[-2px] sbc-bottom-[-2px] sbc-rounded-full sbc-bg-tokengate">
+            <div className="sbc-absolute sbc-right-[-2px] sbc-bottom-[-2px] sbc-rounded-full sbc-bg-tokengate sbc-leading-none">
               {badge}
             </div>
           ) : null}
