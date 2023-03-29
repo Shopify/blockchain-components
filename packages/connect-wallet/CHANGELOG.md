@@ -1,5 +1,11 @@
 # @shopify/connect-wallet
 
+## 1.0.1
+
+### Patch Changes
+
+- [#159](https://github.com/Shopify/blockchain-components/pull/159) [`131142f`](https://github.com/Shopify/blockchain-components/commit/131142fb33640687b8c8e8aa749a1d1d20440491) Thanks [@caropinzonsilva](https://github.com/caropinzonsilva)! - Update Tailwind config to use pixels instead of REMs. We noticed that if the components were included in an application that has smaller or larger root font-size, the styling broke. We made the decision to use pixels instead.
+
 ## 1.0.0
 
 ### Major Changes
