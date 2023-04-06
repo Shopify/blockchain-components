@@ -11,19 +11,21 @@ import {
   ConditionFixture,
 } from '../../fixtures';
 import {renderHook} from '../../tests/test-utils';
-import {TokengateProps} from '../../types';
 
-import {useTitleAndSubtitle, getSections, calculatedIsLocked} from './utils';
+import {
+  useTitleAndSubtitle,
+  getSections,
+  calculatedIsLocked,
+  UtilsProps,
+} from './utils';
 
-const defaultTokengateProps: TokengateProps = {
-  connectButton: null,
+const defaultTokengateProps: UtilsProps = {
   isLocked: true,
   isConnected: false,
   reaction: ReactionFixture(),
 };
 
-const defaultDiscountTokengateProps: TokengateProps = {
-  connectButton: null,
+const defaultDiscountTokengateProps: UtilsProps = {
   isLocked: true,
   isConnected: false,
   reaction: DiscountReactionFixture(),

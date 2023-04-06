@@ -1,6 +1,11 @@
 import {useTranslation} from '../../hooks/useTranslation';
 import {TokengateProps, UnlockingToken} from '../../types';
 
+export type UtilsProps = Omit<
+  TokengateProps,
+  'connectButton' | 'connectedButton'
+>;
+
 export enum TokengateCardSection {
   TokengateRequirement = 'TokengateRequirement',
   TokengateRequirementMissingTokens = 'TokengateRequirementMissingTokens',
@@ -14,7 +19,7 @@ export enum TokengateCardSection {
   MissingTokensError = 'MissingTokensError',
 }
 
-export const useTokengateCardState = (tokengateProps: TokengateProps) => {
+export const useTokengateCardState = (tokengateProps: UtilsProps) => {
   return {
     sections: getSections(tokengateProps),
     isLocked: calculatedIsLocked(tokengateProps),
@@ -23,7 +28,7 @@ export const useTokengateCardState = (tokengateProps: TokengateProps) => {
   };
 };
 
-export const getSections = (tokengateProps: TokengateProps) => {
+export const getSections = (tokengateProps: UtilsProps) => {
   const isLocked = calculatedIsLocked(tokengateProps);
   const {active, isSoldOut, isConnected, isLoading} = tokengateProps;
 
@@ -80,7 +85,7 @@ export const getSections = (tokengateProps: TokengateProps) => {
   ];
 };
 
-const useTokengateI18n = (props: TokengateProps) => {
+const useTokengateI18n = (props: UtilsProps) => {
   const isLocked = calculatedIsLocked(props);
 
   const {t} = useTranslation('Tokengate');
@@ -90,7 +95,7 @@ const useTokengateI18n = (props: TokengateProps) => {
   return (key: string, vars: any) => t(`${i18nKeyPrefix}.${key}`, vars);
 };
 
-export const useTitleAndSubtitle = (props: TokengateProps) => {
+export const useTitleAndSubtitle = (props: UtilsProps) => {
   const translateTokengateI18n = useTokengateI18n(props);
   const {
     exclusiveCustomTitles,
@@ -142,7 +147,7 @@ export const useTitleAndSubtitle = (props: TokengateProps) => {
   };
 };
 
-const getCombinedConsumedOrderLimit = ({unlockingTokens}: TokengateProps) => {
+const getCombinedConsumedOrderLimit = ({unlockingTokens}: UtilsProps) => {
   const initialValue = 0;
   const combinedConsumedOrderLimit = unlockingTokens?.reduce(
     (accumulator: number, unlockingToken: UnlockingToken) => {
@@ -158,17 +163,17 @@ const getCombinedConsumedOrderLimit = ({unlockingTokens}: TokengateProps) => {
     : undefined;
 };
 
-const hasReachedOrderLimit = (props: TokengateProps) => {
+const hasReachedOrderLimit = (props: UtilsProps) => {
   const orderLimit = props.redemptionLimit?.total;
   const consumedOrderLimit = getCombinedConsumedOrderLimit(props);
   return orderLimit && consumedOrderLimit && consumedOrderLimit >= orderLimit;
 };
 
-const isDiscountGate = (props: TokengateProps) => {
+const isDiscountGate = (props: UtilsProps) => {
   return props.reaction?.type === 'discount' && props.reaction.discount;
 };
 
-export const calculatedIsLocked = (props: TokengateProps) => {
+export const calculatedIsLocked = (props: UtilsProps) => {
   const {unlockingTokens, requirements, isConnected, isLocked} = props;
 
   // Default to isLocked when provided
@@ -193,7 +198,7 @@ export const calculatedIsLocked = (props: TokengateProps) => {
   return !hasTokenForAllConditions;
 };
 
-const calculateHasRequirementsNotMet = (props: TokengateProps) => {
+const calculateHasRequirementsNotMet = (props: UtilsProps) => {
   const {isLoading, isConnected, unlockingTokens} = props;
   const isLocked = calculatedIsLocked(props);
   return !isLoading && isConnected && isLocked && Boolean(unlockingTokens);
