@@ -78,8 +78,8 @@ interface ExclusiveAccessReaction {
 export type Reaction = DiscountReaction | ExclusiveAccessReaction;
 
 export interface TokengateProps {
-  connectButton: ReactNode;
-  connectedButton?: ReactNode;
+  connectButton: JSX.Element;
+  connectedButton?: JSX.Element;
   isLoading?: boolean;
   isLocked?: boolean;
   isSoldOut?: boolean;

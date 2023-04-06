@@ -9,7 +9,7 @@ import {
 import {i18n} from '../providers/TokengateProvider';
 
 export function useTranslation(
-  namespace: Namespace,
+  namespace?: Namespace,
   options?: UseTranslationOptions,
 ) {
   return useI18nTranslation(namespace, {...options, i18n});

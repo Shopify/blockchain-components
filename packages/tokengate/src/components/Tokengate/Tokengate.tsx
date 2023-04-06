@@ -5,10 +5,9 @@ import {
 } from '@shopify/blockchain-components';
 import {ReactNode, Fragment, useMemo, useEffect} from 'react';
 
-import {AvailableSoonButton} from '../AvailableSoonButton';
+import {ButtonWrapper} from '../ButtonWrapper';
 import {Card} from '../Card';
 import {Error} from '../Error';
-import {SoldOutButton} from '../SoldOutButton';
 import {TokengateRequirements} from '../TokengateRequirements';
 import {UnlockingTokens} from '../UnlockingTokens';
 import {useTranslation} from '../../hooks/useTranslation';
@@ -41,7 +40,18 @@ export const Tokengate = (props: TokengateProps) => {
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
     () => ({
-      [TokengateCardSection.ConnectWallet]: connectButton,
+      [TokengateCardSection.ConnectWallet]: (
+        <ButtonWrapper
+          button={connectButton}
+          text={
+            active?.end
+              ? {key: 'activeEnd', value: new Date(active.end)}
+              : undefined
+          }
+          textColor="primary"
+          translationNamespace="Buttons"
+        />
+      ),
       [TokengateCardSection.ConnectedWallet]: connectedButton ?? connectButton,
       [TokengateCardSection.UnlockingTokens]: (
         <UnlockingTokens
@@ -60,9 +70,28 @@ export const Tokengate = (props: TokengateProps) => {
         />
       ),
       [TokengateCardSection.AvailableSoon]: (
-        <AvailableSoonButton availableDate={active?.start} />
+        <ButtonWrapper
+          button={{
+            disabled: true,
+            label: {
+              key: 'activeStart',
+              value: active?.start ? new Date(active.start) : undefined,
+            },
+          }}
+          translationNamespace="Buttons"
+        />
       ),
-      [TokengateCardSection.SoldOut]: <SoldOutButton />,
+      [TokengateCardSection.SoldOut]: (
+        <ButtonWrapper
+          button={{
+            disabled: true,
+            label: {key: 'soldOutLabel'},
+          }}
+          text={{key: 'soldOutDescription'}}
+          textColor="secondary"
+          translationNamespace="Buttons"
+        />
+      ),
       [TokengateCardSection.TokengateRequirementSkeleton]: (
         <TokengateRequirements isLoading />
       ),
@@ -74,13 +103,13 @@ export const Tokengate = (props: TokengateProps) => {
       ),
     }),
     [
-      active?.start,
+      active,
       connectButton,
       connectedButton,
-      requirements,
-      t,
-      unlockingTokens,
       redemptionLimit,
+      requirements,
+      unlockingTokens,
+      t,
     ],
   );
 
