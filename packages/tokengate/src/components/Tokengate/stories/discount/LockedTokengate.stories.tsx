@@ -28,6 +28,13 @@ export const SoldOut: Story = {
   }),
 };
 
+export const EndDate: Story = {
+  args: TokengatePropsNotConnectedFixture({
+    reaction: DiscountReactionFixture(),
+    active: {end: addDays(new Date(), 1).toISOString()},
+  }),
+};
+
 export const StartDate: Story = {
   args: TokengatePropsNotConnectedFixture({
     reaction: DiscountReactionFixture(),

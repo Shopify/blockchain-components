@@ -6,7 +6,7 @@
     "build:packages": "turbo run build --filter='!./apps/*' --filter='!./examples/*'",
     "build-storybook": "storybook build",
     "changeset": "changeset",
-    "dev": "turbo run dev --filter='./apps/playground' --filter='!./examples/*'",
+    "dev": "turbo run dev --filter='!./examples/*'",
     "dev:packages": "turbo run dev --filter='!./apps/*' --filter='!./examples/*'",
     "example": "node scripts/run-example.mjs",
     "example:cra": "yarn --cwd ./examples/cra start",

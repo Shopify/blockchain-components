@@ -1,1 +1,0 @@
-export {AvailableSoonButton} from './AvailableSoonButton';

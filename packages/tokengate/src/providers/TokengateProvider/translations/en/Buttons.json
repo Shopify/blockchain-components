@@ -1,0 +1,6 @@
+{
+  "activeEnd": "Ends {{value, datetime}}",
+  "activeStart": "Starts {{value, datetime}}",
+  "soldOutLabel": "Sold out",
+  "soldOutDescription": "Check back later for stock updates"
+}

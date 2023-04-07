@@ -1,1 +1,0 @@
-export {SoldOutButton} from './SoldOutButton';
