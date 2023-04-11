@@ -1,3 +1,5 @@
+import {Text} from 'shared';
+
 import {TokenList} from '../TokenList';
 import {useTranslation} from '../../hooks/useTranslation';
 import {Requirements, UnlockingToken} from '../../types';
@@ -23,6 +25,18 @@ const TokengateRequirements = ({
     hasMissingTokens,
     t,
   });
+
+  if (!requirements?.conditions.length && !isLoading) {
+    return (
+      <div className="sbc-py-5 sbc-text-center" data-testid="no-segments">
+        <div className="sbc-rounded sbc-border sbc-border-[#C9CCCF] sbc-p-3 sbc-border-dashed">
+          <Text className="sbc-capitalize" color="secondary" variant="bodyLg">
+            {t('noSegments')}
+          </Text>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <TokenList

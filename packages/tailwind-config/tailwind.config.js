@@ -73,9 +73,9 @@ module.exports = {
       qrcode: 'var(--sbc-border-radius-qrcode, 16px)',
       tokengate: 'var(--sbc-border-radius-tokengate, 8px)',
       // Add the DEFAULT value -- DEFAULT is a Tailwind convention
-      DEFAULT: defaultTheme.borderRadius.DEFAULT,
+      DEFAULT: '4px',
       full: defaultTheme.borderRadius.full,
-      lg: '0.5rem',
+      lg: '8px',
     },
     borderWidth: {
       'button-disabled': 'var(--sbc-border-width-button-disabled, 0px)',
@@ -85,6 +85,7 @@ module.exports = {
       popover: 'var(--sbc-border-width-popover, 0px)',
       tokengate: 'var(--sbc-border-width-tokengate, 1px)',
       0: '0',
+      DEFAULT: '1px',
     },
     boxShadow: {
       none: defaultTheme.boxShadow.none,
@@ -248,6 +249,9 @@ module.exports = {
         },
         '.border-tokengate': {
           'border-style': 'var(--sbc-border-style-tokengate, solid)',
+        },
+        '.border-dashed': {
+          'border-style': 'dashed',
         },
       });
     }),
