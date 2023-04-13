@@ -9,6 +9,9 @@ import {StatementGenerator} from './types';
 export interface ConnectWalletProviderValue {
   chains: Chain[];
   connectors: Connector[];
+  customTitles?: {
+    connectScreenHeader?: string;
+  };
   enableDelegateCash?: boolean;
   requireSignature?: boolean;
   statementGenerator?: StatementGenerator;

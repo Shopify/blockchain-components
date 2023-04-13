@@ -62,9 +62,16 @@ interface EnableDelegateCashProps {
   enableDelegateCash?: boolean;
 }
 
+interface CustomizationProps {
+  customTitles?: {
+    connectScreenHeader?: string;
+  };
+}
+
 export type ProviderProps = (
   | SignatureRequiredProps
   | SignatureNotRequiredProps
 ) &
   OrderAttributionModeProps &
-  EnableDelegateCashProps;
+  EnableDelegateCashProps &
+  CustomizationProps;

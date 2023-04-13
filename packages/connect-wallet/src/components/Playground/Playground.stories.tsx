@@ -8,9 +8,10 @@ import {ConnectButton} from '..';
 
 interface TemplateProps {
   wallets: 'Ethereum' | 'Solana';
+  connectScreenHeader?: string;
 }
 
-const Component = ({wallets}: TemplateProps) => {
+const Component = ({wallets, connectScreenHeader}: TemplateProps) => {
   const chains = wallets === 'Ethereum' ? [mainnet] : [];
   const {provider, webSocketProvider} = configureChains(chains, [
     publicProvider(),
@@ -27,7 +28,11 @@ const Component = ({wallets}: TemplateProps) => {
 
   return (
     <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains} connectors={connectors}>
+      <ConnectWalletProvider
+        chains={chains}
+        connectors={connectors}
+        customTitles={{connectScreenHeader}}
+      >
         <ConnectButton />
       </ConnectWalletProvider>
     </WagmiConfig>
@@ -44,6 +49,7 @@ type Story = StoryObj<TemplateProps>;
 export const Playground: Story = {
   args: {
     wallets: 'Ethereum',
+    connectScreenHeader: 'Connect Wallet',
   },
   argTypes: {
     wallets: {

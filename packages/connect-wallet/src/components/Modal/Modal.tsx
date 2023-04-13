@@ -47,6 +47,7 @@ export const Modal = () => {
   );
   const {
     connectors,
+    customTitles,
     enableDelegateCash,
     orderAttributionMode,
     requireSignature,
@@ -115,7 +116,7 @@ export const Modal = () => {
           enableDelegateCash={enableDelegateCash}
         />
       ),
-      title: t('title.Connect'),
+      title: customTitles?.connectScreenHeader || t('title.Connect'),
     },
     Connecting: {
       leftButton: backButton,
