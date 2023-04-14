@@ -1,5 +1,11 @@
 # @shopify/connect-wallet
 
+## 1.1.0
+
+### Minor Changes
+
+- [#169](https://github.com/Shopify/blockchain-components/pull/169) [`d5443e5`](https://github.com/Shopify/blockchain-components/commit/d5443e508e3effae71e95fcbd6371a73d72d003d) Thanks [@caropinzonsilva](https://github.com/caropinzonsilva)! - Adds new prop `customTitles` to ConnectWallet package that allows the developers to customize the modal header of the ConnectScreen.
+
 ## 1.0.2
 
 ### Patch Changes

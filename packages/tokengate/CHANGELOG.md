@@ -1,5 +1,13 @@
 # @shopify/tokengate
 
+## 1.0.3
+
+### Patch Changes
+
+- [#170](https://github.com/Shopify/blockchain-components/pull/170) [`5a89047`](https://github.com/Shopify/blockchain-components/commit/5a89047f85688c6d4387b44ab01df2b9ac4e44a9) Thanks [@QuintonC](https://github.com/QuintonC)! - This update adjusts the text color for the `active.end` prop and also removes the year from the text string when the year provided more than 90 days in the future and not the current year.
+
+- [#163](https://github.com/Shopify/blockchain-components/pull/163) [`ca5c1a5`](https://github.com/Shopify/blockchain-components/commit/ca5c1a57568fa83441da2039be18cb8257a7d60f) Thanks [@QuintonC](https://github.com/QuintonC)! - Adds support for `active.end` prop to display an additional text element underneath the provided ConnectButton with detailed information about when the tokengate's benefits will end.
+
 ## 1.0.2
 
 ### Patch Changes
