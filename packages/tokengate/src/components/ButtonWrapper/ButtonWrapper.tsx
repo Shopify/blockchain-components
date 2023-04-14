@@ -3,6 +3,8 @@ import {Button, Text} from 'shared';
 
 import {useTranslation} from '../../hooks/useTranslation';
 
+import {getYearFormatOption} from './utils';
+
 type TextColor = ComponentProps<typeof Text>['color'];
 
 interface Translation {
@@ -52,13 +54,11 @@ interface ButtonWrapperProps {
 }
 
 const FORMAT_OPTIONS = {
-  value: {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  },
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
 };
 
 export const ButtonWrapper = ({
@@ -77,7 +77,12 @@ export const ButtonWrapper = ({
           aria-label={t(button.label.key, {value: button.label.value})}
           label={t(button.label.key, {
             value: button.label.value,
-            formatParams: FORMAT_OPTIONS,
+            formatParams: {
+              value: {
+                ...FORMAT_OPTIONS,
+                year: getYearFormatOption(button.label.value),
+              },
+            },
           })}
           fullWidth
           size="Lg"
@@ -94,7 +99,15 @@ export const ButtonWrapper = ({
           data-testid="button-wrapper-text"
           variant="bodyMd"
         >
-          {t(text.key, {value: text.value, formatParams: FORMAT_OPTIONS})}
+          {t(text.key, {
+            value: text.value,
+            formatParams: {
+              value: {
+                ...FORMAT_OPTIONS,
+                year: getYearFormatOption(text.value),
+              },
+            },
+          })}
         </Text>
       ) : null}
     </div>

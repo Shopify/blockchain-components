@@ -48,7 +48,7 @@ export const Tokengate = (props: TokengateProps) => {
               ? {key: 'activeEnd', value: new Date(active.end)}
               : undefined
           }
-          textColor="primary"
+          textColor="secondary"
           translationNamespace="Buttons"
         />
       ),
