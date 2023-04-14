@@ -50,4 +50,42 @@ describe('ButtonWrapper', () => {
       expect(element.queryByTestId('button-wrapper-text')).toBeNull();
     });
   });
+
+  describe('date formatting', () => {
+    it('renders a date without the year when it is the current year', () => {
+      const endDate = new Date();
+      endDate.setDate(endDate.getDate() + 14);
+      const year = endDate.getFullYear();
+
+      const element = render(
+        <ButtonWrapper
+          button={<DefaultButton />}
+          text={{key: 'activeEnd', value: endDate}}
+          translationNamespace="Buttons"
+        />,
+      );
+
+      expect(
+        element.queryByTestId('button-wrapper-text')?.innerText,
+      ).not.toContain(year.toString());
+    });
+
+    it('renders a date with the year when it is not the current year', () => {
+      const endDate = new Date();
+      endDate.setDate(endDate.getFullYear() + 1);
+      const year = endDate.getFullYear();
+
+      const element = render(
+        <ButtonWrapper
+          button={<DefaultButton />}
+          text={{key: 'activeEnd', value: endDate}}
+          translationNamespace="Buttons"
+        />,
+      );
+
+      expect(element.queryByTestId('button-wrapper-text')?.innerText).toContain(
+        year.toString(),
+      );
+    });
+  });
 });
