@@ -24,7 +24,7 @@ import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 import {openModal} from '../../slices/modalSlice';
 import {VaultList} from '../VaultList';
 
-export const ConnectButton = () => {
+export const ConnectButton = ({label}: {label?: string}) => {
   const dispatch = useAppDispatch();
   const {activeWallet} = useAppSelector((state) => state.wallet);
   const {copy, copied} = useCopyToClipboard();
@@ -72,10 +72,10 @@ export const ConnectButton = () => {
   if (!activeWallet) {
     return (
       <Button
-        aria-label={t('buttonText')}
+        aria-label={label || t('buttonText')}
         fullWidth
         primary
-        label={t('buttonText')}
+        label={label || t('buttonText')}
         onClick={handleClick}
         onClickEventName={eventNames.CONNECT_WALLET_CONNECT_BUTTON_CLICKED}
         size="Lg"
