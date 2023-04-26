@@ -121,7 +121,45 @@ describe('Tokengate - utils', () => {
             useTitleAndSubtitle({...defaultDiscountTokengateProps}),
           );
 
-          expect(result.current.title).toBe('$10 holder discount');
+          expect(result.current.title).toBe('$10.00 holder discount');
+          expect(result.current.subtitle).toBe(
+            'To unlock this discount, you need:',
+          );
+        });
+
+        it('correctly formats the value for fixedAmount discount type', () => {
+          const {result} = renderHook(() =>
+            useTitleAndSubtitle({
+              ...defaultDiscountTokengateProps,
+              reaction: DiscountReactionFixture({
+                discount: {
+                  type: 'fixedAmount',
+                  value: '10.0',
+                },
+              }),
+            }),
+          );
+
+          expect(result.current.title).toBe('$10.00 holder discount');
+          expect(result.current.subtitle).toBe(
+            'To unlock this discount, you need:',
+          );
+        });
+
+        it('correctly formats the value for percentage discount type', () => {
+          const {result} = renderHook(() =>
+            useTitleAndSubtitle({
+              ...defaultDiscountTokengateProps,
+              reaction: DiscountReactionFixture({
+                discount: {
+                  type: 'percentage',
+                  value: '10.0',
+                },
+              }),
+            }),
+          );
+
+          expect(result.current.title).toBe('10% holder discount');
           expect(result.current.subtitle).toBe(
             'To unlock this discount, you need:',
           );
@@ -149,7 +187,7 @@ describe('Tokengate - utils', () => {
               isLocked: false,
             }),
           );
-          expect(result.current.title).toBe('$10 discount unlocked');
+          expect(result.current.title).toBe('$10.00 discount unlocked');
           expect(result.current.subtitle).toBe(
             'Your token got you access to this discount!',
           );
@@ -187,7 +225,7 @@ describe('Tokengate - utils', () => {
               ],
             }),
           );
-          expect(result.current.title).toBe('$10 discount unlocked');
+          expect(result.current.title).toBe('$10.00 discount unlocked');
           expect(result.current.subtitle).toBe(
             'You can use this discount up to 4 times with your tokens.',
           );

@@ -1,6 +1,11 @@
 import {useTranslation} from '../../hooks/useTranslation';
 import {TokengateProps, UnlockingToken} from '../../types';
 
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
 export type UtilsProps = Omit<
   TokengateProps,
   'connectButton' | 'connectedButton'
@@ -121,10 +126,14 @@ export const useTitleAndSubtitle = (props: UtilsProps) => {
   const customTitle = isLocked ? lockedTitle : unlockedTitle;
   const customSubtitle = isLocked ? lockedSubtitle : unlockedSubtitle;
 
+  const reactionValueNumber =
+    typeof reaction?.discount?.value === 'number'
+      ? reaction.discount.value
+      : parseFloat(reaction?.discount?.value || '0');
   const discountText =
     reaction?.discount?.type === 'percentage'
-      ? `${reaction.discount.value}%`
-      : `$${reaction?.discount?.value}`;
+      ? `${reactionValueNumber.toFixed(0)}%`
+      : formatter.format(reactionValueNumber);
   const title =
     customTitle || translateTokengateI18n('title', {discount: discountText});
   let subtitle =

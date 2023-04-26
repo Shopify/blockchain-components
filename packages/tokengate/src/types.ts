@@ -66,7 +66,7 @@ interface DiscountReaction {
   type: 'discount';
   discount: {
     type: 'fixedAmount' | 'percentage';
-    value: number;
+    value: number | string;
   };
 }
 
