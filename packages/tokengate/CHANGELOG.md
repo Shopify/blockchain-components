@@ -1,5 +1,13 @@
 # @shopify/tokengate
 
+## 1.0.4
+
+### Patch Changes
+
+- [#174](https://github.com/Shopify/blockchain-components/pull/174) [`af72d56`](https://github.com/Shopify/blockchain-components/commit/af72d56cb52cf686643674406e61f0f839cfcd1a) Thanks [@caropinzonsilva](https://github.com/caropinzonsilva)! - Adds formatting to the discount value. If the discount is type `fixedAmount`, we format to two decimal places. If the discount is type `percentage`, we remove any decimals.
+
+  Adds support for `string` values to the reaction type discounts.
+
 ## 1.0.3
 
 ### Patch Changes

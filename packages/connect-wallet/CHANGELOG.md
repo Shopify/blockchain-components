@@ -1,5 +1,11 @@
 # @shopify/connect-wallet
 
+## 1.2.0
+
+### Minor Changes
+
+- [#172](https://github.com/Shopify/blockchain-components/pull/172) [`6915e32`](https://github.com/Shopify/blockchain-components/commit/6915e3269cdf0d972af5fa9d6a42bed1fc0457fd) Thanks [@caropinzonsilva](https://github.com/caropinzonsilva)! - Adds optional `label` to ConnectButton in `connect-wallet` package that will overwrite the default text.
+
 ## 1.1.0
 
 ### Minor Changes
