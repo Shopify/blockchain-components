@@ -1,5 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {Address, Chain} from '@wagmi/core';
+// Use absolute path to resolve the issue of a dependency cycle.
+import {setFetchingEns} from 'src/slices/walletSlice/walletSlice';
 
 import {EthereumProviderType} from '../../types/provider';
 import {isDefaultProvider} from '../../utils/provider';
@@ -18,6 +20,8 @@ interface FetchEnsPayload {
 export const fetchEns = createAsyncThunk(
   'wallet/fetchEns',
   async ({address, chain, provider}: FetchEnsProps, thunkApi) => {
+    thunkApi.dispatch(setFetchingEns(true));
+
     // Check if the package initialization is using only the default provider.
     const isDefault = isDefaultProvider({chain, provider});
     if (isDefault) {

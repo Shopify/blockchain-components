@@ -13,6 +13,8 @@ import {fetchDelegations} from './delegateCash';
 export interface WalletSliceType {
   activeWallet?: Wallet;
   connectedWallets: Wallet[];
+  fetchingDelegates: boolean;
+  fetchingEns: boolean;
   message?: string;
   pendingConnector: SerializedConnector | undefined;
   pendingWallet: Wallet | undefined;
@@ -22,6 +24,8 @@ export interface WalletSliceType {
 export const initialState: WalletSliceType = {
   activeWallet: undefined,
   connectedWallets: [],
+  fetchingDelegates: false,
+  fetchingEns: false,
   message: undefined,
   pendingConnector: undefined,
   pendingWallet: undefined,
@@ -100,6 +104,12 @@ export const walletSlice = createSlice({
     setActiveWallet: (state, action: PayloadAction<Wallet | undefined>) => {
       state.activeWallet = action.payload;
     },
+    setFetchingDelegates: (state, action: PayloadAction<boolean>) => {
+      state.fetchingDelegates = action.payload;
+    },
+    setFetchingEns: (state, action: PayloadAction<boolean>) => {
+      state.fetchingEns = action.payload;
+    },
     setPendingConnector: (
       state,
       action: PayloadAction<SerializedConnector | undefined>,
@@ -141,6 +151,9 @@ export const walletSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchEns.fulfilled, (state, action) => {
+      // Toggle the fetchingEns state.
+      state.fetchingEns = false;
+
       const {address, ensName} = action.payload;
 
       state.connectedWallets = state.connectedWallets.map((wallet) => {
@@ -236,6 +249,9 @@ export const walletSlice = createSlice({
       throw new ConnectWalletError(errorMessage);
     });
     builder.addCase(fetchDelegations.fulfilled, (state, action) => {
+      // Toggle the fetchingDelegates state.
+      state.fetchingDelegates = false;
+
       const {address, vaults} = action.payload;
 
       const connectedWallet = state.connectedWallets.find(
@@ -262,6 +278,8 @@ export const walletSlice = createSlice({
 export const {
   addWallet,
   setActiveWallet,
+  setFetchingDelegates,
+  setFetchingEns,
   setPendingConnector,
   setPendingWallet,
   removeWallet,

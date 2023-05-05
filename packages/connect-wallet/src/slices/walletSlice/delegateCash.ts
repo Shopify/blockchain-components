@@ -1,5 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {DelegateCash} from 'delegatecash';
+// Use absolute path to resolve the issue of a dependency cycle.
+import {setFetchingDelegates} from 'src/slices/walletSlice/walletSlice';
 import {Address} from 'wagmi';
 
 export const fetchDelegations = createAsyncThunk(
@@ -17,6 +19,8 @@ export const fetchDelegations = createAsyncThunk(
         vaults: undefined,
       });
     }
+
+    thunkApi.dispatch(setFetchingDelegates(true));
 
     const delegateCash = new DelegateCash();
     const delegations = await delegateCash.getDelegationsByDelegate(
