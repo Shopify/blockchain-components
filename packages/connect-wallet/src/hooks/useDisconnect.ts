@@ -3,6 +3,7 @@ import {useCallback} from 'react';
 import {useDisconnect as wagmiUseDisconnect, useAccount} from 'wagmi';
 
 import {removeWallet, setActiveWallet} from '../slices/walletSlice';
+import {ConnectWalletError} from '../utils/error';
 
 import {useAppDispatch, useAppSelector} from './useAppState';
 
@@ -42,8 +43,10 @@ export const useDisconnect = () => {
       });
 
       if (!addressToDisconnect) {
-        throw new Error(
-          'There is not a connected wallet nor was a wallet address provided to the disconnect function.',
+        console.error(
+          new ConnectWalletError(
+            'There is not a connected wallet nor was a wallet address provided to the disconnect function.',
+          ),
         );
       }
 
@@ -76,5 +79,6 @@ export const useDisconnect = () => {
     },
     [connectedAddress, connectedWallets, disconnect, dispatch],
   );
+
   return {disconnect: handleDisconnect};
 };

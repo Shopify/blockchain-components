@@ -39,7 +39,10 @@ export const modalSlice = createSlice({
     goBack: (state) => {
       // Reset the signature state if the current route is the Signing route.
       if (state.route === 'Signature') {
-        return initialState;
+        return {
+          ...initialState,
+          open: true,
+        };
       }
 
       if (state.history.length) {
