@@ -16,19 +16,19 @@ export const mapRequirementsToTokenListProps = ({
   t: (key: string) => string;
 }): TokenListProps['tokens'] =>
   requirements?.conditions.map((condition) => {
-    let badge;
+    // See if we have an unlocking token for this condition.
+    const unlockingTokenForCurrentCondition = findUnlockingTokenForCondition({
+      condition,
+      unlockingTokens,
+    });
 
-    // Add the error badges to the token series that do not have an unlocking token
-    if (hasMissingTokens) {
-      const unlockingTokenForCurrentCondition = findUnlockingTokenForCondition({
-        condition,
-        unlockingTokens,
-      });
-      badge =
-        unlockingTokens?.length !== undefined &&
-        !unlockingTokenForCurrentCondition ? (
-          <CrossBadge />
-        ) : null;
+    if (unlockingTokenForCurrentCondition) {
+      return {
+        title: unlockingTokenForCurrentCondition.name,
+        subtitle: unlockingTokenForCurrentCondition.collectionName,
+        imageUrl: unlockingTokenForCurrentCondition.imageUrl,
+        round: true,
+      };
     }
 
     return {
@@ -36,7 +36,7 @@ export const mapRequirementsToTokenListProps = ({
       subtitle: condition.description ?? t('conditionDescription.any'),
       imageUrl: condition.imageUrl,
       links: condition.links,
-      badge,
+      badge: hasMissingTokens ? <CrossBadge /> : null,
       round: true,
     };
   });
