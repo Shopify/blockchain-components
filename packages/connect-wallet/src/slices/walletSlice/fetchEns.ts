@@ -1,8 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {Address, Chain} from '@wagmi/core';
 
-import {EthereumProviderType} from '../../types/provider';
-import {isDefaultProvider} from '../../utils/provider';
+import {EthereumProviderType} from '~/types/provider';
+import {isDefaultProvider} from '~/utils/provider';
 
 interface FetchEnsProps {
   address: Address;

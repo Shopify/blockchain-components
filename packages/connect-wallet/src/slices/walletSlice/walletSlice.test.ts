@@ -1,12 +1,12 @@
-import {DEFAULT_SERIALIZED_CONNECTOR} from '../../test/fixtures/connector';
+import {initialState, validatePendingWallet, walletSlice} from './walletSlice';
+
+import {DEFAULT_SERIALIZED_CONNECTOR} from '~/test/fixtures/connector';
 import {
   INVALID_SIGNATURE_RESPONSE,
   VALID_SIGNATURE_RESPONSE,
-} from '../../test/fixtures/signature';
-import {ALTERNATE_WALLET, DEFAULT_WALLET} from '../../test/fixtures/wallet';
-import {ConnectWalletError} from '../../utils/error';
-
-import {initialState, validatePendingWallet, walletSlice} from './walletSlice';
+} from '~/test/fixtures/signature';
+import {ALTERNATE_WALLET, DEFAULT_WALLET} from '~/test/fixtures/wallet';
+import {ConnectWalletError} from '~/utils/error';
 
 const {
   addWallet,

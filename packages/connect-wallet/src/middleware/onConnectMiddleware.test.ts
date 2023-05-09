@@ -1,20 +1,20 @@
 import {vi} from 'vitest';
 
+import {buildOnConnectMiddleware} from './onConnectMiddleware';
+
 import {
   addWallet,
   setActiveWallet,
   setPendingWallet,
   validatePendingWallet,
-} from '../slices/walletSlice';
-import {store} from '../test/configureStore';
+} from '~/slices/walletSlice';
+import {store} from '~/test/configureStore';
 import {
   INVALID_SIGNATURE_RESPONSE,
   VALID_SIGNATURE_RESPONSE,
-} from '../test/fixtures/signature';
-import {DEFAULT_WALLET} from '../test/fixtures/wallet';
-import {ConnectWalletError} from '../utils/error';
-
-import {buildOnConnectMiddleware} from './onConnectMiddleware';
+} from '~/test/fixtures/signature';
+import {DEFAULT_WALLET} from '~/test/fixtures/wallet';
+import {ConnectWalletError} from '~/utils/error';
 
 describe('onConnectMiddleware', () => {
   const effectFn = vi.fn();

@@ -1,10 +1,10 @@
 import {useContext} from 'react';
 import {useConnect as useWagmiConnect} from 'wagmi';
 
-import {ConnectWalletContext} from '../providers/ConnectWalletProvider';
-import {closeModal, navigate, setConnectionStatus} from '../slices/modalSlice';
-
 import {useAppDispatch, useAppSelector} from './useAppState';
+
+import {ConnectWalletContext} from '~/providers/ConnectWalletProvider';
+import {closeModal, navigate, setConnectionStatus} from '~/slices/modalSlice';
 
 export function useConnect() {
   const dispatch = useAppDispatch();

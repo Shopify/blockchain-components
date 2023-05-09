@@ -2,9 +2,8 @@ import {eventNames} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
 import {Asset, Button, Gift, Key, Text} from 'shared';
 
-import {useAppDispatch} from '../../../hooks/useAppState';
-import {useTranslation} from '../../../hooks/useTranslation';
-import {navigate} from '../../../slices/modalSlice';
+import {useAppDispatch, useTranslation} from '~/hooks';
+import {navigate} from '~/slices/modalSlice';
 
 interface ListItemProps {
   content: string;

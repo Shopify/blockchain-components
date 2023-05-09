@@ -1,9 +1,9 @@
 import {Text, DelegateCash} from 'shared';
 import {Address} from 'wagmi';
 
-import {useTranslation} from '../../hooks/useTranslation';
-
 import {VaultListRow} from './components/VaultListRow';
+
+import {useTranslation} from '~/hooks';
 
 export const VaultList = ({vaults}: {vaults?: Address[]}) => {
   const {t} = useTranslation('VaultList');

@@ -1,13 +1,12 @@
+import {useConnectorData} from './useConnectorData';
+
 import {
   CHAINS,
   CUSTOM_CONNECTOR,
   DEFAULT_CONNECTOR_COLLECTION,
-} from '../test/fixtures/connector';
-import {createWagmiFixture} from '../test/fixtures/wagmi';
-
-import {renderHookWithContext} from '../test/utils';
-
-import {useConnectorData} from './useConnectorData';
+} from '~/test/fixtures/connector';
+import {createWagmiFixture} from '~/test/fixtures/wagmi';
+import {renderHookWithContext} from '~/test/utils';
 
 describe('useConnectorData', () => {
   it('returns custom connector id', () => {

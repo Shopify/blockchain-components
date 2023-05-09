@@ -1,6 +1,8 @@
 import {useContext} from 'react';
-import {ConnectWalletContext} from '../../../providers/ConnectWalletProvider';
+
 import {GetAConnectorButton} from '../../GetAConnectorButton';
+
+import {ConnectWalletContext} from '~/providers/ConnectWalletProvider';
 
 const GetAWalletScreen = () => {
   const {connectors} = useContext(ConnectWalletContext);

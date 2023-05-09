@@ -2,8 +2,8 @@ import {eventNames} from '@shopify/blockchain-components';
 import {Button, Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
-import {useConnectorData} from '../../hooks/useConnectorData';
-import {useTranslation} from '../../hooks/useTranslation';
+
+import {useConnectorData, useTranslation} from '~/hooks';
 
 interface GetAConnectorButtonProps {
   connectorId: string;
@@ -20,7 +20,7 @@ export const GetAConnectorButton = ({
   }
 
   return (
-    <div className="sbc-flex sbc-flex-row sbc-items-center sbc-py-3 sbc-px-0 sbc-border-b-divider last-of-type:sbc-border-none">
+    <div className="sbc-flex sbc-flex-row sbc-items-center sbc-px-0 sbc-py-3 sbc-border-b-divider last-of-type:sbc-border-none">
       <div className="sbc-flex sbc-flex-1 sbc-items-center sbc-gap-x-3">
         <ConnectorIcon id={connectorId} size="md" />
         <Text as="span" color="primary" variant="bodyLg">

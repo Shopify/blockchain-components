@@ -16,13 +16,17 @@ import {
 } from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
-import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
-import {useCopyToClipboard} from '../../hooks/useCopyToClipboard';
-import {useDisconnect} from '../../hooks/useDisconnect';
-import {useTranslation} from '../../hooks/useTranslation';
-import {useWindowDimensions} from '../../hooks/useWindowDimensions';
-import {openModal} from '../../slices/modalSlice';
 import {VaultList} from '../VaultList';
+
+import {
+  useAppDispatch,
+  useAppSelector,
+  useCopyToClipboard,
+  useDisconnect,
+  useTranslation,
+  useWindowDimensions,
+} from '~/hooks';
+import {openModal} from '~/slices/modalSlice';
 
 export const ConnectButton = ({label}: {label?: string}) => {
   const dispatch = useAppDispatch();
@@ -135,7 +139,7 @@ export const ConnectButton = ({label}: {label?: string}) => {
         <ConnectorIcon id={connectorId} size="lg" />
 
         <button
-          className="sbc-flex sbc-cursor-pointer sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-py-2 sbc-px-3 sbc-text-address-chip sbc-transition-colors sbc-border-none hover:sbc-bg-address-chip-hover"
+          className="sbc-flex sbc-cursor-pointer sbc-items-center sbc-gap-x-3 sbc-rounded-full sbc-bg-address-chip sbc-px-3 sbc-py-2 sbc-text-address-chip sbc-transition-colors sbc-border-none hover:sbc-bg-address-chip-hover"
           onClick={() => copy(address)}
           type="button"
         >

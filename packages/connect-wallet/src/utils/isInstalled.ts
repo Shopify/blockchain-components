@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 // Only supporting MetaMask for the time being, but
 // we can support others in the future as well (e.g. Coinbase)
 export function isInstalled(connectorName: string) {
@@ -17,7 +20,6 @@ export function isInstalled(connectorName: string) {
     const {isMetaMask} = window.ethereum;
 
     // ESLint seems to think this is always true, but there are cases where it might be isBrave, etc.
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (isMetaMask) {
       return true;
     }

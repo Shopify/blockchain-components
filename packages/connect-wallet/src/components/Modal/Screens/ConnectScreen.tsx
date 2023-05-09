@@ -2,15 +2,18 @@ import {useCallback} from 'react';
 import {Text, DelegateCash} from 'shared';
 
 import {ConnectorButton} from '../../ConnectorButton';
-import {useAppDispatch} from '../../../hooks/useAppState';
-import {useConnect} from '../../../hooks/useConnect';
-import {useTranslation} from '../../../hooks/useTranslation';
-import {useWalletConnectDeeplink} from '../../../hooks/useWalletConnectDeeplink';
-import {closeModal, navigate} from '../../../slices/modalSlice';
-import {setPendingConnector} from '../../../slices/walletSlice';
-import {Connector} from '../../../types/connector';
-import {getBrowserInfo} from '../../../utils/getBrowser';
-import {isInstalled} from '../../../utils/isInstalled';
+
+import {
+  useAppDispatch,
+  useConnect,
+  useTranslation,
+  useWalletConnectDeeplink,
+} from '~/hooks';
+import {closeModal, navigate} from '~/slices/modalSlice';
+import {setPendingConnector} from '~/slices/walletSlice';
+import {Connector} from '~/types/connector';
+import {getBrowserInfo} from '~/utils/getBrowser';
+import {isInstalled} from '~/utils/isInstalled';
 
 interface ConnectScreenProps {
   connectors: Connector[];

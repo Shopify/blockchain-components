@@ -1,8 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 
-import type {ConnectionState} from '../../types/connectionState';
-import type {ModalRoute} from '../../types/modal';
+import type {ConnectionState} from '~/types/connectionState';
+import type {ModalRoute} from '~/types/modal';
 
 interface SerializedErrorContent {
   message?: string;

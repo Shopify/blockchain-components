@@ -1,7 +1,7 @@
 import {Chain} from '@wagmi/core';
 
-import {Connector} from '../../types/connector';
-import {OrderAttributionMode} from '../../types/orderAttribution';
+import {Connector} from '~/types/connector';
+import {OrderAttributionMode} from '~/types/orderAttribution';
 
 interface StatementGeneratorProps {
   /**

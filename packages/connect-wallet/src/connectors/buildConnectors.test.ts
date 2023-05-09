@@ -1,9 +1,9 @@
 import {vi} from 'vitest';
 
-import type {Connector} from '../types/connector';
-import {CHAINS, CUSTOM_CONNECTOR} from '../test/fixtures/connector';
-
 import {buildConnectors} from './buildConnectors';
+
+import {CHAINS, CUSTOM_CONNECTOR} from '~/test/fixtures/connector';
+import type {Connector} from '~/types/connector';
 
 const extractConnectorIds = (connectors: Connector[]) => {
   return connectors.map((connector) => connector.id);

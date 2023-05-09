@@ -1,11 +1,12 @@
 import {eventNames, publishEvent} from '@shopify/blockchain-components';
 import {useEffect} from 'react';
 
-import {removeWallet, attributeOrder} from '../../slices/walletSlice';
-import {addListener} from '../../store/listenerMiddleware';
 import {useAppDispatch} from '../useAppState';
 
 import {useConnectWalletProps} from './types';
+
+import {removeWallet, attributeOrder} from '~/slices/walletSlice';
+import {addListener} from '~/store/listenerMiddleware';
 
 export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
   const {onConnect, onDisconnect} = props || {};

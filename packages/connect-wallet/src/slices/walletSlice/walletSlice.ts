@@ -3,12 +3,12 @@ import type {PayloadAction} from '@reduxjs/toolkit';
 import {utils} from 'ethers';
 import {SiweMessage} from 'siwe';
 
-import {SerializedConnector} from '../../types/connector';
-import {SignatureResponse, Wallet} from '../../types/wallet';
-import {ConnectWalletError} from '../../utils/error';
-
-import {fetchEns} from './fetchEns';
 import {fetchDelegations} from './delegateCash';
+import {fetchEns} from './fetchEns';
+
+import {SerializedConnector} from '~/types/connector';
+import {SignatureResponse, Wallet} from '~/types/wallet';
+import {ConnectWalletError} from '~/utils/error';
 
 export interface WalletSliceType {
   activeWallet?: Wallet;

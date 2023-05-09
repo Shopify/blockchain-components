@@ -1,9 +1,9 @@
 import {configureChains} from 'wagmi';
-import {InjectedConnector} from 'wagmi/connectors/injected';
 import {mainnet} from 'wagmi/chains';
+import {InjectedConnector} from 'wagmi/connectors/injected';
 import {publicProvider} from 'wagmi/providers/public';
 
-import {SerializedConnector} from '../../types/connector';
+import {SerializedConnector} from '~/types/connector';
 
 export const DEFAULT_SERIALIZED_CONNECTOR: SerializedConnector = {
   id: 'metaMask',

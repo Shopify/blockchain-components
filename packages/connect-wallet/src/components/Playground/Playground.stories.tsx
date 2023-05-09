@@ -2,9 +2,11 @@ import type {Meta, StoryObj} from '@storybook/react';
 import {WagmiConfig, configureChains, createClient} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 import {publicProvider} from 'wagmi/providers/public';
-import {buildConnectors} from '../../connectors/buildConnectors';
-import {ConnectWalletProvider} from '../../providers/ConnectWalletProvider';
-import {ConnectButton} from '..';
+
+import {ConnectButton} from '../ConnectButton';
+
+import {buildConnectors} from '~/connectors/buildConnectors';
+import {ConnectWalletProvider} from '~/providers/ConnectWalletProvider';
 
 interface TemplateProps {
   wallets: 'Ethereum' | 'Solana';

@@ -1,18 +1,18 @@
 import type {Connector as WagmiConnector} from 'wagmi';
 
-import type {
-  Connector,
-  ConnectorInstance,
-  ConnectorProps,
-  CustomConnector,
-} from '../types/connector';
-import {ConnectWalletError} from '../utils/error';
-
 import {Coinbase} from './coinbase';
 import {LedgerLive} from './ledgerLive';
 import {MetaMask} from './metaMask';
 import {Rainbow} from './rainbow';
 import {WalletConnect} from './walletConnect';
+
+import type {
+  Connector,
+  ConnectorInstance,
+  ConnectorProps,
+  CustomConnector,
+} from '~/types/connector';
+import {ConnectWalletError} from '~/utils/error';
 
 interface BuildConnectorsWithDefaults extends ConnectorProps {
   customConnectors?: CustomConnector[];

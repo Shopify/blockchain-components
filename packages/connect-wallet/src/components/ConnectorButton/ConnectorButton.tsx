@@ -2,7 +2,8 @@ import {useEventWithTracking, eventNames} from '@shopify/blockchain-components';
 import {getButtonClassname, Text} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
-import {useTranslation} from '../../hooks/useTranslation';
+
+import {useTranslation} from '~/hooks';
 
 interface ConnectorButtonProps {
   id: string;

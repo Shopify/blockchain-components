@@ -6,13 +6,14 @@ import {MotionConfig} from 'framer-motion';
 import {FC, PropsWithChildren, useMemo} from 'react';
 import {Provider} from 'react-redux';
 
-import {Modal} from '../../components';
-import {buildConnectors} from '../../connectors/buildConnectors';
 import {I18nProvider} from '../I18nProvider';
-import store from '../../store/configureStore';
 
 import {ConnectWalletContext, ConnectWalletProviderValue} from './context';
 import {ProviderProps} from './types';
+
+import {Modal} from '~/components';
+import {buildConnectors} from '~/connectors/buildConnectors';
+import store from '~/store/configureStore';
 
 export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,

@@ -20,14 +20,6 @@ import {
   useMediaQuery,
 } from 'shared';
 
-import {useAppDispatch, useAppSelector} from '../../hooks/useAppState';
-import {useDisconnect} from '../../hooks/useDisconnect';
-import {useMiddleware} from '../../hooks/useMiddleware';
-import {useTranslation} from '../../hooks/useTranslation';
-import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
-import {closeModal, goBack, navigate} from '../../slices/modalSlice';
-import {ModalRoute} from '../../types/modal';
-
 import {
   ConnectScreen,
   ConnectingScreen,
@@ -38,6 +30,17 @@ import {
   WhatAreWalletsScreen,
 } from './Screens';
 import {ModalVariants} from './variants';
+
+import {
+  useAppDispatch,
+  useAppSelector,
+  useDisconnect,
+  useMiddleware,
+  useTranslation,
+} from '~/hooks';
+import {ConnectWalletContext} from '~/providers/ConnectWalletProvider';
+import {closeModal, goBack, navigate} from '~/slices/modalSlice';
+import {ModalRoute} from '~/types/modal';
 
 export const Modal = () => {
   const dispatch = useAppDispatch();
@@ -161,7 +164,7 @@ export const Modal = () => {
       <AnimatePresence>
         {open ? (
           <m.div
-            className="sbc-fixed sbc-top-0 sbc-left-0 sbc-right-0 sbc-bottom-0 sbc-z-max sbc-flex sbc-items-end sbc-justify-center sm:sbc-items-center"
+            className="sbc-fixed sbc-bottom-0 sbc-left-0 sbc-right-0 sbc-top-0 sbc-z-max sbc-flex sbc-items-end sbc-justify-center sm:sbc-items-center"
             exit={{pointerEvents: 'none'}}
             id="shopify-connect-wallet-modal-container"
             initial={{pointerEvents: 'auto'}}

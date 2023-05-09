@@ -6,6 +6,7 @@ const BASE_CONFIG: Options = {
   external: ['ethers', 'react', 'wagmi'],
   format: ['esm'],
   platform: 'browser',
+  sourcemap: true,
   target: 'esnext',
 };
 

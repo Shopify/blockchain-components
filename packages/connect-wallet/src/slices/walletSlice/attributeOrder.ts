@@ -1,9 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import {OrderAttributionMode} from '../../types/orderAttribution';
-import {ConnectWalletError} from '../../utils/error';
-
 import {gateContextClient} from './gateContextClient';
+
+import {OrderAttributionMode} from '~/types/orderAttribution';
+import {ConnectWalletError} from '~/utils/error';
 
 export interface AttributeOrderResponse {
   orderAttributionMode: OrderAttributionMode;

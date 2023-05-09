@@ -1,4 +1,4 @@
-import {useConnectorData} from '../../hooks/useConnectorData';
+import {useConnectorData} from '~/hooks';
 
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 

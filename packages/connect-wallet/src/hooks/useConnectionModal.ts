@@ -1,7 +1,8 @@
 import {useCallback} from 'react';
-import {closeModal, openModal} from '../slices/modalSlice';
 
 import {useAppDispatch} from './useAppState';
+
+import {closeModal, openModal} from '~/slices/modalSlice';
 
 export function useConnectionModal() {
   const dispatch = useAppDispatch();

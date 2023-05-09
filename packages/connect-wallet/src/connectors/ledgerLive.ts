@@ -1,8 +1,8 @@
 import {LedgerLive as ledgerLiveIcon} from 'shared';
 
-import {ConnectorInstance, ConnectorProps} from '../types/connector';
-
 import {buildWalletConnectConnector} from './buildWalletConnectConnector';
+
+import {ConnectorInstance, ConnectorProps} from '~/types/connector';
 
 export const LedgerLive = ({chains}: ConnectorProps): ConnectorInstance => {
   return {

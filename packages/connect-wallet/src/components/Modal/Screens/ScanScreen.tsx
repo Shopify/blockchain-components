@@ -3,13 +3,17 @@ import {AnimatePresence, domAnimation, LazyMotion} from 'framer-motion';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button} from 'shared';
 
-import {useAppDispatch, useAppSelector} from '../../../hooks/useAppState';
-import {useConnect} from '../../../hooks/useConnect';
-import {useConnectorData} from '../../../hooks/useConnectorData';
-import {useTranslation} from '../../../hooks/useTranslation';
 import {QRCode, QRCodeSkeleton} from '../../QRCode';
-import {closeModal} from '../../../slices/modalSlice';
-import {cleanupConnection} from '../../../utils/cleanupConnection';
+
+import {
+  useAppDispatch,
+  useAppSelector,
+  useConnect,
+  useConnectorData,
+  useTranslation,
+} from '~/hooks';
+import {closeModal} from '~/slices/modalSlice';
+import {cleanupConnection} from '~/utils/cleanupConnection';
 
 const ScanScreen = () => {
   const dispatch = useAppDispatch();

@@ -2,10 +2,10 @@ import {publishEvent, eventNames} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
 import {useDisconnect as wagmiUseDisconnect, useAccount} from 'wagmi';
 
-import {removeWallet, setActiveWallet} from '../slices/walletSlice';
-import {ConnectWalletError} from '../utils/error';
-
 import {useAppDispatch, useAppSelector} from './useAppState';
+
+import {removeWallet, setActiveWallet} from '~/slices/walletSlice';
+import {ConnectWalletError} from '~/utils/error';
 
 export const useDisconnect = () => {
   const dispatch = useAppDispatch();
