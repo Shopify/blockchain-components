@@ -1,10 +1,7 @@
-import {vi} from 'vitest';
 import {render, fireEvent} from '@testing-library/react';
+import {vi} from 'vitest';
 
-import {AnalyticsListenerTestHelper} from '../../../tests/helpers/ClientAnalytics';
-import {shopifyServices} from '../../shopify/const';
-import {WindowWithShopifyAnalytics} from '../../shopify/types';
-
+import {eventNames} from './const';
 import {
   subscribe,
   subscribeToAll,
@@ -13,7 +10,10 @@ import {
   getAdditionalEventPayload,
   useComponentRenderedTracking,
 } from './utils';
-import {eventNames} from './const';
+
+import {AnalyticsListenerTestHelper} from '~/tests/helpers/ClientAnalytics';
+import {shopifyServices} from '~/utils/shopify/const';
+import {WindowWithShopifyAnalytics} from '~/utils/shopify/types';
 
 describe('utils', () => {
   const originalWindow = window;

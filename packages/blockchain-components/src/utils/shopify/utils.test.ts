@@ -1,5 +1,5 @@
-import {getShopifyServiceName} from './utils';
 import {shopifyServices} from './const';
+import {getShopifyServiceName} from './utils';
 
 describe('shopify - utils', () => {
   describe('getShopifyServiceName', () => {
