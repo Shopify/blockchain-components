@@ -1,13 +1,13 @@
-import {mainnet} from 'wagmi';
 import {vi} from 'vitest';
-
-import {store} from '../../test/configureStore';
-import {DEFAULT_WALLET} from '../../test/fixtures/wallet';
-import {mainnetPublicProvider} from '../../test/providers';
-import {Wallet} from '../../types/wallet';
+import {mainnet} from 'wagmi';
 
 import {fetchEns} from './fetchEns';
 import {addWallet} from './walletSlice';
+
+import {store} from '~/test/configureStore';
+import {DEFAULT_WALLET} from '~/test/fixtures/wallet';
+import {mainnetPublicProvider} from '~/test/providers';
+import {Wallet} from '~/types/wallet';
 
 const defaultAddress = DEFAULT_WALLET.address;
 

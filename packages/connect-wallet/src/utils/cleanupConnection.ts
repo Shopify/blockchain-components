@@ -1,4 +1,4 @@
-import {ConnectorData} from '@wagmi/core';
+import {ConnectorData} from 'wagmi';
 
 export function cleanupConnection(provider: ConnectorData['provider']) {
   const connection = provider?.signer?.connection;

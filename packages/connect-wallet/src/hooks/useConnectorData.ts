@@ -1,8 +1,8 @@
 import {useContext, useMemo} from 'react';
 import {Connector} from 'wagmi';
 
-import {ConnectWalletContext} from '../providers/ConnectWalletProvider';
-import {ConnectorInstance} from '../types/connector';
+import {ConnectWalletContext} from '~/providers/ConnectWalletProvider';
+import {ConnectorInstance} from '~/types/connector';
 
 type UseConnectorDataResponse = Omit<ConnectorInstance, 'createConnector'> & {
   connector?: Connector;

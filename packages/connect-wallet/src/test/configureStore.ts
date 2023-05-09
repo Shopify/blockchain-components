@@ -1,10 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit';
 
-import logger from '../middleware/loggerMiddleware';
-import {initialState as initialModalState} from '../slices/modalSlice';
-import {initialState as initialWalletState} from '../slices/walletSlice';
-import {rootReducer} from '../store/combineReducers';
-import {listenerMiddleware} from '../store/listenerMiddleware';
+import logger from '~/middleware/loggerMiddleware';
+import {initialState as initialModalState} from '~/slices/modalSlice';
+import {initialState as initialWalletState} from '~/slices/walletSlice';
+import {rootReducer} from '~/store/combineReducers';
+import {listenerMiddleware} from '~/store/listenerMiddleware';
 
 export const preloadedState = {
   modal: initialModalState,

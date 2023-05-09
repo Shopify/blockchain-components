@@ -1,4 +1,4 @@
-import {UnlockingToken} from '../../types';
+import {UnlockingToken} from '~/types';
 
 interface PreviousUnlockingToken {
   token: {

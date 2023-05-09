@@ -1,8 +1,8 @@
 import {vi} from 'vitest';
 
-import {addWallet, setPendingWallet} from '../slices/walletSlice';
-import {preloadedState, storeWithLogger as store} from '../test/configureStore';
-import {ALTERNATE_WALLET, DEFAULT_WALLET} from '../test/fixtures/wallet';
+import {addWallet, setPendingWallet} from '~/slices/walletSlice';
+import {preloadedState, storeWithLogger as store} from '~/test/configureStore';
+import {ALTERNATE_WALLET, DEFAULT_WALLET} from '~/test/fixtures/wallet';
 
 const addedWalletState = {
   ...preloadedState,

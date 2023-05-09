@@ -1,4 +1,4 @@
-import {Wallet} from '../../types/wallet';
+import {Wallet} from '~/types/wallet';
 
 export const DEFAULT_WALLET: Wallet = {
   address: '0xc223594946c60217Ed53096eEC6C179964e536EB',

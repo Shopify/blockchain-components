@@ -1,16 +1,16 @@
 /* eslint-disable @shopify/jsx-no-hardcoded-content */
-
-import {ReactNode, useCallback, useState} from 'react';
 import {Meta, StoryObj} from '@storybook/react';
+import {ReactNode, useCallback, useState} from 'react';
 import {Button, Text} from 'shared';
 
 import {Tokengate} from '../../Tokengate';
+
 import {
   TokengatePropsConnectedFixture,
   ReactionFixture,
   RequirementsFixture,
-} from '../../../../fixtures';
-import {Reaction, Requirements} from '../../../../types';
+} from '~/fixtures';
+import {Reaction, Requirements} from '~/types';
 
 const exclusiveReaction = ReactionFixture();
 const discountReaction = ReactionFixture({

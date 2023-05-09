@@ -1,7 +1,7 @@
-import {ConnectionState} from '../types/connectionState';
-
 import {useAppSelector} from './useAppState';
 import {useTranslation} from './useTranslation';
+
+import {ConnectionState} from '~/types/connectionState';
 
 export const useModalScreenContent = (
   state: ConnectionState,

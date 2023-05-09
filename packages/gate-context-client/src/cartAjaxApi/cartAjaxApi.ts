@@ -4,17 +4,18 @@
  * without specific references to the backing store.
  */
 import {publishEvent, eventNames} from '@shopify/blockchain-components';
+
+import {CartAjaxApiError, CartAjaxApiNotSupportedError} from './errors';
+import {getShopifyRootRoute, isShopifyStore} from './shopify';
+import {CartAjaxAPICartAttributes, CartAjaxApiResponse} from './types';
+
 import {
   GateContextClient,
   GateContextClientOptions,
   GateContextInput,
   GateContextWriteResponse,
   ShopifyGateContextGenerator,
-} from '../types';
-
-import {CartAjaxApiError, CartAjaxApiNotSupportedError} from './errors';
-import {getShopifyRootRoute, isShopifyStore} from './shopify';
-import {CartAjaxAPICartAttributes, CartAjaxApiResponse} from './types';
+} from '~/types';
 
 async function read(): Promise<unknown> {
   if (!isCartAjaxApiSupported()) {

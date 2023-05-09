@@ -1,12 +1,13 @@
 import {useContext} from 'react';
 import {useAccount} from 'wagmi';
 
-import {ConnectWalletContext} from '../../providers/ConnectWalletProvider';
 import {useAppSelector} from '../useAppState';
 import {useDisconnect} from '../useDisconnect';
 
 import {useConnectWalletProps} from './types';
 import {useConnectWalletCallbacks} from './useConnectWalletCallbacks';
+
+import {ConnectWalletContext} from '~/providers/ConnectWalletProvider';
 
 export function useConnectWallet(props?: useConnectWalletProps) {
   const {signing} = useAppSelector((state) => state.modal);

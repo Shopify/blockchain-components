@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import type {Middleware} from 'redux';
 
-import type {AppDispatch, RootState} from '../store/configureStore';
+import type {AppDispatch, RootState} from '~/store/configureStore';
 
 // Different CSS styles for the logger.
 const ACTION_CSS = `color: #3B82F6; font-weight: bold`;

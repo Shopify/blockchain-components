@@ -1,7 +1,7 @@
 import {CoinbaseWallet} from 'shared';
 import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
 
-import {ConnectorInstance, ConnectorProps} from '../types/connector';
+import {ConnectorInstance, ConnectorProps} from '~/types/connector';
 
 export const Coinbase = ({
   appName,

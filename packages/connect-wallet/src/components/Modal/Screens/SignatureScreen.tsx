@@ -3,11 +3,15 @@ import {useCallback, useMemo} from 'react';
 import {Button, Spinner, Text} from 'shared';
 
 import {ConnectorIcon} from '../../ConnectorIcon';
-import {useAppDispatch, useAppSelector} from '../../../hooks/useAppState';
-import {useDisconnect} from '../../../hooks/useDisconnect';
-import {useSignMessage} from '../../../hooks/useSignMessage';
-import {useTranslation} from '../../../hooks/useTranslation';
-import {closeModal, setError} from '../../../slices/modalSlice';
+
+import {
+  useAppDispatch,
+  useAppSelector,
+  useDisconnect,
+  useSignMessage,
+  useTranslation,
+} from '~/hooks';
+import {closeModal, setError} from '~/slices/modalSlice';
 
 const SignatureScreen = () => {
   const dispatch = useAppDispatch();
@@ -65,7 +69,7 @@ const SignatureScreen = () => {
       <div className="sbc-block">
         <Text
           as="h3"
-          className="sbc-mt-0 sbc-mb-2 sbc-text-center"
+          className="sbc-mb-2 sbc-mt-0 sbc-text-center"
           color="primary"
           variant="headingLg"
         >

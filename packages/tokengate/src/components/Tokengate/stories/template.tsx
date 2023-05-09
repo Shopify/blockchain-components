@@ -1,7 +1,8 @@
 import {Button} from 'shared';
 
 import {Tokengate} from '../Tokengate';
-import type {TokengateProps} from '../../../types';
+
+import type {TokengateProps} from '~/types';
 
 export const Template = (argOverrides: Partial<TokengateProps>) => {
   const args: TokengateProps = {

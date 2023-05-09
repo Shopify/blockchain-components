@@ -1,9 +1,10 @@
 import {TokenList} from '../TokenList';
-import {useTranslation} from '../../hooks/useTranslation';
-import {Requirements, UnlockingToken} from '../../types';
 
 import {TokengateRequirementsSeparator} from './TokengateRequirementsSeparator';
 import {mapRequirementsToTokenListProps} from './utils';
+
+import {useTranslation} from '~/hooks/useTranslation';
+import {Requirements, UnlockingToken} from '~/types';
 
 const TokengateRequirements = ({
   requirements,

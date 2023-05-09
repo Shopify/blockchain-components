@@ -1,5 +1,5 @@
-import {TokenListProps} from '../TokenList';
 import {RedemptionLimit, UnlockingToken} from '../../types';
+import {TokenListProps} from '../TokenList';
 
 import {OrderLimit} from './OrderLimit';
 

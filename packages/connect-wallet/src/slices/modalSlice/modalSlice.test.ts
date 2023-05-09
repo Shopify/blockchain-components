@@ -1,5 +1,3 @@
-import {ConnectionState} from '../../types/connectionState';
-
 import {
   goBack,
   initialState,
@@ -10,6 +8,8 @@ import {
   setError,
 } from './modalSlice';
 import type {ModalSliceType} from './modalSlice';
+
+import {ConnectionState} from '~/types/connectionState';
 
 const {closeModal} = modalSlice.actions;
 

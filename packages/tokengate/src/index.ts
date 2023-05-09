@@ -5,9 +5,9 @@ export {adaptRequirements} from './utils/adapters/requirements';
 export {adaptUnlockingTokens} from './utils/adapters/unlockingTokens';
 
 /**
- * Providers
+ * Components
  */
-export {TokengateProvider as Tokengate} from './providers/TokengateProvider';
+export {Tokengate} from './components/Tokengate';
 
 /**
  * Types

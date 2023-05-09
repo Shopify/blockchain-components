@@ -1,8 +1,8 @@
 import {useEventWithTracking} from '@shopify/blockchain-components';
 
-import {Text, Variant} from '../Text';
-import {Spinner} from '../Spinner';
 import {ClassName} from '../../types/generic';
+import {Spinner} from '../Spinner';
+import {Text, Variant} from '../Text';
 
 import type {ButtonProps, GetButtonClassnameProps, Size} from './types';
 

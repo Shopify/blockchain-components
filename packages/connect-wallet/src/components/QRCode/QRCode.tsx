@@ -2,8 +2,9 @@ import {m} from 'framer-motion';
 import {create, QRCode as QRCodeType} from 'qrcode';
 import {ReactElement, useMemo} from 'react';
 
-import {useAppSelector} from '../../hooks/useAppState';
 import {ConnectorIcon} from '../ConnectorIcon';
+
+import {useAppSelector} from '~/hooks';
 
 const APP_LOGO_SIZE = 88;
 const DEFAULT_QR_CODE_SIZE = 380;
@@ -112,7 +113,7 @@ export function QRCode({uri}: Props) {
       className="sbc-relative sbc-w-full sbc-rounded-qrcode sbc-p-4 sbc-border-button-secondary"
       initial={{opacity: 0}}
     >
-      <div className="sbc-aspect-w-1 sbc-aspect-h-1">
+      <div className="sbc-aspect-h-1 sbc-aspect-w-1">
         <svg
           height="100%"
           width="100%"
@@ -122,7 +123,7 @@ export function QRCode({uri}: Props) {
         </svg>
       </div>
 
-      <div className="sbc-absolute sbc-top-0 sbc-left-0 sbc-right-0 sbc-bottom-0 sbc-flex sbc-items-center sbc-justify-center">
+      <div className="sbc-absolute sbc-bottom-0 sbc-left-0 sbc-right-0 sbc-top-0 sbc-flex sbc-items-center sbc-justify-center">
         {/* <div className=""> */}
         <ConnectorIcon id={pendingConnector?.id} size="xl" />
       </div>

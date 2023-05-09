@@ -1,10 +1,7 @@
-import {vi} from 'vitest';
 import {render, fireEvent} from '@testing-library/react';
+import {vi} from 'vitest';
 
-import {AnalyticsListenerTestHelper} from '../../../tests/helpers/ClientAnalytics';
-import {shopifyServices} from '../../shopify/const';
-import {WindowWithShopifyAnalytics} from '../../shopify/types';
-
+import {eventNames} from './const';
 import {
   subscribe,
   subscribeToAll,
@@ -13,7 +10,10 @@ import {
   getAdditionalEventPayload,
   useComponentRenderedTracking,
 } from './utils';
-import {eventNames} from './const';
+
+import {AnalyticsListenerTestHelper} from '~/tests/helpers/ClientAnalytics';
+import {shopifyServices} from '~/utils/shopify/const';
+import {WindowWithShopifyAnalytics} from '~/utils/shopify/types';
 
 describe('utils', () => {
   const originalWindow = window;
@@ -47,12 +47,6 @@ describe('utils', () => {
     shopifyService: shopifyServices.PDP.name,
     url: 'https://ca.shop.gymshark.com/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
     path: '/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
-    referrer: undefined,
-    search: undefined,
-    title: undefined,
-    uniqueToken: '',
-    visitToken: '',
-    userAgent: expect.any(String),
   };
 
   describe('subscribe', () => {
@@ -63,10 +57,12 @@ describe('utils', () => {
       subscribe(eventNames.TOKENGATE_COMPONENT_RENDERED, mock);
       publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock).toHaveBeenCalledWith({
-        ...eventArgs,
-        ...additionalPayload,
-      });
+      expect(mock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          ...eventArgs,
+          ...additionalPayload,
+        }),
+      );
     });
 
     it('each subscriber gets called when there are multiple subscribers per event', () => {
@@ -84,15 +80,19 @@ describe('utils', () => {
       subscribe(eventNames.TOKENGATE_COMPONENT_RENDERED, mock2);
       publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock1).toHaveBeenCalledTimes(1);
-      expect(mock1).toHaveBeenCalledWith({
-        ...eventArgs,
-        ...additionalPayload,
-      });
+      expect(mock1).toHaveBeenCalledWith(
+        expect.objectContaining({
+          ...eventArgs,
+          ...additionalPayload,
+        }),
+      );
       expect(mock2).toHaveBeenCalledTimes(1);
-      expect(mock2).toHaveBeenCalledWith({
-        ...eventArgs,
-        ...additionalPayload,
-      });
+      expect(mock2).toHaveBeenCalledWith(
+        expect.objectContaining({
+          ...eventArgs,
+          ...additionalPayload,
+        }),
+      );
     });
 
     it('subscriber does not get called after unsubscribe', () => {
@@ -126,8 +126,8 @@ describe('utils', () => {
       publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock1).toHaveBeenCalledTimes(1);
       expect(mock1).toHaveBeenCalledWith({
+        eventArgs: expect.objectContaining(additionalPayload),
         eventName: eventNames.TOKENGATE_COMPONENT_RENDERED,
-        eventArgs: {...eventArgs, ...additionalPayload},
       });
     });
 

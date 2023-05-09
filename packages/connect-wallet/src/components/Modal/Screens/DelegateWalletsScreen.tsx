@@ -1,7 +1,7 @@
 import {Trans} from 'react-i18next';
 import {Asset, Link, Text, Wifi} from 'shared';
 
-import {useTranslation} from '../../../hooks/useTranslation';
+import {useTranslation} from '~/hooks';
 
 const DELEGATE_CASH_URL = 'https://delegate.cash';
 

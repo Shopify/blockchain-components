@@ -1,10 +1,10 @@
 import {vi} from 'vitest';
 import type {Mock} from 'vitest';
 
-import {OrderAttributionMode} from '../../types/orderAttribution';
-
 import {attributeOrder} from './attributeOrder';
 import {gateContextClient} from './gateContextClient';
+
+import {OrderAttributionMode} from '~/types/orderAttribution';
 
 describe('attributeOrder', () => {
   // Removes the orderAttribution console.error from the test output.

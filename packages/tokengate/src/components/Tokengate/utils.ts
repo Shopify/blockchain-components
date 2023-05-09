@@ -1,5 +1,5 @@
-import {useTranslation} from '../../hooks/useTranslation';
-import {TokengateProps, UnlockingToken} from '../../types';
+import {useTranslation} from '~/hooks/useTranslation';
+import {TokengateProps, UnlockingToken} from '~/types';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -162,7 +162,7 @@ const getCombinedConsumedOrderLimit = ({unlockingTokens}: UtilsProps) => {
     (accumulator: number, unlockingToken: UnlockingToken) => {
       if (!unlockingToken.consumedRedemptionLimit) return accumulator;
 
-      return accumulator + unlockingToken.consumedRedemptionLimit;
+      return accumulator + Number(unlockingToken.consumedRedemptionLimit);
     },
     initialValue,
   );

@@ -1,12 +1,12 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
 
-import {modalSlice} from '../slices/modalSlice';
-import type {ModalSliceType} from '../slices/modalSlice';
-import {walletSlice} from '../slices/walletSlice';
-import type {WalletSliceType} from '../slices/walletSlice';
-
 import storage from './storage';
+
+import {modalSlice} from '~/slices/modalSlice';
+import type {ModalSliceType} from '~/slices/modalSlice';
+import {walletSlice} from '~/slices/walletSlice';
+import type {WalletSliceType} from '~/slices/walletSlice';
 
 export interface AppState {
   modal: ModalSliceType;

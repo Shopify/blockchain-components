@@ -3,23 +3,23 @@ import {useCallback, useContext} from 'react';
 import {generateNonce, SiweMessage} from 'siwe';
 import {useNetwork, useSignMessage as useWagmiSignMessage} from 'wagmi';
 
-import {ConnectWalletContext} from '../providers/ConnectWalletProvider';
+import {useAppDispatch, useAppSelector} from './useAppState';
+
+import {ConnectWalletContext} from '~/providers/ConnectWalletProvider';
 import {
   closeModal,
   navigate,
   openModal,
   setError,
   setSigning,
-} from '../slices/modalSlice';
+} from '~/slices/modalSlice';
 import {
   setPendingConnector,
   setPendingWallet,
   validatePendingWallet,
-} from '../slices/walletSlice';
-import {SignatureResponse, Wallet} from '../types/wallet';
-import {ConnectWalletError} from '../utils/error';
-
-import {useAppDispatch, useAppSelector} from './useAppState';
+} from '~/slices/walletSlice';
+import {SignatureResponse, Wallet} from '~/types/wallet';
+import {ConnectWalletError} from '~/utils/error';
 
 export function useSignMessage() {
   const dispatch = useAppDispatch();

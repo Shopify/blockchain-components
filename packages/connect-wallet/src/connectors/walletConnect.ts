@@ -1,9 +1,9 @@
 import {WalletConnect as walletConnectIcon} from 'shared';
 
-import {ConnectorInstance, ConnectorProps} from '../types/connector';
-import {getBrowserInfo} from '../utils/getBrowser';
-
 import {buildWalletConnectConnector} from './buildWalletConnectConnector';
+
+import {ConnectorInstance, ConnectorProps} from '~/types/connector';
+import {getBrowserInfo} from '~/utils/getBrowser';
 
 export const WalletConnect = ({chains}: ConnectorProps): ConnectorInstance => {
   const {mobilePlatform} = getBrowserInfo();

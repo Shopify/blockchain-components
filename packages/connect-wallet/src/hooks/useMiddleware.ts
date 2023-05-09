@@ -1,7 +1,10 @@
 import {useEffect} from 'react';
 import {useAccount, useNetwork, useProvider} from 'wagmi';
 
-import {buildOnConnectMiddleware} from '../middleware/onConnectMiddleware';
+import {useAppDispatch, useAppSelector} from './useAppState';
+import {useSignMessage} from './useSignMessage';
+
+import {buildOnConnectMiddleware} from '~/middleware/onConnectMiddleware';
 import {
   addWallet,
   attributeOrder,
@@ -9,13 +12,10 @@ import {
   fetchDelegations,
   setActiveWallet,
   setPendingWallet,
-} from '../slices/walletSlice';
-import {addListener} from '../store/listenerMiddleware';
-import {OrderAttributionMode} from '../types/orderAttribution';
-import {Wallet} from '../types/wallet';
-
-import {useAppDispatch, useAppSelector} from './useAppState';
-import {useSignMessage} from './useSignMessage';
+} from '~/slices/walletSlice';
+import {addListener} from '~/store/listenerMiddleware';
+import {OrderAttributionMode} from '~/types/orderAttribution';
+import {Wallet} from '~/types/wallet';
 
 interface UseMiddlewareProps {
   enableDelegateCash?: boolean;

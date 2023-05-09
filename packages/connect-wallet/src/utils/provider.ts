@@ -1,7 +1,7 @@
-import {Chain} from '@wagmi/core';
 import {providers} from 'ethers';
+import {Chain} from 'wagmi';
 
-import {EthereumProviderType} from '../types/provider';
+import {EthereumProviderType} from '~/types/provider';
 
 interface ProviderCheckProps {
   chain: Chain;

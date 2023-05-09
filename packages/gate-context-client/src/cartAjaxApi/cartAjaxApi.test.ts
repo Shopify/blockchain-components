@@ -1,6 +1,6 @@
-import {vi, Mock} from 'vitest';
-import createFetchMock from 'vitest-fetch-mock';
 import {eventNames, publishEvent} from '@shopify/blockchain-components';
+import {Mock, vi} from 'vitest';
+import createFetchMock from 'vitest-fetch-mock';
 
 import {undefinedGateContextGenerator} from '../index';
 

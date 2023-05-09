@@ -1,5 +1,5 @@
-import {GateContextClientOptions, ShopifyGateContextGenerator} from './types';
 import {getGateContextCartAjaxClient} from './cartAjaxApi';
+import {GateContextClientOptions, ShopifyGateContextGenerator} from './types';
 
 export function getGateContextClient<TGateContext>(
   options: GateContextClientOptions<TGateContext>,

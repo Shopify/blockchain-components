@@ -1,18 +1,18 @@
 import {useCallback, useEffect} from 'react';
 
-import {getClientBrowserParameters} from '../../clientBrowserParameters';
-import {
-  getShopifyServiceName,
-  getShopifyAnalyticsMetaPage,
-} from '../../shopify/utils';
-
+import {eventNames} from './const';
 import {
   SubscriberFunction,
   Subscriber,
   Subscribers,
   SubscriberValue,
 } from './types';
-import {eventNames} from './const';
+
+import {getClientBrowserParameters} from '~/utils/clientBrowserParameters';
+import {
+  getShopifyServiceName,
+  getShopifyAnalyticsMetaPage,
+} from '~/utils/shopify/utils';
 
 const subscribers: Subscribers = new Map();
 

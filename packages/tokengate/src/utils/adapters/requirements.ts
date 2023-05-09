@@ -1,4 +1,4 @@
-import {LinkType, Requirements} from '../../types';
+import {LinkType, Requirements} from '~/types';
 
 export const adaptRequirements = (gateRequirement?: {
   operator: 'OR' | 'AND';

@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "shared": ["../shared/src/index.ts"],
-      "tsconfig": ["../tsconfig"]
+      "tsconfig": ["../tsconfig"],
+      "~/*": ["src/*"]
     }
   },
   "include": ["./src"],

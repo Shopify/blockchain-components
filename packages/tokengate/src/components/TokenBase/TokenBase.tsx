@@ -11,8 +11,8 @@ import {
 
 import {Link} from '../Link';
 
-import {useTranslation} from '../../hooks/useTranslation';
-import {LinkType} from '../../types';
+import {useTranslation} from '~/hooks/useTranslation';
+import {LinkType} from '~/types';
 
 interface TokenBaseProps {
   badge?: React.ReactNode;
@@ -64,7 +64,7 @@ export const TokenBase = ({
           </div>
 
           {badge ? (
-            <div className="sbc-absolute sbc-right-[-2px] sbc-bottom-[-2px] sbc-rounded-full sbc-bg-tokengate sbc-leading-none">
+            <div className="sbc-absolute sbc-bottom-[-2px] sbc-right-[-2px] sbc-rounded-full sbc-bg-tokengate sbc-leading-none">
               {badge}
             </div>
           ) : null}

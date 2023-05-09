@@ -1,7 +1,8 @@
 import {Connector as WagmiConnector} from 'wagmi';
 
-import {Connector, ConnectorProps} from '../types/connector';
 import {buildConnectors} from './buildConnectors';
+
+import {Connector, ConnectorProps} from '~/types/connector';
 
 interface GetDefaultConnectorsSignature {
   availableConnectors: Connector[];

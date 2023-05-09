@@ -1,6 +1,6 @@
 import {Text} from 'shared';
 
-import {Requirements} from '../../types';
+import {Requirements} from '~/types';
 
 const TokengateRequirementsSeparator = ({
   logic,

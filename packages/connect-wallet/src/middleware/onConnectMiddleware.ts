@@ -5,11 +5,11 @@ import {
   addWallet,
   setActiveWallet,
   validatePendingWallet,
-} from '../slices/walletSlice';
-import {AppDispatch, RootState} from '../store/configureStore';
-import {addListener} from '../store/listenerMiddleware';
-import {GuardedType} from '../types/generics';
-import {Wallet} from '../types/wallet';
+} from '~/slices/walletSlice';
+import {AppDispatch, RootState} from '~/store/configureStore';
+import {addListener} from '~/store/listenerMiddleware';
+import {GuardedType} from '~/types/generics';
+import {Wallet} from '~/types/wallet';
 
 const matcher = isAnyOf(
   addWallet,

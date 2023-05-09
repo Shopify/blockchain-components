@@ -1,7 +1,7 @@
 import {SiweMessage} from 'siwe';
 import {Address} from 'wagmi';
 
-import {SignatureResponse} from '../../types/wallet';
+import {SignatureResponse} from '~/types/wallet';
 
 export const MOCK_MESSAGE_DATA = {
   address: '0xc223594946c60217Ed53096eEC6C179964e536EB',

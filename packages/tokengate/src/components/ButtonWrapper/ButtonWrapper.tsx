@@ -1,9 +1,9 @@
 import type {ComponentProps} from 'react';
 import {Button, Text} from 'shared';
 
-import {useTranslation} from '../../hooks/useTranslation';
-
 import {getYearFormatOption} from './utils';
+
+import {useTranslation} from '~/hooks/useTranslation';
 
 type TextColor = ComponentProps<typeof Text>['color'];
 

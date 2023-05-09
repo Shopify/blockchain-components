@@ -1,11 +1,11 @@
 /* eslint-disable @shopify/jsx-no-hardcoded-content */
-
 import {Meta, StoryObj} from '@storybook/react';
 import {Button} from 'shared';
 
-import {Template} from '../template';
-import {ReactionFixture, TokengatePropsFixture} from '../../../../fixtures';
 import {Tokengate} from '../../Tokengate';
+import {Template} from '../template';
+
+import {ReactionFixture, TokengatePropsFixture} from '~/fixtures';
 
 const TokengateStory: Meta<typeof Tokengate> = {
   title: 'Tokengate/AllowList',

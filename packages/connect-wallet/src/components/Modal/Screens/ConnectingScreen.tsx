@@ -3,14 +3,18 @@ import {useCallback, useMemo} from 'react';
 import {Button, Spinner, Text} from 'shared';
 
 import {ConnectorIcon} from '../../ConnectorIcon';
-import {useAppDispatch, useAppSelector} from '../../../hooks/useAppState';
-import {useConnect} from '../../../hooks/useConnect';
-import {useConnectorData} from '../../../hooks/useConnectorData';
-import {useModalScreenContent} from '../../../hooks/useModalContent';
-import {useTranslation} from '../../../hooks/useTranslation';
-import {navigate} from '../../../slices/modalSlice';
-import {ConnectionState} from '../../../types/connectionState';
-import {getBrowserInfo} from '../../../utils/getBrowser';
+
+import {
+  useAppDispatch,
+  useAppSelector,
+  useConnect,
+  useConnectorData,
+  useModalScreenContent,
+  useTranslation,
+} from '~/hooks';
+import {navigate} from '~/slices/modalSlice';
+import {ConnectionState} from '~/types/connectionState';
+import {getBrowserInfo} from '~/utils/getBrowser';
 
 const ERROR_STATES: ConnectionState[] = ['Failed', 'Unavailable'];
 const TRY_AGAIN_STATES: ConnectionState[] = ['Failed', 'Rejected'];
@@ -90,7 +94,7 @@ const ConnectingScreen = () => {
       <div className="sbc-block">
         <Text
           as="h3"
-          className="sbc-mt-0 sbc-mb-2 sbc-text-center"
+          className="sbc-mb-2 sbc-mt-0 sbc-text-center"
           color="primary"
           variant="headingLg"
         >

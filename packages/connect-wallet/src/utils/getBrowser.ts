@@ -1,6 +1,6 @@
 import {UAParser} from 'ua-parser-js';
 
-import {Browser} from '../types/browser';
+import {Browser} from '~/types/browser';
 
 // A list of supported browser marketplaces that we can
 // provide links to marketplaces for.
