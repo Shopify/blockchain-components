@@ -49,7 +49,11 @@ describe('modalSlice', () => {
 
   describe('goBack', () => {
     it('Resets the state to the initial state if the current route is "Signature"', () => {
-      expect(reducer(SIGNATURE_STATE, goBack())).toStrictEqual(initialState);
+      // The modal should still be open via {open: true}
+      expect(reducer(SIGNATURE_STATE, goBack())).toStrictEqual({
+        ...initialState,
+        open: true,
+      });
     });
 
     it('Goes back to the "Connect" route when the history is only 1 route deep', () => {
