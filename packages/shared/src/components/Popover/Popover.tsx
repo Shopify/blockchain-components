@@ -59,7 +59,7 @@ export const Popover = ({
       <AnimatePresence>
         {visible ? (
           <m.div
-            className={`sbc-fixed sbc-top-0 sbc-bottom-0 sbc-right-0 sbc-z-max sbc-flex sbc-min-w-full sbc-flex-col sbc-justify-end sbc-p-0 sm:sbc-absolute sm:sbc-top-full sm:sbc-bottom-auto sm:sbc-py-1 ${containerClass}`}
+            className={`sbc-fixed sbc-bottom-0 sbc-right-0 sbc-top-0 sbc-z-max sbc-flex sbc-min-w-full sbc-flex-col sbc-justify-end sbc-p-0 sm:sbc-absolute sm:sbc-bottom-auto sm:sbc-top-full sm:sbc-py-1 ${containerClass}`}
             exit={{pointerEvents: 'none'}}
             id={id}
             initial={{pointerEvents: 'auto'}}
