@@ -1,7 +1,8 @@
 import {TokenList} from '../TokenList';
-import {UnlockingToken, RedemptionLimit} from '../../types';
 
 import {mapUnlockingTokensToTokenListProps} from './utils';
+
+import {UnlockingToken, RedemptionLimit} from '~/types';
 
 const UnlockingTokens = ({
   unlockingTokens,

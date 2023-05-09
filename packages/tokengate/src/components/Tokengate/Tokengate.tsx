@@ -10,10 +10,12 @@ import {Card} from '../Card';
 import {Error} from '../Error';
 import {TokengateRequirements} from '../TokengateRequirements';
 import {UnlockingTokens} from '../UnlockingTokens';
-import {useTranslation} from '../../hooks/useTranslation';
-import {TokengateProps} from '../../types';
 
 import {TokengateCardSection, useTokengateCardState} from './utils';
+
+import {useTranslation} from '~/hooks/useTranslation';
+import {I18nProvider} from '~/providers/I18nProvider';
+import {TokengateProps} from '~/types';
 
 export const Tokengate = (props: TokengateProps) => {
   const {t} = useTranslation('Tokengate');
@@ -122,10 +124,12 @@ export const Tokengate = (props: TokengateProps) => {
   );
 
   return (
-    <Card title={title as string} subtitle={subtitle as string}>
-      {sections.map((section: TokengateCardSection) => (
-        <Fragment key={section}>{sectionMapping[section]}</Fragment>
-      ))}
-    </Card>
+    <I18nProvider>
+      <Card title={title as string} subtitle={subtitle as string}>
+        {sections.map((section: TokengateCardSection) => (
+          <Fragment key={section}>{sectionMapping[section]}</Fragment>
+        ))}
+      </Card>
+    </I18nProvider>
   );
 };

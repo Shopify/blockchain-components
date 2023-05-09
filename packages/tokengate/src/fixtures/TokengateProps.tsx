@@ -1,7 +1,5 @@
 import {deepMerge, DeepPartial} from 'shared';
 
-import {TokengateProps} from '../types';
-
 import {ConditionArrayFixture} from './Condition';
 import {
   UnlockingTokenFixture,
@@ -9,6 +7,8 @@ import {
   UnlockingTokenWithOrderLimitMetFixture,
   UnlockingTokenFixtureType,
 } from './UnlockingToken';
+
+import {TokengateProps} from '~/types';
 
 const conditions = ConditionArrayFixture();
 

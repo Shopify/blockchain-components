@@ -1,8 +1,8 @@
 import {deepMerge, DeepPartial} from 'shared';
 
-import {Requirements} from '../types';
-
 import {ConditionArrayFixture} from './Condition';
+
+import {Requirements} from '~/types';
 
 export const RequirementsFixture = (customProps?: DeepPartial<Requirements>) =>
   deepMerge(

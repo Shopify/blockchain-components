@@ -1,6 +1,6 @@
 import {deepMerge, DeepPartial} from 'shared';
 
-import {Condition} from '../types';
+import {Condition} from '~/types';
 
 export const ConditionFixture = (customProps?: DeepPartial<Condition>) =>
   deepMerge(

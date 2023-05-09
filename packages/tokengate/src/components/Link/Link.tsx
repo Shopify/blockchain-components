@@ -11,8 +11,8 @@ import {
   Text,
 } from 'shared';
 
-import {useTranslation} from '../../hooks/useTranslation';
-import {LinkType, Marketplace} from '../../types';
+import {useTranslation} from '~/hooks/useTranslation';
+import {LinkType, Marketplace} from '~/types';
 
 const iconMap: Record<Marketplace, ReactNode> = {
   OpenSea,

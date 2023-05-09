@@ -1,5 +1,6 @@
 import {ReactNode} from 'react';
-import {LinkType} from 'src/types';
+
+import {LinkType} from '~/types';
 
 export interface TokenListProps {
   tokens?: {

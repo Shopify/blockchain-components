@@ -1,8 +1,8 @@
 import {formatWalletAddress} from 'shared';
 
 import {CrossBadge} from '../../assets/icons/CrossBadge';
-import {TokenListProps} from '../TokenList';
 import {Requirements, Condition, UnlockingToken} from '../../types';
+import {TokenListProps} from '../TokenList';
 
 export const mapRequirementsToTokenListProps = ({
   requirements,

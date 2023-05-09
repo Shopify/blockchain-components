@@ -1,6 +1,13 @@
 import {vi} from 'vitest';
 
 import {
+  useTitleAndSubtitle,
+  getSections,
+  calculatedIsLocked,
+  UtilsProps,
+} from './utils';
+
+import {
   UnlockingTokenWithOrderLimitFixture,
   UnlockingTokenFixture,
   UnlockingTokenFixtureType,
@@ -9,15 +16,8 @@ import {
   TokengatePropsFixture,
   RequirementsFixture,
   ConditionFixture,
-} from '../../fixtures';
-import {renderHook} from '../../tests/test-utils';
-
-import {
-  useTitleAndSubtitle,
-  getSections,
-  calculatedIsLocked,
-  UtilsProps,
-} from './utils';
+} from '~/fixtures';
+import {renderHook} from '~/tests/test-utils';
 
 const defaultTokengateProps: UtilsProps = {
   isLocked: true,

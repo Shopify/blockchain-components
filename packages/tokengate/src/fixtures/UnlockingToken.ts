@@ -1,6 +1,6 @@
 import {deepMerge, DeepPartial} from 'shared';
 
-import {UnlockingToken} from '../types';
+import {UnlockingToken} from '~/types';
 
 export enum UnlockingTokenFixtureType {
   CryptoPunks,

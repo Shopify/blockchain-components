@@ -2,10 +2,11 @@ import {Meta, StoryObj} from '@storybook/react';
 import {addDays} from 'shared';
 
 import {Template} from '../template';
+
 import {
   TokengatePropsNotConnectedFixture,
   TokengatePropsConnectedFixture,
-} from '../../../../fixtures';
+} from '~/fixtures';
 
 const TokengateStory: Meta<typeof Template> = {
   title: 'Tokengate/Exclusive/Locked',

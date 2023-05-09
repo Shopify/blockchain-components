@@ -1,12 +1,13 @@
 import {Meta, StoryObj} from '@storybook/react';
 
 import {Template} from '../template';
+
 import {
   TokengatePropsUnlockedFixture,
   TokengatePropsUnlockedWithOrderLimitFixture,
   TokengatePropsUnlockedWithOrderLimitMetFixture,
   DiscountReactionFixture,
-} from '../../../../fixtures';
+} from '~/fixtures';
 
 const TokengateStory: Meta<typeof Template> = {
   title: 'Tokengate/Discount/Unlocked',
