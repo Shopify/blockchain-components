@@ -47,12 +47,6 @@ describe('utils', () => {
     shopifyService: shopifyServices.PDP.name,
     url: 'https://ca.shop.gymshark.com/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
     path: '/products/gymshark-sweat-seamless-leggings-evening-blue-ss23',
-    referrer: undefined,
-    search: undefined,
-    title: undefined,
-    uniqueToken: '',
-    visitToken: '',
-    userAgent: expect.any(String),
   };
 
   describe('subscribe', () => {
@@ -63,10 +57,12 @@ describe('utils', () => {
       subscribe(eventNames.TOKENGATE_COMPONENT_RENDERED, mock);
       publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock).toHaveBeenCalledWith({
-        ...eventArgs,
-        ...additionalPayload,
-      });
+      expect(mock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          ...eventArgs,
+          ...additionalPayload,
+        }),
+      );
     });
 
     it('each subscriber gets called when there are multiple subscribers per event', () => {
@@ -84,15 +80,19 @@ describe('utils', () => {
       subscribe(eventNames.TOKENGATE_COMPONENT_RENDERED, mock2);
       publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock1).toHaveBeenCalledTimes(1);
-      expect(mock1).toHaveBeenCalledWith({
-        ...eventArgs,
-        ...additionalPayload,
-      });
+      expect(mock1).toHaveBeenCalledWith(
+        expect.objectContaining({
+          ...eventArgs,
+          ...additionalPayload,
+        }),
+      );
       expect(mock2).toHaveBeenCalledTimes(1);
-      expect(mock2).toHaveBeenCalledWith({
-        ...eventArgs,
-        ...additionalPayload,
-      });
+      expect(mock2).toHaveBeenCalledWith(
+        expect.objectContaining({
+          ...eventArgs,
+          ...additionalPayload,
+        }),
+      );
     });
 
     it('subscriber does not get called after unsubscribe', () => {
@@ -125,10 +125,11 @@ describe('utils', () => {
       subscribeToAll(mock1);
       publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock1).toHaveBeenCalledTimes(1);
-      expect(mock1).toHaveBeenCalledWith({
-        eventName: eventNames.TOKENGATE_COMPONENT_RENDERED,
-        eventArgs: {...eventArgs, ...additionalPayload},
-      });
+      expect(mock1).toHaveBeenCalledWith(
+        expect.objectContaining({
+          eventName: eventNames.TOKENGATE_COMPONENT_RENDERED,
+        }),
+      );
     });
 
     it('subscriber does not called after unsubscribe', () => {

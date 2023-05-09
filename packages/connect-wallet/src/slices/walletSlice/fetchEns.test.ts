@@ -62,7 +62,7 @@ describe('fetchEns', () => {
       fetchEns({
         address: defaultAddress,
         chain: mainnet,
-        client: mainnetPublicProvider,
+        provider: mainnetPublicProvider,
       }),
     );
 
@@ -83,7 +83,7 @@ describe('fetchEns', () => {
       fetchEns({
         address: '0x486D582eed105cEf4e4Aa270C93b1e03Fe5B04F3',
         chain: mainnet,
-        client: mainnetPublicProvider,
+        provider: mainnetPublicProvider,
       }),
     );
 

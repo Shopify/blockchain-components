@@ -1,5 +1,6 @@
 const react = require('@vitejs/plugin-react');
 const {nodePolyfills} = require('vite-plugin-node-polyfills');
+const viteTsconfigPaths = require('vite-tsconfig-paths').default;
 
 module.exports = {
   stories: [
@@ -18,6 +19,7 @@ module.exports = {
   async viteFinal(config) {
     config.plugins = mergePlugins(config.plugins, [
       nodePolyfills(),
+      viteTsconfigPaths(),
       ...react(),
     ]);
     return config;

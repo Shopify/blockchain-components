@@ -1,12 +1,12 @@
 import {render} from '@testing-library/react';
 import {Button} from 'shared';
 
-import {TokengateProps} from '../../types';
 import {
   RequirementsFixture,
   UnlockingTokenFixture,
   UnlockingTokenFixtureType,
 } from '../../fixtures';
+import {TokengateProps} from '../../types';
 
 import {Tokengate} from './Tokengate';
 

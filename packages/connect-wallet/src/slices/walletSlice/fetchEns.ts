@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {Address, Chain} from '@wagmi/core';
+import {Address, Chain} from 'wagmi';
 
 import {EthereumProviderType} from '~/types/provider';
 import {isDefaultProvider} from '~/utils/provider';
