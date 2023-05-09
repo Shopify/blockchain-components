@@ -16,7 +16,6 @@ const ThemeAppExtension = new window.playground.ThemeAppExtension({
       'CheckIfWalletMeetsRequirements',
       (_variables: any, dispatch: any) => {
         const responseData = {
-          isUnlocked: true,
           unlockingTokens: [
             {
               token: {

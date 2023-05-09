@@ -23,6 +23,7 @@
   },
   "errors": {
     "orderLimitReachedError": "You reached your order limit.\nDisconnect to try another wallet.",
-    "missingTokensError": "You don't have a required token.\nDisconnect to try another wallet."
+    "missingTokensError_singular": "You don't have a required token.\nDisconnect to try another wallet.",
+    "missingTokensError_other": "You don't have all required tokens.\nDisconnect to try another wallet."
   }
 }

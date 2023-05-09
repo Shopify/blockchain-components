@@ -99,7 +99,15 @@ export const Tokengate = (props: TokengateProps) => {
         <Error text={t('errors.orderLimitReachedError') as string} />
       ),
       [TokengateCardSection.MissingTokensError]: (
-        <Error text={t('errors.missingTokensError') as string} />
+        <Error
+          text={
+            requirements?.conditions &&
+            requirements.conditions.length > 1 &&
+            requirements.logic === 'ALL'
+              ? (t('errors.missingTokensError_other') as string)
+              : (t('errors.missingTokensError_singular') as string)
+          }
+        />
       ),
     }),
     [
