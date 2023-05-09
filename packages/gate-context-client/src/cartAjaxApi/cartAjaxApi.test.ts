@@ -1,5 +1,5 @@
 import {eventNames, publishEvent} from '@shopify/blockchain-components';
-import {vi} from 'vitest';
+import {Mock, vi} from 'vitest';
 import createFetchMock from 'vitest-fetch-mock';
 
 import {undefinedGateContextGenerator} from '../index';
@@ -36,9 +36,9 @@ describe('AjaxAPI', () => {
     fetchMock.enableMocks();
   });
 
-  // afterEach(() => {
-  //   (publishEvent as Mock).mockClear();
-  // });
+  afterEach(() => {
+    (publishEvent as Mock).mockClear();
+  });
 
   const gateContextAjaxClient = getGateContextCartAjaxClient({
     backingStore: 'ajaxApi',
@@ -145,7 +145,7 @@ describe('AjaxAPI', () => {
       );
     });
 
-    it.skip('calls publishEvent when gate context is submitted to the cart attribute', async () => {
+    it('calls publishEvent when gate context is submitted to the cart attribute', async () => {
       mockFetch();
       const data = gateContextData();
 

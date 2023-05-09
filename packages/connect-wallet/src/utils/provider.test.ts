@@ -7,19 +7,19 @@ import {
   mainnetPublicProvider,
 } from '../test/providers';
 
-import {isDefaultProvider} from './provider';
+import {isDefaultProvider, isFallbackProviderType} from './provider';
 
-// describe('isFallbackProviderType', () => {
-//   it('returns true when the provider type is a fallback provider', () => {
-//     expect(isFallbackProviderType(mainnetMixedFallbackProvider)).toBe(true);
-//     expect(isFallbackProviderType(mainnetPublicFallbackProvider)).toBe(true);
-//   });
+describe('isFallbackProviderType', () => {
+  it('returns true when the provider type is a fallback provider', () => {
+    expect(isFallbackProviderType(mainnetMixedFallbackProvider)).toBe(true);
+    expect(isFallbackProviderType(mainnetPublicFallbackProvider)).toBe(true);
+  });
 
-//   it('returns false when the provider type is not a fallback provider', () => {
-//     expect(isFallbackProviderType(mainnetAlchemyProvider)).toBe(false);
-//     expect(isFallbackProviderType(mainnetPublicProvider)).toBe(false);
-//   });
-// });
+  it('returns false when the provider type is not a fallback provider', () => {
+    expect(isFallbackProviderType(mainnetAlchemyProvider)).toBe(false);
+    expect(isFallbackProviderType(mainnetPublicProvider)).toBe(false);
+  });
+});
 
 describe('isDefaultProvider', () => {
   it('returns true when given a public only provider', () => {

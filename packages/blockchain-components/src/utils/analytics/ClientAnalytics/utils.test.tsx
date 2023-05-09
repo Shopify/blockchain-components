@@ -125,11 +125,10 @@ describe('utils', () => {
       subscribeToAll(mock1);
       publishEvent(eventNames.TOKENGATE_COMPONENT_RENDERED, eventArgs);
       expect(mock1).toHaveBeenCalledTimes(1);
-      expect(mock1).toHaveBeenCalledWith(
-        expect.objectContaining({
-          eventName: eventNames.TOKENGATE_COMPONENT_RENDERED,
-        }),
-      );
+      expect(mock1).toHaveBeenCalledWith({
+        eventArgs: expect.objectContaining(additionalPayload),
+        eventName: eventNames.TOKENGATE_COMPONENT_RENDERED,
+      });
     });
 
     it('subscriber does not called after unsubscribe', () => {
