@@ -1,5 +1,11 @@
 # @shopify/connect-wallet
 
+## 1.2.1
+
+### Patch Changes
+
+- [#182](https://github.com/Shopify/blockchain-components/pull/182) [`34d96d0`](https://github.com/Shopify/blockchain-components/commit/34d96d03cabcac3985a4fdfa91b97e2266b8cb74) Thanks [@QuintonC](https://github.com/QuintonC)! - Addressed a minor bug that would close the connection modal when navigating back during a signature flow.
+
 ## 1.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @shopify/tokengate
 
+## 1.0.5
+
+### Patch Changes
+
+- [#181](https://github.com/Shopify/blockchain-components/pull/181) [`86c4bbd`](https://github.com/Shopify/blockchain-components/commit/86c4bbd273c81964110c1f58ff07ee8484f63512) Thanks [@QuintonC](https://github.com/QuintonC)! - Updates tokengate error text to utilize `requirements.conditions` and assess whether to use a plural or singular string.
+
 ## 1.0.4
 
 ### Patch Changes
