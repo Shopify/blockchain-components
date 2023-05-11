@@ -1,22 +1,33 @@
 import {TokenList} from '../TokenList';
 
-import {mapUnlockingTokensToTokenListProps} from './utils';
+import {OrderLimit} from './OrderLimit';
 
-import {UnlockingToken, RedemptionLimit} from '~/types';
+import type {RedemptionLimit, UnlockingToken} from '~/types';
 
-const UnlockingTokens = ({
-  unlockingTokens,
-  redemptionLimit,
-}: {
+interface UnlockingTokensProps {
   unlockingTokens?: UnlockingToken[];
   redemptionLimit?: RedemptionLimit;
-}) => {
-  const tokens = mapUnlockingTokensToTokenListProps({
-    unlockingTokens,
-    redemptionLimit,
-  });
+}
+
+export const UnlockingTokens = ({
+  unlockingTokens,
+  redemptionLimit,
+}: UnlockingTokensProps) => {
+  const tokens = unlockingTokens?.map(
+    ({collectionName, consumedRedemptionLimit, imageUrl, name}) => ({
+      title: name,
+      subtitle: collectionName,
+      imageUrl,
+      consumedOrderLimit: consumedRedemptionLimit,
+      totalOrderLimit: redemptionLimit?.total,
+      rightContent: (
+        <OrderLimit
+          consumedOrderLimit={consumedRedemptionLimit}
+          limitPerToken={redemptionLimit?.perToken}
+        />
+      ),
+    }),
+  );
 
   return <TokenList tokens={tokens} />;
 };
-
-export {UnlockingTokens};

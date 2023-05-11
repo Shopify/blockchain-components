@@ -3,36 +3,32 @@ import {deepMerge, DeepPartial} from 'shared';
 import {ConditionArrayFixture} from './Condition';
 import {
   UnlockingTokenFixture,
+  UnlockingTokenFixtureType,
   UnlockingTokenWithOrderLimitFixture,
   UnlockingTokenWithOrderLimitMetFixture,
-  UnlockingTokenFixtureType,
 } from './UnlockingToken';
 
 import {TokengateProps} from '~/types';
 
 const conditions = ConditionArrayFixture();
 
-const unlockingTokenCryptoPunks = UnlockingTokenFixture();
-
+const unlockingTokenCryptoPunks = UnlockingTokenFixture({});
 const unlockingTokenCryptoPunksWithOrderLimit =
-  UnlockingTokenWithOrderLimitFixture();
-
+  UnlockingTokenWithOrderLimitFixture({});
 const unlockingTokenCryptoPunksWithOrderLimitMet =
-  UnlockingTokenWithOrderLimitMetFixture();
+  UnlockingTokenWithOrderLimitMetFixture({});
 
-const unlockingTokenMoonbirds = UnlockingTokenFixture(
-  {},
-  UnlockingTokenFixtureType.Moonbirds,
-);
-
+const unlockingTokenMoonbirds = UnlockingTokenFixture({
+  type: UnlockingTokenFixtureType.Moonbirds,
+});
 const unlockingTokenMoonbirdsWithOrderLimit =
-  UnlockingTokenWithOrderLimitFixture({}, UnlockingTokenFixtureType.Moonbirds);
-
+  UnlockingTokenWithOrderLimitFixture({
+    type: UnlockingTokenFixtureType.Moonbirds,
+  });
 const unlockingTokenMoonbirdsWithOrderLimitMet =
-  UnlockingTokenWithOrderLimitMetFixture(
-    {},
-    UnlockingTokenFixtureType.Moonbirds,
-  );
+  UnlockingTokenWithOrderLimitMetFixture({
+    type: UnlockingTokenFixtureType.Moonbirds,
+  });
 
 export const TokengatePropsFixture = (
   customProps?: DeepPartial<TokengateProps>,

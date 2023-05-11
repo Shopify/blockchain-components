@@ -23,41 +23,51 @@ const MoonbirdsProps = {
   name: '#403 🪺',
 };
 
-export const UnlockingTokenFixture = (
-  customProps?: DeepPartial<UnlockingToken>,
-  type: UnlockingTokenFixtureType = UnlockingTokenFixtureType.CryptoPunks,
-) => {
+type UnlockingTokenFixtureProps = DeepPartial<UnlockingToken> & {
+  type?: UnlockingTokenFixtureType;
+};
+
+export const UnlockingTokenFixture = ({
+  type = UnlockingTokenFixtureType.CryptoPunks,
+  ...rest
+}: UnlockingTokenFixtureProps) => {
   const baseProps =
     type === UnlockingTokenFixtureType.CryptoPunks
       ? CryptoPunksProps
       : MoonbirdsProps;
-  return deepMerge(baseProps, customProps ?? {}) as UnlockingToken;
+
+  return deepMerge(baseProps, rest) as UnlockingToken;
 };
 
-export const UnlockingTokenWithOrderLimitFixture = (
-  customProps?: DeepPartial<UnlockingToken>,
-  type?: UnlockingTokenFixtureType,
-) =>
-  UnlockingTokenFixture(
-    deepMerge(
-      {
-        consumedRedemptionLimit: 0,
-      },
-      customProps ?? {},
-    ),
-    type,
+export const UnlockingTokenWithOrderLimitFixture = ({
+  type = UnlockingTokenFixtureType.CryptoPunks,
+  ...rest
+}: UnlockingTokenFixtureProps) => {
+  const mergedProps = deepMerge(
+    {
+      consumedRedemptionLimit: 0,
+    },
+    rest,
   );
 
-export const UnlockingTokenWithOrderLimitMetFixture = (
-  customProps?: DeepPartial<UnlockingToken>,
-  type?: UnlockingTokenFixtureType,
-) =>
-  UnlockingTokenFixture(
-    deepMerge(
-      {
-        consumedRedemptionLimit: 2,
-      },
-      customProps ?? {},
-    ),
+  return UnlockingTokenFixture({
+    ...mergedProps,
     type,
+  });
+};
+
+export const UnlockingTokenWithOrderLimitMetFixture = ({
+  type = UnlockingTokenFixtureType.CryptoPunks,
+  ...rest
+}: UnlockingTokenFixtureProps) => {
+  const mergedProps = deepMerge(
+    {
+      consumedRedemptionLimit: 2,
+    },
+    rest,
   );
+  return UnlockingTokenFixture({
+    ...mergedProps,
+    type,
+  });
+};
