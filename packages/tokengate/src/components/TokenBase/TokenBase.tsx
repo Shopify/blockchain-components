@@ -52,7 +52,12 @@ export const TokenBase = ({
     }
   }, [escPress, popoverVisible, togglePopover]);
   return (
-    <div className="sbc-relative" id={wrapperId} ref={ref}>
+    <div
+      className="sbc-relative"
+      data-testid="tokenbase"
+      id={wrapperId}
+      ref={ref}
+    >
       <div className="sbc-flex sbc-w-full sbc-flex-row sbc-items-center sbc-gap-x-3">
         <div className="sbc-relative sbc-h-12 sbc-w-12">
           <div
@@ -64,7 +69,10 @@ export const TokenBase = ({
           </div>
 
           {badge ? (
-            <div className="sbc-absolute sbc-bottom-[-2px] sbc-right-[-2px] sbc-rounded-full sbc-bg-tokengate sbc-leading-none">
+            <div
+              className="sbc-absolute sbc-bottom-[-2px] sbc-right-[-2px] sbc-rounded-full sbc-bg-tokengate sbc-leading-none"
+              data-testid="tokenbase-badge"
+            >
               {badge}
             </div>
           ) : null}

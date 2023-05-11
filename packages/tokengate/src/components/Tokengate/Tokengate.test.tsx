@@ -1,14 +1,14 @@
 import {render} from '@testing-library/react';
 import {Button} from 'shared';
 
+import {Tokengate} from './Tokengate';
+
 import {
   RequirementsFixture,
   UnlockingTokenFixture,
   UnlockingTokenFixtureType,
-} from '../../fixtures';
-import {TokengateProps} from '../../types';
-
-import {Tokengate} from './Tokengate';
+} from '~/fixtures';
+import {TokengateProps} from '~/types';
 
 const LABEL_TEXT = 'Test button';
 
@@ -16,11 +16,10 @@ const PlaceholderButton = () => <Button label={LABEL_TEXT} />;
 
 const ALL_REQUIREMENTS = RequirementsFixture({logic: 'ALL'});
 const ANY_REQUIREMENTS = RequirementsFixture();
-const CRYPTO_PUNKS_FIXTURE = UnlockingTokenFixture(
-  {},
-  UnlockingTokenFixtureType.CryptoPunks,
-);
-const MOONBIRDS_FIXTURE = UnlockingTokenFixture();
+const CRYPTO_PUNKS_FIXTURE = UnlockingTokenFixture({});
+const MOONBIRDS_FIXTURE = UnlockingTokenFixture({
+  type: UnlockingTokenFixtureType.Moonbirds,
+});
 
 describe('Tokengate', () => {
   const defaultProps: TokengateProps = {

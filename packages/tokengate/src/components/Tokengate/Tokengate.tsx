@@ -11,11 +11,9 @@ import {Error} from '../Error';
 import {TokengateRequirements} from '../TokengateRequirements';
 import {UnlockingTokens} from '../UnlockingTokens';
 
-import {TokengateCardSection, useTokengateCardState} from './utils';
-
-import {useTranslation} from '~/hooks/useTranslation';
+import {useTokengateCardState, useTranslation} from '~/hooks';
 import {I18nProvider} from '~/providers/I18nProvider';
-import {TokengateProps} from '~/types';
+import {TokengateCardSection, TokengateProps} from '~/types';
 
 export const Tokengate = (props: TokengateProps) => {
   const {t} = useTranslation('Tokengate');
@@ -32,12 +30,17 @@ export const Tokengate = (props: TokengateProps) => {
 
   // Analytics
   useComponentRenderedTracking(eventNames.TOKENGATE_COMPONENT_RENDERED);
+
   useEffect(() => {
-    if (!isLocked) publishEvent(eventNames.TOKENGATE_ON_UNLOCK_EVENT);
+    if (!isLocked) {
+      publishEvent(eventNames.TOKENGATE_ON_UNLOCK_EVENT);
+    }
   }, [isLocked]);
+
   useEffect(() => {
-    if (hasRequirementsNotMet)
+    if (hasRequirementsNotMet) {
       publishEvent(eventNames.TOKENGATE_ON_REQUIREMENTS_NOT_MET_EVENT);
+    }
   }, [hasRequirementsNotMet]);
 
   const sectionMapping: {[key in TokengateCardSection]: ReactNode} = useMemo(
@@ -54,7 +57,7 @@ export const Tokengate = (props: TokengateProps) => {
           translationNamespace="Buttons"
         />
       ),
-      [TokengateCardSection.ConnectedWallet]: connectedButton ?? connectButton,
+      [TokengateCardSection.ConnectedWallet]: connectedButton || connectButton,
       [TokengateCardSection.UnlockingTokens]: (
         <UnlockingTokens
           unlockingTokens={unlockingTokens}
