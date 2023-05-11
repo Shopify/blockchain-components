@@ -92,11 +92,7 @@ export default function ({serverArguments}: AppProps) {
       isLoading={serverArguments?.initialState.isLoading}
       isConnected={Boolean(wallet)}
       reaction={{
-        type: 'discount',
-        discount: {
-          type: 'percentage',
-          value: 20,
-        },
+        type: 'exclusive_access',
       }}
       requirements={adaptRequirements(
         serverArguments?.initialState.gateRequirement,
@@ -104,9 +100,6 @@ export default function ({serverArguments}: AppProps) {
       unlockingTokens={adaptUnlockingTokens(
         checkIfWalletMeetsRequirementsResponse?.unlockingTokens,
       )}
-      discountCustomTitles={{
-        lockedTitle: 'Hey, punk! Enjoy {{value}} off your order!',
-      }}
     />
   );
 

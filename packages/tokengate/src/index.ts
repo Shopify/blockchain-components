@@ -12,4 +12,4 @@ export {Tokengate} from './components/Tokengate';
 /**
  * Types
  */
-export * from './types/props';
+export * from './types';

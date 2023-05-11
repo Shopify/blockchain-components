@@ -77,7 +77,7 @@ export const useTokengateHeadings = ({
     subtitle =
       unlockedSubtitleWithRedemptionLimit ||
       t(`${i18nKeyPrefix}.subtitleWithOrderLimit`, {
-        orderLimit,
+        count: orderLimit,
       });
   }
 

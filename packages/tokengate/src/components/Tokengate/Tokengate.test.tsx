@@ -1,14 +1,14 @@
 import {render} from '@testing-library/react';
 import {Button} from 'shared';
 
+import {Tokengate} from './Tokengate';
+
 import {
   RequirementsFixture,
   UnlockingTokenFixture,
   UnlockingTokenFixtureType,
-} from '../../fixtures';
-import {TokengateProps} from '../../types/props';
-
-import {Tokengate} from './Tokengate';
+} from '~/fixtures';
+import {TokengateProps} from '~/types';
 
 const LABEL_TEXT = 'Test button';
 

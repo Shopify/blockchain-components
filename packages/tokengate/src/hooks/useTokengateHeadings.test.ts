@@ -6,8 +6,7 @@ import {
 import {
   DiscountReactionFixture,
   ReactionFixture,
-  UnlockingTokenFixtureType,
-  UnlockingTokenWithOrderLimitFixture,
+  RequirementsFixture,
 } from '~/fixtures';
 import {renderHook} from '~/tests/test-utils';
 
@@ -91,12 +90,7 @@ describe('useTokengateHeadings', () => {
               total: 4,
               perToken: 2,
             },
-            unlockingTokens: [
-              UnlockingTokenWithOrderLimitFixture({}),
-              UnlockingTokenWithOrderLimitFixture({
-                type: UnlockingTokenFixtureType.CryptoPunks,
-              }),
-            ],
+            requirements: RequirementsFixture(),
           }),
         );
 
@@ -259,18 +253,84 @@ describe('useTokengateHeadings', () => {
               total: 4,
               perToken: 2,
             },
-            unlockingTokens: [
-              UnlockingTokenWithOrderLimitFixture({}),
-              UnlockingTokenWithOrderLimitFixture({
-                type: UnlockingTokenFixtureType.CryptoPunks,
-              }),
-            ],
           }),
         );
 
         expect(result.current.title).toBe('$10.00 discount unlocked');
         expect(result.current.subtitle).toBe(
           'You can use this discount up to 4 times with your tokens.',
+        );
+      });
+
+      it('displays the correct order limit when the logic is ALL', () => {
+        const props = {
+          ...defaultDiscountProps,
+          locked: false,
+          redemptionLimit: {
+            total: 4,
+            perToken: 2,
+          },
+          requirements: RequirementsFixture({logic: 'ALL'}),
+        };
+
+        const {result} = renderHook(() => useTokengateHeadings(props));
+
+        expect(result.current.subtitle).toBe(
+          `You can use this discount up to ${props.redemptionLimit.perToken} times with your tokens.`,
+        );
+      });
+
+      it('displays the correct order limit when the logic is ANY', () => {
+        const props = {
+          ...defaultDiscountProps,
+          locked: false,
+          redemptionLimit: {
+            total: 4,
+            perToken: 2,
+          },
+          requirements: RequirementsFixture(),
+        };
+
+        const {result} = renderHook(() => useTokengateHeadings(props));
+
+        expect(result.current.subtitle).toBe(
+          `You can use this discount up to ${props.redemptionLimit.total} times with your tokens.`,
+        );
+      });
+
+      it('displays the correct pluralization when order limit is ALL and perToken is 1', () => {
+        const props = {
+          ...defaultDiscountProps,
+          locked: false,
+          redemptionLimit: {
+            total: 4,
+            perToken: 1,
+          },
+          requirements: RequirementsFixture({logic: 'ALL'}),
+        };
+
+        const {result} = renderHook(() => useTokengateHeadings(props));
+
+        expect(result.current.subtitle).toBe(
+          `You can use this discount up to ${props.redemptionLimit.perToken} time with your tokens.`,
+        );
+      });
+
+      it('displays the correct pluralization when order limit is ALL and total is 1', () => {
+        const props = {
+          ...defaultDiscountProps,
+          locked: false,
+          redemptionLimit: {
+            total: 1,
+            perToken: 1,
+          },
+          requirements: RequirementsFixture(),
+        };
+
+        const {result} = renderHook(() => useTokengateHeadings(props));
+
+        expect(result.current.subtitle).toBe(
+          `You can use this discount up to ${props.redemptionLimit.total} time with your tokens.`,
         );
       });
     });
