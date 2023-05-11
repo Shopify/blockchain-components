@@ -16,6 +16,7 @@ export {LooksRare} from './LooksRare';
 export {MagicEden} from './MagicEden';
 export {MetaMask} from './MetaMask';
 export {More} from './More';
+export {ImToken} from './ImToken';
 export {OpenSea} from './OpenSea';
 export {Other} from './Other';
 export {QuestionMark} from './QuestionMark';

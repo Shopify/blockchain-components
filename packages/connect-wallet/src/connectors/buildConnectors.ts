@@ -1,6 +1,7 @@
 import type {Connector as WagmiConnector} from 'wagmi';
 
 import {Coinbase} from './coinbase';
+import {ImToken} from './imToken';
 import {LedgerLive} from './ledgerLive';
 import {MetaMask} from './metaMask';
 import {Rainbow} from './rainbow';
@@ -69,6 +70,7 @@ export const buildConnectors = ({
     MetaMask({chains}),
     Coinbase({appName, chains}),
     Rainbow({chains}),
+    ImToken({chains}),
     LedgerLive({chains}),
     WalletConnect({chains}),
   ];
