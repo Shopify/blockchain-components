@@ -5,7 +5,7 @@ import type {
   CustomTitles,
   Reaction,
   RedemptionLimit,
-  UnlockingToken,
+  Requirements,
 } from '~/types';
 
 export interface UseTokengateHeadingsProps {
@@ -14,7 +14,7 @@ export interface UseTokengateHeadingsProps {
   locked: boolean;
   reaction?: Reaction;
   redemptionLimit?: RedemptionLimit;
-  unlockingTokens?: UnlockingToken[];
+  requirements?: Requirements;
 }
 
 const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
@@ -28,6 +28,7 @@ export const useTokengateHeadings = ({
   locked,
   reaction,
   redemptionLimit,
+  requirements,
 }: UseTokengateHeadingsProps) => {
   const type = reaction?.type === 'discount' ? reaction.type : 'exclusive';
   const {t} = useTranslation('Tokengate');
@@ -65,17 +66,18 @@ export const useTokengateHeadings = ({
     ? t('customTitle', {value: discount})
     : t(`${i18nKeyPrefix}.title`, {value: discount});
 
-  let subtitle =
-    customSubtitle ||
-    t(`${i18nKeyPrefix}.subtitle`, {
-      hasRedemption,
-    });
+  let subtitle = customSubtitle || t(`${i18nKeyPrefix}.subtitle`);
 
   if (hasRedemption && !locked) {
+    const orderLimit =
+      requirements?.logic === 'ALL'
+        ? redemptionLimit.perToken
+        : redemptionLimit.total;
+
     subtitle =
       unlockedSubtitleWithRedemptionLimit ||
       t(`${i18nKeyPrefix}.subtitleWithOrderLimit`, {
-        orderLimit: redemptionLimit.total,
+        orderLimit,
       });
   }
 
