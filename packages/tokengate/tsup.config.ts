@@ -18,5 +18,8 @@ export default defineConfig(
         ...BASE_CONFIG,
         clean: true,
         dts: true,
+        env: {
+          NODE_ENV: 'production',
+        },
       },
 );
