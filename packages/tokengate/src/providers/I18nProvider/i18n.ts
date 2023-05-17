@@ -11,7 +11,9 @@ import TokengateRequirements from './translations/en/TokengateRequirements.json'
 
 const i18n = createInstance({
   fallbackLng: 'en',
-  debug: true,
+  // Only enable the debug flag in development environments.
+  // eslint-disable-next-line no-process-env
+  debug: process.env.NODE_ENV === 'development',
 
   resources: {
     en: {
