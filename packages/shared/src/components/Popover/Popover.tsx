@@ -8,6 +8,7 @@ import {
 import {ReactNode} from 'react';
 import {createPortal} from 'react-dom';
 
+import {useIsMounted} from '../../hooks/useIsMounted';
 import {useMediaQuery} from '../../hooks/useMediaQuery';
 import {ClassName} from '../../types/generic';
 
@@ -36,8 +37,13 @@ export const Popover = ({
   target,
   visible,
 }: PopoverProps) => {
+  const isMounted = useIsMounted();
   const isMobile = useMediaQuery('smDown');
   const reducedMotion = useReducedMotion();
+
+  if (!isMounted) {
+    return null;
+  }
 
   const portalElement = isMobile
     ? document.body
