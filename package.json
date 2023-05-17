@@ -88,6 +88,7 @@
     "ora": "^6.2.0",
     "patch-package": "^6.5.1",
     "postcss": "^8.4.21",
+    "postcss-import": "^15.1.0",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.2.4",
     "react": "^18.2.0",

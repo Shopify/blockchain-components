@@ -12,12 +12,9 @@ const MD_CSS: ClassName = 'sbc-rounded-button-medium sbc-p-button-medium';
 const SM_CSS: ClassName = 'sbc-rounded-button-small sbc-p-button-small';
 
 // Variants
-const PRIMARY_CSS: ClassName =
-  'sbc-bg-button-primary sbc-border-button-primary sbc-text-button-primary hover:sbc-bg-button-primary-hover sbc-cursor-pointer';
-const SECONDARY_CSS: ClassName =
-  'sbc-bg-button-secondary sbc-border-button-secondary sbc-text-button-secondary hover:sbc-bg-button-secondary-hover sbc-cursor-pointer';
-const DISABLED_CSS: ClassName =
-  'sbc-bg-button-disabled sbc-border-button-disabled sbc-text-button-disabled sbc-cursor-default';
+const PRIMARY_CSS: ClassName = 'sbc-btn-primary';
+const SECONDARY_CSS: ClassName = 'sbc-btn-secondary';
+const DISABLED_CSS: ClassName = 'sbc-btn-disabled';
 
 const SIZE_MAP: Record<`${Size}`, {style: ClassName; variant: Variant}> = {
   Sm: {
