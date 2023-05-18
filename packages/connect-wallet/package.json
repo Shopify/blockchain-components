@@ -55,7 +55,6 @@
     "react-redux": "^8.0.5",
     "react-use-measure": "^2.1.1",
     "redux": "5.0.0-alpha.2",
-    "redux-persist": "^6.0.0",
     "siwe": "^1.1.6",
     "ua-parser-js": "^1.0.32"
   },

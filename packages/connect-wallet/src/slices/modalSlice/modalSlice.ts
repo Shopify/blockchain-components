@@ -16,7 +16,6 @@ export interface ModalSliceType {
   open: boolean;
   route: ModalRoute;
   signing: boolean;
-  _persist: any;
 }
 
 export const initialState: ModalSliceType = {
@@ -26,7 +25,6 @@ export const initialState: ModalSliceType = {
   open: false,
   route: 'Connect',
   signing: false,
-  _persist: '',
 };
 
 export const modalSlice = createSlice({

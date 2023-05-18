@@ -16,7 +16,6 @@ export interface WalletSliceType {
   message?: string;
   pendingConnector: SerializedConnector | undefined;
   pendingWallet: Wallet | undefined;
-  _persist: any;
 }
 
 export const initialState: WalletSliceType = {
@@ -25,7 +24,6 @@ export const initialState: WalletSliceType = {
   message: undefined,
   pendingConnector: undefined,
   pendingWallet: undefined,
-  _persist: '',
 };
 
 /**

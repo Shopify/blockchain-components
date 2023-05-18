@@ -1,7 +1,4 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import {persistReducer} from 'redux-persist';
-
-import storage from './storage';
 
 import {modalSlice} from '~/slices/modalSlice';
 import type {ModalSliceType} from '~/slices/modalSlice';
@@ -13,13 +10,7 @@ export interface AppState {
   wallet: WalletSliceType;
 }
 
-const walletPersist = {
-  key: 'wallet',
-  blacklist: ['activeWallet', 'message', 'pendingConnector', 'pendingWallet'],
-  storage,
-};
-
 export const rootReducer = combineReducers<AppState>({
   modal: modalSlice.reducer,
-  wallet: persistReducer(walletPersist, walletSlice.reducer),
+  wallet: walletSlice.reducer,
 });
