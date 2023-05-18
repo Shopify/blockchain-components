@@ -1,0 +1,11 @@
+button.sbc-btn-disabled, [type=button].sbc-btn-disabled {
+  @apply sbc-bg-button-disabled sbc-border-button-disabled sbc-text-button-disabled sbc-cursor-default;
+}
+
+button.sbc-btn-primary, [type=button].sbc-btn-primary {
+  @apply sbc-bg-button-primary sbc-border-button-primary sbc-text-button-primary hover:sbc-bg-button-primary-hover sbc-cursor-pointer;
+}
+
+button.sbc-btn-secondary, [type=button].sbc-btn-secondary {
+  @apply sbc-bg-button-secondary sbc-border-button-secondary sbc-text-button-secondary hover:sbc-bg-button-secondary-hover sbc-cursor-pointer;
+}

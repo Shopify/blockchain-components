@@ -4,6 +4,7 @@
   "private": true,
   "main": "index.js",
   "devDependencies": {
+    "postcss-import": "^15.1.0",
     "tailwindcss": "^3.2.4"
   }
 }

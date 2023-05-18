@@ -1,3 +1,4 @@
+@import '../../shared/src/components/Button/Button.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
