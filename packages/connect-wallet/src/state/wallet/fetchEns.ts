@@ -7,7 +7,7 @@ export async function fetchEns({address, chain, provider}: FetchEnsProps) {
   const isDefault = isDefaultProvider({chain, provider});
   if (isDefault) {
     console.warn(
-      `@shopify/connect-wallet -- fetchEns dispatched with only a public provider present.`,
+      `@shopify/connect-wallet -- fetchEns was invoked with only a public provider present.`,
     );
   }
 

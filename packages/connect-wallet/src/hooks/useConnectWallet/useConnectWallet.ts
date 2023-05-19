@@ -10,16 +10,15 @@ import {ConnectWalletContext} from '~/providers/ConnectWalletProvider';
 import {useStore} from '~/state';
 
 export function useConnectWallet(props?: useConnectWalletProps) {
+  // Make sure that our provided callbacks are run.
+  useConnectWalletCallbacks(props);
+
   const [{signing}, {activeWallet, connectedWallets, pendingConnector}] =
     useStore((state) => [state.modal, state.wallet]);
 
   const connectWalletContext = useContext(ConnectWalletContext);
 
   const {chains} = connectWalletContext;
-
-  // useConnectWalletCallbacks({
-  //   ...props,
-  // });
 
   const {isConnecting} = useAccount();
 

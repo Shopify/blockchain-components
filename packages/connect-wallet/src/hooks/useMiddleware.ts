@@ -167,8 +167,10 @@ export const useMiddleware = ({
            * Complete flow diagram of connecting a wallet: https://tinyurl.com/4dbfcm5w
            */
           if (enableDelegateCash) {
+            // Todo: since this is a promise we could do a .then() to call the order attribution callback.
             fetchDelegates(wallet);
           }
+          // Todo: The else case is where we would handle order attribute in the event that enableDelegateCash is false.
         }
       },
     );

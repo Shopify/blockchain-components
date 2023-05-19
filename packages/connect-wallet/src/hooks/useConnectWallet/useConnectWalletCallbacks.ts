@@ -1,54 +1,74 @@
 import {eventNames, publishEvent} from '@shopify/blockchain-components';
 import {useEffect} from 'react';
 
-import {useAppDispatch} from '../useAppState';
-
 import {useConnectWalletProps} from './types';
 
-import {removeWallet, attributeOrder} from '~/slices/walletSlice';
-import {addListener} from '~/store/listenerMiddleware';
+import {useStore} from '~/state';
 
 export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
   const {onConnect, onDisconnect} = props || {};
-  const dispatch = useAppDispatch();
 
   /**
    * Add the onConnect callback listeners.
    *
-   * This listener will run after the order is attributed,
-   * which is the last step of the connect wallet flow.
-   * Complete flow diagram of connecting a wallet: https://tinyurl.com/4dbfcm5w
+   * This listener will run immediately after activeWallet
+   * is set to a non-undefined value.
    */
   useEffect(() => {
-    const listener = addListener({
-      actionCreator: attributeOrder.fulfilled,
-      effect: (_action, state) => {
-        const {activeWallet} = state.getState().wallet;
-        if (!activeWallet) return;
+    const listener = useStore.subscribe(
+      (state) => state.wallet.activeWallet,
+      (wallet, prevWallet) => {
+        if (wallet !== undefined && prevWallet === undefined) {
+          // Publish the onConnect event.
+          publishEvent(eventNames.CONNECT_WALLET_ON_CONNECT_EVENT, {
+            address: wallet.address,
+            vaults: wallet.vaults,
+            connector: wallet.connectorId,
+          });
 
-        publishEvent(eventNames.CONNECT_WALLET_ON_CONNECT_EVENT, {
-          address: activeWallet.address,
-          vaults: activeWallet.vaults,
-          connector: activeWallet.connectorId,
-        });
-        onConnect?.(activeWallet);
+          // Run the provided onConnect callback.
+          onConnect?.(wallet);
+        }
       },
-    });
+    );
 
-    return dispatch(listener);
-  }, [dispatch, onConnect]);
+    // Clean up the subscriber.
+    return () => {
+      listener();
+    };
+  }, [onConnect]);
 
   // Add the onDisconnect callback listeners.
   useEffect(() => {
-    const unsubscribeToRemoveWalletListener = dispatch(
-      addListener({
-        actionCreator: removeWallet,
-        effect: (action) => {
-          onDisconnect?.(action.payload);
-        },
-      }),
+    const listener = useStore.subscribe(
+      (state) => state.wallet.connectedWallets,
+      (updatedWallets, prevWallets) => {
+        // Check the length to see if the updatedWallets has fewer
+        // items in it than the previous wallets.
+        if (updatedWallets.length < prevWallets.length) {
+          /**
+           * Find the difference in the the state value.
+           *
+           * It should almost always only be a single wallet, but
+           * we will have an array of wallets in the difference return
+           * so we will just map through and call the callback for
+           * each wallet in the diff.
+           */
+          const diff = updatedWallets.filter(
+            (wallet) => !prevWallets.includes(wallet),
+          );
+
+          // Run the callbacks on each wallet in the diff.
+          diff.forEach((wallet) => {
+            onDisconnect?.(wallet);
+          });
+        }
+      },
     );
 
-    return unsubscribeToRemoveWalletListener;
-  }, [dispatch, onDisconnect]);
+    // Clean up the subscriber.
+    return () => {
+      listener();
+    };
+  }, [onDisconnect]);
 };
