@@ -1,19 +1,17 @@
 import {useCallback} from 'react';
 
-import {useAppDispatch} from './useAppState';
-
-import {closeModal, openModal} from '~/slices/modalSlice';
+import {useStore} from '~/state';
 
 export function useConnectionModal() {
-  const dispatch = useAppDispatch();
+  const {closeModal, openModal} = useStore((state) => state.modal);
 
   const closeModalExternal = useCallback(() => {
-    dispatch(closeModal());
-  }, [dispatch]);
+    closeModal();
+  }, [closeModal]);
 
   const openModalExternal = useCallback(() => {
-    dispatch(openModal());
-  }, [dispatch]);
+    openModal();
+  }, [openModal]);
 
   return {
     closeModal: closeModalExternal,

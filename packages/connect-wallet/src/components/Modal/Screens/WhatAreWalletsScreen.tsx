@@ -2,8 +2,8 @@ import {eventNames} from '@shopify/blockchain-components';
 import {useCallback} from 'react';
 import {Asset, Button, Gift, Key, Text} from 'shared';
 
-import {useAppDispatch, useTranslation} from '~/hooks';
-import {navigate} from '~/slices/modalSlice';
+import {useTranslation} from '~/hooks';
+import {useStore} from '~/state';
 
 interface ListItemProps {
   content: string;
@@ -32,12 +32,12 @@ const ListItem = ({content, icon, title}: ListItemProps) => {
 };
 
 const WhatAreWalletsScreen = () => {
-  const dispatch = useAppDispatch();
+  const {navigate} = useStore((state) => state.modal);
   const {t} = useTranslation('Screens');
 
   const handleGetAWallet = useCallback(() => {
-    dispatch(navigate('GetAWallet'));
-  }, [dispatch]);
+    navigate('GetAWallet');
+  }, [navigate]);
 
   const listItems = [
     {

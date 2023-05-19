@@ -13,7 +13,10 @@ const initialModalState: ModalStateDefintion = {
 
 export const createModalState: StateSlice<ModalStateType> = (set) => ({
   ...initialModalState,
-  closeModal: () => set((state) => (state.modal.open = false)),
+  closeModal: () =>
+    set((state) => {
+      state.modal.open = false;
+    }),
   goBack: () =>
     set((state) => {
       const {history, route: currentRoute} = state.modal;

@@ -4,7 +4,6 @@ import {
 } from '@shopify/blockchain-components';
 import {MotionConfig} from 'framer-motion';
 import {FC, PropsWithChildren, useMemo} from 'react';
-import {Provider} from 'react-redux';
 
 import {I18nProvider} from '../I18nProvider';
 
@@ -13,7 +12,6 @@ import {ProviderProps} from './types';
 
 import {Modal} from '~/components';
 import {buildConnectors} from '~/connectors/buildConnectors';
-import store from '~/store/configureStore';
 
 export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
   chains,
@@ -60,10 +58,8 @@ export const ConnectWalletProvider: FC<PropsWithChildren<ProviderProps>> = ({
     <ConnectWalletContext.Provider value={contextValue}>
       <I18nProvider>
         <MotionConfig reducedMotion="user">
-          <Provider store={store}>
-            {children}
-            <Modal />
-          </Provider>
+          {children}
+          <Modal />
         </MotionConfig>
       </I18nProvider>
     </ConnectWalletContext.Provider>

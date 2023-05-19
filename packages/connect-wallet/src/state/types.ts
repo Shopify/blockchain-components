@@ -28,7 +28,7 @@ export interface ModalStateActions {
   navigate: (route: ModalRoute) => void;
   openModal: () => void;
   setConnectionStatus: (status: ConnectionState) => void;
-  setError: (error: SerializedErrorContent) => void;
+  setError: (error?: SerializedErrorContent) => void;
   setSigning: (value: boolean) => void;
 }
 

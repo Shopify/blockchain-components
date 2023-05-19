@@ -77,11 +77,17 @@ export const createWalletState: StateSlice<WalletStateType> = (set, get) => ({
     });
   },
   setActiveWallet: (wallet) =>
-    set((state) => (state.wallet.activeWallet = wallet)),
+    set((state) => {
+      state.wallet.activeWallet = wallet;
+    }),
   setPendingConnector: (value) =>
-    set((state) => (state.wallet.pendingConnector = value)),
+    set((state) => {
+      state.wallet.pendingConnector = value;
+    }),
   setPendingWallet: (value) =>
-    set((state) => (state.wallet.pendingWallet = value)),
+    set((state) => {
+      state.wallet.pendingWallet = value;
+    }),
   removeWallet: (wallet) =>
     set((state) => {
       state.wallet.connectedWallets = state.wallet.connectedWallets.filter(
