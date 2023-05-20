@@ -62,7 +62,7 @@ export interface CombinedState {
 
 export type StateSlice<T> = StateCreator<
   CombinedState,
-  [['zustand/immer', never]],
-  [['zustand/persist', Partial<ModalStateType>]],
+  [['zustand/immer', never], ['logger', never]],
+  [['zustand/persist', unknown]],
   T
 >;

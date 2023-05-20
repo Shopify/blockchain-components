@@ -19,113 +19,169 @@ const initialWalletState: WalletStateDefintion = {
 
 export const createWalletState: StateSlice<WalletStateType> = (set, get) => ({
   ...initialWalletState,
-  addWallet: (wallet) =>
-    set((state) => {
-      // Prevent duplicate wallet addresses from being added to state.
-      if (
-        state.wallet.connectedWallets.some(
-          ({address}) => address === wallet.address,
-        )
-      ) {
-        return;
-      }
+  addWallet: (payload) =>
+    set(
+      (state) => {
+        // Prevent duplicate wallet addresses from being added to state.
+        if (
+          state.wallet.connectedWallets.some(
+            ({address}) => address === payload.address,
+          )
+        ) {
+          return;
+        }
 
-      state.wallet.connectedWallets.push(wallet);
+        state.wallet.connectedWallets.push(payload);
 
-      // Set the activeWallet to the newly connected wallet.
-      state.wallet.activeWallet = wallet;
-    }),
+        // Set the activeWallet to the newly connected wallet.
+        state.wallet.activeWallet = payload;
+      },
+      false,
+      {
+        type: 'wallet/addWallet',
+        payload,
+      },
+    ),
   fetchDelegates: async ({address}) => {
     const vaults = await fetchDelegations(address);
 
-    set((state) => {
-      // Update wallet for connectedWallets key value.
-      const connectedWallet = state.wallet.connectedWallets.find(
-        (wallet) => wallet.address === address,
-      );
+    set(
+      (state) => {
+        // Update wallet for connectedWallets key value.
+        const connectedWallet = state.wallet.connectedWallets.find(
+          (wallet) => wallet.address === address,
+        );
 
-      if (connectedWallet) {
-        connectedWallet.vaults = vaults;
-      }
+        if (connectedWallet) {
+          connectedWallet.vaults = vaults;
+        }
 
-      // Update wallet for activeWallet key value.
-      if (state.wallet.activeWallet?.address === address) {
-        state.wallet.activeWallet.vaults = vaults;
-      }
-    });
+        // Update wallet for activeWallet key value.
+        if (state.wallet.activeWallet?.address === address) {
+          state.wallet.activeWallet.vaults = vaults;
+        }
+      },
+      false,
+      {
+        type: 'wallet/fetchDelegates',
+        payload: address,
+      },
+    );
   },
-  fetchEns: async (props) => {
-    const ensName = await fetchEns(props);
+  fetchEns: async (payload) => {
+    const ensName = await fetchEns(payload);
 
-    set((state) => {
-      state.wallet.connectedWallets = state.wallet.connectedWallets.map(
-        (wallet) => {
-          if (wallet.address !== props.address) {
-            return wallet;
-          }
+    set(
+      (state) => {
+        state.wallet.connectedWallets = state.wallet.connectedWallets.map(
+          (wallet) => {
+            if (wallet.address !== payload.address) {
+              return wallet;
+            }
 
-          return {
-            ...wallet,
-            displayName: ensName,
-          };
-        },
-      );
+            return {
+              ...wallet,
+              displayName: ensName,
+            };
+          },
+        );
 
-      if (state.wallet.activeWallet?.address === props.address) {
-        state.wallet.activeWallet.displayName = ensName;
-      }
-    });
+        if (state.wallet.activeWallet?.address === payload.address) {
+          state.wallet.activeWallet.displayName = ensName;
+        }
+      },
+      false,
+      {
+        type: 'wallet/fetchEns',
+        payload,
+      },
+    );
   },
-  setActiveWallet: (wallet) =>
-    set((state) => {
-      state.wallet.activeWallet = wallet;
-    }),
-  setPendingConnector: (value) =>
-    set((state) => {
-      state.wallet.pendingConnector = value;
-    }),
-  setPendingWallet: (value) =>
-    set((state) => {
-      state.wallet.pendingWallet = value;
-    }),
-  removeWallet: (wallet) =>
-    set((state) => {
-      state.wallet.connectedWallets = state.wallet.connectedWallets.filter(
-        ({address}) => address !== wallet.address,
-      );
+  setActiveWallet: (payload) =>
+    set(
+      (state) => {
+        state.wallet.activeWallet = payload;
+      },
+      false,
+      {
+        type: 'wallet/setActiveWallet',
+        payload,
+      },
+    ),
+  setPendingConnector: (payload) =>
+    set(
+      (state) => {
+        state.wallet.pendingConnector = payload;
+      },
+      false,
+      {
+        type: 'wallet/setPendingConnector',
+        payload,
+      },
+    ),
+  setPendingWallet: (payload) =>
+    set(
+      (state) => {
+        state.wallet.pendingWallet = payload;
+      },
+      false,
+      {
+        type: 'wallet/setPendingWallet',
+        payload,
+      },
+    ),
+  removeWallet: (payload) =>
+    set(
+      (state) => {
+        state.wallet.connectedWallets = state.wallet.connectedWallets.filter(
+          ({address}) => address !== payload.address,
+        );
 
-      // If we are disconnecting the activeWallet then we should reset activeWallet
-      if (state.wallet.activeWallet?.address === wallet.address) {
-        state.wallet.activeWallet = undefined;
-      }
-    }),
-  updateWallet: (update) =>
-    set((state) => {
-      state.wallet.connectedWallets = state.wallet.connectedWallets.map(
-        (wallet) => {
-          if (wallet.address !== update.address) {
-            return wallet;
-          }
+        // If we are disconnecting the activeWallet then we should reset activeWallet
+        if (state.wallet.activeWallet?.address === payload.address) {
+          state.wallet.activeWallet = undefined;
+        }
+      },
+      false,
+      {
+        type: 'wallet/removeWallet',
+        payload,
+      },
+    ),
+  updateWallet: (payload) =>
+    set(
+      (state) => {
+        state.wallet.connectedWallets = state.wallet.connectedWallets.map(
+          (wallet) => {
+            if (wallet.address !== payload.address) {
+              return wallet;
+            }
 
-          return {
-            ...wallet,
-            ...update,
+            return {
+              ...wallet,
+              ...payload,
+            };
+          },
+        );
+
+        if (state.wallet.activeWallet?.address === payload.address) {
+          state.wallet.activeWallet = {
+            ...state.wallet.activeWallet,
+            ...payload,
           };
-        },
-      );
-
-      if (state.wallet.activeWallet?.address === update.address) {
-        state.wallet.activeWallet = {
-          ...state.wallet.activeWallet,
-          ...update,
-        };
-      }
-    }),
-  validatePendingWallet: (signatureResponse) => {
+        }
+      },
+      false,
+      {
+        type: 'wallet/updateWallet',
+        payload,
+      },
+    ),
+  validatePendingWallet: (payload) => {
     try {
       // We know if a wallet is valid or not based on whether or not
       // an error was thrown.
-      validatePendingWallet(signatureResponse);
+      validatePendingWallet(payload);
 
       const pendingWallet = get().wallet.pendingWallet;
 
@@ -139,7 +195,7 @@ export const createWalletState: StateSlice<WalletStateType> = (set, get) => ({
         );
       }
 
-      const {message, signature} = signatureResponse;
+      const {message, signature} = payload;
 
       // eslint-disable-next-line no-warning-comments
       // TODO: Remove the signature from the stored state.
@@ -155,34 +211,41 @@ export const createWalletState: StateSlice<WalletStateType> = (set, get) => ({
         signedOn: new Date().toISOString(),
       };
 
-      set((state) => {
-        /**
-         * The following should update a wallet if it exists in state
-         * already, which shouldn't occur, but is a fallback.
-         */
-        if (
-          state.wallet.connectedWallets.some(
-            (wallet) => wallet.address === newWallet.address,
-          )
-        ) {
-          state.wallet.connectedWallets = state.wallet.connectedWallets.map(
-            (wallet) => {
-              if (wallet.address !== pendingWallet.address) {
-                return wallet;
-              }
+      set(
+        (state) => {
+          /**
+           * The following should update a wallet if it exists in state
+           * already, which shouldn't occur, but is a fallback.
+           */
+          if (
+            state.wallet.connectedWallets.some(
+              (wallet) => wallet.address === newWallet.address,
+            )
+          ) {
+            state.wallet.connectedWallets = state.wallet.connectedWallets.map(
+              (wallet) => {
+                if (wallet.address !== pendingWallet.address) {
+                  return wallet;
+                }
 
-              return {
-                ...wallet,
-                ...newWallet,
-              };
-            },
-          );
-        } else {
-          state.wallet.connectedWallets.push(newWallet);
-        }
+                return {
+                  ...wallet,
+                  ...newWallet,
+                };
+              },
+            );
+          } else {
+            state.wallet.connectedWallets.push(newWallet);
+          }
 
-        state.wallet.activeWallet = newWallet;
-      });
+          state.wallet.activeWallet = newWallet;
+        },
+        false,
+        {
+          type: 'wallet/validatePendingWallet',
+          payload,
+        },
+      );
     } catch (error) {
       console.error(error);
       // This means our wallet was not valid.

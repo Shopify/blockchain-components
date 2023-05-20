@@ -28,7 +28,7 @@ module.exports = {
       {
         selector: 'typeParameter',
         format: ['PascalCase'],
-        prefix: ['T', 'U'],
+        prefix: ['A', 'MPS', 'MCS', 'S', 'T', 'U'],
       },
     ],
     'import/order': [
@@ -57,7 +57,7 @@ module.exports = {
          *
          * import sibling from './foo';
          */
-        groups: ['builtin', 'external', 'parent', 'sibling', 'internal',],
+        groups: ['builtin', 'external', 'parent', 'sibling', 'internal'],
         'newlines-between': 'always',
       },
     ],
