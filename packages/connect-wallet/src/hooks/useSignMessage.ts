@@ -141,7 +141,7 @@ export function useSignMessage() {
         setError({message: error.message, name: error.name});
         setSigning(false);
         // If the error was returned by the use sign message hook then return that.
-        throw error || new ConnectWalletError('Verification process failed.');
+        throw error || new ConnectWalletError('Verification process failed');
       }
     },
     [

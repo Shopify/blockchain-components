@@ -42,7 +42,7 @@ export const useDisconnect = () => {
       if (!addressToDisconnect) {
         console.error(
           new ConnectWalletError(
-            'There is not a connected wallet nor was a wallet address provided to the disconnect function.',
+            'There is not a connected wallet nor was a wallet address provided to the disconnect function',
           ),
         );
       }
