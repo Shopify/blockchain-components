@@ -30,13 +30,13 @@ describe('walletSlice', () => {
     useTestStore.setState(state, true);
   });
 
-  const getCurrentState = () => {
+  const getState = () => {
     const state = useTestStore.getState().wallet;
 
     return state;
   };
 
-  const setInitialState = (props?: Partial<WalletStateDefintion>) => {
+  const setState = (props?: Partial<WalletStateDefintion>) => {
     const state = useTestStore.getState();
 
     useTestStore.setState(
@@ -54,70 +54,66 @@ describe('walletSlice', () => {
   describe('addWallet', () => {
     it('adds a wallet to the list of connected wallets and updates the active wallet', () => {
       // Ensure we're working with a clean state.
-      expect(getCurrentState().connectedWallets).toHaveLength(0);
+      expect(getState().connectedWallets).toHaveLength(0);
 
       act(() => addWallet(DEFAULT_WALLET));
 
-      const {activeWallet, connectedWallets} = getCurrentState();
+      const {activeWallet, connectedWallets} = getState();
 
       expect(activeWallet).toStrictEqual(DEFAULT_WALLET);
       expect(connectedWallets).toStrictEqual([DEFAULT_WALLET]);
     });
 
     it('does not add a wallet if the address is already in the connected wallets collection', () => {
-      setInitialState({connectedWallets: [DEFAULT_WALLET]});
+      setState({connectedWallets: [DEFAULT_WALLET]});
 
-      expect(getCurrentState().connectedWallets).toStrictEqual([
-        DEFAULT_WALLET,
-      ]);
+      expect(getState().connectedWallets).toStrictEqual([DEFAULT_WALLET]);
 
       act(() => addWallet(DEFAULT_WALLET));
 
       // Expect no changes to have occurred.
-      expect(getCurrentState().connectedWallets).toStrictEqual([
-        DEFAULT_WALLET,
-      ]);
+      expect(getState().connectedWallets).toStrictEqual([DEFAULT_WALLET]);
     });
   });
 
   describe('removeWallet', () => {
     it('removes the wallet when it exists', () => {
-      setInitialState({
+      setState({
         activeWallet: DEFAULT_WALLET,
         connectedWallets: [DEFAULT_WALLET],
       });
 
       act(() => removeWallet(DEFAULT_WALLET));
 
-      const {activeWallet, connectedWallets} = getCurrentState();
+      const {activeWallet, connectedWallets} = getState();
 
       expect(activeWallet).toStrictEqual(undefined);
       expect(connectedWallets).toStrictEqual([]);
     });
 
     it('does not remove a wallet if the wallet to remove is not found', () => {
-      setInitialState({
+      setState({
         activeWallet: DEFAULT_WALLET,
         connectedWallets: [DEFAULT_WALLET],
       });
 
       act(() => removeWallet(ALTERNATE_WALLET));
 
-      const {activeWallet, connectedWallets} = getCurrentState();
+      const {activeWallet, connectedWallets} = getState();
 
       expect(activeWallet).toStrictEqual(DEFAULT_WALLET);
       expect(connectedWallets).toStrictEqual([DEFAULT_WALLET]);
     });
 
     it('does not set the active wallet to undefined if the disconnected address is different', () => {
-      setInitialState({
+      setState({
         activeWallet: ALTERNATE_WALLET,
         connectedWallets: [DEFAULT_WALLET, ALTERNATE_WALLET],
       });
 
       act(() => removeWallet(DEFAULT_WALLET));
 
-      const {activeWallet, connectedWallets} = getCurrentState();
+      const {activeWallet, connectedWallets} = getState();
 
       expect(activeWallet).toStrictEqual(ALTERNATE_WALLET);
       expect(connectedWallets).toStrictEqual([ALTERNATE_WALLET]);
@@ -127,50 +123,50 @@ describe('walletSlice', () => {
   describe('setActiveWallet', () => {
     it('sets activeWallet to provided wallet', () => {
       setActiveWallet(DEFAULT_WALLET);
-      expect(getCurrentState().activeWallet).toStrictEqual(DEFAULT_WALLET);
+      expect(getState().activeWallet).toStrictEqual(DEFAULT_WALLET);
     });
 
     it('sets activeWallet to undefined when passed undefined', () => {
       setActiveWallet(undefined);
-      expect(getCurrentState().activeWallet).toStrictEqual(undefined);
+      expect(getState().activeWallet).toStrictEqual(undefined);
     });
   });
 
   describe('setPendingConnector', () => {
     it('sets pendingConnector to given value', () => {
       setPendingConnector(DEFAULT_SERIALIZED_CONNECTOR);
-      expect(getCurrentState().pendingConnector).toStrictEqual(
+      expect(getState().pendingConnector).toStrictEqual(
         DEFAULT_SERIALIZED_CONNECTOR,
       );
     });
 
     it('sets pendingConnector to undefined', () => {
       setPendingConnector(undefined);
-      expect(getCurrentState().pendingConnector).toStrictEqual(undefined);
+      expect(getState().pendingConnector).toStrictEqual(undefined);
     });
   });
 
   describe('setPendingWallet', () => {
     it('sets pendingWallet to provided wallet', () => {
       setPendingWallet(DEFAULT_WALLET);
-      expect(getCurrentState().pendingWallet).toStrictEqual(DEFAULT_WALLET);
+      expect(getState().pendingWallet).toStrictEqual(DEFAULT_WALLET);
     });
 
     it('sets pending wallet to undefined when passed undefined', () => {
       setPendingWallet(undefined);
-      expect(getCurrentState().pendingWallet).toStrictEqual(undefined);
+      expect(getState().pendingWallet).toStrictEqual(undefined);
     });
   });
 
   describe('updateWallet', () => {
     it('updates a wallet when it exists and updates the active wallet when the address matches', () => {
-      setInitialState({
+      setState({
         activeWallet: DEFAULT_WALLET,
         connectedWallets: [DEFAULT_WALLET],
       });
 
       // Check that our initial state is correct.
-      const {activeWallet, connectedWallets} = getCurrentState();
+      const {activeWallet, connectedWallets} = getState();
 
       expect(activeWallet).toStrictEqual(DEFAULT_WALLET);
       expect(connectedWallets).toStrictEqual([DEFAULT_WALLET]);
@@ -187,20 +183,20 @@ describe('walletSlice', () => {
       const {
         activeWallet: updatedActiveWallet,
         connectedWallets: updatedConnectedWallets,
-      } = getCurrentState();
+      } = getState();
 
       expect(updatedActiveWallet).toStrictEqual(updatedWallet);
       expect(updatedConnectedWallets).toStrictEqual([updatedWallet]);
     });
 
     it('updates a wallet when it exists and does not update the active wallet if the address does not match', () => {
-      setInitialState({
+      setState({
         activeWallet: ALTERNATE_WALLET,
         connectedWallets: [DEFAULT_WALLET, ALTERNATE_WALLET],
       });
 
       // Check that our initial state is correct.
-      const {activeWallet, connectedWallets} = getCurrentState();
+      const {activeWallet, connectedWallets} = getState();
 
       expect(activeWallet).toStrictEqual(ALTERNATE_WALLET);
       expect(connectedWallets).toStrictEqual([
@@ -220,7 +216,7 @@ describe('walletSlice', () => {
       const {
         activeWallet: updatedActiveWallet,
         connectedWallets: updatedConnectedWallets,
-      } = getCurrentState();
+      } = getState();
 
       expect(updatedActiveWallet).toStrictEqual(ALTERNATE_WALLET);
       expect(updatedConnectedWallets).toStrictEqual([
@@ -230,13 +226,13 @@ describe('walletSlice', () => {
     });
 
     it('does not update a wallet if the wallet to update is not found', () => {
-      setInitialState({
+      setState({
         activeWallet: undefined,
         connectedWallets: [DEFAULT_WALLET],
       });
 
       // Check that our initial state is correct.
-      const {activeWallet, connectedWallets} = getCurrentState();
+      const {activeWallet, connectedWallets} = getState();
 
       expect(activeWallet).toStrictEqual(undefined);
       expect(connectedWallets).toStrictEqual([DEFAULT_WALLET]);
@@ -246,7 +242,7 @@ describe('walletSlice', () => {
       const {
         activeWallet: updatedActiveWallet,
         connectedWallets: updatedConnectedWallets,
-      } = getCurrentState();
+      } = getState();
 
       expect(updatedActiveWallet).toStrictEqual(undefined);
       expect(updatedConnectedWallets).toStrictEqual([DEFAULT_WALLET]);
@@ -280,13 +276,13 @@ describe('walletSlice', () => {
         signedOn: undefined,
       };
 
-      setInitialState({
+      setState({
         connectedWallets: [signedWallet],
       });
 
       updateWallet(updatedWallet);
 
-      const {connectedWallets} = getCurrentState();
+      const {connectedWallets} = getState();
 
       expect(connectedWallets).toStrictEqual([updatedWallet]);
     });
@@ -294,7 +290,7 @@ describe('walletSlice', () => {
 
   describe('validatePendingWallet', () => {
     it('does not manipulate state when state.pendingWallet is undefined', () => {
-      const initialState = getCurrentState();
+      const initialState = getState();
 
       expect(() =>
         validatePendingWallet({...DEFAULT_WALLET, ...VALID_SIGNATURE_RESPONSE}),
@@ -302,11 +298,11 @@ describe('walletSlice', () => {
         new ConnectWalletError('There is not a wallet pending validation'),
       );
 
-      expect(getCurrentState()).toStrictEqual(initialState);
+      expect(getState()).toStrictEqual(initialState);
     });
 
     it('does not manipulate state and throws an error when the address is not verified via ethers verifyMessage util', () => {
-      setInitialState({pendingWallet: DEFAULT_WALLET});
+      setState({pendingWallet: DEFAULT_WALLET});
 
       expect(() =>
         validatePendingWallet({
@@ -319,7 +315,7 @@ describe('walletSlice', () => {
         ),
       );
 
-      const {activeWallet, connectedWallets} = getCurrentState();
+      const {activeWallet, connectedWallets} = getState();
 
       expect(activeWallet).not.toEqual(expect.objectContaining(DEFAULT_WALLET));
       expect(connectedWallets).not.toEqual(
@@ -328,11 +324,11 @@ describe('walletSlice', () => {
     });
 
     it('manipulates state when the address from verifyMessage matches the pendingWallet address', () => {
-      setInitialState({pendingWallet: DEFAULT_WALLET});
+      setState({pendingWallet: DEFAULT_WALLET});
 
       validatePendingWallet({...DEFAULT_WALLET, ...VALID_SIGNATURE_RESPONSE});
 
-      const {connectedWallets, pendingWallet} = getCurrentState();
+      const {connectedWallets, pendingWallet} = getState();
 
       /**
        * We can use objectContaining here instead of mocking the timers
