@@ -1,10 +1,19 @@
 import {vi} from 'vitest';
 import type {Mock} from 'vitest';
 
-import {attributeOrder} from './attributeOrder';
-import {gateContextClient} from './gateContextClient';
+import {attributeOrder, gateContextClient} from './attributeOrder';
 
 import {OrderAttributionMode} from '~/types/orderAttribution';
+import {ConnectWalletError} from '~/utils/error';
+
+vi.mock('@shopify/gate-context-client', async (importActual) => {
+  const mod = await importActual();
+
+  return {
+    ...(mod as any),
+    write: vi.fn(),
+  };
+});
 
 describe('attributeOrder', () => {
   // Removes the orderAttribution console.error from the test output.
@@ -20,48 +29,41 @@ describe('attributeOrder', () => {
   describe('when orderAttributionMode is required', () => {
     it('calls gateContextClient.write', async () => {
       const write = mockWrite();
-      await executeThunk();
+      await defaultAttributeOrder();
       expect(write).toHaveBeenCalledTimes(1);
     });
 
     it('fails on errors', async () => {
       const write = mockWrite(() => Promise.reject(new Error('error')));
-      const result = await executeThunk(
-        defaultAttributeOrder({orderAttributionMode: 'required'}),
+      await expect(defaultAttributeOrder()).rejects.toThrow(
+        new ConnectWalletError('error'),
       );
-      expect(result.type).toBe('wallet/attributeOrder/rejected');
       expect(write).toHaveBeenCalledTimes(1);
     });
 
     describe('when vault addresses are not defined', () => {
       it('returns address without vaults in the payload', async () => {
         mockWrite();
-        const result = await executeThunk();
+        const result = await defaultAttributeOrder();
 
-        expect(result.type).toBe('wallet/attributeOrder/fulfilled');
-        expect(result.payload).toStrictEqual({
+        expect(result).toStrictEqual({
           orderAttributionMode: 'required',
           address: '0x123',
           vaults: undefined,
         });
-        expect(result.meta.requestStatus).toBe('fulfilled');
       });
     });
 
     describe('when vault addresses are defined', () => {
       it('returns address with vaults in the payload', async () => {
         mockWrite();
-        const result = await executeThunk(
-          defaultAttributeOrder({withVaults: true}),
-        );
+        const result = await defaultAttributeOrder({withVaults: true});
 
-        expect(result.type).toBe('wallet/attributeOrder/fulfilled');
-        expect(result.payload).toStrictEqual({
+        expect(result).toStrictEqual({
           orderAttributionMode: 'required',
           address: '0x123',
           vaults: ['0x456', '0x789'],
         });
-        expect(result.meta.requestStatus).toBe('fulfilled');
       });
     });
   });
@@ -69,9 +71,7 @@ describe('attributeOrder', () => {
   describe('when orderAttributionMode is disabled', () => {
     it('does not call gateContextClient.write', async () => {
       const write = mockWrite();
-      await executeThunk(
-        defaultAttributeOrder({orderAttributionMode: 'disabled'}),
-      );
+      await defaultAttributeOrder({orderAttributionMode: 'disabled'});
       expect(write).not.toHaveBeenCalled();
     });
   });
@@ -79,22 +79,19 @@ describe('attributeOrder', () => {
   describe('when orderAttributionMode is ignoreErrors', () => {
     it('calls gateContextClient.write', async () => {
       const write = mockWrite();
-      await executeThunk(defaultAttributeOrder());
+      await defaultAttributeOrder();
       expect(write).toHaveBeenCalledTimes(1);
     });
 
     it('ignores write errors', async () => {
       const write = mockWrite(() => Promise.reject(new Error('error')));
-      const {type} = await executeThunk(
-        defaultAttributeOrder({orderAttributionMode: 'ignoreErrors'}),
-      );
-      expect(type).toBe('wallet/attributeOrder/fulfilled');
+      await defaultAttributeOrder({orderAttributionMode: 'ignoreErrors'});
       expect(write).toHaveBeenCalledTimes(1);
     });
   });
 });
 
-function defaultAttributeOrder({
+async function defaultAttributeOrder({
   orderAttributionMode = 'required',
   withVaults = false,
 }: {orderAttributionMode?: OrderAttributionMode; withVaults?: boolean} = {}) {
@@ -103,13 +100,9 @@ function defaultAttributeOrder({
     ...(withVaults && {vaults: ['0x456', '0x789']}),
   };
 
-  return attributeOrder({wallet, orderAttributionMode});
-}
+  const response = await attributeOrder({wallet, orderAttributionMode});
 
-function executeThunk(
-  thunk: ReturnType<typeof defaultAttributeOrder> = defaultAttributeOrder(),
-) {
-  return thunk(vi.fn(), vi.fn(), {});
+  return response;
 }
 
 function mockWrite(

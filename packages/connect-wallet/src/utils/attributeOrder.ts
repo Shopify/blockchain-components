@@ -1,4 +1,7 @@
-import {gateContextClient} from '../state/wallet/gateContextClient';
+import {
+  getGateContextClient,
+  undefinedGateContextGenerator,
+} from '@shopify/gate-context-client';
 
 import {OrderAttributionMode} from '~/types/orderAttribution';
 import {ConnectWalletError} from '~/utils/error';
@@ -59,3 +62,8 @@ export async function attributeOrder({
     throw new ConnectWalletError((error as any)?.message || error);
   }
 }
+
+export const gateContextClient = getGateContextClient({
+  backingStore: 'ajaxApi',
+  shopifyGateContextGenerator: undefinedGateContextGenerator,
+});
