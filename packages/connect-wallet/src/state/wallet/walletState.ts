@@ -179,21 +179,21 @@ export const createWalletState: StateSlice<WalletStateType> = (set, get) => ({
     ),
   validatePendingWallet: (payload) => {
     try {
-      // We know if a wallet is valid or not based on whether or not
-      // an error was thrown.
-      validatePendingWallet(payload);
-
-      const pendingWallet = get().wallet.pendingWallet;
-
       /**
        * Ensure that we have a pending wallet in state in which we can gather
        * connector information from.
        */
+      const pendingWallet = get().wallet.pendingWallet;
+
       if (!pendingWallet) {
         throw new ConnectWalletError(
           'There is not a wallet pending validation',
         );
       }
+
+      // We know if a wallet is valid or not based on whether or not
+      // an error was thrown.
+      validatePendingWallet(payload);
 
       const {message, signature} = payload;
 
@@ -239,6 +239,7 @@ export const createWalletState: StateSlice<WalletStateType> = (set, get) => ({
           }
 
           state.wallet.activeWallet = newWallet;
+          state.wallet.pendingWallet = undefined;
         },
         false,
         {
@@ -247,8 +248,12 @@ export const createWalletState: StateSlice<WalletStateType> = (set, get) => ({
         },
       );
     } catch (error) {
-      console.error(error);
-      // This means our wallet was not valid.
+      // eslint-disable-next-line no-process-env
+      if (process.env.NODE_ENV === 'production') {
+        console.error(error);
+      }
+
+      throw error;
     }
   },
 });
