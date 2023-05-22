@@ -14,6 +14,8 @@ const loggerImpl: LoggerImpl = (fn) => (set, get, api) => {
 
   (api.setState as unknown as NamedSet<S>) = (state, replace, action) => {
     const loggedSetState = () => {
+      const previousState = get();
+
       // Timestamp
       const date = new Date();
       const formattedTimestamp = date.toLocaleTimeString('default', {
@@ -22,21 +24,22 @@ const loggerImpl: LoggerImpl = (fn) => (set, get, api) => {
         second: 'numeric',
       });
 
+      // Dispatch the action.
+      set(state, replace);
+      const updatedState = get();
+
       console.groupCollapsed(
         `%c@shopify/connect-wallet%c: ${action.type} @${formattedTimestamp}`,
         ...HEADER_CSS,
       );
 
       // Previous State
-      console.log('%cprevious state:', PREV_STATE_CSS, get());
-
-      // Dispatch the action.
-      set(state, replace);
+      console.log('%cprevious state:', PREV_STATE_CSS, previousState);
 
       console.log('%caction:', ACTION_CSS, action);
 
       // Get our next state after the action has been invoked and log it.
-      console.log('%cnext state:', NEXT_STATE_CSS, get());
+      console.log('%cnext state:', NEXT_STATE_CSS, updatedState);
 
       try {
         console.groupEnd();
@@ -50,7 +53,7 @@ const loggerImpl: LoggerImpl = (fn) => (set, get, api) => {
 
   // Logger is only enabled in development environments.
   // eslint-disable-next-line no-process-env
-  if (process.env.NODE_ENV !== 'development') {
+  if (process.env.NODE_ENV === 'production') {
     return fn(set, get, api);
   }
 
