@@ -1,11 +1,13 @@
 import {useEffect} from 'react';
-import {useAccount, useNetwork, useProvider} from 'wagmi';
+import {Address, useAccount, useNetwork, useProvider} from 'wagmi';
 
 import {useSignMessage} from './useSignMessage';
 
 import {useStore} from '~/state';
+import {fetchDelegations} from '~/state/wallet/fetchDelegations';
 import {OrderAttributionMode} from '~/types/orderAttribution';
 import {Wallet} from '~/types/wallet';
+import {attributeOrder} from '~/utils/attributeOrder';
 
 interface UseMiddlewareProps {
   enableDelegateCash?: boolean;
@@ -21,11 +23,11 @@ export const useMiddleware = ({
   const {
     addWallet,
     connectedWallets,
-    fetchDelegates,
     fetchEns,
     pendingConnector,
     setActiveWallet,
     setPendingWallet,
+    updateWallet,
   } = useStore((state) => state.wallet);
   const {chain} = useNetwork();
   const provider = useProvider();
@@ -117,31 +119,6 @@ export const useMiddleware = ({
   }, [signMessage, requireSignature]);
 
   /**
-   * Fetch delegations listener
-   *
-   * This listener will run after the delegations are fetched and
-   * will attribute the wallet addresses to the order.
-   *
-   * Complete flow diagram of connecting a wallet: https://tinyurl.com/4dbfcm5w
-   */
-  // useEffect(() => {
-  //   return dispatch(
-  //     addListener({
-  //       actionCreator: fetchDelegations.fulfilled,
-  //       effect: (action, state) => {
-  //         const {address, vaults} = action.payload;
-  //         state.dispatch(
-  //           attributeOrder({
-  //             orderAttributionMode,
-  //             wallet: {address, vaults},
-  //           }),
-  //         );
-  //       },
-  //     }),
-  //   );
-  // }, [dispatch, orderAttributionMode]);
-
-  /**
    * onConnect listener (internal)
    *
    * This listener will run order attribution functionality.
@@ -151,6 +128,17 @@ export const useMiddleware = ({
       (state) => state.wallet.activeWallet,
       (wallet, prevWallet) => {
         if (wallet !== undefined && prevWallet === undefined) {
+          const attributeWithWalletData = (vaults?: Address[]) => {
+            // Attribute the order with vaults (if present).
+            attributeOrder({
+              orderAttributionMode,
+              wallet: {
+                address: wallet.address,
+                vaults,
+              },
+            });
+          };
+
           /**
            * This will re-run the query for ENS names every time that
            * the page reloads as well. Which might be desired if a user
@@ -167,10 +155,30 @@ export const useMiddleware = ({
            * Complete flow diagram of connecting a wallet: https://tinyurl.com/4dbfcm5w
            */
           if (enableDelegateCash) {
-            // Todo: since this is a promise we could do a .then() to call the order attribution callback.
-            fetchDelegates(wallet);
+            // Typically we would await here, but that creates an ESLint violation
+            // for the following rule: @typescript-eslint/no-misused-promises
+            fetchDelegations(wallet.address)
+              .then((vaults) => {
+                updateWallet({...wallet, vaults});
+
+                attributeWithWalletData(vaults);
+              })
+              /**
+               * We don't really need to do anything here other than re-run the attribution
+               * It is technically possible that the attribution failed, but we'll try to run
+               * again just to be safe.
+               */
+              .catch(() => {
+                attributeWithWalletData();
+              });
+          } else {
+            attributeOrder({
+              orderAttributionMode,
+              wallet: {
+                address: wallet.address,
+              },
+            });
           }
-          // Todo: The else case is where we would handle order attribute in the event that enableDelegateCash is false.
         }
       },
     );
@@ -182,9 +190,9 @@ export const useMiddleware = ({
   }, [
     chain,
     enableDelegateCash,
-    fetchDelegates,
     fetchEns,
     orderAttributionMode,
     provider,
+    updateWallet,
   ]);
 };

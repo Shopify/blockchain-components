@@ -2,7 +2,6 @@ import {SiweMessage} from 'siwe';
 
 import type {StateSlice, WalletStateDefintion, WalletStateType} from '../types';
 
-import {fetchDelegations} from './fetchDelegations';
 import {fetchEns} from './fetchEns';
 import {validatePendingWallet} from './validatePendingWallet';
 
@@ -42,32 +41,6 @@ export const createWalletState: StateSlice<WalletStateType> = (set, get) => ({
         payload,
       },
     ),
-  fetchDelegates: async ({address}) => {
-    const vaults = await fetchDelegations(address);
-
-    set(
-      (state) => {
-        // Update wallet for connectedWallets key value.
-        const connectedWallet = state.wallet.connectedWallets.find(
-          (wallet) => wallet.address === address,
-        );
-
-        if (connectedWallet) {
-          connectedWallet.vaults = vaults;
-        }
-
-        // Update wallet for activeWallet key value.
-        if (state.wallet.activeWallet?.address === address) {
-          state.wallet.activeWallet.vaults = vaults;
-        }
-      },
-      false,
-      {
-        type: 'wallet/fetchDelegates',
-        payload: address,
-      },
-    );
-  },
   fetchEns: async (payload) => {
     const ensName = await fetchEns(payload);
 

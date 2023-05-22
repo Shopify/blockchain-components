@@ -42,7 +42,6 @@ export interface WalletStateDefintion {
 
 export interface WalletStateActions {
   addWallet: (wallet: Wallet) => void;
-  fetchDelegates: (wallet: Wallet) => Promise<void>;
   fetchEns: (props: FetchEnsProps) => Promise<void>;
   setActiveWallet: (wallet: Wallet | undefined) => void;
   setPendingConnector: (connector: SerializedConnector | undefined) => void;
