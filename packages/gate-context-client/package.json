@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "tsup": "^6.5.0",
-    "vitest": "^0.31.0",
+    "vitest": "^0.31.1",
     "vitest-fetch-mock": "^0.2.2"
   }
 }
