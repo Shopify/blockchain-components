@@ -42,10 +42,10 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
   useEffect(() => {
     const listener = useStore.subscribe(
       (state) => state.wallet.connectedWallets,
-      (updatedWallets, prevWallets) => {
+      (next, prev) => {
         // Check the length to see if the updatedWallets has fewer
         // items in it than the previous wallets.
-        if (updatedWallets.length < prevWallets.length) {
+        if (next.length < prev.length) {
           /**
            * Find the difference in the the state value.
            *
@@ -54,9 +54,7 @@ export const useConnectWalletCallbacks = (props?: useConnectWalletProps) => {
            * so we will just map through and call the callback for
            * each wallet in the diff.
            */
-          const diff = updatedWallets.filter(
-            (wallet) => !prevWallets.includes(wallet),
-          );
+          const diff = prev.filter((wallet) => !next.includes(wallet));
 
           // Run the callbacks on each wallet in the diff.
           diff.forEach((wallet) => {
