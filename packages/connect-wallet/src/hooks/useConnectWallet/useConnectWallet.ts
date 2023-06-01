@@ -1,27 +1,24 @@
 import {useContext} from 'react';
 import {useAccount} from 'wagmi';
 
-import {useAppSelector} from '../useAppState';
 import {useDisconnect} from '../useDisconnect';
 
 import {useConnectWalletProps} from './types';
 import {useConnectWalletCallbacks} from './useConnectWalletCallbacks';
 
 import {ConnectWalletContext} from '~/providers/ConnectWalletProvider';
+import {useStore} from '~/state';
 
 export function useConnectWallet(props?: useConnectWalletProps) {
-  const {signing} = useAppSelector((state) => state.modal);
-  const {activeWallet, connectedWallets, pendingConnector} = useAppSelector(
-    (state) => state.wallet,
-  );
+  // Make sure that our provided callbacks are run.
+  useConnectWalletCallbacks(props);
+
+  const [{signing}, {activeWallet, connectedWallets, pendingConnector}] =
+    useStore((state) => [state.modal, state.wallet]);
 
   const connectWalletContext = useContext(ConnectWalletContext);
 
   const {chains} = connectWalletContext;
-
-  useConnectWalletCallbacks({
-    ...props,
-  });
 
   const {isConnecting} = useAccount();
 

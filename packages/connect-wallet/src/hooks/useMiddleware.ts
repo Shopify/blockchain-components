@@ -1,21 +1,13 @@
 import {useEffect} from 'react';
-import {useAccount, useNetwork, useProvider} from 'wagmi';
+import {Address, useAccount, useNetwork, useProvider} from 'wagmi';
 
-import {useAppDispatch, useAppSelector} from './useAppState';
 import {useSignMessage} from './useSignMessage';
 
-import {buildOnConnectMiddleware} from '~/middleware/onConnectMiddleware';
-import {
-  addWallet,
-  attributeOrder,
-  fetchEns,
-  fetchDelegations,
-  setActiveWallet,
-  setPendingWallet,
-} from '~/slices/walletSlice';
-import {addListener} from '~/store/listenerMiddleware';
+import {useStore} from '~/state';
+import {fetchDelegations} from '~/state/wallet/fetchDelegations';
 import {OrderAttributionMode} from '~/types/orderAttribution';
 import {Wallet} from '~/types/wallet';
+import {attributeOrder} from '~/utils/attributeOrder';
 
 interface UseMiddlewareProps {
   enableDelegateCash?: boolean;
@@ -28,10 +20,15 @@ export const useMiddleware = ({
   orderAttributionMode,
   requireSignature,
 }: UseMiddlewareProps) => {
-  const dispatch = useAppDispatch();
-  const {connectedWallets, pendingConnector} = useAppSelector(
-    (state) => state.wallet,
-  );
+  const {
+    addWallet,
+    connectedWallets,
+    fetchEns,
+    pendingConnector,
+    setActiveWallet,
+    setPendingWallet,
+    updateWallet,
+  } = useStore((state) => state.wallet);
   const {chain} = useNetwork();
   const provider = useProvider();
   const {signMessage} = useSignMessage();
@@ -52,7 +49,8 @@ export const useMiddleware = ({
          * the active wallet and not require a new signature.
          */
         if (isReconnected && reconnectedWallet?.signature) {
-          return dispatch(setActiveWallet(reconnectedWallet));
+          setActiveWallet(reconnectedWallet);
+          return;
         }
 
         /**
@@ -70,7 +68,8 @@ export const useMiddleware = ({
           connectorName: pendingConnector?.name || connector?.name,
         };
 
-        return dispatch(setPendingWallet(wallet));
+        setPendingWallet(wallet);
+        return;
       }
 
       /**
@@ -78,7 +77,8 @@ export const useMiddleware = ({
        * wallet then we can set the active wallet.
        */
       if (reconnectedWallet) {
-        return dispatch(setActiveWallet(reconnectedWallet));
+        setActiveWallet(reconnectedWallet);
+        return;
       }
 
       // Exit if we don't have pendingConnector information.
@@ -87,13 +87,11 @@ export const useMiddleware = ({
       }
 
       // This means that the user just connected their wallet.
-      dispatch(
-        addWallet({
-          address,
-          connectorId: pendingConnector.id,
-          connectorName: pendingConnector.name,
-        }),
-      );
+      addWallet({
+        address,
+        connectorId: pendingConnector.id,
+        connectorName: pendingConnector.name,
+      });
     },
   });
 
@@ -104,47 +102,21 @@ export const useMiddleware = ({
    */
   useEffect(() => {
     if (requireSignature) {
-      return dispatch(
-        addListener({
-          actionCreator: setPendingWallet,
-          effect: (action, _) => {
-            const wallet = action.payload;
-
-            if (!wallet) {
-              return;
-            }
-
-            signMessage(wallet);
-          },
-        }),
-      );
-    }
-  }, [dispatch, signMessage, requireSignature]);
-
-  /**
-   * Fetch delegations listener
-   *
-   * This listener will run after the delegations are fetched and
-   * will attribute the wallet addresses to the order.
-   *
-   * Complete flow diagram of connecting a wallet: https://tinyurl.com/4dbfcm5w
-   */
-  useEffect(() => {
-    return dispatch(
-      addListener({
-        actionCreator: fetchDelegations.fulfilled,
-        effect: (action, state) => {
-          const {address, vaults} = action.payload;
-          state.dispatch(
-            attributeOrder({
-              orderAttributionMode,
-              wallet: {address, vaults},
-            }),
-          );
+      const pendingWalletSub = useStore.subscribe(
+        (state) => state.wallet.pendingWallet,
+        (pendingWallet) => {
+          if (pendingWallet !== undefined) {
+            signMessage(pendingWallet);
+          }
         },
-      }),
-    );
-  }, [dispatch, orderAttributionMode]);
+      );
+
+      // Clean up the subscriber.
+      return () => {
+        pendingWalletSub();
+      };
+    }
+  }, [signMessage, requireSignature]);
 
   /**
    * onConnect listener (internal)
@@ -152,29 +124,75 @@ export const useMiddleware = ({
    * This listener will run order attribution functionality.
    */
   useEffect(() => {
-    const listener = buildOnConnectMiddleware(({state, wallet}) => {
-      /**
-       * This will re-run the query for ENS names every time that
-       * the page reloads as well. Which might be desired if a user
-       * buys an ENS in between connecting their wallet. However, it
-       * could lead to excessive calls to the chain.
-       */
-      if (chain) {
-        const {unsupported, ...rest} = chain;
-        state.dispatch(
-          fetchEns({address: wallet.address, chain: {...rest}, provider}),
-        );
-      }
-      /**
-       * This will fetch the delegate-cash delegations for the wallet.
-       *
-       * Complete flow diagram of connecting a wallet: https://tinyurl.com/4dbfcm5w
-       */
-      state.dispatch(
-        fetchDelegations({walletAddress: wallet.address, enableDelegateCash}),
-      );
-    });
+    const listener = useStore.subscribe(
+      (state) => state.wallet.activeWallet,
+      (wallet, prevWallet) => {
+        if (wallet !== undefined && prevWallet === undefined) {
+          const attributeWithWalletData = (vaults?: Address[]) => {
+            // Attribute the order with vaults (if present).
+            attributeOrder({
+              orderAttributionMode,
+              wallet: {
+                address: wallet.address,
+                vaults,
+              },
+            });
+          };
 
-    return dispatch(listener);
-  }, [chain, dispatch, enableDelegateCash, orderAttributionMode, provider]);
+          /**
+           * This will re-run the query for ENS names every time that
+           * the page reloads as well. Which might be desired if a user
+           * buys an ENS in between connecting their wallet. However, it
+           * could lead to excessive calls to the chain.
+           */
+          if (chain) {
+            const {unsupported, ...rest} = chain;
+            fetchEns({address: wallet.address, chain: {...rest}, provider});
+          }
+          /**
+           * This will fetch the delegate-cash delegations for the wallet.
+           *
+           * Complete flow diagram of connecting a wallet: https://tinyurl.com/4dbfcm5w
+           */
+          if (enableDelegateCash) {
+            // Typically we would await here, but that creates an ESLint violation
+            // for the following rule: @typescript-eslint/no-misused-promises
+            fetchDelegations(wallet.address)
+              .then((vaults) => {
+                updateWallet({...wallet, vaults});
+
+                attributeWithWalletData(vaults);
+              })
+              /**
+               * We don't really need to do anything here other than re-run the attribution
+               * It is technically possible that the attribution failed, but we'll try to run
+               * again just to be safe.
+               */
+              .catch(() => {
+                attributeWithWalletData();
+              });
+          } else {
+            attributeOrder({
+              orderAttributionMode,
+              wallet: {
+                address: wallet.address,
+              },
+            });
+          }
+        }
+      },
+    );
+
+    // Clean up the subscriber.
+    return () => {
+      listener();
+    };
+  }, [
+    chain,
+    enableDelegateCash,
+    fetchEns,
+    orderAttributionMode,
+    provider,
+    updateWallet,
+  ]);
 };

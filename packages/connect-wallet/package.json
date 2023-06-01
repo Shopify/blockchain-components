@@ -43,21 +43,19 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "2.0.0-alpha.2",
     "@shopify/blockchain-components": "*",
     "@shopify/gate-context-client": "*",
     "@storybook/react": "^7.0.0-beta.52",
     "delegatecash": "^0.4.1",
     "framer-motion": "^8.5.0",
     "i18next": "^22.4.9",
+    "immer": "^10.0.2",
     "qrcode": "^1.5.1",
     "react-i18next": "^12.1.4",
-    "react-redux": "^8.0.5",
     "react-use-measure": "^2.1.1",
-    "redux": "5.0.0-alpha.2",
-    "redux-persist": "^6.0.0",
     "siwe": "^1.1.6",
-    "ua-parser-js": "^1.0.32"
+    "ua-parser-js": "^1.0.32",
+    "zustand": "^4.3.8"
   },
   "peerDependencies": {
     "ethers": "^5.7.2",
@@ -66,6 +64,7 @@
     "wagmi": "^0.10.4"
   },
   "devDependencies": {
+    "@testing-library/dom": "^9.3.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.4.0",
     "@types/qrcode": "^1.5.0",
@@ -76,6 +75,6 @@
     "postcss-import": "^15.1.0",
     "tailwindcss": "^3.2.7",
     "tsup": "^6.5.0",
-    "vitest": "^0.28.5"
+    "vitest": "^0.31.1"
   }
 }

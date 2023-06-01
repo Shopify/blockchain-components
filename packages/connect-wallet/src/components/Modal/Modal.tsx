@@ -31,23 +31,16 @@ import {
 } from './Screens';
 import {ModalVariants} from './variants';
 
-import {
-  useAppDispatch,
-  useAppSelector,
-  useDisconnect,
-  useMiddleware,
-  useTranslation,
-} from '~/hooks';
+import {useDisconnect, useMiddleware, useTranslation} from '~/hooks';
 import {ConnectWalletContext} from '~/providers/ConnectWalletProvider';
-import {closeModal, goBack, navigate} from '~/slices/modalSlice';
+import {useStore} from '~/state';
 import {ModalRoute} from '~/types/modal';
 
 export const Modal = () => {
-  const dispatch = useAppDispatch();
-  const {open, route} = useAppSelector((state) => state.modal);
-  const {pendingConnector, pendingWallet} = useAppSelector(
-    (state) => state.wallet,
-  );
+  const [
+    {closeModal, goBack, navigate, open, route},
+    {pendingConnector, pendingWallet},
+  ] = useStore((state) => [state.modal, state.wallet]);
   const {
     connectors,
     customTitles,
@@ -67,9 +60,9 @@ export const Modal = () => {
 
   useEffect(() => {
     if (escPress && open) {
-      dispatch(closeModal());
+      closeModal();
     }
-  }, [dispatch, escPress, open]);
+  }, [closeModal, escPress, open]);
 
   const handleCloseModal = useCallback(() => {
     if (!open) return;
@@ -78,16 +71,16 @@ export const Modal = () => {
       disconnect(pendingWallet?.address);
     }
 
-    dispatch(closeModal());
-  }, [disconnect, dispatch, open, pendingWallet?.address, route]);
+    closeModal();
+  }, [closeModal, disconnect, open, pendingWallet?.address, route]);
 
   const handleGoBack = useCallback(() => {
     if (route === 'Signature') {
       disconnect(pendingWallet?.address);
     }
 
-    dispatch(goBack());
-  }, [disconnect, dispatch, pendingWallet?.address, route]);
+    goBack();
+  }, [disconnect, goBack, pendingWallet?.address, route]);
 
   const backButton = (
     <IconButton
@@ -103,7 +96,7 @@ export const Modal = () => {
       aria-label={t('icons.whatIsAWallet') as string}
       icon={QuestionMark}
       onClickEventName={eventNames.CONNECT_WALLET_HELP_BUTTON_CLICKED}
-      onClick={() => dispatch(navigate('WhatAreWallets'))}
+      onClick={() => navigate('WhatAreWallets')}
     />
   );
 

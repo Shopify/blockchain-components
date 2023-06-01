@@ -3,27 +3,16 @@ import {useCallback, useContext} from 'react';
 import {generateNonce, SiweMessage} from 'siwe';
 import {useNetwork, useSignMessage as useWagmiSignMessage} from 'wagmi';
 
-import {useAppDispatch, useAppSelector} from './useAppState';
-
 import {ConnectWalletContext} from '~/providers/ConnectWalletProvider';
-import {
-  closeModal,
-  navigate,
-  openModal,
-  setError,
-  setSigning,
-} from '~/slices/modalSlice';
-import {
-  setPendingConnector,
-  setPendingWallet,
-  validatePendingWallet,
-} from '~/slices/walletSlice';
+import {useStore} from '~/state';
 import {SignatureResponse, Wallet} from '~/types/wallet';
 import {ConnectWalletError} from '~/utils/error';
 
 export function useSignMessage() {
-  const dispatch = useAppDispatch();
-  const {open} = useAppSelector((state) => state.modal);
+  const [
+    {closeModal, navigate, open, openModal, setError, setSigning},
+    {setPendingConnector, setPendingWallet, validatePendingWallet},
+  ] = useStore((state) => [state.modal, state.wallet]);
   const {chains, requireSignature, statementGenerator} =
     useContext(ConnectWalletContext);
   const {chain} = useNetwork();
@@ -82,12 +71,12 @@ export function useSignMessage() {
         );
       }
 
-      dispatch(setSigning(true));
+      setSigning(true);
 
       // If the modal is not present, ensure that we open it.
       if (!open) {
-        dispatch(openModal());
-        dispatch(navigate('Signature'));
+        openModal();
+        navigate('Signature');
       }
 
       const {address, connectorId} = wallet;
@@ -117,14 +106,12 @@ export function useSignMessage() {
          * mismatched addresses) we will set the error state for the
          * signature modal and allow the user to try again.
          */
-        await dispatch(
-          validatePendingWallet({
-            address,
-            message: JSON.stringify(message),
-            nonce,
-            signature,
-          }),
-        );
+        validatePendingWallet({
+          address,
+          message: JSON.stringify(message),
+          nonce,
+          signature,
+        });
 
         /**
          * Close the modal using `resetModal`.
@@ -135,9 +122,9 @@ export function useSignMessage() {
          * resetModal here to ensure the wallet
          * is not disconnected.
          */
-        dispatch(setPendingConnector(undefined));
-        dispatch(setPendingWallet(undefined));
-        dispatch(closeModal());
+        setPendingConnector(undefined);
+        setPendingWallet(undefined);
+        closeModal();
 
         return {
           address,
@@ -151,13 +138,26 @@ export function useSignMessage() {
          * the signature modal. The user can attempt to sign the message
          * with the correct wallet again.
          */
-        dispatch(setError({message: error.message, name: error.name}));
-        dispatch(setSigning(false));
+        setError({message: error.message, name: error.name});
+        setSigning(false);
         // If the error was returned by the use sign message hook then return that.
-        throw error || new ConnectWalletError('Verification process failed.');
+        throw error || new ConnectWalletError('Verification process failed');
       }
     },
-    [dispatch, generateMessage, open, requireSignature, signMessageAsync],
+    [
+      closeModal,
+      generateMessage,
+      navigate,
+      open,
+      openModal,
+      requireSignature,
+      setError,
+      setPendingConnector,
+      setPendingWallet,
+      setSigning,
+      signMessageAsync,
+      validatePendingWallet,
+    ],
   );
 
   return {

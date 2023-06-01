@@ -4,7 +4,7 @@ import {ReactElement, useMemo} from 'react';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 
-import {useAppSelector} from '~/hooks';
+import {useStore} from '~/state';
 
 const APP_LOGO_SIZE = 88;
 const DEFAULT_QR_CODE_SIZE = 380;
@@ -29,7 +29,7 @@ interface Props {
 
 export function QRCode({uri}: Props) {
   const matrix = generateMatrix(uri);
-  const {pendingConnector} = useAppSelector((state) => state.wallet);
+  const {pendingConnector} = useStore((state) => state.wallet);
 
   const {length} = matrix;
 

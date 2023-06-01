@@ -4,33 +4,27 @@ import {Button, Spinner, Text} from 'shared';
 
 import {ConnectorIcon} from '../../ConnectorIcon';
 
-import {
-  useAppDispatch,
-  useAppSelector,
-  useDisconnect,
-  useSignMessage,
-  useTranslation,
-} from '~/hooks';
-import {closeModal, setError} from '~/slices/modalSlice';
+import {useDisconnect, useSignMessage, useTranslation} from '~/hooks';
+import {useStore} from '~/state';
 
 const SignatureScreen = () => {
-  const dispatch = useAppDispatch();
-  const {error, signing} = useAppSelector((state) => state.modal);
-  const {pendingWallet} = useAppSelector((state) => state.wallet);
+  const [{closeModal, error, setError, signing}, {pendingWallet}] = useStore(
+    (state) => [state.modal, state.wallet],
+  );
   const {disconnect} = useDisconnect();
   const {signMessage} = useSignMessage();
   const {t} = useTranslation('Screens');
 
   const handleSignMessage = useCallback(() => {
     if (!pendingWallet) {
-      dispatch(closeModal());
+      closeModal();
       disconnect();
       return;
     }
 
-    dispatch(setError());
+    setError();
     signMessage(pendingWallet);
-  }, [disconnect, dispatch, pendingWallet, signMessage]);
+  }, [closeModal, disconnect, pendingWallet, setError, signMessage]);
 
   const isCriticalError =
     error !== undefined && error.name !== 'UserRejectedRequestError';

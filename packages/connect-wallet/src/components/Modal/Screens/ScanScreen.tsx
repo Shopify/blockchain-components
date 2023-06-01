@@ -5,19 +5,15 @@ import {Button} from 'shared';
 
 import {QRCode, QRCodeSkeleton} from '../../QRCode';
 
-import {
-  useAppDispatch,
-  useAppSelector,
-  useConnect,
-  useConnectorData,
-  useTranslation,
-} from '~/hooks';
-import {closeModal} from '~/slices/modalSlice';
+import {useConnect, useConnectorData, useTranslation} from '~/hooks';
+import {useStore} from '~/state';
 import {cleanupConnection} from '~/utils/cleanupConnection';
 
 const ScanScreen = () => {
-  const dispatch = useAppDispatch();
-  const {pendingConnector} = useAppSelector((state) => state.wallet);
+  const [{closeModal}, {pendingConnector}] = useStore((state) => [
+    state.modal,
+    state.wallet,
+  ]);
   const {connect} = useConnect();
   const {connector, marketingSite, modalConnector, name, qrCodeSupported} =
     useConnectorData({
@@ -32,8 +28,8 @@ const ScanScreen = () => {
     }
 
     connect({connector: modalConnector});
-    dispatch(closeModal());
-  }, [connect, dispatch, modalConnector]);
+    closeModal();
+  }, [closeModal, connect, modalConnector]);
 
   const buttons = useMemo(() => {
     const hasGetProductButton = Boolean(marketingSite);

@@ -1,15 +1,24 @@
+import {act, renderHook} from '@testing-library/react';
 import {vi} from 'vitest';
 
-import {addWallet, setPendingWallet} from '~/slices/walletSlice';
-import {preloadedState, storeWithLogger as store} from '~/test/configureStore';
 import {ALTERNATE_WALLET, DEFAULT_WALLET} from '~/test/fixtures/wallet';
+import {useTestLoggerStore} from '~/test/store';
 
 const addedWalletState = {
-  ...preloadedState,
+  modal: {
+    connectionStatus: 'Connecting',
+    error: undefined,
+    history: [],
+    open: false,
+    route: 'Connect',
+    signing: false,
+  },
   wallet: {
-    ...preloadedState.wallet,
     activeWallet: DEFAULT_WALLET,
     connectedWallets: [DEFAULT_WALLET],
+    message: undefined,
+    pendingConnector: undefined,
+    pendingWallet: undefined,
   },
 };
 
@@ -41,14 +50,35 @@ const addedTwoWalletsState = {
 };
 
 describe('loggerMiddleware', () => {
+  const {result} = renderHook(() =>
+    useTestLoggerStore((state) => state.wallet),
+  );
+
   const spyLog = vi.spyOn(console, 'log');
+  const {addWallet, setPendingWallet} = result.current;
 
   it('With multiple actions being dispatched', () => {
     const steps = [
       {
         action: addWallet,
         payload: DEFAULT_WALLET,
-        expectedPrevState: preloadedState,
+        expectedPrevState: {
+          modal: {
+            connectionStatus: 'Connecting',
+            error: undefined,
+            history: [],
+            open: false,
+            route: 'Connect',
+            signing: false,
+          },
+          wallet: {
+            activeWallet: undefined,
+            connectedWallets: [],
+            message: undefined,
+            pendingConnector: undefined,
+            pendingWallet: undefined,
+          },
+        },
         expectedNextState: addedWalletState,
       },
       {
@@ -73,32 +103,44 @@ describe('loggerMiddleware', () => {
 
     steps.forEach(({action, payload, expectedNextState, expectedPrevState}) => {
       vi.clearAllMocks();
-      store.dispatch(action(payload as any));
+      const actionType = `wallet/${action.name.toString()}`;
+
+      act(() => action(payload as any));
 
       // Test the first message logged
       expect(spyLog.mock.calls[0][0]).toContain(
-        `@shopify/connect-wallet%c: ${action.type}`,
+        `@shopify/connect-wallet%c: ${actionType}`,
       );
 
       // Test the previous state
       expect(spyLog.mock.calls[1][0]).toContain('previous state:');
-      expect(spyLog.mock.calls[1][2]).toEqual(
-        expect.objectContaining(expectedPrevState),
+      const previousStateObject = spyLog.mock.calls[1][2];
+
+      expect(previousStateObject.modal).toEqual(
+        expect.objectContaining(expectedPrevState.modal),
+      );
+      expect(previousStateObject.wallet).toEqual(
+        expect.objectContaining(expectedPrevState.wallet),
       );
 
       // Test the action and payload
       expect(spyLog.mock.calls[2][0]).toContain('action:');
       expect(spyLog.mock.calls[2][2]).toEqual(
         expect.objectContaining({
-          type: action.type,
+          type: actionType,
           payload,
         }),
       );
 
       // Test the next state
       expect(spyLog.mock.calls[3][0]).toContain('next state:');
-      expect(spyLog.mock.calls[3][2]).toEqual(
-        expect.objectContaining(expectedNextState),
+      const nextStateObject = spyLog.mock.calls[3][2];
+
+      expect(nextStateObject.modal).toEqual(
+        expect.objectContaining(expectedNextState.modal),
+      );
+      expect(nextStateObject.wallet).toEqual(
+        expect.objectContaining(expectedNextState.wallet),
       );
     });
   });

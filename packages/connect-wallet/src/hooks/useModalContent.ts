@@ -1,12 +1,12 @@
-import {useAppSelector} from './useAppState';
 import {useTranslation} from './useTranslation';
 
+import {useStore} from '~/state';
 import {ConnectionState} from '~/types/connectionState';
 
 export const useModalScreenContent = (
   state: ConnectionState,
 ): {body: string; title: string} => {
-  const {pendingConnector} = useAppSelector((state) => state.wallet);
+  const {pendingConnector} = useStore((state) => state.wallet);
   const {t} = useTranslation('UseModalContent');
 
   const screenContent: Record<ConnectionState, {body: string; title: string}> =
