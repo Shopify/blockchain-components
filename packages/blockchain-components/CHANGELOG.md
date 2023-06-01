@@ -1,5 +1,11 @@
 # @shopify/blockchain-components
 
+## 1.0.1
+
+### Patch Changes
+
+- [#189](https://github.com/Shopify/blockchain-components/pull/189) [`e97ea85`](https://github.com/Shopify/blockchain-components/commit/e97ea85ed00311c7cea932beecfa8d7279346d61) Thanks [@QuintonC](https://github.com/QuintonC)! - This patch addresses an issue where the package was not setting the `NODE_ENV` variable during compile, resulting in unexpected behavior when utilizing the `process.env.NODE_ENV` value to add conditional functionality.
+
 ## 1.0.0
 
 ### Major Changes
