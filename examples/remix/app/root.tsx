@@ -12,7 +12,7 @@ import connectWalletStylesheet from '@shopify/connect-wallet/styles.css';
 import tokengateStylesheet from '@shopify/tokengate/styles.css';
 import {WagmiConfig} from 'wagmi';
 
-import {chains, client, connectors} from '~/connect-wallet-config';
+import {chains, config, connectors} from '~/connect-wallet-config';
 
 export const links: LinksFunction = () => [
   {
@@ -40,7 +40,7 @@ export default function App() {
         {typeof document === 'undefined' ? '__STYLES__' : null}
       </head>
       <body>
-        <WagmiConfig client={client}>
+        <WagmiConfig config={config}>
           <ConnectWalletProvider chains={chains} connectors={connectors}>
             <Outlet />
             <ScrollRestoration />

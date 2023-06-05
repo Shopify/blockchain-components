@@ -7,7 +7,7 @@ import {WagmiConfig} from 'wagmi';
 
 import './index.css';
 import App from './App';
-import {chains, client, connectors} from './connect-wallet-config';
+import {chains, config, connectors} from './connect-wallet-config';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <WagmiConfig client={client}>
+    <WagmiConfig config={config}>
       <ConnectWalletProvider chains={chains} connectors={connectors}>
         <App />
       </ConnectWalletProvider>
