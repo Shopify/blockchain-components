@@ -1,3 +1,4 @@
+import {ByteArray, Hex} from 'viem';
 import {Address} from 'wagmi';
 
 export interface ConnectedWallet {
@@ -37,7 +38,7 @@ export interface SignatureResponse {
   address: Address;
   message: string;
   nonce: string;
-  signature: string;
+  signature: Hex | ByteArray;
 }
 
 export interface Wallet extends ConnectedWallet {
@@ -50,7 +51,7 @@ export interface Wallet extends ConnectedWallet {
    * The signed message from the signature transaction. Will be
    * undefined in the event that the wallet has not yet signed the message.
    */
-  signature?: string;
+  signature?: Hex | ByteArray;
   /**
    * ISO datetime string in which the wallet was verified.
    */

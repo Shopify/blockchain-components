@@ -82,7 +82,6 @@
     "chalk": "^5.2.0",
     "concurrently": "^7.6.0",
     "eslint": "^8.27.0",
-    "ethers": "^5.7.2",
     "execa": "^7.1.1",
     "inquirer": "^9.1.5",
     "node-stdlib-browser": "^1.2.0",
@@ -98,12 +97,13 @@
     "tailwindcss": "^3.2.7",
     "turbo": "latest",
     "typescript": "^4.9.3",
+    "viem": "^0.3.16",
     "vite": "^4.3.9",
     "vite-plugin-node-polyfills": "^0.7.0",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.31.1",
     "vitest-fetch-mock": "^0.2.2",
-    "wagmi": "^0.10.4"
+    "wagmi": "^1.0.1"
   },
   "peerDependencies": {}
 }

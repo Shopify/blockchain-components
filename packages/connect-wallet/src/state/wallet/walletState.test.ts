@@ -289,27 +289,27 @@ describe('walletSlice', () => {
   });
 
   describe('validatePendingWallet', () => {
-    it('does not manipulate state when state.pendingWallet is undefined', () => {
+    it('does not manipulate state when state.pendingWallet is undefined', async () => {
       const initialState = getState();
 
-      expect(() =>
+      await expect(() =>
         validatePendingWallet({...DEFAULT_WALLET, ...VALID_SIGNATURE_RESPONSE}),
-      ).toThrow(
+      ).rejects.toThrow(
         new ConnectWalletError('There is not a wallet pending validation'),
       );
 
       expect(getState()).toStrictEqual(initialState);
     });
 
-    it('does not manipulate state and throws an error when the address is not verified via ethers verifyMessage util', () => {
+    it('does not manipulate state and throws an error when the address is not verified via viem verifyMessage util', async () => {
       setState({pendingWallet: DEFAULT_WALLET});
 
-      expect(() =>
+      await expect(() =>
         validatePendingWallet({
           ...DEFAULT_WALLET,
           ...INVALID_SIGNATURE_RESPONSE,
         }),
-      ).toThrow(
+      ).rejects.toThrow(
         new ConnectWalletError(
           'Address that signed message does not match the connected address',
         ),
@@ -323,10 +323,13 @@ describe('walletSlice', () => {
       );
     });
 
-    it('manipulates state when the address from verifyMessage matches the pendingWallet address', () => {
+    it('manipulates state when the address from verifyMessage matches the pendingWallet address', async () => {
       setState({pendingWallet: DEFAULT_WALLET});
 
-      validatePendingWallet({...DEFAULT_WALLET, ...VALID_SIGNATURE_RESPONSE});
+      await validatePendingWallet({
+        ...DEFAULT_WALLET,
+        ...VALID_SIGNATURE_RESPONSE,
+      });
 
       const {connectedWallets, pendingWallet} = getState();
 

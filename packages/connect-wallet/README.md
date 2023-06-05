@@ -47,7 +47,7 @@ const client = createClient({
   provider,
   webSocketProvider,
 });
-export {chains, client, connectors};
+export {chains, config, connectors};
 ```
 
 ### App provider setup
@@ -63,7 +63,7 @@ import {chains, client, connectors} from './connect-wallet-config'
 
 export function Index() {
   return (
-    <WagmiConfig client={client}>
+    <WagmiConfig config={config}>
       <ConnectWalletProvider chains={chains} connectors={connectors}>
         /* {...your app content here} */
       </ConnectWalletProvider>

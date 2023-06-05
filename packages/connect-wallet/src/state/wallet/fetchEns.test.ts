@@ -38,7 +38,6 @@ describe('fetchEns', () => {
   });
 
   it('does not update the active wallet with a displayName value when an ensName is not resolved', async () => {
-    // const mock = vi.fn().mockImplementationOnce()
     act(() => addWallet(DEFAULT_WALLET));
 
     expect(useTestStore.getState().wallet.activeWallet).toMatchObject(
@@ -49,7 +48,7 @@ describe('fetchEns', () => {
       await fetchEns({
         address: defaultAddress,
         chain: mainnet,
-        provider: mainnetPublicProvider,
+        client: mainnetPublicProvider,
       });
     });
 
@@ -74,7 +73,7 @@ describe('fetchEns', () => {
       await fetchEns({
         address: '0x486D582eed105cEf4e4Aa270C93b1e03Fe5B04F3',
         chain: mainnet,
-        provider: mainnetPublicProvider,
+        client: mainnetPublicProvider,
       });
     });
 

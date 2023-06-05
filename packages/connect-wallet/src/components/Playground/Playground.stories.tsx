@@ -1,5 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react';
-import {WagmiConfig, configureChains, createClient} from 'wagmi';
+import {WagmiConfig, configureChains, createConfig} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 import {publicProvider} from 'wagmi/providers/public';
 
@@ -15,21 +15,21 @@ interface TemplateProps {
 
 const Component = ({wallets, connectScreenHeader}: TemplateProps) => {
   const chains = wallets === 'Ethereum' ? [mainnet] : [];
-  const {provider, webSocketProvider} = configureChains(chains, [
+  const {publicClient, webSocketPublicClient} = configureChains(chains, [
     publicProvider(),
   ]);
 
   const {connectors, wagmiConnectors} = buildConnectors({chains});
 
-  const client = createClient({
+  const client = createConfig({
     autoConnect: true,
     connectors: wagmiConnectors,
-    provider,
-    webSocketProvider,
+    publicClient,
+    webSocketPublicClient,
   });
 
   return (
-    <WagmiConfig client={client}>
+    <WagmiConfig config={client}>
       <ConnectWalletProvider
         chains={chains}
         connectors={connectors}

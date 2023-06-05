@@ -1,6 +1,6 @@
 import {Chain, Connector as WagmiConnector} from 'wagmi';
 import {InjectedConnector} from 'wagmi/connectors/injected';
-import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
+import {WalletConnectLegacyConnector} from 'wagmi/connectors/walletConnectLegacy';
 
 export interface ConnectArgs {
   /** Chain ID to connect to */
@@ -46,7 +46,7 @@ export interface ConnectorInstance {
    * are unable to scan the QR Code and want to use the
    * WalletConnect modal instead.
    */
-  modalConnector?: WalletConnectConnector;
+  modalConnector?: WalletConnectLegacyConnector;
   /**
    * The assigned name of the connector.
    */
@@ -68,7 +68,7 @@ export type Connector = ConnectorBase & {
 };
 
 export type CustomConnector = ConnectorBase & {
-  connector: InjectedConnector | WalletConnectConnector;
+  connector: InjectedConnector | WalletConnectLegacyConnector;
 };
 
 export type SerializedConnector = Omit<

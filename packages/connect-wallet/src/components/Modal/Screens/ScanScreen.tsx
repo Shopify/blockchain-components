@@ -7,7 +7,6 @@ import {QRCode, QRCodeSkeleton} from '../../QRCode';
 
 import {useConnect, useConnectorData, useTranslation} from '~/hooks';
 import {useStore} from '~/state';
-import {cleanupConnection} from '~/utils/cleanupConnection';
 
 const ScanScreen = () => {
   const [{closeModal}, {pendingConnector}] = useStore((state) => [
@@ -32,11 +31,12 @@ const ScanScreen = () => {
   }, [closeModal, connect, modalConnector]);
 
   const buttons = useMemo(() => {
-    const hasGetProductButton = Boolean(marketingSite);
-    const hasWalletConnectButton = Boolean(
-      connector?.id === 'walletConnect' && modalConnector,
-    );
+    const isWalletConnect =
+      connector?.id === 'walletConnect' ||
+      connector?.id === 'walletConnectLegacy';
 
+    const hasGetProductButton = Boolean(marketingSite);
+    const hasWalletConnectButton = Boolean(isWalletConnect && modalConnector);
     const hasButtons = hasGetProductButton || hasWalletConnectButton;
 
     if (!hasButtons) {
@@ -138,7 +138,7 @@ const ScanScreen = () => {
           connect({connector});
         });
 
-        cleanupConnection(provider);
+        // cleanupConnection(provider);
       });
     } catch (error) {
       console.error(

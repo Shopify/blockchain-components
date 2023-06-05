@@ -57,7 +57,9 @@ const ConnectScreen = ({
 
       connect({connector: wagmiConnector});
 
-      const isWagmiWalletConnect = wagmiConnector.id === 'walletConnect';
+      const isWagmiWalletConnect =
+        wagmiConnector.id === 'walletConnect' ||
+        wagmiConnector.id === 'walletConnectLegacy';
       const isWalletConnect =
         connector.id === 'walletConnect' && isWagmiWalletConnect;
 

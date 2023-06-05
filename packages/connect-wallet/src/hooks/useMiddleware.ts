@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {Address, useAccount, useNetwork, useProvider} from 'wagmi';
+import {Address, useAccount, useNetwork, usePublicClient} from 'wagmi';
 
 import {useSignMessage} from './useSignMessage';
 
@@ -33,7 +33,7 @@ export const useMiddleware = ({
     },
   ] = useStore((state) => [state.modal, state.wallet]);
   const {chain} = useNetwork();
-  const provider = useProvider();
+  const publicClient = usePublicClient();
   const {signMessage} = useSignMessage();
 
   useAccount({
@@ -158,7 +158,11 @@ export const useMiddleware = ({
            */
           if (chain) {
             const {unsupported, ...rest} = chain;
-            fetchEns({address: wallet.address, chain: {...rest}, provider});
+            fetchEns({
+              address: wallet.address,
+              chain: {...rest},
+              client: publicClient,
+            });
           }
           /**
            * This will fetch the delegate-cash delegations for the wallet.
@@ -203,7 +207,7 @@ export const useMiddleware = ({
     enableDelegateCash,
     fetchEns,
     orderAttributionMode,
-    provider,
+    publicClient,
     reset,
     updateWallet,
   ]);

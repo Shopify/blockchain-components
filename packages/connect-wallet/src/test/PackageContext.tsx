@@ -16,7 +16,7 @@ export const PackageContext = ({
   ...props
 }: PropsWithChildren<PackageContextProps>) => {
   return (
-    <WagmiConfig client={client}>
+    <WagmiConfig config={client}>
       <ConnectWalletProvider {...props}>{children}</ConnectWalletProvider>
     </WagmiConfig>
   );
