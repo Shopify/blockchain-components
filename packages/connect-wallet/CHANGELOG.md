@@ -1,5 +1,25 @@
 # @shopify/connect-wallet
 
+## 1.3.0
+
+### Minor Changes
+
+- [#196](https://github.com/Shopify/blockchain-components/pull/196) [`9700f25`](https://github.com/Shopify/blockchain-components/commit/9700f255a842b3e38b21d47cfb610cde971a5db8) Thanks [@QuintonC](https://github.com/QuintonC)! - Removes usage of Redux and Redux Toolkit in favor of a non-contextual state management package.
+
+### Patch Changes
+
+- [#191](https://github.com/Shopify/blockchain-components/pull/191) [`4fd5ab4`](https://github.com/Shopify/blockchain-components/commit/4fd5ab434d99e65c1902789be77f1728a77ce8be) Thanks [@QuintonC](https://github.com/QuintonC)! - A bug was patched for the Popover component and its use of document.body which was causing errors in some frameworks.
+
+- [#193](https://github.com/Shopify/blockchain-components/pull/193) [`baeaf5f`](https://github.com/Shopify/blockchain-components/commit/baeaf5f39fa6f68bf9d09505d12097f89588f88a) Thanks [@QuintonC](https://github.com/QuintonC)! - Addresses a style collision with TailwindCSS preflight plugin where the background styles of buttons are removed.
+
+- [#190](https://github.com/Shopify/blockchain-components/pull/190) [`256b4df`](https://github.com/Shopify/blockchain-components/commit/256b4dfb0b221b167ba93589add3c7d48cb39e8a) Thanks [@QuintonC](https://github.com/QuintonC)! - Removed i18n context debug logging in non-development environments.
+
+- [#189](https://github.com/Shopify/blockchain-components/pull/189) [`e97ea85`](https://github.com/Shopify/blockchain-components/commit/e97ea85ed00311c7cea932beecfa8d7279346d61) Thanks [@QuintonC](https://github.com/QuintonC)! - This patch addresses an issue where the package was not setting the `NODE_ENV` variable during compile, resulting in unexpected behavior when utilizing the `process.env.NODE_ENV` value to add conditional functionality.
+
+- Updated dependencies [[`e97ea85`](https://github.com/Shopify/blockchain-components/commit/e97ea85ed00311c7cea932beecfa8d7279346d61)]:
+  - @shopify/blockchain-components@1.0.1
+  - @shopify/gate-context-client@1.0.1
+
 ## 1.2.1
 
 ### Patch Changes

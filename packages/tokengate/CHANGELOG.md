@@ -1,5 +1,26 @@
 # @shopify/tokengate
 
+## 1.1.0
+
+### Minor Changes
+
+- [#185](https://github.com/Shopify/blockchain-components/pull/185) [`7dddd29`](https://github.com/Shopify/blockchain-components/commit/7dddd29c8a22b89161f12c339f4f919a7e401929) Thanks [@QuintonC](https://github.com/QuintonC)! - This release adds support for providing custom dynamic values into the `discountCustomTitles` prop.
+
+  Using `{{value}}` will ensure that the discount value is entered into the custom title and formatted as expected.
+
+### Patch Changes
+
+- [#191](https://github.com/Shopify/blockchain-components/pull/191) [`4fd5ab4`](https://github.com/Shopify/blockchain-components/commit/4fd5ab434d99e65c1902789be77f1728a77ce8be) Thanks [@QuintonC](https://github.com/QuintonC)! - A bug was patched for the Popover component and its use of document.body which was causing errors in some frameworks.
+
+- [#193](https://github.com/Shopify/blockchain-components/pull/193) [`baeaf5f`](https://github.com/Shopify/blockchain-components/commit/baeaf5f39fa6f68bf9d09505d12097f89588f88a) Thanks [@QuintonC](https://github.com/QuintonC)! - Addresses a style collision with TailwindCSS preflight plugin where the background styles of buttons are removed.
+
+- [#190](https://github.com/Shopify/blockchain-components/pull/190) [`256b4df`](https://github.com/Shopify/blockchain-components/commit/256b4dfb0b221b167ba93589add3c7d48cb39e8a) Thanks [@QuintonC](https://github.com/QuintonC)! - Removed i18n context debug logging in non-development environments.
+
+- [#189](https://github.com/Shopify/blockchain-components/pull/189) [`e97ea85`](https://github.com/Shopify/blockchain-components/commit/e97ea85ed00311c7cea932beecfa8d7279346d61) Thanks [@QuintonC](https://github.com/QuintonC)! - This patch addresses an issue where the package was not setting the `NODE_ENV` variable during compile, resulting in unexpected behavior when utilizing the `process.env.NODE_ENV` value to add conditional functionality.
+
+- Updated dependencies [[`e97ea85`](https://github.com/Shopify/blockchain-components/commit/e97ea85ed00311c7cea932beecfa8d7279346d61)]:
+  - @shopify/blockchain-components@1.0.1
+
 ## 1.0.5
 
 ### Patch Changes

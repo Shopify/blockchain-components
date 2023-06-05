@@ -1,5 +1,12 @@
 # shared
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`e97ea85`](https://github.com/Shopify/blockchain-components/commit/e97ea85ed00311c7cea932beecfa8d7279346d61)]:
+  - @shopify/blockchain-components@1.0.1
+
 ## 0.0.2
 
 ### Patch Changes
