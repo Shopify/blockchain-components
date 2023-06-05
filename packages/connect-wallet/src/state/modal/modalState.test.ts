@@ -1,5 +1,7 @@
 import {act, renderHook} from '@testing-library/react';
 
+import {initialModalState} from './modalState';
+
 import {ModalStateDefintion} from '~/state/types';
 import {useTestStore} from '~/test/store';
 import {ConnectionState} from '~/types/connectionState';
@@ -32,6 +34,7 @@ describe('modalSlice', () => {
     goBack,
     navigate,
     openModal,
+    reset,
     setConnectionStatus,
     setError,
   } = result.current;
@@ -137,6 +140,20 @@ describe('modalSlice', () => {
     setState({open: false});
     openModal();
     expect(getState().open).toStrictEqual(true);
+  });
+
+  it('reset resets the state to the initial state', () => {
+    setState({...SIGNATURE_STATE});
+
+    const state = getState();
+    expect(state).toStrictEqual(expect.objectContaining(SIGNATURE_STATE));
+
+    act(() => reset());
+
+    const updatedState = getState();
+    expect(updatedState).toStrictEqual(
+      expect.objectContaining(initialModalState),
+    );
   });
 
   it('setConnectionStatus updates connectionStatus to the provided value', () => {
