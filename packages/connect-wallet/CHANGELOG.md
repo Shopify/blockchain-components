@@ -1,5 +1,11 @@
 # @shopify/connect-wallet
 
+## 1.3.1
+
+### Patch Changes
+
+- [#199](https://github.com/Shopify/blockchain-components/pull/199) [`74ec3db`](https://github.com/Shopify/blockchain-components/commit/74ec3dba105bae93e58d9091df61fa10742801d0) Thanks [@QuintonC](https://github.com/QuintonC)! - Addressed a minor bug where after connecting, if an attempt to reconnect without refreshing occurs the modal would show a connecting state rather than a clean state.
+
 ## 1.3.0
 
 ### Minor Changes
