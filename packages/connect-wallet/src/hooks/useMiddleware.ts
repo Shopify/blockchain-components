@@ -20,15 +20,18 @@ export const useMiddleware = ({
   orderAttributionMode,
   requireSignature,
 }: UseMiddlewareProps) => {
-  const {
-    addWallet,
-    connectedWallets,
-    fetchEns,
-    pendingConnector,
-    setActiveWallet,
-    setPendingWallet,
-    updateWallet,
-  } = useStore((state) => state.wallet);
+  const [
+    {reset},
+    {
+      addWallet,
+      connectedWallets,
+      fetchEns,
+      pendingConnector,
+      setActiveWallet,
+      setPendingWallet,
+      updateWallet,
+    },
+  ] = useStore((state) => [state.modal, state.wallet]);
   const {chain} = useNetwork();
   const provider = useProvider();
   const {signMessage} = useSignMessage();
@@ -128,6 +131,14 @@ export const useMiddleware = ({
       (state) => state.wallet.activeWallet,
       (wallet, prevWallet) => {
         if (wallet !== undefined && prevWallet === undefined) {
+          /**
+           * Clean up the modal state as it is no longer correct.
+           *
+           * This is probably the best place to do this as this effect runs
+           * regardless of whether signatures are required or not.
+           */
+          reset();
+
           const attributeWithWalletData = (vaults?: Address[]) => {
             // Attribute the order with vaults (if present).
             attributeOrder({
@@ -193,6 +204,7 @@ export const useMiddleware = ({
     fetchEns,
     orderAttributionMode,
     provider,
+    reset,
     updateWallet,
   ]);
 };

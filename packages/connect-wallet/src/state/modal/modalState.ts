@@ -2,7 +2,7 @@ import type {ModalStateDefintion, ModalStateType, StateSlice} from '../types';
 
 import {ModalRoute} from '~/types/modal';
 
-const initialModalState: ModalStateDefintion = {
+export const initialModalState: ModalStateDefintion = {
   connectionStatus: 'Connecting',
   error: undefined,
   history: [],
@@ -86,6 +86,19 @@ export const createModalState: StateSlice<ModalStateType> = (set) => ({
       false,
       {
         type: 'modal/openModal',
+      },
+    ),
+  reset: () =>
+    set(
+      (state) => {
+        state.modal = {
+          ...state.modal,
+          ...initialModalState,
+        };
+      },
+      false,
+      {
+        type: 'modal/reset',
       },
     ),
   setConnectionStatus: (payload) =>
