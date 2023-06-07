@@ -4,9 +4,11 @@ import {verifyMessage} from 'viem';
 import {SignatureResponse} from '~/types/wallet';
 import {ConnectWalletError} from '~/utils/error';
 
-// We cannot utilize SIWE's validate or verify methods because they
-// require .decode for a class that we aren't able to polyfill in
-// vite environments.
+/**
+ * We cannot utilize SIWE's validate or verify methods because they
+ * require .decode for a class that we aren't able to polyfill in
+ * vite environments.
+ */
 export async function validatePendingWallet({
   address,
   message,

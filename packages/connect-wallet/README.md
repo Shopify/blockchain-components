@@ -22,31 +22,32 @@ Create a file in your project titled `connect-wallet-config.ts` at the root of y
 
 ```ts
 import {buildConnectors} from '@shopify/connect-wallet';
-import {configureChains, createClient} from 'wagmi';
-import {mainnet} from 'wagmi/chains';
-/**
- * It is strongly recommended to make use of `alchemyProvider`
- * or `infuraProvider` to reduce the risk of your
- * storefront being rate limited.
- */
+import {configureChains, createConfig, mainnet} from 'wagmi';
 // import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {publicProvider} from 'wagmi/providers/public';
-const {chains, provider, webSocketProvider} = configureChains(
+
+const {chains, publicClient, webSocketPublicClient} = configureChains(
   [mainnet],
   [
+    /**
+     * It is strongly recommended to make use of `alchemyProvider`
+     * or `infuraProvider` to reduce the risk of your
+     * storefront being rate limited.
+     */
     // alchemyProvider({apiKey: 'INSERT API KEY HERE'}),
     publicProvider(),
   ],
 );
-const {connectors, wagmiConnectors} = buildConnectors({
-  chains,
-});
-const client = createClient({
+
+const {connectors, wagmiConnectors} = buildConnectors({chains});
+
+const config = createConfig({
   autoConnect: true,
   connectors: wagmiConnectors,
-  provider,
-  webSocketProvider,
+  publicClient,
+  webSocketPublicClient,
 });
+
 export {chains, config, connectors};
 ```
 
@@ -59,7 +60,7 @@ import {ConnectWalletProvider} from '@shopify/connect-wallet';
 import '@shopify/connect-wallet/styles.css';
 import {WagmiConfig} from 'wagmi';
 
-import {chains, client, connectors} from './connect-wallet-config'
+import {chains, config, connectors} from './wagmi';
 
 export function Index() {
   return (

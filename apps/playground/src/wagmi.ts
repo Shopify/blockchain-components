@@ -1,5 +1,4 @@
 import {buildConnectors} from '@shopify/connect-wallet';
-
 import {configureChains, createConfig, mainnet} from 'wagmi';
 import {publicProvider} from 'wagmi/providers/public';
 

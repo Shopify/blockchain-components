@@ -6,8 +6,8 @@ import {WagmiConfig} from 'wagmi';
 import '@shopify/connect-wallet/styles.css';
 import '@shopify/tokengate/styles.css';
 
-import {AnalyticsListener} from './components/AnalyticsListener';
 import App from './App';
+import {AnalyticsListener} from './components/AnalyticsListener';
 import './index.css';
 import {eventBus} from './utils/eventBus/eventBus';
 import {chains, config, connectors} from './wagmi';

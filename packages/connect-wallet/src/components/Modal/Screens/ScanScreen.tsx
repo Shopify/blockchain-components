@@ -137,8 +137,6 @@ const ScanScreen = () => {
         provider.connector?.on('disconnect', () => {
           connect({connector});
         });
-
-        // cleanupConnection(provider);
       });
     } catch (error) {
       console.error(

@@ -100,8 +100,6 @@ export function useWalletConnectDeeplink() {
               browser === Browser.Safari ? '_blank' : '_self',
             );
           }
-
-          // cleanupConnection(provider);
         });
       } catch (error) {
         console.error(

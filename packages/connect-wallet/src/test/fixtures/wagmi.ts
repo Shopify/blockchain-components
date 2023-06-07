@@ -27,12 +27,12 @@ export const createWagmiFixture = ({
     excludedConnectors,
   });
 
-  const client = createConfig({
+  const config = createConfig({
     autoConnect: true,
     connectors: wagmiConnectors,
     publicClient,
     webSocketPublicClient,
   });
 
-  return {chains, client, connectors};
+  return {chains, config, connectors};
 };

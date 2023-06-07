@@ -10,13 +10,13 @@ import {renderHookWithContext} from '~/test/utils';
 
 describe('useConnectorData', () => {
   it('returns custom connector id', () => {
-    const {client} = createWagmiFixture({customConnectors: [CUSTOM_CONNECTOR]});
+    const {config} = createWagmiFixture({customConnectors: [CUSTOM_CONNECTOR]});
 
     const {result} = renderHookWithContext(
       () => useConnectorData({id: CUSTOM_CONNECTOR.id}),
       {
         chains: CHAINS,
-        client,
+        config,
         connectors: [CUSTOM_CONNECTOR],
       },
     );
@@ -25,12 +25,12 @@ describe('useConnectorData', () => {
   });
 
   it('returns correct data based on id for default connectors', () => {
-    const {client, connectors} = createWagmiFixture({});
+    const {config, connectors} = createWagmiFixture({});
 
     DEFAULT_CONNECTOR_COLLECTION.forEach((id) => {
       const {result} = renderHookWithContext(() => useConnectorData({id}), {
         chains: CHAINS,
-        client,
+        config,
         connectors,
       });
 
