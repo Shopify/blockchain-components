@@ -2,14 +2,16 @@
 
 [![npm version](https://img.shields.io/npm/v/@shopify/connect-wallet.svg?label=@shopify/connect-wallet)](https://www.npmjs.com/package/@shopify/connect-wallet) [![CI](https://github.com/Shopify/blockchain-components/actions/workflows/ci.yml/badge.svg)](https://github.com/Shopify/blockchain-components/actions?query=branch%3Amain) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](../../.github/contributing.md)
 
-The `@shopify/connect-wallet` package provides a standard way of connecting wallets and signing messages on Shopify storefronts. For more in-depth information, [read the complete documentation](https://shopify.dev/api/blockchain/components/connect-wallet).
+The `@shopify/connect-wallet` package provides an opinionated and delightful way of connecting wallets and signing messages. The provided package and functionality is suitable for use on and off of Shopify.
+
+For more in-depth information and API references, [read the complete documentation](https://shopify.dev/api/blockchain/components/connect-wallet).
 
 ## Installation
 
-Install the `shopify/connect-wallet` package and its wagmi + ethers peer dependencies.
+Install the `@shopify/connect-wallet` package and its wagmi + viem peer dependencies.
 
 ```bash
-yarn add @shopify/connect-wallet ethers wagmi
+yarn add @shopify/connect-wallet viem wagmi
 ```
 
 ## Documentation
@@ -30,9 +32,8 @@ const {chains, publicClient, webSocketPublicClient} = configureChains(
   [mainnet],
   [
     /**
-     * It is strongly recommended to make use of `alchemyProvider`
-     * or `infuraProvider` to reduce the risk of your
-     * storefront being rate limited.
+     * We recommend using `alchemyProvider or `infuraProvider`
+     * to reduce the risk of your application being rate limited.
      */
     // alchemyProvider({apiKey: 'INSERT API KEY HERE'}),
     publicProvider(),
@@ -93,9 +94,9 @@ export const Header = () => {
 }
 ```
 
-For further detailed documentation, [visit shopify.dev](https://shopify.dev/docs/api/blockchain/components/connect-wallet).
+## Examples
 
-For examples of component usage, see the [examples folder](https://github.com/Shopify/blockchain-components/tree/main/examples).
+For examples of component usage in various frameworks, see the [examples folder](https://github.com/Shopify/blockchain-components/tree/main/examples).
 
 ## Contributing
 
