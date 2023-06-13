@@ -1,5 +1,11 @@
 # @shopify/connect-wallet
 
+## 2.0.0
+
+### Major Changes
+
+- [#176](https://github.com/Shopify/blockchain-components/pull/176) [`cc7d7fc`](https://github.com/Shopify/blockchain-components/commit/cc7d7fc06e871f9e26baa5edd0c160ca51716939) Thanks [@QuintonC](https://github.com/QuintonC)! - This update includes a dependency upgrade from wagmi@0.10.4 to wagmi@1. As part of this upgrade, we no longer make use of the ethers package, but instead make use of [viem](https://viem.sh).
+
 ## 1.3.1
 
 ### Patch Changes
