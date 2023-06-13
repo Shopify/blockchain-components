@@ -150,7 +150,7 @@ export const createWalletState: StateSlice<WalletStateType> = (set, get) => ({
         payload,
       },
     ),
-  validatePendingWallet: (payload) => {
+  validatePendingWallet: async (payload) => {
     try {
       /**
        * Ensure that we have a pending wallet in state in which we can gather
@@ -166,7 +166,7 @@ export const createWalletState: StateSlice<WalletStateType> = (set, get) => ({
 
       // We know if a wallet is valid or not based on whether or not
       // an error was thrown.
-      validatePendingWallet(payload);
+      await validatePendingWallet(payload);
 
       const {message, signature} = payload;
 

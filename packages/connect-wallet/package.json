@@ -45,11 +45,10 @@
   "dependencies": {
     "@shopify/blockchain-components": "*",
     "@shopify/gate-context-client": "*",
-    "@storybook/react": "^7.0.0-beta.52",
     "delegatecash": "^0.4.1",
     "framer-motion": "^8.5.0",
     "i18next": "^22.4.9",
-    "immer": "^10.0.2",
+    "immer": "9.0.7",
     "qrcode": "^1.5.1",
     "react-i18next": "^12.1.4",
     "react-use-measure": "^2.1.1",
@@ -58,12 +57,13 @@
     "zustand": "^4.3.8"
   },
   "peerDependencies": {
-    "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "wagmi": "^0.10.4"
+    "viem": "^1.0.0",
+    "wagmi": "^1.0.0"
   },
   "devDependencies": {
+    "@storybook/react": "^7.0.0-beta.52",
     "@testing-library/dom": "^9.3.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.4.0",

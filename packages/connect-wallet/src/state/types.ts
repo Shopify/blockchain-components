@@ -1,16 +1,16 @@
+import {PublicClient} from 'viem';
 import {Address, Chain} from 'wagmi';
 import {StateCreator} from 'zustand';
 
 import type {ConnectionState} from '~/types/connectionState';
 import {SerializedConnector} from '~/types/connector';
 import type {ModalRoute, SerializedErrorContent} from '~/types/modal';
-import {EthereumProviderType} from '~/types/provider';
 import {SignatureResponse, Wallet} from '~/types/wallet';
 
 export interface FetchEnsProps {
   address: Address;
   chain: Chain;
-  provider: EthereumProviderType;
+  client: PublicClient;
 }
 
 export interface ModalStateDefintion {
@@ -49,7 +49,7 @@ export interface WalletStateActions {
   setPendingWallet: (wallet: Wallet | undefined) => void;
   removeWallet: (wallet: Wallet) => void;
   updateWallet: (wallet: Wallet) => void;
-  validatePendingWallet: (response: SignatureResponse) => void;
+  validatePendingWallet: (response: SignatureResponse) => Promise<void>;
 }
 
 export type ModalStateType = ModalStateActions & ModalStateDefintion;

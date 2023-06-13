@@ -6,11 +6,11 @@ import {WagmiConfig} from 'wagmi';
 import '@shopify/connect-wallet/styles.css';
 import '@shopify/tokengate/styles.css';
 
-import {AnalyticsListener} from './components/AnalyticsListener';
 import App from './App';
+import {AnalyticsListener} from './components/AnalyticsListener';
 import './index.css';
 import {eventBus} from './utils/eventBus/eventBus';
-import {chains, connectors, client} from './wagmi';
+import {chains, config, connectors} from './wagmi';
 
 window.playground = {
   ThemeAppExtension: class ThemeAppExtension {
@@ -42,7 +42,7 @@ window.playground = {
       return (
         <React.StrictMode>
           <AnalyticsListener />
-          <WagmiConfig client={client}>
+          <WagmiConfig config={config}>
             <ConnectWalletProvider
               chains={chains}
               connectors={connectors}

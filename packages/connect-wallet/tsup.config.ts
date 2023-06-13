@@ -3,7 +3,7 @@ import {defineConfig, Options} from 'tsup';
 
 const BASE_CONFIG: Options = {
   entry: ['./src/index.ts'],
-  external: ['ethers', 'react', 'wagmi'],
+  external: ['react', 'viem', 'wagmi'],
   format: ['esm'],
   platform: 'browser',
   sourcemap: true,

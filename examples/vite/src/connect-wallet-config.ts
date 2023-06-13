@@ -1,10 +1,10 @@
 import {buildConnectors} from '@shopify/connect-wallet';
-import {configureChains, createClient} from 'wagmi';
+import {configureChains, createConfig} from 'wagmi';
 import {mainnet} from 'wagmi/chains';
 // import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {publicProvider} from 'wagmi/providers/public';
 
-const {chains, provider, webSocketProvider} = configureChains(
+const {chains, publicClient, webSocketPublicClient} = configureChains(
   [mainnet],
   [
     // alchemyProvider({apiKey: 'INSERT API KEY HERE'}),
@@ -14,11 +14,11 @@ const {chains, provider, webSocketProvider} = configureChains(
 
 const {connectors, wagmiConnectors} = buildConnectors({chains});
 
-const client = createClient({
+const config = createConfig({
   autoConnect: true,
   connectors: wagmiConnectors,
-  provider,
-  webSocketProvider,
+  publicClient,
+  webSocketPublicClient,
 });
 
-export {chains, client, connectors};
+export {chains, config, connectors};

@@ -2,7 +2,6 @@ import {useCallback} from 'react';
 
 import {Browser} from '~/types/browser';
 import {Connector} from '~/types/connector';
-import {cleanupConnection} from '~/utils/cleanupConnection';
 import {getBrowserInfo} from '~/utils/getBrowser';
 
 interface ItemProps {
@@ -101,8 +100,6 @@ export function useWalletConnectDeeplink() {
               browser === Browser.Safari ? '_blank' : '_self',
             );
           }
-
-          cleanupConnection(provider);
         });
       } catch (error) {
         console.error(

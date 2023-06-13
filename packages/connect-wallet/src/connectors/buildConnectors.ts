@@ -85,7 +85,9 @@ export const buildConnectors = ({
 
       const createdConnector = createConnector();
 
-      const isWalletConnect = createdConnector.id === 'walletConnect';
+      const isWalletConnect =
+        createdConnector.id === 'walletConnect' ||
+        createdConnector.id === 'walletConnectLegacy';
 
       if (isWalletConnect) {
         /**
