@@ -1,5 +1,7 @@
+import {Fragment} from 'react';
 import {formatWalletAddress} from 'shared';
 
+import {TokenBase} from '../TokenBase';
 import {TokenList} from '../TokenList';
 
 import {TokengateRequirementsSeparator} from './TokengateRequirementsSeparator';
@@ -23,18 +25,35 @@ export const TokengateRequirements = ({
 }: TokengateRequirementsProps) => {
   const {t} = useTranslation('TokengateRequirements');
 
-  const tokens = requirements?.conditions.map((condition) => {
+  const separator = (
+    <TokengateRequirementsSeparator logic={requirements?.logic} />
+  );
+
+  const tokens = requirements?.conditions.map((condition, index) => {
+    const isLastCondition = index === requirements.conditions.length - 1;
+    const separatorElement = isLastCondition ? null : separator;
+
     const unlockingToken = unlockingTokens?.find(
       ({contractAddress}) => contractAddress === condition.contractAddress,
     );
 
     if (unlockingToken) {
-      return {
-        imageUrl: unlockingToken.imageUrl,
-        round: true,
-        subtitle: unlockingToken.collectionName,
-        title: unlockingToken.name,
-      };
+      const {collectionName, imageUrl, name} = unlockingToken;
+
+      return (
+        <Fragment key={condition.contractAddress}>
+          <TokenBase
+            image={{
+              alt: name,
+              url: imageUrl,
+            }}
+            round
+            subtitle={collectionName}
+            title={name}
+          />
+          {separatorElement}
+        </Fragment>
+      );
     }
 
     const {contractAddress, description, imageUrl, links, name} = condition;
@@ -43,21 +62,31 @@ export const TokengateRequirements = ({
       ? `contract ${formatWalletAddress(contractAddress)}`
       : '';
 
-    return {
-      badge: hasMissingTokens ? <CrossBadge /> : null,
-      imageUrl,
-      links,
-      round: true,
-      subtitle: description || t('conditionDescription.any'),
-      title: name || alternateTitle,
-    };
+    const badge = hasMissingTokens ? <CrossBadge /> : null;
+    const subtitle = description || t('conditionDescription.any');
+    const title = name || alternateTitle;
+
+    return (
+      <Fragment key={title}>
+        <TokenBase
+          badge={badge}
+          image={{
+            alt: title,
+            url: imageUrl,
+          }}
+          links={links}
+          round
+          subtitle={subtitle}
+          title={title}
+        />
+        {separatorElement}
+      </Fragment>
+    );
   });
 
   return (
-    <TokenList
-      isLoading={isLoading}
-      tokens={tokens}
-      separator={<TokengateRequirementsSeparator logic={requirements?.logic} />}
-    />
+    <TokenList isLoading={isLoading} separator>
+      {tokens}
+    </TokenList>
   );
 };
