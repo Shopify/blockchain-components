@@ -1,3 +1,4 @@
+import {TokenBase} from '../TokenBase';
 import {TokenList} from '../TokenList';
 
 import {OrderLimit} from './OrderLimit';
@@ -14,20 +15,25 @@ export const UnlockingTokens = ({
   redemptionLimit,
 }: UnlockingTokensProps) => {
   const tokens = unlockingTokens?.map(
-    ({collectionName, consumedRedemptionLimit, imageUrl, name}) => ({
-      title: name,
-      subtitle: collectionName,
-      imageUrl,
-      consumedOrderLimit: consumedRedemptionLimit,
-      totalOrderLimit: redemptionLimit?.total,
-      rightContent: (
-        <OrderLimit
-          consumedOrderLimit={consumedRedemptionLimit}
-          limitPerToken={redemptionLimit?.perToken}
-        />
-      ),
-    }),
+    ({collectionName, consumedRedemptionLimit, imageUrl, name}) => (
+      <TokenBase
+        image={{
+          alt: name,
+          url: imageUrl,
+        }}
+        key={imageUrl}
+        rightContent={
+          <OrderLimit
+            consumedOrderLimit={consumedRedemptionLimit}
+            limitPerToken={redemptionLimit?.perToken}
+          />
+        }
+        round={false}
+        subtitle={collectionName}
+        title={name}
+      />
+    ),
   );
 
-  return <TokenList tokens={tokens} />;
+  return <TokenList>{tokens}</TokenList>;
 };
