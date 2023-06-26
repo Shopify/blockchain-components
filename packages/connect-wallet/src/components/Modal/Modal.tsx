@@ -38,7 +38,7 @@ import {ModalRoute} from '~/types/modal';
 
 export const Modal = () => {
   const [
-    {closeModal, goBack, navigate, open, route},
+    {goBack, navigate, open, reset, route},
     {pendingConnector, pendingWallet},
   ] = useStore((state) => [state.modal, state.wallet]);
   const {
@@ -60,9 +60,13 @@ export const Modal = () => {
 
   useEffect(() => {
     if (escPress && open) {
-      closeModal();
+      if (route === 'Signature') {
+        disconnect(pendingWallet?.address);
+      }
+
+      reset();
     }
-  }, [closeModal, escPress, open]);
+  }, [disconnect, escPress, open, pendingWallet?.address, reset, route]);
 
   const handleCloseModal = useCallback(() => {
     if (!open) return;
@@ -71,8 +75,8 @@ export const Modal = () => {
       disconnect(pendingWallet?.address);
     }
 
-    closeModal();
-  }, [closeModal, disconnect, open, pendingWallet?.address, route]);
+    reset();
+  }, [disconnect, open, pendingWallet?.address, reset, route]);
 
   const handleGoBack = useCallback(() => {
     if (route === 'Signature') {
