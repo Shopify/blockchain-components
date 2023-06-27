@@ -3,10 +3,7 @@ const {nodePolyfills} = require('vite-plugin-node-polyfills');
 const viteTsconfigPaths = require('vite-tsconfig-paths').default;
 
 module.exports = {
-  stories: [
-    '../packages/**/*.mdx',
-    '../packages/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
+  stories: ['../packages/**/*.stories.tsx'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
