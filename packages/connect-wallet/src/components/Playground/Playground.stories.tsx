@@ -70,11 +70,13 @@ const PlaygroundStory: Meta<TemplateProps> = {
 
 type Story = StoryObj<TemplateProps>;
 
+const WALLET_CONNECT_PROJECT_ID = import.meta.env
+  .STORYBOOK_WALLET_CONNECT_PROJECT_ID;
+
 export const Playground: Story = {
   args: {
     connectScreenHeader: 'Connect Wallet',
-    // eslint-disable-next-line no-process-env
-    walletConnectProjectId: process.env.STORYBOOK_WALLET_CONNECT_PROJECT_ID,
+    walletConnectProjectId: WALLET_CONNECT_PROJECT_ID,
     wallets: 'Ethereum',
   },
   argTypes: {

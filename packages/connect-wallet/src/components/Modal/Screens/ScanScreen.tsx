@@ -121,9 +121,15 @@ const ScanScreen = () => {
 
         const provider = await connector.getProvider();
 
-        setQRCodeURI(
-          connector.id === 'coinbaseWallet' ? provider.qrUrl : provider.uri,
-        );
+        if (connector.id === 'coinbaseWallet') {
+          setQRCodeURI(provider.qrUrl);
+        } else {
+          const uri = await new Promise<string>((resolve) =>
+            provider.once('display_uri', resolve),
+          );
+
+          setQRCodeURI(uri);
+        }
 
         /**
          * This will ensure that we create a new connection instance
