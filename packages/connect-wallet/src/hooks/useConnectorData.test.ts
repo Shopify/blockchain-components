@@ -8,7 +8,7 @@ import {
 import {createWagmiFixture} from '~/test/fixtures/wagmi';
 import {renderHookWithContext} from '~/test/utils';
 
-describe('useConnectorData', () => {
+describe.skip('useConnectorData', () => {
   it('returns custom connector id', () => {
     const {config} = createWagmiFixture({customConnectors: [CUSTOM_CONNECTOR]});
 

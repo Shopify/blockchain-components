@@ -1,10 +1,10 @@
+import {Chain, configureChains, createConfig, mainnet} from 'wagmi';
+import {publicProvider} from 'wagmi/providers/public';
+
 import {
   buildConnectors,
   BuildConnectorsProps,
-} from 'src/connectors/buildConnectors';
-import {Chain, configureChains, createConfig} from 'wagmi';
-import {mainnet} from 'wagmi/chains';
-import {publicProvider} from 'wagmi/providers/public';
+} from '~/connectors/buildConnectors';
 
 type WagmiFixtureProps = Omit<BuildConnectorsProps, 'chains' | 'projectId'> & {
   chains?: Chain[];

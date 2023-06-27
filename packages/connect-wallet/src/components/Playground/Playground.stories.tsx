@@ -73,7 +73,8 @@ type Story = StoryObj<TemplateProps>;
 export const Playground: Story = {
   args: {
     connectScreenHeader: 'Connect Wallet',
-    walletConnectProjectId: import.meta.env.STORYBOOK_WALLET_CONNECT_PROJECT_ID,
+    // eslint-disable-next-line no-process-env
+    walletConnectProjectId: process.env.STORYBOOK_WALLET_CONNECT_PROJECT_ID,
     wallets: 'Ethereum',
   },
   argTypes: {
@@ -81,7 +82,6 @@ export const Playground: Story = {
       table: {
         disable: true,
       },
-      // disable: true,
     },
     wallets: {
       control: 'select',
