@@ -1,5 +1,11 @@
 # @shopify/tokengate
 
+## 1.1.1
+
+### Patch Changes
+
+- [#203](https://github.com/Shopify/blockchain-components/pull/203) [`7b16197`](https://github.com/Shopify/blockchain-components/commit/7b1619732dc0d2ce21fca234c311811127fcb675) Thanks [@QuintonC](https://github.com/QuintonC)! - Addresses a minor bug with a lack of unique keys on mapped elements
+
 ## 1.1.0
 
 ### Minor Changes
