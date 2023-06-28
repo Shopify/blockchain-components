@@ -24,6 +24,7 @@ out
 # misc
 .DS_Store
 .cache-loader
+.env
 .env.local
 .env.development.local
 .env.test.local

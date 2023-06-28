@@ -5,10 +5,9 @@ export {ConnectButton} from './components/ConnectButton/ConnectButton';
 export {ConnectorIcon} from './components/ConnectorIcon/ConnectorIcon';
 
 /**
- * Constants
+ * Connectors
  */
 export {buildConnectors} from './connectors/buildConnectors';
-export {getDefaultConnectors} from './connectors/getDefaultConnectors';
 
 /**
  * Hooks

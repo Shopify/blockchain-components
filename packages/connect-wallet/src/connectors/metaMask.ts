@@ -6,14 +6,17 @@ import {buildWalletConnectConnector} from './buildWalletConnectConnector';
 import {ConnectorInstance, ConnectorProps} from '~/types/connector';
 import {isInstalled} from '~/utils/isInstalled';
 
-export const MetaMask = ({chains}: ConnectorProps): ConnectorInstance => {
+export const MetaMask = ({
+  chains,
+  projectId,
+}: ConnectorProps): ConnectorInstance => {
   const mmInstalled = isInstalled('MetaMask');
 
   return {
     createConnector: () => {
       const connector = mmInstalled
         ? new MetaMaskConnector({chains})
-        : buildWalletConnectConnector({chains});
+        : buildWalletConnectConnector({chains, projectId});
 
       return connector;
     },

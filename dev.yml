@@ -2,5 +2,5 @@ name: blockchain-components
 
 up:
   - node:
-      version: v16.15.1
+      version: v16.20.1
       yarn: 1.22.17

@@ -31,10 +31,7 @@ const ScanScreen = () => {
   }, [closeModal, connect, modalConnector]);
 
   const buttons = useMemo(() => {
-    const isWalletConnect =
-      connector?.id === 'walletConnect' ||
-      connector?.id === 'walletConnectLegacy';
-
+    const isWalletConnect = connector?.id === 'walletConnect';
     const hasGetProductButton = Boolean(marketingSite);
     const hasWalletConnectButton = Boolean(isWalletConnect && modalConnector);
     const hasButtons = hasGetProductButton || hasWalletConnectButton;
@@ -124,11 +121,15 @@ const ScanScreen = () => {
 
         const provider = await connector.getProvider();
 
-        setQRCodeURI(
-          connector.id === 'coinbaseWallet'
-            ? provider.qrUrl
-            : provider.connector.uri,
-        );
+        if (connector.id === 'coinbaseWallet') {
+          setQRCodeURI(provider.qrUrl);
+        } else {
+          const uri = await new Promise<string>((resolve) =>
+            provider.once('display_uri', resolve),
+          );
+
+          setQRCodeURI(uri);
+        }
 
         /**
          * This will ensure that we create a new connection instance

@@ -18,39 +18,42 @@ yarn add @shopify/connect-wallet viem wagmi
 
 ### Client configuration
 
-We recommend creating a new file at the root of your app.
+1. To get started, you'll need to retrieve a Project ID from [WalletConnect](https://walletconnect.com). Find your Project ID [here](https://cloud.walletconnect.com/sign-in).
+2. Begin by creating a new file at the root of your app named `connect-wallet-config.ts`.
+3. Paste the following code into your newly created file:
 
-Create a file in your project titled `connect-wallet-config.ts` at the root of your app with the following code. For more information, refer to [wagmi documentation](https://wagmi.sh).
+    ```ts
+    import {buildConnectors} from '@shopify/connect-wallet';
+    import {configureChains, createConfig, mainnet} from 'wagmi';
+    // import {alchemyProvider} from 'wagmi/providers/alchemy';
+    import {publicProvider} from 'wagmi/providers/public';
 
-```ts
-import {buildConnectors} from '@shopify/connect-wallet';
-import {configureChains, createConfig, mainnet} from 'wagmi';
-// import {alchemyProvider} from 'wagmi/providers/alchemy';
-import {publicProvider} from 'wagmi/providers/public';
+    const {chains, publicClient, webSocketPublicClient} = configureChains(
+      [mainnet],
+      [
+        /**
+         * We recommend using `alchemyProvider or `infuraProvider`
+        * to reduce the risk of your application being rate limited.
+        */
+        // alchemyProvider({apiKey: 'INSERT API KEY HERE'}),
+        publicProvider(),
+      ],
+    );
 
-const {chains, publicClient, webSocketPublicClient} = configureChains(
-  [mainnet],
-  [
-    /**
-     * We recommend using `alchemyProvider or `infuraProvider`
-     * to reduce the risk of your application being rate limited.
-     */
-    // alchemyProvider({apiKey: 'INSERT API KEY HERE'}),
-    publicProvider(),
-  ],
-);
+    const {connectors, wagmiConnectors} = buildConnectors({
+      chains,
+      projectId: 'YOUR_WALLET_CONNECT_PROJECT_ID',
+    });
 
-const {connectors, wagmiConnectors} = buildConnectors({chains});
+    const config = createConfig({
+      autoConnect: true,
+      connectors: wagmiConnectors,
+      publicClient,
+      webSocketPublicClient,
+    });
 
-const config = createConfig({
-  autoConnect: true,
-  connectors: wagmiConnectors,
-  publicClient,
-  webSocketPublicClient,
-});
-
-export {chains, config, connectors};
-```
+    export {chains, config, connectors};
+    ```
 
 ### App provider setup
 

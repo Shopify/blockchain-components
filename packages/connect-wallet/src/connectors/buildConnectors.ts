@@ -45,6 +45,7 @@ export const buildConnectors = ({
   customConnectors,
   excludedConnectors,
   includeDefaults = true,
+  projectId,
 }: BuildConnectorsProps): BuildConnectorsSignature => {
   const connectors: Connector[] = customConnectors || [];
 
@@ -66,11 +67,11 @@ export const buildConnectors = ({
   }
 
   const defaultAvailableConnectors = [
-    MetaMask({chains}),
-    Coinbase({appName, chains}),
-    Rainbow({chains}),
-    LedgerLive({chains}),
-    WalletConnect({chains}),
+    MetaMask({chains, projectId}),
+    Coinbase({appName, chains, projectId}),
+    Rainbow({chains, projectId}),
+    LedgerLive({chains, projectId}),
+    WalletConnect({chains, projectId}),
   ];
 
   defaultAvailableConnectors.forEach(
@@ -85,11 +86,7 @@ export const buildConnectors = ({
 
       const createdConnector = createConnector();
 
-      const isWalletConnect =
-        createdConnector.id === 'walletConnect' ||
-        createdConnector.id === 'walletConnectLegacy';
-
-      if (isWalletConnect) {
+      if (createdConnector.id === 'walletConnect') {
         /**
          * Since we're reusing wallet connect connectors we should check if
          * this connector is already inside of connectors.

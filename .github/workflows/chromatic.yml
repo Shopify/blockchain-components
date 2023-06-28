@@ -31,5 +31,8 @@ jobs:
       - name: Build packages
         run: yarn build:packages
 
+      - name: Build Storybook
+        run: STORYBOOK_WALLET_CONNECT_PROJECT_ID=${{ secrets.STORYBOOK_WALLET_CONNECT_PROJECT_ID }} yarn build-storybook
+
       - name: Publish to Chromatic
-        run: npx chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: npx chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }} --storybook-build-dir="./storybook-static"

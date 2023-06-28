@@ -21,7 +21,6 @@ export function useConnectWallet(props?: useConnectWalletProps) {
   const {chains} = connectWalletContext;
 
   const {isConnecting} = useAccount();
-
   const {disconnect} = useDisconnect();
 
   return {
