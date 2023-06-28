@@ -1,5 +1,51 @@
 # @shopify/connect-wallet
 
+## 3.0.0
+
+### Major Changes
+
+- [#7](https://github.com/Shopify/blockchain-components/pull/7) [`b49ba23`](https://github.com/Shopify/blockchain-components/commit/b49ba23a8189ffd588d8d83cfe7c8dfb2d60befc) Thanks [@QuintonC](https://github.com/QuintonC)! - This change include the following updates:
+
+  - All usage of WalletConnect v1 connectors have been replaced with v2 connectors. [Read more about the deprecation of WalletConnect v1](https://medium.com/walletconnect/t-1-month-last-call-to-migrate-before-the-walletconnect-v1-0-shutdown-692ffa9520aa).
+  - `buildConnectors` function now requires an additional prop, `projectId`.
+  - Any usage which does not provide connectors to the `ConnectWalletProvider` will no longer operate as expected. Previously, the package would build the connectors in place for you. This is no longer the case as we cannot provide a WalletConnect v2 `projectId` to create the fallback and mobile connectors in place for your instance. You **must** provide connectors to the context provider in order for the package to function.
+  - The `getDefaultConnectors` function has been removed in favor of using `buildConnectors`.
+
+  To update your instance, please ensure that any usage of `buildConnectors` includes a `projectId` value with a valid WalletConnect `projectId`.
+
+  To obtain a WalletConnect `projectId`, visit the [WalletConnect cloud portal](https://cloud.walletconnect.com/sign-in).
+
+  To migrate, make the following changes:
+
+  ```diff
+  import {buildConnectors} from '@shopify/connect-wallet';
+  import {configureChains, createConfig, mainnet} from 'wagmi';
+  import {publicProvider} from 'wagmi/providers/public';
+
+  const {chains, publicClient, webSocketPublicClient} = configureChains(
+    [mainnet],
+    [publicProvider()],
+  );
+
+  const {connectors, wagmiConnectors} = buildConnectors({
+    chains,
+  + projectId: "YOUR_PROJECT_ID"
+  });
+
+  const config = createConfig({
+    autoConnect: true,
+    connectors: wagmiConnectors,
+    publicClient,
+    webSocketPublicClient,
+  });
+
+  export {chains, config, connectors};
+  ```
+
+### Patch Changes
+
+- [#205](https://github.com/Shopify/blockchain-components/pull/205) [`2e7f87e`](https://github.com/Shopify/blockchain-components/commit/2e7f87ea932b3a21abe6b55490b75df75a960bab) Thanks [@QuintonC](https://github.com/QuintonC)! - This patch addresses a minor bug relating to state cleanup when a modal is closed. Prior to this patch, an issue was present when closing the modal that would leave the state visible. This was an issue particularly when the user was connecting with a connector which was based on WalletConnect as the QR Code would be cleared. This addresses that by calling the `reset` state method which will clear the modal state and properly. In addition, functionality to handle disconnect events during signature flows was added for modal close events.
+
 ## 2.0.0
 
 ### Major Changes
