@@ -1,6 +1,7 @@
-import {m} from 'framer-motion';
+import {AnimatePresence, domAnimation, LazyMotion, m} from 'framer-motion';
 import {create, QRCode as QRCodeType} from 'qrcode';
 import {ReactElement, useMemo} from 'react';
+import {Spinner} from 'shared';
 
 import {ConnectorIcon} from '../ConnectorIcon';
 
@@ -24,16 +25,20 @@ const generateMatrix = (value: string) => {
 };
 
 interface Props {
-  uri: string;
+  uri?: string;
 }
 
 export function QRCode({uri}: Props) {
-  const matrix = generateMatrix(uri);
   const {pendingConnector} = useStore((state) => state.wallet);
 
-  const {length} = matrix;
-
   const dots = useMemo(() => {
+    if (!uri) {
+      return null;
+    }
+
+    const matrix = generateMatrix(uri);
+    const {length} = matrix;
+
     const svg: ReactElement[] = [];
     const cellSize = DEFAULT_QR_CODE_SIZE / length;
 
@@ -105,28 +110,44 @@ export function QRCode({uri}: Props) {
     });
 
     return svg;
-  }, [length, matrix]);
+  }, [uri]);
 
   return (
-    <m.div
-      animate={{opacity: 1}}
-      className="sbc-relative sbc-w-full sbc-rounded-qrcode sbc-p-4 sbc-border-button-secondary"
-      initial={{opacity: 0}}
-    >
-      <div className="sbc-aspect-h-1 sbc-aspect-w-1">
-        <svg
-          height="100%"
-          width="100%"
-          viewBox={`0 0 ${DEFAULT_QR_CODE_SIZE} ${DEFAULT_QR_CODE_SIZE}`}
-        >
-          {dots}
-        </svg>
-      </div>
+    <div className="sbc-relative sbc-w-full sbc-rounded-qrcode sbc-p-4 sbc-border-button-secondary">
+      <div className="sbc-relative sbc-aspect-square sbc-w-full sbc-overflow-hidden">
+        <LazyMotion features={domAnimation}>
+          <AnimatePresence>
+            {dots ? (
+              <m.div
+                animate={{opacity: 1}}
+                className="sbc-h-full sbc-w-full"
+                initial={{opacity: 0}}
+              >
+                <svg
+                  height="100%"
+                  width="100%"
+                  viewBox={`0 0 ${DEFAULT_QR_CODE_SIZE} ${DEFAULT_QR_CODE_SIZE}`}
+                >
+                  {dots}
+                </svg>
 
-      <div className="sbc-absolute sbc-bottom-0 sbc-left-0 sbc-right-0 sbc-top-0 sbc-flex sbc-items-center sbc-justify-center">
-        {/* <div className=""> */}
-        <ConnectorIcon id={pendingConnector?.id} size="xl" />
+                <div className="sbc-absolute sbc-inset-0 sbc-flex sbc-items-center sbc-justify-center">
+                  <ConnectorIcon id={pendingConnector?.id} size="xl" />
+                </div>
+              </m.div>
+            ) : (
+              <m.div
+                animate={{opacity: 0}}
+                className="sbc-absolute sbc-inset-0 sbc-flex sbc-flex-col sbc-justify-center"
+                exit={{opacity: 0}}
+                initial={{opacity: 1}}
+              >
+                <Spinner />
+              </m.div>
+            )}
+          </AnimatePresence>
+        </LazyMotion>
       </div>
-    </m.div>
+    </div>
   );
 }

@@ -1,9 +1,8 @@
 import {eventNames} from '@shopify/blockchain-components';
-import {AnimatePresence, domAnimation, LazyMotion} from 'framer-motion';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button} from 'shared';
 
-import {QRCode, QRCodeSkeleton} from '../../QRCode';
+import {QRCode} from '../../QRCode';
 
 import {useConnect, useConnectorData, useTranslation} from '~/hooks';
 import {useStore} from '~/state';
@@ -157,12 +156,7 @@ const ScanScreen = () => {
 
   return (
     <div className="sbc-flex sbc-flex-col sbc-justify-center sbc-gap-y-4 sbc-p-popover sbc-pt-0">
-      <LazyMotion features={domAnimation}>
-        <AnimatePresence>
-          {qrCodeURI ? <QRCode uri={qrCodeURI} /> : <QRCodeSkeleton />}
-        </AnimatePresence>
-      </LazyMotion>
-
+      <QRCode uri={qrCodeURI} />
       {buttons}
     </div>
   );
