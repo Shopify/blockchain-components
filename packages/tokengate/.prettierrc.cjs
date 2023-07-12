@@ -1,5 +1,5 @@
 module.exports = {
   ...require('@shopify/prettier-config'),
   plugins: [require('prettier-plugin-tailwindcss')],
-  tailwindConfig: './tailwind.config.cjs',
+  tailwindConfig: './tailwind.config.ts',
 };

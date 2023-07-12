@@ -1,9 +1,10 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-const plugin = require('tailwindcss/plugin');
+import type {Config} from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
+import plugin from 'tailwindcss/plugin';
 
 const defaultFont = defaultTheme.fontFamily.sans;
 
-module.exports = {
+const config: Config = {
   // Using SBC for now
   // [S]hopify [B]lockchain [C]omponents
   prefix: 'sbc-',
@@ -142,7 +143,7 @@ module.exports = {
       'heading-lg': 'var(--sbc-line-height-heading-lg, 28px)',
       'heading-md': 'var(--sbc-line-height-heading-md, 24px)',
       'heading-sm': 'var(--sbc-line-height-heading-sm, 20px)',
-      none: 0,
+      none: '0',
     },
     maxWidth: {
       // Override default sizes to use pixels instead of REMs
@@ -209,13 +210,10 @@ module.exports = {
     },
   },
   corePlugins: {
-    aspectRatio: false,
     borderStyle: false,
     preflight: false,
   },
   plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp'),
     /**
      * Custom border styles for the blockchain components
      *
@@ -253,3 +251,5 @@ module.exports = {
     }),
   ],
 };
+
+export default config;

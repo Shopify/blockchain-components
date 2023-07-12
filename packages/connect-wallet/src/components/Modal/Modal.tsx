@@ -190,7 +190,7 @@ export const Modal = () => {
 
                   <Text
                     as="h2"
-                    className="sbc-max-w-full sbc-flex-1 sbc-text-ellipsis sbc-whitespace-nowrap sbc-break-all sbc-text-center sbc-line-clamp-2"
+                    className="sbc-max-w-full sbc-line-clamp-2 sbc-flex-1 sbc-text-ellipsis sbc-whitespace-nowrap sbc-break-all sbc-text-center"
                     color="primary"
                     variant="headingMd"
                   >
