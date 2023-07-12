@@ -1,5 +1,15 @@
 # @shopify/connect-wallet
 
+## 3.0.1
+
+### Patch Changes
+
+- [#208](https://github.com/Shopify/blockchain-components/pull/208) [`749a19a`](https://github.com/Shopify/blockchain-components/commit/749a19a9791f99d52035d9790f51cbccc181445c) Thanks [@QuintonC](https://github.com/QuintonC)! - Upgrades TailwindCSS to v3.3.2.
+
+  This also removes the use of `@tailwindcss/aspect-ratio` and `@tailwindcss/line-clamp` as they are now included in the Tailwind package.
+
+  For `@shopify/connect-wallet`, this includes a minor update to the `QrCode` component displayed within the `ScanScreen`. This change was made to address the removal of `@tailwindcss/aspect-ratio`. Additionally, the `QRCode` was updated to make use of the `Spinner` component which creates a better loading state while the WalletConnect URI is loading.
+
 ## 3.0.0
 
 ### Major Changes
