@@ -9,7 +9,7 @@ const {chains, publicClient, webSocketPublicClient} = configureChains(
 
 const {connectors, wagmiConnectors} = buildConnectors({
   chains,
-  projectId: 'YOUR_WALLET_CONNECT_PROJECT_ID',
+  projectId: 'dbf42c2e9b880f42b63ffcd497dd2c97',
 });
 
 const config = createConfig({

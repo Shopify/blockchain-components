@@ -1,5 +1,5 @@
 import {AnimatePresence, domAnimation, LazyMotion, m} from 'framer-motion';
-import {create, QRCode as QRCodeType} from 'qrcode';
+import {matrix} from 'qr-image';
 import {ReactElement, useMemo} from 'react';
 import {Spinner} from 'shared';
 
@@ -9,20 +9,6 @@ import {useStore} from '~/state';
 
 const APP_LOGO_SIZE = 88;
 const DEFAULT_QR_CODE_SIZE = 380;
-
-const generateMatrix = (value: string) => {
-  const qrCode = create(value, {errorCorrectionLevel: 'quartile'});
-  const arr = Array.prototype.slice.call(qrCode.modules.data, 0);
-  const sqrt = Math.sqrt(arr.length);
-
-  return arr.reduce(
-    (rows, key, index) =>
-      (index % sqrt === 0
-        ? rows.push([key])
-        : rows[rows.length - 1].push(key)) && rows,
-    [],
-  );
-};
 
 interface Props {
   uri?: string;
@@ -36,8 +22,8 @@ export function QRCode({uri}: Props) {
       return null;
     }
 
-    const matrix = generateMatrix(uri);
-    const {length} = matrix;
+    const qrMatrix = matrix(uri, 'Q');
+    const {length} = qrMatrix;
 
     const svg: ReactElement[] = [];
     const cellSize = DEFAULT_QR_CODE_SIZE / length;
@@ -78,7 +64,7 @@ export function QRCode({uri}: Props) {
       }
     });
 
-    matrix.forEach((row: QRCodeType[], i: number) => {
+    qrMatrix.forEach((row, i: number) => {
       row.forEach((_, j: number) => {
         const inBounds = !(
           (i < 7 && j < 7) ||
@@ -92,7 +78,7 @@ export function QRCode({uri}: Props) {
           j > whitespaceStart &&
           j < whitespaceEnd;
 
-        const shouldRender = matrix[i][j] && inBounds && !inMiddle;
+        const shouldRender = qrMatrix[i][j] && inBounds && !inMiddle;
 
         if (shouldRender) {
           svg.push(
