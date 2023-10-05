@@ -86,7 +86,7 @@
     "node-stdlib-browser": "^1.2.0",
     "ora": "^6.2.0",
     "patch-package": "^6.5.1",
-    "postcss": "^8.4.21",
+    "postcss": "^8.4.31",
     "postcss-import": "^15.1.0",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.3.0",
